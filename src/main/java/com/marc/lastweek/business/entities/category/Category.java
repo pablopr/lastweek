@@ -1,4 +1,5 @@
 /*
+ * Category.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -7,10 +8,25 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.main;
+package com.marc.lastweek.business.entities.category;
 
-import com.marc.lastweek.web.pages.BasePage;
+public class Category {
+	
+	private Integer id;
+	private String name;
 
-public class MainPage extends BasePage {
-
+	public Integer getId() {
+		return this.id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 }
