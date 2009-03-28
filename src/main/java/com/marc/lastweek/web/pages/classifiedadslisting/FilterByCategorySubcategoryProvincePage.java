@@ -37,6 +37,5 @@ public class FilterByCategorySubcategoryProvincePage extends BasePage {
 		filterParameters.setSubcategoryId(subcategoryId);
 		filterParameters.setProvinceId(provinceId);
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
-		
 	}
 }
