@@ -9,8 +9,14 @@
  */
 package com.marc.lastweek.web.pages.main;
 
+import org.apache.wicket.markup.html.link.PageLink;
+
 import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.pages.classifiedad.NewClassifiedAdPage;
 
 public class MainPage extends BasePage {
-
+	public MainPage() {
+		this.add(new PageLink("newClassifiedAdLink",NewClassifiedAdPage.class));
+		
+	}
 }

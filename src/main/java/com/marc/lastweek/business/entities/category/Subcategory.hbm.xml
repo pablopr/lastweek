@@ -8,14 +8,13 @@
         <cache usage="nonstrict-read-write" />
   
         <id name="id" column="ID" unsaved-value="null">
-            <generator class="sequence" >
-                <param name="sequence">ENTITY_SEQUENCE</param>
+             <generator class="assigned" >
             </generator>
         </id>
          
         <property name="name" column="NAME" not-null="true" unique="true"/>
         
-         <many-to-one name="category" column="CATEGORY_ID"
+         <many-to-one name="parent" column="CATEGORY_ID"
             class="com.marc.lastweek.business.entities.category.Category"/>
             
         <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">

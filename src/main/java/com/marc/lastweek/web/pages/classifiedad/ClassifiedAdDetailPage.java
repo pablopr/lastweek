@@ -8,15 +8,15 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.advertisement;
+package com.marc.lastweek.web.pages.classifiedad;
 
 import org.apache.wicket.PageParameters;
 
 import com.marc.lastweek.web.pages.BasePage;
 
-public class AdvertisementDetailPage extends BasePage {
+public class ClassifiedAdDetailPage extends BasePage {
 
-	public AdvertisementDetailPage(PageParameters parameters) {
+	public ClassifiedAdDetailPage(PageParameters parameters) {
 		super(parameters);
 	}
 }

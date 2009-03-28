@@ -11,5 +11,16 @@ package com.marc.lastweek.web.naming;
 
 public final class PageParametersNaming {
 
+	public static final String PARAM_NAME_CATEGORY_ID = "cid";
+	public static final String PARAM_NAME_SUBCATEGORY_ID = "scid";
+	public static final String PARAM_NAME_PROVINCE_ID = "pid";
+	public static final String PARAM_NAME_CATEGORY_NAME = "category";
+	public static final String PARAM_NAME_SUBCATEGORY_NAME = "subcategory";
+	public static final String PARAM_NAME_PROVINCE_NAME = "province";
+	
+	public static final String PARAM_NAME_CLASSIFIED_AD_ID = "clid";
+	
+	public static final String PARAM_NAME_SEARCH_TERM = "search";
+	
 }
 

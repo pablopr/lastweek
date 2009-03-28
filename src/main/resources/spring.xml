@@ -37,7 +37,7 @@
     <!-- (mainly @Component, @Repository and @Service for declaring beans,   -->
     <!-- and @Autowired for wiring dependencies).                            -->
     <!-- ******************************************************************* -->    
-    <context:component-scan annotation-config="true" base-package="com.marc" />
+    <context:component-scan annotation-config="true" base-package="com.marc.lastweek,loc.marc.commons.business" />
 
 
 
@@ -55,7 +55,7 @@
     <!-- connections when they are not needed.                               -->
     <!-- ******************************************************************* -->
          
-    <!--<bean id="dataSourceTarget"
+    <bean id="dataSourceTarget"
         class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close" p:driverClassName="${datasource.driver}"
         p:url="${datasource.url}" p:username="${datasource.username}"
@@ -63,7 +63,7 @@
         
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
-        p:targetDataSource-ref="dataSourceTarget" />-->
+        p:targetDataSource-ref="dataSourceTarget" />
     
 
     <!-- ******************************************************************* -->
@@ -96,7 +96,7 @@
                 <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
             </props>
         </property>
-        <!--<property name="dataSource" ref="dataSource" />-->
+        <property name="dataSource" ref="dataSource" />
     </bean>
    
     <!-- ******************************************************************* -->

@@ -9,8 +9,7 @@
         <cache usage="nonstrict-read-write" />
   
         <id name="id" column="ID" unsaved-value="null">
-            <generator class="sequence" >
-                <param name="sequence">ENTITY_SEQUENCE</param>
+           <generator class="assigned" >
             </generator>
         </id>
          

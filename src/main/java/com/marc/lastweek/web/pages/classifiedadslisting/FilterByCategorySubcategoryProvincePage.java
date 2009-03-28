@@ -1,5 +1,5 @@
 /*
- * AdsListPanel.java
+ * FilterByCategorySubcategoryProvincePage.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -8,15 +8,15 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.components;
+package com.marc.lastweek.web.pages.classifiedadslisting;
 
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.PageParameters;
 
-public class AdsListPanel extends Panel {
-	private static final long serialVersionUID = -2481706792408827434L;
+import com.marc.lastweek.web.pages.BasePage;
 
-	public AdsListPanel(String id, Model model) {
-		super(id, model);
+public class FilterByCategorySubcategoryProvincePage extends BasePage {
+
+	public FilterByCategorySubcategoryProvincePage(PageParameters parameters) {
+		super(parameters);
 	}
 }

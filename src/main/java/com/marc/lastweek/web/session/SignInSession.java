@@ -9,25 +9,23 @@
  */
 package com.marc.lastweek.web.session;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.Request;
 import org.apache.wicket.Session;
 import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authorization.strategies.role.Roles;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.views.aaa.AuthenticatedUserData;
 import com.marc.lastweek.commons.exceptions.IncorrectLoginException;
-import com.marc.lastweek.web.application.LastweekApplication;
 
 
-public class SignInSession extends AuthenticatedWebSession {
-
-    
+public class SignInSession extends AuthenticatedWebSession {    
     private static final long serialVersionUID = 6817054705718877022L;
 
+    @SpringBean
+    AaaService aaaService;
+    
     private AuthenticatedUserData user = null;
     private final Roles roles;
 
@@ -45,8 +43,6 @@ public class SignInSession extends AuthenticatedWebSession {
         this.roles.clear();
 
         try {
-            WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(((LastweekApplication) Application.get()).getServletContext());   
-            AaaService aaaService = (AaaService) ctx.getBean("aaaService");
             this.user = aaaService.loginUser(username, password);
             this.roles.addAll(this.user.getRoles());
             return true;

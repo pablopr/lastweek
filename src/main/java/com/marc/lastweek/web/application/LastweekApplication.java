@@ -10,6 +10,8 @@
 package com.marc.lastweek.web.application;
 
 
+import loc.marc.commons.business.services.general.GeneralService;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authentication.AuthenticatedWebSession;
@@ -24,17 +26,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
+import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterBySearchTermPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
 
 
 @Component
 public class LastweekApplication extends AuthenticatedWebApplication {
-    
+
+
 	@Autowired
-	AaaService aaaService;
+	private AaaService aaaService;
 	
+	@Autowired 
+	private GeneralService generalService;
+	
+	@Autowired
+	private ClassifiedAdsService classifiedService;
 	
     public LastweekApplication() {
         super();
@@ -70,7 +80,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
-        //mountBookmarkablePage("/login",SignInPage.class);
+        mountBookmarkablePage("/search", FilterBySearchTermPage.class);
         
         
         /*
@@ -80,7 +90,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
                 new MetaDataRoleAuthorizationStrategy(this));
         
         //MetaDataRoleAuthorizationStrategy.authorize(CustomerProductViewPage.class, User.ROLE_1565);
-       
+
         /*
          * Remove wicket tags from result HTML
          */
@@ -113,4 +123,15 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return (LastweekApplication) Application.get();
     }
 
+	public AaaService getAaaService() {
+		return this.aaaService;
+	}
+
+	public GeneralService getGeneralService() {
+		return this.generalService;
+	}
+
+	public ClassifiedAdsService getClassifiedService() {
+		return this.classifiedService;
+	}
 }
