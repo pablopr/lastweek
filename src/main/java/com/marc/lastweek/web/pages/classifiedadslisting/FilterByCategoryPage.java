@@ -18,8 +18,10 @@ import org.apache.wicket.markup.html.list.ListView;
 
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
-import com.marc.lastweek.web.models.LoadableCategoriesListModel;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
+import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -30,15 +32,21 @@ public class FilterByCategoryPage extends BasePage {
 
 		final String searchTerm = parameters
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
+		final Long categoryId = Long.valueOf(parameters.getLong(
+				PageParametersNaming.PARAM_NAME_CATEGORY_ID));
 
-		this.add(new ListView("subcategoriesList", new LoadableCategoriesListModel()) {
+		FilterParameters filterParameters = new FilterParameters();
+		filterParameters.setSearchString(searchTerm);
+		filterParameters.setCategoryId(categoryId);
+		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
+		this.add(new ListView("subcategoriesList", new LoadableSubcategoriesListModel()) {
 
 			private static final long serialVersionUID = -5142681180212487928L;
 
 			@Override
 			protected void populateItem(ListItem listItem) {
 				Subcategory subcategory = (Subcategory) listItem.getModelObject();
-				listItem.add(new Label("subcategoryName", subcategory.getName()));
 				PageParameters linkParameters = new PageParameters();
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 						searchTerm);
@@ -47,8 +55,11 @@ public class FilterByCategoryPage extends BasePage {
 				linkParameters.put(
 						PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME, subcategory
 								.getName());
-				listItem.add(new BookmarkablePageLink("subcategoryLink",
-						FilterByCategoryPage.class, linkParameters));
+				BookmarkablePageLink subcategoryLink = 
+					new BookmarkablePageLink("subcategoryLink",
+						FilterByCategoryPage.class, linkParameters);
+				subcategoryLink.add(new Label("subcategoryName", subcategory.getName()));
+				listItem.add(subcategoryLink);
 			}
 		});
 
@@ -59,7 +70,6 @@ public class FilterByCategoryPage extends BasePage {
 			@Override
 			protected void populateItem(ListItem listItem) {
 				Province province = (Province) listItem.getModelObject();
-				listItem.add(new Label("provinceName", province.getName()));
 				PageParameters linkParameters = new PageParameters();
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 						searchTerm);
@@ -68,8 +78,11 @@ public class FilterByCategoryPage extends BasePage {
 				linkParameters.put(
 						PageParametersNaming.PARAM_NAME_PROVINCE_NAME, province
 								.getName());
-				listItem.add(new BookmarkablePageLink("provinceLink",
-						FilterByProvincePage.class, linkParameters));
+				BookmarkablePageLink provinceLink = 
+					new BookmarkablePageLink("provinceLink",
+							FilterByProvincePage.class, linkParameters);
+				provinceLink.add(new Label("provinceName", province.getName()));
+				listItem.add(provinceLink);
 			}
 		});
 	}

@@ -15,7 +15,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 
 @Repository
 public class ClassifiedAdRepository {

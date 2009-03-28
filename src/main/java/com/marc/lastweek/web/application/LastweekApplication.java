@@ -40,7 +40,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
 	@Autowired
 	private AaaService aaaService;
 	
-	@Autowired 
+	@Autowired
 	private GeneralService generalService;
 	
 	@Autowired

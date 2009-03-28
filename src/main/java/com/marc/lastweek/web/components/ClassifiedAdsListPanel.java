@@ -22,7 +22,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
 
 public class ClassifiedAdsListPanel extends Panel {
