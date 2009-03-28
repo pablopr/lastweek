@@ -1,5 +1,5 @@
 /*
- * FilterByCategoryProvincePage.java
+ * FiletrByProvincePage.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -8,16 +8,15 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.adslisting;
+package com.marc.lastweek.web.pages.advertisementslisting;
 
 import org.apache.wicket.PageParameters;
 
 import com.marc.lastweek.web.pages.BasePage;
 
-public class FilterByCategoryProvincePage extends BasePage {
+public class FiletrByProvincePage extends BasePage {
 
-	public FilterByCategoryProvincePage(PageParameters parameters) {
+	public FiletrByProvincePage(PageParameters parameters) {
 		super(parameters);
 	}
-	
 }
