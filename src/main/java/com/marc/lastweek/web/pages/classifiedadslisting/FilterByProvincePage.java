@@ -20,6 +20,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.category.Category;
+import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -35,7 +36,7 @@ public class FilterByProvincePage extends BasePage {
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 
 		this.add(new ListView("categoriesList", 
-				this.generalService.findAll(Category.class)) {
+				new LoadableCategoriesListModel()) {
 			
 			private static final long serialVersionUID = -5142681180212487928L;
 

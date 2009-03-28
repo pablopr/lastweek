@@ -123,12 +123,10 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return (LastweekApplication) Application.get();
     }
 
-
 	public AaaService getAaaService() {
 		return this.aaaService;
 	}
 
-    
 	public GeneralService getGeneralService() {
 		return this.generalService;
 	}
@@ -136,5 +134,4 @@ public class LastweekApplication extends AuthenticatedWebApplication {
 	public ClassifiedAdsService getClassifiedService() {
 		return this.classifiedService;
 	}
-
 }

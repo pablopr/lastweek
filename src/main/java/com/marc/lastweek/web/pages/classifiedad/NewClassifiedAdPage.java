@@ -45,7 +45,7 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				protected void populateItem(ListItem item) {
-					add(new Label("link",((Category)item.getModelObject()).getName()));
+					item.add(new Label("categoryLabel",((Category)item.getModelObject()).getName()));
 					
 				}
 				

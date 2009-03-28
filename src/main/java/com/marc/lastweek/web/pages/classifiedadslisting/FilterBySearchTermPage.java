@@ -10,24 +10,20 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
-import loc.marc.commons.business.services.general.GeneralService;
-
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class FilterBySearchTermPage extends BasePage {
 
-	@SpringBean
-	GeneralService generalService;
 	/* 
 	 * TODO: will receive a page parameters showing where the search comes from,
 	 * this is, the search generates a subset of the result where it comes from
@@ -41,7 +37,7 @@ public class FilterBySearchTermPage extends BasePage {
 			parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 		
 		this.add(new ListView("categoriesList", 
-				this.generalService.findAll(Category.class)) {
+				new LoadableCategoriesListModel()) {
 			
 			private static final long serialVersionUID = -5142681180212487928L;
 
@@ -62,7 +58,7 @@ public class FilterBySearchTermPage extends BasePage {
 		});
 		
 		this.add(new ListView("provincesList", 
-				this.generalService.findAll(Province.class)) {
+				new LoadableCategoriesListModel()) {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
