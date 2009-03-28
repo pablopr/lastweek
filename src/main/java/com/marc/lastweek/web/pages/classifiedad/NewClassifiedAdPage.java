@@ -45,7 +45,7 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				protected void populateItem(ListItem item) {
-					add(new Label("link",((Category)item.getModelObject()).getName()));
+					item.add(new Label("categoryLabel",((Category)item.getModelObject()).getName()));
 					
 				}
 				
@@ -58,7 +58,7 @@ public class NewClassifiedAdPage extends BasePage {
 
 	public NewClassifiedAdPage() {
 		super();	
-		this.categories = LastweekApplication.get().getGeneralRepository().findAll(Category.class);
+		this.categories = LastweekApplication.get().getGeneralService().findAll(Category.class);
 		add(new CategoryPanel("categoryPanel",this.categories));
 	}
 
