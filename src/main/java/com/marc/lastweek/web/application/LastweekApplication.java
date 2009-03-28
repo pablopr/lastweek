@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
+import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterBySearchTermPage;
 import com.marc.lastweek.web.pages.main.MainPage;
@@ -34,12 +35,16 @@ import com.marc.lastweek.web.session.SignInSession;
 
 @Component
 public class LastweekApplication extends AuthenticatedWebApplication {
-    
+
+
 	@Autowired
 	private AaaService aaaService;
 	
 	@Autowired 
 	private GeneralService generalService;
+	
+	@Autowired
+	private ClassifiedAdsService classifiedService;
 	
     public LastweekApplication() {
         super();
@@ -124,5 +129,9 @@ public class LastweekApplication extends AuthenticatedWebApplication {
 
 	public GeneralService getGeneralService() {
 		return this.generalService;
+	}
+
+	public ClassifiedAdsService getClassifiedService() {
+		return this.classifiedService;
 	}
 }
