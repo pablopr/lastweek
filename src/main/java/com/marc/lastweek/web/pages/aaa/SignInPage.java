@@ -19,6 +19,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 
 import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.util.ResourceUtils;
 
 
 
@@ -36,10 +37,6 @@ public class SignInPage extends BasePage {
     public SignInPage(PageParameters pageParameters) {
         
         super(pageParameters);
-        
-        /*
-         * Add feedback panel
-         */
 
         this.feedbackPanel = new FeedbackPanel("feedbackPanel");
         this.feedbackPanel.setOutputMarkupPlaceholderTag(true);
@@ -66,14 +63,14 @@ public class SignInPage extends BasePage {
             super(id);
 
             this.loginInput = new TextField("loginInput", new Model());
-            //this.loginInput.setLabel(ResourceUtils.createResourceModel("form.login", this));
+            this.loginInput.setLabel(ResourceUtils.createResourceModel("form.login", this));
             this.loginInput.setRequired(true);
             this.loginInput.add(StringValidator.maximumLength(30));
             add(this.loginInput);
 
             this.passwordInput = new PasswordTextField("passwordInput", new Model());
             this.passwordInput.setRequired(true);
-            //this.passwordInput.setLabel(ResourceUtils.createResourceModel("form.password", this));
+            this.passwordInput.setLabel(ResourceUtils.createResourceModel("form.password", this));
             this.passwordInput.setResetPassword(true);
             add(this.passwordInput);
         }
@@ -81,31 +78,20 @@ public class SignInPage extends BasePage {
 
         @Override
         protected void onSubmit() {
-
-            // Get session info
             SignInSession session = SignInSession.get();
 
             if (session.isSignedIn()) {
-                resolveResponsePage();
+            	setResponsePage(getApplication().getHomePage());
             } else {
                 String login = this.loginInput.getModelObjectAsString();
                 String password = this.passwordInput.getModelObjectAsString();
                 if (session.signIn(login, password)) {
-                    resolveResponsePage();
+                	setResponsePage(getApplication().getHomePage());
                 } else {
-                    //error(ResourceUtils.createResourceModel("password.invalid", this).getString());
+                    error(ResourceUtils.createResourceModel("password.invalid", this).getString());
                 }
-            }
-            
+            }   
         }
-
-        
-        public void resolveResponsePage() {
-            if (!continueToOriginalDestination()) {
-                setResponsePage(getApplication().getHomePage());
-            }
-        }
-        
     }
 
     
