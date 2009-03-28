@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://cxf.apache.org/core  http://cxf.apache.org/schemas/core.xsd
+           http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+
+    <!-- ******************************************************************* -->
+    <!-- PROPERTY PLACEHOLDER (configuration)                                -->
+    <!-- ******************************************************************* -->
+    <!-- The property placeholder will be in charge of reading the           -->
+    <!-- .properties files that contain environment-specific configuration   -->
+    <!-- and make their values available to the application context so that  -->
+    <!-- they can be assigned with "${propertyname}".                        -->
+    <!-- ******************************************************************* -->
+    <context:property-placeholder  location="classpath:business.properties" />
+
+
+
+    <!-- ******************************************************************* -->
+    <!-- COMPONENT SCANNING                                                  -->
+    <!-- ******************************************************************* -->
+    <!-- Spring will be configured so that component beans are declared and  -->
+    <!-- wired together into the application context by using annotations    -->
+    <!-- (mainly @Component, @Repository and @Service for declaring beans,   -->
+    <!-- and @Autowired for wiring dependencies).                            -->
+    <!-- ******************************************************************* -->    
+    <context:component-scan annotation-config="true" base-package="com.marc" />
+
+
+
+    <!-- ******************************************************************* -->
+    <!-- DATASOURCE CONFIGURATION                                            -->
+    <!-- ******************************************************************* -->
+    <!-- The datasource can be both configured as application-managed (using -->
+    <!-- Apache Commons-DBCP) or as container-managed (referencing via JNDI  -->
+    <!-- to an already configured container datasource).                     -->
+    <!--                                                                     -->
+    <!-- Also, this datasource is in fact wrapped by a lazy proxy (supplied  -->
+    <!-- by Spring) which gets connections from the pool only when they are  -->
+    <!-- really needed to execute queries (thus avoiding that the behaviour  -->
+    <!-- of the open-session-in-view filter can use up all the available     -->
+    <!-- connections when they are not needed.                               -->
+    <!-- ******************************************************************* -->
+         
+    <bean id="dataSourceTarget"
+        class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close" p:driverClassName="${datasource.driver}"
+        p:url="${datasource.url}" p:username="${datasource.username}"
+        p:password="${datasource.password}" />
+        
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
+        p:targetDataSource-ref="dataSourceTarget" />
+    
+
+    <!-- ******************************************************************* -->
+    <!-- HIBERNATE SESSION FACTORY                                           -->
+    <!-- ******************************************************************* -->
+    <!-- The Hibernate Session Factory that will be used is in fact a Spring -->
+    <!-- wrapper that behaves like the original org.hibernate.SessionFactory -->
+    <!-- but adds capabilities for scanning (and automatically registering)  -->
+    <!-- the classpath for hibernate-mapped entities. Also, this special     -->
+    <!-- session factory allows integration with Spring's transaction        -->
+    <!-- manager and templates.                                              -->
+    <!-- ******************************************************************* -->
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        
+        <property name="mappingDirectoryLocations">
+            <list>
+                <value>classpath:/</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+                <prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+            </props>
+        </property>
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+   
+    <!-- ******************************************************************* -->
+    <!-- TRANSACTION MANAGEMENT                                              -->
+    <!-- ******************************************************************* -->
+    <!-- Transactional behaviour will be applied to the Hibernate layer and  -->
+    <!-- configured in an annotation-driven fashion, so that methods in the  -->
+    <!-- *ServiceImpl interface implementations will declare their           -->
+    <!-- transactionality by adding a @Transactional annotation.             -->
+    <!-- Defaults will be:                                                   -->
+    <!--      PROPAGATION  = Propagation.SUPPORTS                            -->
+    <!--      ISOLATION    = Isolation.DEFAULT                               -->
+    <!--      READ-ONLY    = false                                           -->
+    <!--      ROLLBACK FOR = java.lang.RuntimeException                      -->
+    <!-- ******************************************************************* -->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+        p:sessionFactory-ref="sessionFactory" />
+        
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+    
+    <!-- ******************************************************************* -->
+    <!-- EXCEPTION TRANSLATION                                               -->
+    <!-- ******************************************************************* -->
+    <!-- Persistence-related exceptions arisen in repositories (classes with -->
+    <!-- the @Repository annotation) will be translated to the more semantic -->
+    <!-- org.springframework.dao.DataAccessException hierarchy.              -->
+    <!-- ******************************************************************* -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+</beans>
