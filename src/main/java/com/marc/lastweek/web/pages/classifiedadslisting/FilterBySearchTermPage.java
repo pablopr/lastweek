@@ -52,6 +52,7 @@ public class FilterBySearchTermPage extends BasePage {
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
                 		category.getName());
+
                 BookmarkablePageLink categoryLink = 
                 	new BookmarkablePageLink("categoryLink", 
     	            		FilterByCategoryPage.class, linkParameters);

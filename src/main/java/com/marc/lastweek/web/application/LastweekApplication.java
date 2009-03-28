@@ -28,6 +28,11 @@ import org.springframework.stereotype.Component;
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryProvincePage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategorySubcategoryPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategorySubcategoryProvincePage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterByProvincePage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterBySearchTermPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
@@ -80,7 +85,12 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
-        mountBookmarkablePage("/search", FilterBySearchTermPage.class);
+        mountBookmarkablePage("/searchbysearchterm", FilterBySearchTermPage.class);
+        mountBookmarkablePage("/searchbycategoryprovince", FilterByCategoryProvincePage.class);
+        mountBookmarkablePage("/searchbycategorysubcategory", FilterByCategorySubcategoryPage.class);
+        mountBookmarkablePage("/searchbycategorysubcategoryprovince", FilterByCategorySubcategoryProvincePage.class);
+        mountBookmarkablePage("/searchbyprovince", FilterByProvincePage.class);
+        mountBookmarkablePage("/searchbycategory", FilterByCategoryPage.class);
         
         
         /*

@@ -5,35 +5,36 @@
 <body>
 
 <wicket:panel>
-	<ul>
-		<li wicket:id="classifiedAdsList">
-			<table class="">
-				<tr>
-					<td colspan="2">
-						<span wicket:id="classifiedAdTitle"/>
-					</td>
-					<td>
-						<span wicket:id="classifiedAdPublicationDate"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span wicket:id="classifiedAdImage"/>
-					</td>
-					<td>
-						<span wicket:id="classifiedAdDescription"/>
-					</td>
-					<td>
-						<span wicket:id="classifiedAdPrize"/>
-						<a wocket:id="classifiedAdLink" href="">
-							Ver detalles
-						</a>
-					</td>
-				</tr>
-			</table>
-		</li>
-	</ul>
-
+	<div>
+		<ul>
+			<li wicket:id="classifiedAdsList">
+				<table class="">
+					<tr>
+						<td colspan="2">
+							<span wicket:id="classifiedAdTitle"/>
+						</td>
+						<td>
+							<span wicket:id="classifiedAdPublicationDate"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<!--  <span wicket:id="classifiedAdImage"/> -->
+						</td>
+						<td>
+							<span wicket:id="classifiedAdDescription"/>
+						</td>
+						<td>
+							<span wicket:id="classifiedAdPrice"/> <br/>
+							<a wocket:id="classifiedAdLink" href="">
+								Ver detalles
+							</a>
+						</td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+	</div>
 </wicket:panel>
 
 </body>

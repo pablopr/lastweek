@@ -10,14 +10,11 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
-import loc.marc.commons.business.services.general.GeneralService;
-
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
@@ -27,9 +24,6 @@ import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class FilterByProvincePage extends BasePage {
-
-	@SpringBean
-	GeneralService generalService;
 
 	public FilterByProvincePage(PageParameters parameters) {
 		super(parameters);
@@ -42,7 +36,6 @@ public class FilterByProvincePage extends BasePage {
 		FilterParameters filterParameters = new FilterParameters();
 		filterParameters.setSearchString(searchTerm);
 		filterParameters.setProvinceId(provinceId);
-		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
 		
 		this.add(new ListView("categoriesList", 
