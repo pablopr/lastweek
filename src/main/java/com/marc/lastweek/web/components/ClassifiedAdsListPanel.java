@@ -23,6 +23,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.web.application.LastweekApplication;
 
 public class ClassifiedAdsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
@@ -36,11 +37,6 @@ public class ClassifiedAdsListPanel extends Panel {
 	 class FilterCalssifiedAdsProvider implements IDataProvider  {
 	        private static final long serialVersionUID = 2434577380158362087L;
 	        
-	        @SpringBean
-	        private ClassifiedAdsService classifiedAdService;
-	        @SpringBean
-	        private GeneralService generalService;
-	        
 	        private FilterParameters filterParameters;
 	        private Integer resultsCount;
 
@@ -51,13 +47,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 	        @SuppressWarnings("unchecked")
 	        public Iterator iterator(int start, int count) {
-	            return classifiedAdService.filterClassifiedAds(filterParameters, start, count)
+	            return LastweekApplication.get().getClassifiedService().filterClassifiedAds(filterParameters, start, count)
 	            .iterator();
 	        }
 
 	        public int size() {
 	            if (this.resultsCount == null) {
-	                this.resultsCount = classifiedAdService.countFilterAdvertisements(filterParameters);;
+	                this.resultsCount = LastweekApplication.get().getClassifiedService().countFilterAdvertisements(filterParameters);;
 	            }
 	            return this.resultsCount.intValue();
 	        }
@@ -77,7 +73,7 @@ public class ClassifiedAdsListPanel extends Panel {
 	            
 	            @Override
 	            protected Object load() {
-	                return generalService.find(ClassifiedAd.class, this.id);
+	                return LastweekApplication.get().getGeneralService().find(ClassifiedAd.class, this.id);
 	            }
 	        }
 
