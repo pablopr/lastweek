@@ -10,6 +10,8 @@
 package com.marc.lastweek.web.application;
 
 
+import loc.marc.commons.business.entities.general.GeneralRepository;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authentication.AuthenticatedWebSession;
@@ -33,8 +35,10 @@ import com.marc.lastweek.web.session.SignInSession;
 public class LastweekApplication extends AuthenticatedWebApplication {
     
 	@Autowired
-	AaaService aaaService;
+	private AaaService aaaService;
 	
+	@Autowired 
+	private GeneralRepository generalRepository;
 	
     public LastweekApplication() {
         super();
@@ -112,5 +116,14 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     public static LastweekApplication get() {
         return (LastweekApplication) Application.get();
     }
+
+
+	public AaaService getAaaService() {
+		return this.aaaService;
+	}
+
+	public GeneralRepository getGeneralRepository() {
+		return this.generalRepository;
+	}
 
 }

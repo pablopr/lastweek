@@ -9,15 +9,17 @@
  * with Monte Alto Research Center
  */
 package com.marc.lastweek.business.entities.classifiedad.repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import loc.marc.commons.business.entities.general.GeneralRepository;
 
+import org.springframework.stereotype.Repository;
+
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.aaa.FilterParameters;
 
+@Repository
 public class ClassifiedAdRepository extends GeneralRepository {
 
 	public List<ClassifiedAd> filterAdvertisements(FilterParameters parameters, int start, int count) {
