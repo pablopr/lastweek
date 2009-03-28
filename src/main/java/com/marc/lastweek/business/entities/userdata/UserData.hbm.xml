@@ -18,7 +18,7 @@
         <property name="email" column="EMAIL" not-null="true" unique="true"/>
         <property name="phone" column="PHONE"  />
         <property name="state" column="STATE" not-null="true" />
-           
+
         <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">
             <cache usage="nonstrict-read-write" />
             <key>
