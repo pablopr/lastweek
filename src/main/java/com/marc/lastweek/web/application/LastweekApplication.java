@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterBySearchTermPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
 
@@ -74,7 +75,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
-        //mountBookmarkablePage("/login",SignInPage.class);
+        mountBookmarkablePage("/search", FilterBySearchTermPage.class);
         
         
         /*
@@ -84,7 +85,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
                 new MetaDataRoleAuthorizationStrategy(this));
         
         //MetaDataRoleAuthorizationStrategy.authorize(CustomerProductViewPage.class, User.ROLE_1565);
-       
+
         /*
          * Remove wicket tags from result HTML
          */
