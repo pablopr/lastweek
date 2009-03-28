@@ -8,17 +8,28 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.business.entities.user;
+package com.marc.lastweek.business.entities.userdata;
 
-public class User {
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+
+public class UserData {
 
 	private Integer id;
 	private String name;
 	private String email;
 	private String phone;
 	private Integer state;
+	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>(); 
 	
-	
+	public Set<ClassifiedAd> getClassifiedAds() {
+		return this.classifiedAds;
+	}
+	public void setClassifiedAds(Set<ClassifiedAd> classifiedAds) {
+		this.classifiedAds = classifiedAds;
+	}
 	public String getName() {
 		return this.name;
 	}

@@ -10,11 +10,28 @@
  */
 package com.marc.lastweek.business.entities.category;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+
+
 public class Category {
 	
 	private Integer id;
 	private String name;
-
+	private Set<Subcategory> subcategories = new LinkedHashSet<Subcategory>();
+	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>(); 
+	
+	
+	
+	public Set<ClassifiedAd> getClassifiedAds() {
+		return this.classifiedAds;
+	}
+	public void setClassifiedAds(Set<ClassifiedAd> classifiedAds) {
+		this.classifiedAds = classifiedAds;
+	}
 	public Integer getId() {
 		return this.id;
 	}
@@ -27,6 +44,12 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public Set<Subcategory> getSubcategories() {
+		return this.subcategories;
+	}
+	public void setSubcategories(Set<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+
 	
 }

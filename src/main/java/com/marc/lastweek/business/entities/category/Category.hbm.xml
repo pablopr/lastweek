@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.marc.lastweek.business.entities.category">
+  <class name="Category" table="CATEGORY">
+
+        <cache usage="nonstrict-read-write" />
+  
+        <id name="id" column="ID" unsaved-value="null">
+            <generator class="sequence" >
+                <param name="sequence">ENTITY_SEQUENCE</param>
+            </generator>
+        </id>
+         
+        <property name="name" column="NAME" not-null="true" unique="true"/>
+        
+        
+        <set name="subcategories" access="field" inverse="false" order-by="NAME">
+            <cache usage="nonstrict-read-write" />
+            <key>
+                <column name="CATEGORY_ID"/>
+            </key>
+            <one-to-many class="com.marc.lastweek.business.entities.category.Subcategory" />
+        </set>
+        
+        <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">
+            <cache usage="nonstrict-read-write" />
+            <key>
+                <column name="CATEGORY_ID"/>
+            </key>
+            <one-to-many class="com.marc.lastweek.business.entities.classifiedad.ClassifiedAd" />
+        </set>
+            
+  </class>
+ 
+  
+</hibernate-mapping>

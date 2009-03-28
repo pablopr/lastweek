@@ -10,6 +10,13 @@
  */
 package com.marc.lastweek.business.entities.classifiedad;
 
+import java.util.Date;
+
+import com.marc.lastweek.business.entities.category.Category;
+import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.entities.userdata.UserData;
+
 public class ClassifiedAd {
 	
 	private Integer id;
@@ -21,6 +28,13 @@ public class ClassifiedAd {
 	private Integer flag;
 	private Integer state;
 	private String hashCode;
+	private Category category;
+	private Subcategory subcategory;
+	private Province province;
+	private UserData userData;
+	private Date creationDate;
+	private Date publicationDate;
+	
 	
 	public String getTitle() {
 		return this.title;
@@ -75,6 +89,42 @@ public class ClassifiedAd {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Category getCategory() {
+		return this.category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public Province getProvince() {
+		return this.province;
+	}
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+	public UserData getUserData() {
+		return this.userData;
+	}
+	public void setUserData(UserData userData) {
+		this.userData = userData;
+	}
+	public Subcategory getSubcategory() {
+		return this.subcategory;
+	}
+	public void setSubcategory(Subcategory subcategory) {
+		this.subcategory = subcategory;
+	}
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public Date getPublicationDate() {
+		return this.publicationDate;
+	}
+	public void setPublicationDate(Date publicationDate) {
+		this.publicationDate = publicationDate;
 	}
 	
 
