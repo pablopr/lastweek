@@ -13,10 +13,10 @@ package com.marc.lastweek.web.components;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-public class AdsListPanel extends Panel {
+public class AdvertisementsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
 
-	public AdsListPanel(String id, Model model) {
+	public AdvertisementsListPanel(String id, Model model) {
 		super(id, model);
 	}
 }
