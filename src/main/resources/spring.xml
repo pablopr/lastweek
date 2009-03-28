@@ -37,7 +37,8 @@
     <!-- (mainly @Component, @Repository and @Service for declaring beans,   -->
     <!-- and @Autowired for wiring dependencies).                            -->
     <!-- ******************************************************************* -->    
-    <context:component-scan annotation-config="true" base-package="com.marc" />
+    <context:component-scan annotation-config="true" base-package="com.marc.lastweek,
+    	loc.marc.commons.business" />
 
 
 
