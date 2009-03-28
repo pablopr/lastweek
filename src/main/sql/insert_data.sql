@@ -54,3 +54,10 @@ INSERT INTO PROVINCE(NAME) VALUES ('Zaragoza');
 
 INSERT INTO CATEGORY(NAME) VALUES ('coches');
 INSERT INTO CATEGORY(NAME) VALUES ('motos');
+
+INSERT INTO USER_DATA(NAME, EMAIL, PHONE, STATE) values ('Hija cachonda', 'cachonda@posadareal.zam', 654879856, 0);
+
+INSERT INTO SUBCATEGORY(NAME, CATEGORY_ID) values ('Consolator', 1);
+
+INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
+				values('Consolator plus for felix', 100, 'Si esta cancion no te importe...', 'www.lastweek.com', 0, 0, 0, 'jaxcoud', 1, 1, 1, 1);

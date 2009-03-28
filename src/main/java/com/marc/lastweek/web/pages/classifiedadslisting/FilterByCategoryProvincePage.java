@@ -32,9 +32,13 @@ public class FilterByCategoryProvincePage extends BasePage {
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 		final Long categoryId = Long.valueOf(parameters.getLong(
 				PageParametersNaming.PARAM_NAME_CATEGORY_ID));
+		final String categoryName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
 		final Long provinceId = Long.valueOf(parameters.getLong(
 				PageParametersNaming.PARAM_NAME_PROVINCE_ID));
-
+		final String provinceName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
+		
 		FilterParameters filterParameters = new FilterParameters();
 		filterParameters.setSearchString(searchTerm);
 		filterParameters.setCategoryId(categoryId);
@@ -52,12 +56,18 @@ public class FilterByCategoryProvincePage extends BasePage {
 				PageParameters linkParameters = new PageParameters();
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 						searchTerm);
-				linkParameters.put(
-						PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
+				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID,
+						categoryId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME,
+						categoryName);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
 						subcategory.getId());
-				linkParameters.put(
-						PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME,
+				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME,
 						subcategory.getName());
+				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+						provinceId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+						provinceName);
 				BookmarkablePageLink subcategoryLink = 
 					new BookmarkablePageLink("subcategoryLink",
 							FilterByCategoryPage.class, linkParameters);

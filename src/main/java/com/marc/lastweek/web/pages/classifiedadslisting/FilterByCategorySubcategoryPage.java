@@ -32,9 +32,13 @@ public class FilterByCategorySubcategoryPage extends BasePage {
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 		final Long categoryId = Long.valueOf(parameters.getLong(
 				PageParametersNaming.PARAM_NAME_CATEGORY_ID));
+		final String categoryName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
 		final Long subcategoryId = Long.valueOf(parameters.getLong(
 				PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID));
-
+		final String subcategoryName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
+	
 		FilterParameters filterParameters = new FilterParameters();
 		filterParameters.setSearchString(searchTerm);
 		filterParameters.setCategoryId(categoryId);
@@ -52,6 +56,14 @@ public class FilterByCategorySubcategoryPage extends BasePage {
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                 		searchTerm);
+                linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID,
+						categoryId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME,
+						categoryName);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
+						subcategoryId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME,
+						subcategoryName);
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
                 		province.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 

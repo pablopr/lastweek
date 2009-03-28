@@ -32,7 +32,8 @@ public class FilterByProvincePage extends BasePage {
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 		final Long provinceId = Long.valueOf(parameters.getLong(
 				PageParametersNaming.PARAM_NAME_PROVINCE_ID));
-
+		final String provinceName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
 		FilterParameters filterParameters = new FilterParameters();
 		filterParameters.setSearchString(searchTerm);
 		filterParameters.setProvinceId(provinceId);
@@ -53,9 +54,13 @@ public class FilterByProvincePage extends BasePage {
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
                 		category.getName());
+                linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+						provinceId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+						provinceName);
                 BookmarkablePageLink categoryLink = 
                 	new BookmarkablePageLink("categoryLink", 
-    	            		FilterByCategoryPage.class, linkParameters);
+    	            		FilterByCategoryProvincePage.class, linkParameters);
                 categoryLink.add(new Label("categoryName", category.getName()));
                 listItem.add(categoryLink);
 	        }
