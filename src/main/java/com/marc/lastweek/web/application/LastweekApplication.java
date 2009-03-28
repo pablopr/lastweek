@@ -113,11 +113,4 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return (LastweekApplication) Application.get();
     }
 
-	public AaaService getAaaService() {
-		return aaaService;
-	}
-
-	public void setAaaService(AaaService aaaService) {
-		this.aaaService = aaaService;
-	}
 }
