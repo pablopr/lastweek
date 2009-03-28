@@ -2,15 +2,14 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.marc.lastweek.business.entities.user">
+<hibernate-mapping package="com.marc.lastweek.business.entities.userdata">
 
   <class name="UserData" table="USER_DATA">
 
         <cache usage="nonstrict-read-write" />
   
         <id name="id" column="ID" unsaved-value="null">
-            <generator class="sequence" >
-                <param name="sequence">ENTITY_SEQUENCE</param>
+            <generator class="assigned" >
             </generator>
         </id>
          

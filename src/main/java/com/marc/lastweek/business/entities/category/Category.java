@@ -19,7 +19,7 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 public class Category {
 	
-	private Integer id;
+	private Long id;
 	private String name;
 	private Set<Subcategory> subcategories = new LinkedHashSet<Subcategory>();
 	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>(); 
@@ -31,12 +31,6 @@ public class Category {
 	}
 	public void setClassifiedAds(Set<ClassifiedAd> classifiedAds) {
 		this.classifiedAds = classifiedAds;
-	}
-	public Integer getId() {
-		return this.id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
 	}
 	public String getName() {
 		return this.name;
@@ -50,6 +44,12 @@ public class Category {
 	public void setSubcategories(Set<Subcategory> subcategories) {
 		this.subcategories = subcategories;
 	}
-
+	public Long getId() {
+		return this.id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 }

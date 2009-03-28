@@ -19,7 +19,7 @@ import com.marc.lastweek.business.entities.userdata.UserData;
 
 public class ClassifiedAd {
 	
-	private Integer id;
+	private Long id;
 	private String title;
 	private String description;
 	private Double price;
@@ -84,10 +84,10 @@ public class ClassifiedAd {
 	public void setHashCode(String hashCode) {
 		this.hashCode = hashCode;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Category getCategory() {

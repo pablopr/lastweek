@@ -17,7 +17,7 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 public class UserData {
 
-	private Integer id;
+	private Long id;
 	private String name;
 	private String email;
 	private String phone;
@@ -54,12 +54,11 @@ public class UserData {
 	public void setState(Integer state) {
 		this.state = state;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
 	
 }
