@@ -10,25 +10,20 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
-import loc.marc.commons.business.services.general.GeneralService;
-
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.web.models.LoadableCategoriesListModel;
+import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class FilterByCategoryPage extends BasePage {
-
-	@SpringBean
-	GeneralService generalService;
 
 	public FilterByCategoryPage(PageParameters parameters) {
 		super(parameters);
@@ -36,8 +31,7 @@ public class FilterByCategoryPage extends BasePage {
 		final String searchTerm = parameters
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 
-		this.add(new ListView("subcategoriesList", this.generalService
-				.findAll(Category.class)) {
+		this.add(new ListView("subcategoriesList", new LoadableCategoriesListModel()) {
 
 			private static final long serialVersionUID = -5142681180212487928L;
 
@@ -58,8 +52,7 @@ public class FilterByCategoryPage extends BasePage {
 			}
 		});
 
-		this.add(new ListView("provincesList", this.generalService
-				.findAll(Province.class)) {
+		this.add(new ListView("provincesList", new LoadableProvincesListModel()) {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
