@@ -26,9 +26,8 @@ public class ClasifiedAdsServiceImpl implements ClasifiedAdsService {
 	@Autowired
 	ClassifiedAdRepository classifiedAdRespository;
 
-	@Override
 	public List<ClassifiedAd> filterClassifiedAds(FilterParameters parameters, int start, int count) {
-		return classifiedAdRespository.filterAdvertisements(parameters, start, count);
+		return this.classifiedAdRespository.filterAdvertisements(parameters, start, count);
 	}
 
 	
