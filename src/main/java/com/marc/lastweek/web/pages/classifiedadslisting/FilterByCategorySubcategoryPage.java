@@ -1,5 +1,5 @@
 /*
- * SearchResultsPage.java
+ * FilterByCatSubcatPage.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -8,21 +8,15 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.adslisting;
+package com.marc.lastweek.web.pages.classifiedadslisting;
 
 import org.apache.wicket.PageParameters;
 
 import com.marc.lastweek.web.pages.BasePage;
 
-public class FilterByTokenPage extends BasePage {
+public class FilterByCategorySubcategoryPage extends BasePage {
 
-	/* 
-	 * TODO: will receive a page parameters showing where the search comes from,
-	 * this is, the search generates a subset of the result where it comes from
-	 * 
-	 *  The list of advertisements will be the panels AdsListPanel
-	 */
-	public FilterByTokenPage(PageParameters parameters) {
+	public FilterByCategorySubcategoryPage(PageParameters parameters) {
 		super(parameters);
 	}
 

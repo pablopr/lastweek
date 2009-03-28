@@ -1,5 +1,5 @@
 /*
- * FilterByCatSubcatPage.java
+ * ClasifiedAdsService.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -8,16 +8,14 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.adslisting;
+package com.marc.lastweek.business.services.classifiedads;
 
-import org.apache.wicket.PageParameters;
+import java.util.List;
 
-import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+import com.marc.lastweek.business.views.aaa.FilterParameters;
 
-public class FilterByCategorySubcategoryPage extends BasePage {
+public interface ClasifiedAdsService {
 
-	public FilterByCategorySubcategoryPage(PageParameters parameters) {
-		super(parameters);
-	}
-
+	public List<ClassifiedAd> filterClassifiedAds(FilterParameters parameters, int start, int count);
 }
