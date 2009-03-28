@@ -17,19 +17,21 @@ import org.springframework.stereotype.Service;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.entities.classifiedad.repository.ClassifiedAdRepository;
-import com.marc.lastweek.business.services.classifiedads.ClasifiedAdsService;
+import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.business.views.aaa.FilterParameters;
 
 @Service
-public class ClasifiedAdsServiceImpl implements ClasifiedAdsService {
+public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	
 	@Autowired
 	ClassifiedAdRepository classifiedAdRespository;
 
-	@Override
 	public List<ClassifiedAd> filterClassifiedAds(FilterParameters parameters, int start, int count) {
-		return classifiedAdRespository.filterAdvertisements(parameters, start, count);
+		return this.classifiedAdRespository.filterAdvertisements(parameters, start, count);
 	}
 
+	public Integer countFilterAdvertisements(FilterParameters parameters) {
+		return this.classifiedAdRespository.countFilterAdvertisements(parameters);
+	}
 	
 }

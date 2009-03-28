@@ -27,4 +27,11 @@ public class ClassifiedAdRepository extends GeneralRepository {
 		
 		return results;
 	}
+	
+	public Integer countFilterAdvertisements(FilterParameters parameters) {
+		
+		// TODO: add criteria query
+		
+		return 0;
+	}
 }
