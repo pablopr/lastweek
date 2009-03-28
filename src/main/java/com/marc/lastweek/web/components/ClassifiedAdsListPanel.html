@@ -6,26 +6,26 @@
 
 <wicket:panel>
 	<ul>
-		<li wocket:id="classifiedAdsList">
+		<li wicket:id="classifiedAdsList">
 			<table class="">
 				<tr>
 					<td>
-						<span wocket:id="classifiedAdTitle"/>
+						<span wicket:id="classifiedAdTitle"/>
 					</td>
 					<td><td/>
 					<td>
-						<span wocket:id="classifiedAdPublicationDate"/>
+						<span wicket:id="classifiedAdPublicationDate"/>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<span wocket:id="classifiedAdImage"/>
+						<!--  <span wicket:id="classifiedAdImage"/> -->
 					</td>
 					<td>
-						<span wocket:id="classifiedAdDescription"/>
+						<span wicket:id="classifiedAdDescription"/>
 					</td>
 					<td>
-						<span wocket:id="classifiedAdPrize"/>
+						<span wicket:id="classifiedAdPrice"/> <br/>
 						<a wocket:id="classifiedAdLink" href="">
 							Ver detalles
 						</a>
@@ -34,27 +34,6 @@
 			</table>
 		</li>
 	</ul>
-    <table class="intervention-table">
-        <tr>
-            <td colspan="4" class="ghost-left"><strong>Actuaci&oacute;n Fantasma</strong></td>
-        </tr>
-        <tr>
-            <td width="25%" class="label">Gestor Actuaci&oacute;n</td>
-            <td width="25%" wicket:id="actionManager">XXX</td>
-            <td width="25%" class="label">Fecha</td>
-            <td width="25%" wicket:id="date">XXX</td>
-        </tr>
-        <tr>
-            <td width="16%" class="label">Motivo actuaci&oacute;n</td>
-            <td colspan="3" wicket:id="actionComment">XXX</td>
-         </tr>
-         <tr>
-            <td colspan="4" class="ghost-right">
-            <div class="right"><input wicket:id="interventionDetailLink" class="button" type="submit" value="Ver Detalles" /></div>
-            </td>
-        </tr>
-    </table>
-
 </wicket:panel>
 
 </body>
