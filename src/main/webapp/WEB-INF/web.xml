@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 
-    <display-name>octipussyr</display-name>
+    <display-name>lastweek</display-name>
 
     <session-config>
         <session-timeout>60</session-timeout>
@@ -18,7 +18,7 @@
     <!--  objects.                                                           -->
     <!-- ******************************************************************* -->
     <filter>
-        <filter-name>openSessionInView-VDP</filter-name>
+        <filter-name>openSessionInView</filter-name>
         <filter-class>
             org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
         </filter-class>
@@ -34,7 +34,7 @@
 
 
     <filter-mapping>
-        <filter-name>openSessionInView-VDP</filter-name>
+        <filter-name>openSessionInView</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
  
@@ -46,7 +46,7 @@
     <!--  business layer need.                                              -->
     <!-- ******************************************************************* -->
     <filter>
-        <filter-name>octopussy</filter-name>
+        <filter-name>lastweek</filter-name>
         <filter-class>
             org.apache.wicket.protocol.http.WicketFilter
         </filter-class>
@@ -63,7 +63,7 @@
     </filter>
 
     <filter-mapping>
-        <filter-name>octopussy</filter-name>
+        <filter-name>lastweek</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -75,7 +75,7 @@
 
     <context-param>
         <param-name>webAppRootKey</param-name>
-        <param-value>octopussy.root</param-value>
+        <param-value>lastweek.root</param-value>
     </context-param>
 
     <context-param>
@@ -86,8 +86,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/classes/spring.xml,
-            /WEB-INF/classes/spring-sch.xml
+            /WEB-INF/classes/spring.xml
         </param-value>
     </context-param>
 
