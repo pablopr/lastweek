@@ -21,6 +21,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -40,29 +41,29 @@ public class FilterBySearchTermPage extends BasePage {
 		final String searchTerm = 
 			parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
 		
-		this.add(new ListView("categoriesList", 
-				this.generalService.findAll(Category.class)) {
-			
-			private static final long serialVersionUID = -5142681180212487928L;
-
-			@Override
-			protected void populateItem(ListItem listItem) {
-				Category category = (Category)listItem.getModelObject();
-				listItem.add(new Label("categoryName", category.getName()));
-				PageParameters linkParameters = new PageParameters();
-                linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
-                		searchTerm);
-                linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
-                		category.getId());
-                linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
-                		category.getName());
-	            listItem.add(new BookmarkablePageLink("categoryLink", 
-	            		FilterByCategoryPage.class, linkParameters));
-	        }
-		});
+//		this.add(new ListView("categoriesList", 
+//				new LoadableCategoriesListModel()) {
+//			
+//			private static final long serialVersionUID = -5142681180212487928L;
+//
+//			@Override
+//			protected void populateItem(ListItem listItem) {
+//				Category category = (Category)listItem.getModelObject();
+//				listItem.add(new Label("categoryName", category.getName()));
+//				PageParameters linkParameters = new PageParameters();
+//                linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
+//                		searchTerm);
+//                linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
+//                		category.getId());
+//                linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
+//                		category.getName());
+//	            listItem.add(new BookmarkablePageLink("categoryLink", 
+//	            		FilterByCategoryPage.class, linkParameters));
+//	        }
+//		});
 		
 		this.add(new ListView("provincesList", 
-				this.generalService.findAll(Province.class)) {
+				new LoadableCategoriesListModel()) {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
