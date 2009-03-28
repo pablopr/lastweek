@@ -46,7 +46,7 @@ public class BaseAuthPage extends BasePage {
         };
         this.add(signout);
         
-        this.add(new Label("connecterdUser", SignInSession.get().getUserLogin()));
+        this.add(new Label("connectedUser", SignInSession.get().getUserLogin()));
 
     }
     
