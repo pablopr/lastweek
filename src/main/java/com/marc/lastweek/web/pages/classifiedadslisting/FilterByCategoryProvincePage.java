@@ -16,8 +16,10 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
-import com.marc.lastweek.business.entities.category.Category;
-import com.marc.lastweek.web.models.LoadableCategoriesListModel;
+import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
+import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -28,27 +30,39 @@ public class FilterByCategoryProvincePage extends BasePage {
 
 		final String searchTerm = parameters
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
+		final Long categoryId = Long.valueOf(parameters.getLong(
+				PageParametersNaming.PARAM_NAME_CATEGORY_ID));
+		final Long provinceId = Long.valueOf(parameters.getLong(
+				PageParametersNaming.PARAM_NAME_PROVINCE_ID));
 
+		FilterParameters filterParameters = new FilterParameters();
+		filterParameters.setSearchString(searchTerm);
+		filterParameters.setCategoryId(categoryId);
+		filterParameters.setProvinceId(provinceId);
+		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
 		this.add(new ListView("subcategoriesList",
-				new LoadableCategoriesListModel()) {
+				new LoadableSubcategoriesListModel()) {
 
 			private static final long serialVersionUID = -5142681180212487928L;
 
 			@Override
 			protected void populateItem(ListItem listItem) {
-				Category category = (Category) listItem.getModelObject();
-				listItem.add(new Label("subcategoryName", category.getName()));
+				Subcategory subcategory = (Subcategory) listItem.getModelObject();
 				PageParameters linkParameters = new PageParameters();
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 						searchTerm);
 				linkParameters.put(
 						PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
-						category.getId());
+						subcategory.getId());
 				linkParameters.put(
 						PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME,
-						category.getName());
-				listItem.add(new BookmarkablePageLink("subcategoryLink",
-						FilterByCategoryPage.class, linkParameters));
+						subcategory.getName());
+				BookmarkablePageLink subcategoryLink = 
+					new BookmarkablePageLink("subcategoryLink",
+							FilterByCategoryPage.class, linkParameters);
+				subcategoryLink.add(new Label("subcategoryName", subcategory.getName()));
+				listItem.add(subcategoryLink);
 			}
 		});
 	}

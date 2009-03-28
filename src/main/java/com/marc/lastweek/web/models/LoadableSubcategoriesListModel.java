@@ -15,7 +15,7 @@ import loc.marc.commons.business.services.general.GeneralService;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.web.application.LastweekApplication;
 
 public class LoadableSubcategoriesListModel extends LoadableDetachableModel {
@@ -27,7 +27,7 @@ public class LoadableSubcategoriesListModel extends LoadableDetachableModel {
 	
 	@Override
 	protected Object load() {
-		return LastweekApplication.get().getGeneralService().findAll(Province.class);
+		return LastweekApplication.get().getGeneralService().findAll(Subcategory.class);
 	}
 
 }

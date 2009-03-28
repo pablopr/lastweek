@@ -21,7 +21,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.util.ViewUtils;
 
@@ -63,13 +63,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedService().filterClassifiedAds(filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedService().filterClassifiedAds(this.filterParameters, start, count)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = LastweekApplication.get().getClassifiedService().countFilterAdvertisements(filterParameters);;
+				this.resultsCount = LastweekApplication.get().getClassifiedService().countFilterAdvertisements(this.filterParameters);
 			}
 			return this.resultsCount.intValue();
 		}

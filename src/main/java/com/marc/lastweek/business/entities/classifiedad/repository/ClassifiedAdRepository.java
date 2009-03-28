@@ -12,26 +12,53 @@ package com.marc.lastweek.business.entities.classifiedad.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 
 @Repository
 public class ClassifiedAdRepository {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+
 	public List<ClassifiedAd> filterAdvertisements(FilterParameters parameters, int start, int count) {
-		List<ClassifiedAd> results = new ArrayList<ClassifiedAd>();
-		
-		// TODO: add criteria query
-		
-		return results;
+        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters); 
+        return criteriaQuery.list();
 	}
-	
+
 	public Integer countFilterAdvertisements(FilterParameters parameters) {
-		
-		// TODO: add criteria query
-		
-		return 0;
+        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters); 
+        
+        return criteriaQuery.list().size();
+	}
+
+	private Criteria advancedSearchQueyConstructor(FilterParameters parameters) {
+
+		Criteria criteriaQuery = 
+			this.sessionFactory.getCurrentSession().createCriteria(ClassifiedAd.class);
+		criteriaQuery.addOrder(Order.asc("publicationDate"));
+
+		if (parameters.getCategoryId()!=null) {
+			criteriaQuery.createCriteria("category").add(Restrictions.eq("id", parameters.getCategoryId()));
+		}
+		if (parameters.getProvinceId()!=null) {
+			criteriaQuery.createCriteria("province").add(Restrictions.eq("id", parameters.getProvinceId()));
+		}
+		if (parameters.getSearchString()!=null) {
+			// TODO: how to search in description
+			criteriaQuery.add(Restrictions.ilike("id", parameters.getSearchString()));
+		}
+		if (parameters.getSubcategoryId()!=null) {
+			criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));
+		}
+		return criteriaQuery;
+
 	}
 }
