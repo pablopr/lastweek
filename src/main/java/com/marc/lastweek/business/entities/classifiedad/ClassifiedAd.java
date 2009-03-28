@@ -11,7 +11,6 @@
 package com.marc.lastweek.business.entities.classifiedad;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;

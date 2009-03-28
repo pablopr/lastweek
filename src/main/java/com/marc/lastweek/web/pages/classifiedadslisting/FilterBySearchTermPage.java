@@ -19,6 +19,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
+import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -44,7 +45,6 @@ public class FilterBySearchTermPage extends BasePage {
 			@Override
 			protected void populateItem(ListItem listItem) {
 				Category category = (Category)listItem.getModelObject();
-				listItem.add(new Label("categoryName", category.getName()));
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                 		searchTerm);
@@ -52,20 +52,25 @@ public class FilterBySearchTermPage extends BasePage {
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
                 		category.getName());
-	            listItem.add(new BookmarkablePageLink("categoryLink", 
-	            		FilterByCategoryPage.class, linkParameters));
+                
+                BookmarkablePageLink categoryLink = new BookmarkablePageLink("categoryLink", 
+	            		FilterByCategoryPage.class, linkParameters);
+                listItem.add(categoryLink);
+				categoryLink.add(new Label("categoryName", category.getName()));
+				
+
 	        }
 		});
 		
 		this.add(new ListView("provincesList", 
-				new LoadableCategoriesListModel()) {
+				new LoadableProvincesListModel()) {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
 			@Override
 			protected void populateItem(ListItem listItem) {
 				Province province = (Province)listItem.getModelObject();
-				listItem.add(new Label("provinceName", province.getName()));
+				
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                 		searchTerm);
@@ -73,8 +78,11 @@ public class FilterBySearchTermPage extends BasePage {
                 		province.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
                 		province.getName());
-                listItem.add(new BookmarkablePageLink("provinceLink", 
-	            		FilterByProvincePage.class, linkParameters));
+                BookmarkablePageLink provinceLink = new BookmarkablePageLink("provinceLink", 
+	            		FilterByProvincePage.class, linkParameters);
+                listItem.add(provinceLink);
+                provinceLink.add(new Label("provincesName", province.getName()));
+
 	        }
 		});
 	}
