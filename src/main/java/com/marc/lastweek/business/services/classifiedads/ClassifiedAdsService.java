@@ -14,10 +14,13 @@ import java.util.List;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 
 public interface ClassifiedAdsService {
 
-	public List<ClassifiedAd> filterClassifiedAds(FilterParameters parameters, int start, int count);
+	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count);
 	
-	public Integer countFilterAdvertisements(FilterParameters parameters);
+	public int countClassifiedAdsByFilterParameters(FilterParameters parameters);
+	
+	public void createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 }

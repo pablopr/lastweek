@@ -31,7 +31,7 @@ import org.apache.wicket.validation.validator.NumberValidator;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
-import com.marc.lastweek.business.views.classifiedad.NewClassifiedAdTO;
+import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.pages.BasePage;
 
@@ -41,7 +41,7 @@ public class NewClassifiedAdPage extends BasePage {
 	private static final long serialVersionUID = -7976014359463033532L;
 
 
-	protected NewClassifiedAdTO newClassifiedAdTO = new NewClassifiedAdTO();
+	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
