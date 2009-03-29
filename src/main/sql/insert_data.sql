@@ -64,10 +64,10 @@ INSERT INTO SUBCATEGORY(NAME, CATEGORY_ID) values ('De carreras', 2);
 INSERT INTO SUBCATEGORY(NAME, CATEGORY_ID) values ('Cutrescooters', 2);
 
 INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, CREATION_DATE, PUBLICATION_DATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
-				values('Consolator plus for felix', 100, 'Si esta cancion no te importe...', 'www.lastweek.com', 0, 0, 0, '2009-02-28 00:00:01', '2009-02-28 00:00:01', 'jaxcoud', 1, 1, 1, 1);
+				values('Consolator plus for felix', 100, 'Si esta cancion no te importe...', 'http://www.lastweek.com', 0, 0, 0, '2009-02-28 00:00:01', '2009-02-28 00:00:01', 'jaxcoud', 1, 1, 1, 1);
 INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, CREATION_DATE, PUBLICATION_DATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
-				values('Mega Octopus in ebay', 100, 'Pulpo atroz', 'www.ebayanuncios.com', 1, 0, 0, '2009-02-21 00:00:01', '2009-02-21 00:00:01', 'laksjd', 1, 2, 1, 1);
+				values('Mega Octopus in ebay', 100, 'Pulpo atroz', 'http://www.ebayanuncios.com', 1, 0, 0, '2009-02-21 00:00:01', '2009-02-21 00:00:01', 'laksjd', 1, 2, 1, 1);
 INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, CREATION_DATE, PUBLICATION_DATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
-				values('Cosa brutal', 10, 'Megadescripcion', 'www.lastweek.com', 0, 0, 0, '2009-01-28 00:00:01', '2009-01-28 00:00:01', 'lasdf', 2, 1, 1, 1);
+				values('Cosa brutal', 10, 'Megadescripcion', 'http://www.lastweek.com', 0, 0, 0, '2009-01-28 00:00:01', '2009-01-28 00:00:01', 'lasdf', 2, 1, 1, 1);
 INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, CREATION_DATE, PUBLICATION_DATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
-				values('Objeto inquietante', 100, 'Tiembla', 'www.loquo.com', 2, 0, 0, '2009-02-21 00:00:01', '2009-02-21 00:00:01', 'laksjd', 2, 2, 1, 1);				
+				values('Objeto inquietante', 100, 'Tiembla', 'http://www.loquo.com', 2, 0, 0, '2009-02-21 00:00:01', '2009-02-21 00:00:01', 'laksjd', 2, 2, 1, 1);				
