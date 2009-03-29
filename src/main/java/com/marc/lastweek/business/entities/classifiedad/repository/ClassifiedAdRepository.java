@@ -32,7 +32,7 @@ public class ClassifiedAdRepository {
         return criteriaQuery.list();
 	}
 
-	public Integer countFilterAdvertisements(FilterParameters parameters) {
+	public int countFilterAdvertisements(FilterParameters parameters) {
         Criteria criteriaQuery = advancedSearchQueyConstructor(parameters); 
         
         return criteriaQuery.list().size();
@@ -44,19 +44,19 @@ public class ClassifiedAdRepository {
 			this.sessionFactory.getCurrentSession().createCriteria(ClassifiedAd.class);
 		criteriaQuery.addOrder(Order.asc("publicationDate"));
 
-		if (parameters.getCategoryId()!=null) {
-			criteriaQuery.createCriteria("category").add(Restrictions.eq("id", parameters.getCategoryId()));
-		}
-		if (parameters.getProvinceId()!=null) {
-			criteriaQuery.createCriteria("province").add(Restrictions.eq("id", parameters.getProvinceId()));
-		}
-		if (parameters.getSearchString()!=null) {
-			// TODO: how to search in description
-			criteriaQuery.add(Restrictions.ilike("id", parameters.getSearchString()));
-		}
-		if (parameters.getSubcategoryId()!=null) {
-			criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));
-		}
+//		if (parameters.getCategoryId()!=null) {
+//			criteriaQuery.createCriteria("category").add(Restrictions.eq("id", parameters.getCategoryId()));
+//		}
+//		if (parameters.getProvinceId()!=null) {
+//			criteriaQuery.createCriteria("province").add(Restrictions.eq("id", parameters.getProvinceId()));
+//		}
+//		if (parameters.getSearchString()!=null) {
+//			// TODO: how to search in description
+//			criteriaQuery.add(Restrictions.ilike("description", parameters.getSearchString()));
+//		}
+//		if (parameters.getSubcategoryId()!=null) {
+//			criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));
+//		}
 		return criteriaQuery;
 
 	}

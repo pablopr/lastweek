@@ -10,7 +10,11 @@
  */
 package com.marc.lastweek.business.views.classifiedad;
 
-public class FilterParameters {
+import java.io.Serializable;
+
+public class FilterParameters implements Serializable {
+
+	private static final long serialVersionUID = -2028348023590201331L;
 
 	private String searchTerm;
 	private Long categoryId;

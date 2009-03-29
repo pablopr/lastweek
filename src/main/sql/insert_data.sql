@@ -59,5 +59,5 @@ INSERT INTO USER_DATA(NAME, EMAIL, PHONE, STATE) values ('Hija cachonda', 'cacho
 
 INSERT INTO SUBCATEGORY(NAME, CATEGORY_ID) values ('Consolator', 1);
 
-INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
-				values('Consolator plus for felix', 100, 'Si esta cancion no te importe...', 'www.lastweek.com', 0, 0, 0, 'jaxcoud', 1, 1, 1, 1);
+INSERT INTO CLASSIFIED_AD(TITLE, PRICE, DESCRIPTION, SOURCE_URL, SOURCE, FLAG, STATE, CREATION_DATE, PUBLICATION_DATE, HASH_CODE, CATEGORY_ID, SUBCATEGORY_ID, PROVINCE_ID, USER_DATA_ID)
+				values('Consolator plus for felix', 100, 'Si esta cancion no te importe...', 'www.lastweek.com', 0, 0, 0, '2009-02-28 00:00:01', '2009-02-28 00:00:01', 'jaxcoud', 1, 1, 1, 1);
