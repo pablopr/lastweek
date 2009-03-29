@@ -28,12 +28,8 @@ import org.springframework.stereotype.Component;
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryPage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryProvincePage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategorySubcategoryPage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategorySubcategoryProvincePage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterByProvincePage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterBySearchTermPage;
+import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
 
@@ -42,74 +38,70 @@ import com.marc.lastweek.web.session.SignInSession;
 public class LastweekApplication extends AuthenticatedWebApplication {
 
 
-	@Autowired
-	private AaaService aaaService;
-	
-	@Autowired
-	private GeneralService generalService;
-	
-	@Autowired
-	private ClassifiedAdsService classifiedService;
-	
+    @Autowired
+    private AaaService aaaService;
+   
+    @Autowired
+    private GeneralService generalService;
+   
+    @Autowired
+    private ClassifiedAdsService classifiedService;
+   
     public LastweekApplication() {
         super();
     }
-    
+   
     @Override
     public Class<? extends WebPage> getHomePage() {
         return MainPage.class;
     }
 
-    
+   
     @Override
     public Class<? extends WebPage> getSignInPageClass() {
         return SignInPage.class;
     }
 
-    
+   
     @Override
     protected Class<? extends AuthenticatedWebSession> getWebSessionClass() {
         return SignInSession.class;
     }
 
-    
+   
     /* (non-Javadoc)
      * @see org.apache.wicket.authentication.AuthenticatedWebApplication#init()
      */
     @Override
     protected void init() {
-        
+       
         super.init();
-        
-        
+       
+       
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
-        mountBookmarkablePage("/searchbysearchterm", FilterBySearchTermPage.class);
-        mountBookmarkablePage("/searchbycategoryprovince", FilterByCategoryProvincePage.class);
-        mountBookmarkablePage("/searchbycategorysubcategory", FilterByCategorySubcategoryPage.class);
-        mountBookmarkablePage("/searchbycategorysubcategoryprovince", FilterByCategorySubcategoryProvincePage.class);
-        mountBookmarkablePage("/searchbyprovince", FilterByProvincePage.class);
-        mountBookmarkablePage("/searchbycategory", FilterByCategoryPage.class);
-        
-        
+        mountBookmarkablePage("/search", FilterResultsPage.class);
+        mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
+       
+       
         /*
          * Add the role-based authorization strategy
          */
         getSecuritySettings().setAuthorizationStrategy(
                 new MetaDataRoleAuthorizationStrategy(this));
-        
+       
         //MetaDataRoleAuthorizationStrategy.authorize(CustomerProductViewPage.class, User.ROLE_1565);
 
         /*
          * Remove wicket tags from result HTML
          */
         getMarkupSettings().setStripWicketTags(true);
-        
-    }   
-    
+       
+    }  
+   
     /*
-     * This enables the encryption of non-prettified URLs 
+     * This enables the encryption of non-prettified URLs
      */
     @Override
     protected IRequestCycleProcessor newRequestCycleProcessor() {
@@ -120,7 +112,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
             }
         };
     }
-    
+   
     /*
      * Sets custom error pages
      */
@@ -133,15 +125,16 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return (LastweekApplication) Application.get();
     }
 
-	public AaaService getAaaService() {
-		return this.aaaService;
-	}
+    public AaaService getAaaService() {
+        return this.aaaService;
+    }
 
-	public GeneralService getGeneralService() {
-		return this.generalService;
-	}
+    public GeneralService getGeneralService() {
+        return this.generalService;
+    }
 
-	public ClassifiedAdsService getClassifiedService() {
-		return this.classifiedService;
-	}
+    public ClassifiedAdsService getClassifiedService() {
+        return this.classifiedService;
+    }
 }
+
