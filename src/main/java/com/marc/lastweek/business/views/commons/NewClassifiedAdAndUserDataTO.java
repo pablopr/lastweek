@@ -24,7 +24,44 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	private Double price = Double.valueOf("0");
 	private String title = "";
 	private String description = "";
+	private Long provinceId;
+	private Integer source;
+	private Integer flag;
+	private Integer state;
+	private String hashCode = "";
 	
+	public Integer getSource() {
+		return this.source;
+	}
+
+	public void setSource(Integer source) {
+		this.source = source;
+	}
+
+	public Integer getFlag() {
+		return this.flag;
+	}
+
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
+
+	public Integer getState() {
+		return this.state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getHashCode() {
+		return this.hashCode;
+	}
+
+	public void setHashCode(String hashCode) {
+		this.hashCode = hashCode;
+	}
+
 	public Long getCategoryId() {
 		return this.categoryId;
 	}
@@ -76,6 +113,14 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setProvinceId(Long provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public Long getProvinceId() {
+		return this.provinceId;
 	}
 	
 	

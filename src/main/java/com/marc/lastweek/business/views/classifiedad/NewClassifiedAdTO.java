@@ -11,12 +11,15 @@
 package com.marc.lastweek.business.views.classifiedad;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import loc.marc.commons.business.util.transfer.TransferAsAssociation;
 import loc.marc.commons.business.util.transfer.TransferAsAttribute;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.userdata.UserData;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 
@@ -25,20 +28,36 @@ public class NewClassifiedAdTO implements Serializable {
 	private static final long serialVersionUID = 6846761775612804953L;
 	private Long categoryId;
 	private Long subcategoryId;
-	private Double price = Double.valueOf("0");
+	private Double price;
 	private String title = "";
 	private String description = "";
 	private Long userDataId;
+	private Calendar creationDate;
+	private Calendar publicationDate;
+	private Long provinceId;
+	private Integer source;
+	private Integer flag;
+	private Integer state;
+	private String hashCode = "";
+	
 	
 	public NewClassifiedAdTO(NewClassifiedAdAndUserDataTO newClassifiedAdAndUserDataTO) {
-		this.categoryId = newClassifiedAdAndUserDataTO.getCategoryId();
-		this.subcategoryId = newClassifiedAdAndUserDataTO.getSubcategoryId();
-		this.price = newClassifiedAdAndUserDataTO.getPrice();
-		this.title = newClassifiedAdAndUserDataTO.getTitle();
-		this.description = newClassifiedAdAndUserDataTO.getDescription();
+		this.setCategoryId(newClassifiedAdAndUserDataTO.getCategoryId());
+		this.setSubcategoryId(newClassifiedAdAndUserDataTO.getSubcategoryId());
+		this.setPrice(newClassifiedAdAndUserDataTO.getPrice());
+		this.setTitle(newClassifiedAdAndUserDataTO.getTitle());
+		this.setDescription(newClassifiedAdAndUserDataTO.getDescription());
+		this.setProvinceId(newClassifiedAdAndUserDataTO.getProvinceId());
+		this.setCreationDate(new GregorianCalendar());
+		this.setPublicationDate(new GregorianCalendar());
+		this.setSource(newClassifiedAdAndUserDataTO.getSource());
+		this.setFlag(newClassifiedAdAndUserDataTO.getFlag());
+		this.setState(newClassifiedAdAndUserDataTO.getState());
+		this.setHashCode(newClassifiedAdAndUserDataTO.getHashCode());
+		
 	}
 	
-    @TransferAsAssociation(type=Category.class)
+    @TransferAsAssociation(property="category",type=Category.class)
 	public Long getCategoryId() {
 		return this.categoryId;
 	}
@@ -47,7 +66,7 @@ public class NewClassifiedAdTO implements Serializable {
 		this.categoryId = categoryId;
 	}
 	
-    @TransferAsAssociation(type=Subcategory.class)
+    @TransferAsAssociation(property="subcategory",type=Subcategory.class)
 	public Long getSubcategoryId() {
 		return this.subcategoryId;
 	}
@@ -84,9 +103,72 @@ public class NewClassifiedAdTO implements Serializable {
 		this.userDataId = userDataId;
 	}
 	
-	@TransferAsAssociation(type=UserData.class)
+	@TransferAsAssociation(property="userData",type=UserData.class)
 	public Long getUserDataId() {
 		return this.userDataId;
+	}
+
+	public void setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	@TransferAsAttribute
+	public Calendar getCreationDate() {
+		return this.creationDate;
+	}
+
+	public void setPublicationDate(Calendar publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	@TransferAsAttribute
+	public Calendar getPublicationDate() {
+		return this.publicationDate;
+	}
+
+	public void setProvinceId(Long provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	@TransferAsAssociation(property="province",type=Province.class)
+	public Long getProvinceId() {
+		return this.provinceId;
+	}
+
+	public void setSource(Integer source) {
+		this.source = source;
+	}
+
+	@TransferAsAttribute
+	public Integer getSource() {
+		return this.source;
+	}
+
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
+	
+	@TransferAsAttribute
+	public Integer getFlag() {
+		return this.flag;
+	}
+
+	public void setHashCode(String hashCode) {
+		this.hashCode = hashCode;
+	}
+
+	@TransferAsAttribute
+	public String getHashCode() {
+		return this.hashCode;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	@TransferAsAttribute
+	public Integer getState() {
+		return this.state;
 	}
 	
 }

@@ -63,11 +63,12 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		
 		if ( userData == null && !StringUtils.isEmpty(newClassifiedAdAndUserDataTO.getPhone()) ) {
 			userDataParameters.put("phone",newClassifiedAdAndUserDataTO.getPhone());
-			this.generalRepository.queryForObject(UserData.class, "findUserDataByPhone", userDataParameters); 
+			userData = this.generalRepository.queryForObject(UserData.class, "findUserDataByPhone", userDataParameters); 
 		} 
 		
 		if ( userData == null ) {
-			userData = this.generalService.add(UserData.class, new NewUserDataTO(newClassifiedAdAndUserDataTO));			
+			userData = this.generalService.add(UserData.class, new NewUserDataTO(newClassifiedAdAndUserDataTO));
+		
 		}
 		
 		

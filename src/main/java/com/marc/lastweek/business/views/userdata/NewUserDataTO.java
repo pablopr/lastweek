@@ -22,6 +22,7 @@ public class NewUserDataTO implements Serializable {
 	private static final long serialVersionUID = -6863770140554188284L;
 	private String email = "";
 	private String phone = "";
+	private Integer state = Integer.valueOf(0);
 	
 	public NewUserDataTO(NewClassifiedAdAndUserDataTO newClassifiedAndUserDataTo) {
 		this.email = newClassifiedAndUserDataTo.getEmail();
@@ -44,6 +45,15 @@ public class NewUserDataTO implements Serializable {
     @TransferAsAttribute
 	public String getPhone() {
 		return this.phone;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+	
+	@TransferAsAttribute
+	public Integer getState() {
+		return this.state;
 	}
 	
 	
