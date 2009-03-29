@@ -33,6 +33,7 @@ import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.util.ResourceUtils;
 
@@ -50,23 +51,15 @@ public class NewClassifiedAdPage extends BasePage {
 	protected DescriptionPanel descriptionPanel;
 	protected UserDataPanel userDataPanel;
 	protected CheckCreatedAdPanel checkCreatedAdPanel;
-
+	protected FeedbackPanel feedbackPanel;
+	
 	private class CategoryPanel extends Panel {
 
 		private static final long serialVersionUID = -1266334687818119105L;
 
 		public CategoryPanel(String id) {
 			super(id);
-			add(new ListView("category", new LoadableDetachableModel(){
-
-				private static final long serialVersionUID = 23432234242344232L;
-				@Override
-				protected Object load() {
-					return LastweekApplication.get().getGeneralService().findAll(Category.class);
-				}
-
-			}){
-
+			add(new ListView("category", new LoadableCategoriesListModel()) {
 				
 				private static final long serialVersionUID = 6730094093871495627L;
 
@@ -75,6 +68,8 @@ public class NewClassifiedAdPage extends BasePage {
 					Category  category = (Category)item.getModelObject();
 					final Long categoryId = category.getId();
 					final String categoryName = category.getName();
+					final int countSubcategories = category.getSubcategories().size();
+					
 					Link categoryLink = new Link("categoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
@@ -85,8 +80,14 @@ public class NewClassifiedAdPage extends BasePage {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setCategoryId(categoryId);
 							NewClassifiedAdPage.this.categoryName = categoryName;
 							CategoryPanel.this.setVisible(false);
-							NewClassifiedAdPage.this.subcategoryPanel.setCategoryId(categoryId);
-							NewClassifiedAdPage.this.subcategoryPanel.setVisible(true);
+							
+							if (countSubcategories == 0){
+								NewClassifiedAdPage.this.descriptionPanel.setVisible(true);
+							}
+							else{
+								NewClassifiedAdPage.this.subcategoryPanel.setCategoryId(categoryId);
+								NewClassifiedAdPage.this.subcategoryPanel.setVisible(true);
+							}
 						}
 
 					};
@@ -317,11 +318,17 @@ public class NewClassifiedAdPage extends BasePage {
 			}));
 			
 			Link confirmationLink = new Link("confirmationLink") {
-
-
 				@Override
 				public void onClick() {
 					
+					//TODO finish the creation of userData and classifiedAd
+					NewClassifiedAdPage.this.newClassifiedAdTO.setProvinceId(Long.valueOf(1));
+					NewClassifiedAdPage.this.newClassifiedAdTO.setState(Integer.valueOf(1));
+					NewClassifiedAdPage.this.newClassifiedAdTO.setFlag(Integer.valueOf(0));
+					NewClassifiedAdPage.this.newClassifiedAdTO.setSource(Integer.valueOf(1));
+					LastweekApplication.get().getClassifiedService().createClassifiedAd(NewClassifiedAdPage.this.newClassifiedAdTO);
+					
+					NewClassifiedAdPage.this.info("se ha creado correctamente");
 				}
 
 			};
@@ -348,9 +355,9 @@ public class NewClassifiedAdPage extends BasePage {
 		
 		
 		
-		final FeedbackPanel feedback = new FeedbackPanel("feedbackPanel");
-		feedback.setOutputMarkupId(true);
-		add(feedback);
+		this.feedbackPanel  = new FeedbackPanel("feedbackPanel");
+		this.feedbackPanel.setOutputMarkupId(true);
+		add(this.feedbackPanel);
 	}
 
 
