@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.entities.classifiedad.repository.ClassifiedAdRepository;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 
 @Service
 public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {

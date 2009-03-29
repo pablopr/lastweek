@@ -10,31 +10,35 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
-import loc.marc.commons.business.services.general.GeneralService;
-
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.marc.lastweek.business.entities.category.Category;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class FilterByProvincePage extends BasePage {
 
-	@SpringBean
-	GeneralService generalService;
-
 	public FilterByProvincePage(PageParameters parameters) {
 		super(parameters);
 
 		final String searchTerm = parameters
 				.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM);
-
+		final Long provinceId = Long.valueOf(parameters.getLong(
+				PageParametersNaming.PARAM_NAME_PROVINCE_ID));
+		final String provinceName = parameters
+			.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
+		FilterParameters filterParameters = new FilterParameters();
+		filterParameters.setSearchString(searchTerm);
+		filterParameters.setProvinceId(provinceId);
+		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
 		this.add(new ListView("categoriesList", 
 				new LoadableCategoriesListModel()) {
 			
@@ -43,7 +47,6 @@ public class FilterByProvincePage extends BasePage {
 			@Override
 			protected void populateItem(ListItem listItem) {
 				Category category = (Category)listItem.getModelObject();
-				listItem.add(new Label("categoryName", category.getName()));
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                 		searchTerm);
@@ -51,8 +54,15 @@ public class FilterByProvincePage extends BasePage {
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
                 		category.getName());
-	            listItem.add(new BookmarkablePageLink("categoryLink", 
-	            		FilterByCategoryPage.class, linkParameters));
+                linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+						provinceId);
+				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+						provinceName);
+                BookmarkablePageLink categoryLink = 
+                	new BookmarkablePageLink("categoryLink", 
+    	            		FilterByCategoryProvincePage.class, linkParameters);
+                categoryLink.add(new Label("categoryName", category.getName()));
+                listItem.add(categoryLink);
 	        }
 		});
 	}

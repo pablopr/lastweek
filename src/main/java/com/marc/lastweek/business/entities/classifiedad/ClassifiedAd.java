@@ -10,11 +10,11 @@
  */
 package com.marc.lastweek.business.entities.classifiedad;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import com.marc.lastweek.business.entities.category.Category;
-import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.userdata.UserData;
 
 public class ClassifiedAd {
@@ -32,8 +32,8 @@ public class ClassifiedAd {
 	private Subcategory subcategory;
 	private Province province;
 	private UserData userData;
-	private Date creationDate;
-	private Date publicationDate;
+	private Calendar creationDate;
+	private Calendar publicationDate;
 	
 	
 	public String getTitle() {
@@ -114,16 +114,16 @@ public class ClassifiedAd {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
-	public Date getCreationDate() {
+	public Calendar getCreationDate() {
 		return this.creationDate;
 	}
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
 	}
-	public Date getPublicationDate() {
+	public Calendar getPublicationDate() {
 		return this.publicationDate;
 	}
-	public void setPublicationDate(Date publicationDate) {
+	public void setPublicationDate(Calendar publicationDate) {
 		this.publicationDate = publicationDate;
 	}
 	

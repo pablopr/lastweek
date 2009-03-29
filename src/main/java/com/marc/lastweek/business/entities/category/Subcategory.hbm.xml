@@ -3,28 +3,35 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.marc.lastweek.business.entities.category">
-  <class name="Subcategory" table="SUBCATEGORY">
+	<class name="Subcategory" table="SUBCATEGORY">
 
-        <cache usage="nonstrict-read-write" />
-  
-        <id name="id" column="ID" unsaved-value="null">
-             <generator class="assigned" >
-            </generator>
-        </id>
-         
-        <property name="name" column="NAME" not-null="true" unique="true"/>
-        
-         <many-to-one name="parent" column="CATEGORY_ID"
-            class="com.marc.lastweek.business.entities.category.Category"/>
-            
-        <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">
-            <cache usage="nonstrict-read-write" />
-            <key>
-                <column name="CATEGORY_ID"/>
-            </key>
-            <one-to-many class="com.marc.lastweek.business.entities.classifiedad.ClassifiedAd" />
-        </set>
-  </class>
- 
-  
+		<cache usage="nonstrict-read-write" />
+
+		<id name="id" column="ID" unsaved-value="null">
+			<generator class="assigned">
+			</generator>
+		</id>
+
+		<property name="name" column="NAME" not-null="true" unique="true" />
+
+		<many-to-one name="parent" column="CATEGORY_ID"
+			class="com.marc.lastweek.business.entities.category.Category" />
+
+		<set name="classifiedAds" access="field" inverse="false"
+			order-by="PUBLICATION_DATE">
+			<cache usage="nonstrict-read-write" />
+			<key>
+				<column name="CATEGORY_ID" />
+			</key>
+			<one-to-many
+				class="com.marc.lastweek.business.entities.classifiedad.ClassifiedAd" />
+		</set>
+
+
+	</class>
+	<query name="findSubcategoriesByCategoryId" cacheable="true">
+		from Subcategory s
+		where s.parent.id = :categoryId
+	</query>
+
 </hibernate-mapping>

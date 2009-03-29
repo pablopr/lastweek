@@ -8,21 +8,25 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.business.views.aaa;
+package com.marc.lastweek.business.views.classifiedad;
 
-public class FilterParameters {
+import java.io.Serializable;
 
-	private String searchString;
+public class FilterParameters implements Serializable {
+
+	private static final long serialVersionUID = -2028348023590201331L;
+
+	private String searchTerm;
 	private Long categoryId;
 	private Long subcategoryId;
 	private Long provinceId;
 	
 	public String getSearchString() {
-		return this.searchString;
+		return this.searchTerm;
 	}
 	
-	public void setSearchString(String searchString) {
-		this.searchString = searchString;
+	public void setSearchString(String searchTerm) {
+		this.searchTerm = searchTerm;
 	}
 	
 	public Long getCategoryId() {
