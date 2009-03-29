@@ -64,7 +64,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 			}){
 
-				private static final long serialVersionUID = 1L;
+				
+				private static final long serialVersionUID = 6730094093871495627L;
 
 				@Override
 				protected void populateItem(ListItem item) {
@@ -116,7 +117,7 @@ public class NewClassifiedAdPage extends BasePage {
 				}
 			}){
 
-				private static final long serialVersionUID = 1L;
+				private static final long serialVersionUID = -5397807417164068536L;
 
 				@Override
 				protected void populateItem(final ListItem item) {
