@@ -9,7 +9,6 @@
  * with Monte Alto Research Center
  */
 package com.marc.lastweek.business.entities.classifiedad.repository;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;

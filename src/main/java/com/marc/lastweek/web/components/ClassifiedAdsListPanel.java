@@ -12,7 +12,9 @@ package com.marc.lastweek.web.components;
 
 import java.util.Iterator;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigationIncrementLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -33,7 +35,7 @@ public class ClassifiedAdsListPanel extends Panel {
 	public ClassifiedAdsListPanel(String id, FilterParameters filterParameters) {
 		super(id);
 
-		this.add(new DataView("classifiedAdsList", new FilterCalssifiedAdsProvider(filterParameters), RESULTS_PER_PAGE){
+		DataView classifiedList = new DataView("classifiedAdsList", new FilterCalssifiedAdsProvider(filterParameters), RESULTS_PER_PAGE){
 			private static final long serialVersionUID = 8440379131631972878L;
 
 			@Override
@@ -47,7 +49,19 @@ public class ClassifiedAdsListPanel extends Panel {
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 			}
 
-		});
+		};
+		
+        WebMarkupContainer paginationLinks = new WebMarkupContainer("paginationLinks");
+        PagingNavigationIncrementLink forwardLink = new PagingNavigationIncrementLink( "onepageforward", 
+        		classifiedList, 1 );
+        paginationLinks.add(forwardLink);
+        PagingNavigationIncrementLink backwardLink = new PagingNavigationIncrementLink( "onepagebackward",
+        		classifiedList, -1 );
+        paginationLinks.add(backwardLink);
+        if (classifiedList.getPageCount()==1) {
+            paginationLinks.setVisible(false);
+        }
+        this.add(paginationLinks);
 	}
 
 	class FilterCalssifiedAdsProvider implements IDataProvider  {
