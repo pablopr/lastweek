@@ -25,6 +25,7 @@ import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.pages.classifiedad.NewClassifiedAdPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 
+
 public class MainPage extends BasePage {
 	public MainPage() {
 		this.add(new PageLink("newClassifiedAdLink",NewClassifiedAdPage.class));

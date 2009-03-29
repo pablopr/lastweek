@@ -12,8 +12,10 @@ package com.marc.lastweek.web.components;
 
 import java.util.Iterator;
 
+import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigationIncrementLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -25,6 +27,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.naming.PageParametersNaming;
+import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class ClassifiedAdsListPanel extends Panel {
@@ -32,7 +36,7 @@ public class ClassifiedAdsListPanel extends Panel {
 
 	private static final int RESULTS_PER_PAGE = 10; 
 
-	public ClassifiedAdsListPanel(String id, FilterParameters filterParameters) {
+	public ClassifiedAdsListPanel(String id, final FilterParameters filterParameters) {
 		super(id);
 
 		DataView classifiedList = new DataView("classifiedAdsList", new FilterCalssifiedAdsProvider(filterParameters), RESULTS_PER_PAGE){
@@ -43,12 +47,17 @@ public class ClassifiedAdsListPanel extends Panel {
 				ClassifiedAd classifiedAd = (ClassifiedAd)item.getModelObject();
 				
 				// TODO: add image, add province and category
+				// TODO: look if all parameters must be present in URL for SEO
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
+				PageParameters linkParameters = new PageParameters();
+                linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
+                		classifiedAd.getId());
+                item.add(new BookmarkablePageLink("classifiedAdLink", 
+                		ClassifiedAdDetailPage.class, linkParameters));
 			}
-
 		};
 		this.add(classifiedList);
         WebMarkupContainer paginationLinks = new WebMarkupContainer("paginationLinks");
@@ -77,13 +86,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedService().filterClassifiedAds(this.filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = LastweekApplication.get().getClassifiedService().countFilterAdvertisements(this.filterParameters);
+				this.resultsCount = Integer.valueOf(LastweekApplication.get().getClassifiedService().countClassifiedAdsByFilterParameters((this.filterParameters)));
 			}
 			return this.resultsCount.intValue();
 		}

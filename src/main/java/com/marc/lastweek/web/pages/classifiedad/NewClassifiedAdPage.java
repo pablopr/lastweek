@@ -27,13 +27,14 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.validation.validator.NumberValidator;
+import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
-import com.marc.lastweek.business.views.classifiedad.NewClassifiedAdTO;
+import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.util.ResourceUtils;
 
 public class NewClassifiedAdPage extends BasePage {
 
@@ -41,10 +42,11 @@ public class NewClassifiedAdPage extends BasePage {
 	private static final long serialVersionUID = -7976014359463033532L;
 
 
-	protected NewClassifiedAdTO newClassifiedAdTO = new NewClassifiedAdTO();
+	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
+	protected UserDataPanel userDataPanel;
 
 	private class CategoryPanel extends Panel {
 
@@ -62,7 +64,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 			}){
 
-				private static final long serialVersionUID = 1L;
+				
+				private static final long serialVersionUID = 6730094093871495627L;
 
 				@Override
 				protected void populateItem(ListItem item) {
@@ -114,7 +117,7 @@ public class NewClassifiedAdPage extends BasePage {
 				}
 			}){
 
-				private static final long serialVersionUID = 1L;
+				private static final long serialVersionUID = -5397807417164068536L;
 
 				@Override
 				protected void populateItem(final ListItem item) {
@@ -160,6 +163,19 @@ public class NewClassifiedAdPage extends BasePage {
 		}
 	
 	}
+	
+	
+	private class UserDataPanel extends Panel {
+
+		private static final long serialVersionUID = -7322178890866291550L;
+
+		public  UserDataPanel(final String id) {
+			super(id);
+			UserDataPanel.this.setVisible(false);							
+ 			add(new UserDataForm("userDataForm"));
+		}
+	
+	}
 
 	private class DescriptionForm extends Form {
 		private static final long serialVersionUID = 9053897905303403343L;
@@ -170,8 +186,9 @@ public class NewClassifiedAdPage extends BasePage {
 
 	    public DescriptionForm(String id) {
 	        super(id);
-	        this.price = new TextField("price", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPrice()));
-//	        this.price.add(NumberValidator.POSITIVE);
+	        this.price = new TextField("price", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPrice()), Double.class);
+	        this.price.setLabel(ResourceUtils.createResourceModel("newclassifiedad.form.price", NewClassifiedAdPage.this)); 
+
 	        this.title = new RequiredTextField("title", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getTitle()));
 	        this.description = new TextArea("description", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getDescription()));
 	        this.description.setRequired(true);
@@ -184,16 +201,46 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				public void onSubmit() {
-//					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(new Double(DescriptionForm.this.price.getModelObjectAsString()));
+					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(new Double(DescriptionForm.this.price.getModelObjectAsString()));
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.descriptionPanel.setVisible(false);
+					NewClassifiedAdPage.this.userDataPanel.setVisible(true);
 				}
 	        	
 	        });
 	    }
+	}
+	
+	private class UserDataForm extends Form {
+		private static final long serialVersionUID = 9053897905303403343L;
+		protected final RequiredTextField email;
+		protected final TextField phone;
 	    
-	    
+
+	    public UserDataForm(String id) {
+	        super(id);
+	        this.phone = new TextField("phone", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPhone()), String.class);
+
+	        this.email = new RequiredTextField("email", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getEmail()));
+	        this.email.add(EmailAddressValidator.getInstance());
+	        this.email.setRequired(true);
+	        
+	        add(this.phone);
+	        add(this.email);
+	        add(new SubmitLink("submitUserDataLink"){
+
+				private static final long serialVersionUID = 8056648125766325902L;
+
+				@Override
+				public void onSubmit() {
+					NewClassifiedAdPage.this.newClassifiedAdTO.setPhone(UserDataForm.this.phone.getModelObjectAsString());
+			    	NewClassifiedAdPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
+			    	NewClassifiedAdPage.this.userDataPanel.setVisible(false);
+				}
+	        	
+	        });
+	    }
 	}
 
 
@@ -205,6 +252,8 @@ public class NewClassifiedAdPage extends BasePage {
 		add(this.subcategoryPanel);
 		this.descriptionPanel = new DescriptionPanel("descriptionPanel");
 		add(this.descriptionPanel);
+		this.userDataPanel = new UserDataPanel("userDataPanel");
+		add(this.userDataPanel);
 		
 		
 		
