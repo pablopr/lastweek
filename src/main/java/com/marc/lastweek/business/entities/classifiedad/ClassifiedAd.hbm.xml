@@ -21,8 +21,10 @@
         <property name="flag" column="FLAG" />
         <property name="state" column="STATE" not-null="true" />
         <property name="hashCode" column="HASH_CODE" not-null="true" unique="true"/>
-        <property name="creationDate" column="CREATION_DATE" not-null="true" />
-        <property name="publicationDate" column="PUBLICATION_DATE" not-null="true" />
+        <property name="creationDate" column="CREATION_DATE" not-null="true" 
+        	type="calendar"/>
+        <property name="publicationDate" column="PUBLICATION_DATE" not-null="true" 
+        	type="calendar"/>
         
 
     

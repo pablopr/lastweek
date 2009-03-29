@@ -13,7 +13,7 @@ package com.marc.lastweek.business.services.classifiedads;
 import java.util.List;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
-import com.marc.lastweek.business.views.aaa.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 
 public interface ClassifiedAdsService {
 
