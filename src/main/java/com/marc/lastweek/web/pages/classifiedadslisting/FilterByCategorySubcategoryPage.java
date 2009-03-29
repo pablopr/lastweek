@@ -22,6 +22,7 @@ import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.util.ViewUtils;
 
 public class FilterByCategorySubcategoryPage extends BasePage {
 
@@ -71,7 +72,7 @@ public class FilterByCategorySubcategoryPage extends BasePage {
                 BookmarkablePageLink provinceLink = 
                 	new BookmarkablePageLink("provinceLink", 
     	            		FilterByProvincePage.class, linkParameters);
-                provinceLink.add(new Label("provinceName", province.getName()));
+                provinceLink.add(new Label("provinceName", ViewUtils.labelizer(province.getName())));
                 listItem.add(provinceLink);
 	        }
 		});

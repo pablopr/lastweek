@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
+import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategoryProvincePage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterByCategorySubcategoryPage;
@@ -91,6 +92,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         mountBookmarkablePage("/searchbycategorysubcategoryprovince", FilterByCategorySubcategoryProvincePage.class);
         mountBookmarkablePage("/searchbyprovince", FilterByProvincePage.class);
         mountBookmarkablePage("/searchbycategory", FilterByCategoryPage.class);
+        mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         
         
         /*

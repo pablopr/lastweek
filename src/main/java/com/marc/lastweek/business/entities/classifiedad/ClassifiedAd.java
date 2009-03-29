@@ -19,6 +19,14 @@ import com.marc.lastweek.business.entities.userdata.UserData;
 
 public class ClassifiedAd {
 	
+	public static final int SOURCE_OUR = 0;
+	public static final int SOURCE_EBAY = 1;
+	public static final int SOURCE_LOQUO = 2;
+	
+	public static final int STATE_ACTIVE = 0;
+	public static final int STATE_EXPIRED = 1;
+	public static final int STATE_BANNED = 2;
+
 	private Long id;
 	private String title;
 	private String description;
