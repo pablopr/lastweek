@@ -6,23 +6,34 @@
 
 <wicket:extend>
 	<div wicket:id="classifiedAdsPanel"></div>
-	<div>
+	<div wicket:id="subcategoriesDiv">
 		<ul>
-			<li wicket:id="categoriesList">
-				<a wicket:id="categoryLink" href="">
-					<span wicket:id="categoryName">
-						[Category]
+			<li wicket:id="subcategoriesList">
+				<a wicket:id="subcategoryLink" href="">
+					<span wicket:id="subcategoryName">
+						[Subcategory]
 					</span>
 				</a>
 			</li>
 		</ul>
 	</div>
-	<div>
+	<div wicket:id="provincesDiv">
 		<ul>
 			<li wicket:id="provincesList">
 				<a wicket:id="provinceLink" href="">
 					<span wicket:id="provinceName">
 						[Province]
+					</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div wicket:id="categoriesDiv">
+		<ul>
+			<li wicket:id="categoriesList">
+				<a wicket:id="categoryLink" href="">
+					<span wicket:id="categoryName">
+						[Category]
 					</span>
 				</a>
 			</li>
