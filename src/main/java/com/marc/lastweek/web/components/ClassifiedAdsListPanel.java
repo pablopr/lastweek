@@ -50,7 +50,7 @@ public class ClassifiedAdsListPanel extends Panel {
 			}
 
 		};
-		
+		this.add(classifiedList);
         WebMarkupContainer paginationLinks = new WebMarkupContainer("paginationLinks");
         PagingNavigationIncrementLink forwardLink = new PagingNavigationIncrementLink( "onepageforward", 
         		classifiedList, 1 );
