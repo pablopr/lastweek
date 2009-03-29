@@ -27,6 +27,15 @@
         </set>
   </class>
 
+	<query name="findUserDataByEmail" cacheable="true">
+		from UserData ud
+		where ud.email = :email
+	</query>
+	
+	<query name="findUserDataByPhone" cacheable="true">
+		from UserData ud
+		where ud.phone = :phone
+	</query>
   
 </hibernate-mapping>
 
