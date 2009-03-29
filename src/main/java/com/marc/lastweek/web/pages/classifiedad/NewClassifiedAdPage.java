@@ -31,7 +31,7 @@ import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
-import com.marc.lastweek.business.views.classifiedad.NewClassifiedAdTO;
+import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.util.ResourceUtils;
@@ -42,7 +42,7 @@ public class NewClassifiedAdPage extends BasePage {
 	private static final long serialVersionUID = -7976014359463033532L;
 
 
-	protected NewClassifiedAdTO newClassifiedAdTO = new NewClassifiedAdTO();
+	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
@@ -65,7 +65,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 			}){
 
-				private static final long serialVersionUID = 1L;
+				
+				private static final long serialVersionUID = 6730094093871495627L;
 
 				@Override
 				protected void populateItem(ListItem item) {
@@ -117,7 +118,7 @@ public class NewClassifiedAdPage extends BasePage {
 				}
 			}){
 
-				private static final long serialVersionUID = 1L;
+				private static final long serialVersionUID = -5397807417164068536L;
 
 				@Override
 				protected void populateItem(final ListItem item) {

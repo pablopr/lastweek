@@ -24,6 +24,7 @@ import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.util.ViewUtils;
 
 public class FilterByCategoryPage extends BasePage {
 
@@ -63,7 +64,7 @@ public class FilterByCategoryPage extends BasePage {
 				BookmarkablePageLink subcategoryLink = 
 					new BookmarkablePageLink("subcategoryLink",
 						FilterByCategoryPage.class, linkParameters);
-				subcategoryLink.add(new Label("subcategoryName", subcategory.getName()));
+				subcategoryLink.add(new Label("subcategoryName", ViewUtils.labelizer(subcategory.getName())));
 				listItem.add(subcategoryLink);
 			}
 		});
@@ -89,7 +90,7 @@ public class FilterByCategoryPage extends BasePage {
 				BookmarkablePageLink provinceLink = 
 					new BookmarkablePageLink("provinceLink",
 							FilterByProvincePage.class, linkParameters);
-				provinceLink.add(new Label("provinceName", province.getName()));
+				provinceLink.add(new Label("provinceName", ViewUtils.labelizer(province.getName())));
 				listItem.add(provinceLink);
 			}
 		});

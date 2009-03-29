@@ -12,11 +12,19 @@ package com.marc.lastweek.web.pages.classifiedad;
 
 import org.apache.wicket.PageParameters;
 
+import com.marc.lastweek.web.components.ClassifiedAdDetailPanel;
+import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class ClassifiedAdDetailPage extends BasePage {
 
 	public ClassifiedAdDetailPage(PageParameters parameters) {
 		super(parameters);
+		
+		/* TODO: Use this parameters to create current navigation info and link panels */
+		final Long classifiedAdId = Long.valueOf(parameters
+			.getLong(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID));
+		
+		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
 	}
 }
