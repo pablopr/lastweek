@@ -21,7 +21,7 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	private Long subcategoryId;
 	private String email = "";
 	private String phone = "";
-	private Double price = Double.valueOf("-1");
+	private Double price = Double.valueOf("0");
 	private String title = "";
 	private String description = "";
 	

@@ -43,6 +43,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 
 	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
+	protected String categoryName;
+	protected String subcategoryName;
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
@@ -81,6 +83,7 @@ public class NewClassifiedAdPage extends BasePage {
 						@Override
 						public void onClick() {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setCategoryId(categoryId);
+							NewClassifiedAdPage.this.categoryName = categoryName;
 							CategoryPanel.this.setVisible(false);
 							NewClassifiedAdPage.this.subcategoryPanel.setCategoryId(categoryId);
 							NewClassifiedAdPage.this.subcategoryPanel.setVisible(true);
@@ -132,6 +135,7 @@ public class NewClassifiedAdPage extends BasePage {
 						@Override
 						public void onClick() {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setSubcategoryId(subcategoryId);
+							NewClassifiedAdPage.this.subcategoryName = subcategoryName;
 							SubcategoryPanel.this.setVisible(false);
 							NewClassifiedAdPage.this.descriptionPanel.setVisible(true);
 
@@ -202,7 +206,7 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				public void onSubmit() {
-					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(new Double(DescriptionForm.this.price.getModelObjectAsString()));
+					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.descriptionPanel.setVisible(false);
@@ -238,6 +242,7 @@ public class NewClassifiedAdPage extends BasePage {
 					NewClassifiedAdPage.this.newClassifiedAdTO.setPhone(UserDataForm.this.phone.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.userDataPanel.setVisible(false);
+			    	NewClassifiedAdPage.this.checkCreatedAdPanel.setVisible(true);
 				}
 	        	
 	        });
@@ -251,7 +256,79 @@ public class NewClassifiedAdPage extends BasePage {
 
 		public  CheckCreatedAdPanel(final String id) {
 			super(id);
-			CheckCreatedAdPanel.this.setVisible(false);							
+			CheckCreatedAdPanel.this.setVisible(false);	
+			
+			this.add(new Label("classifiedAdCategory", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 6214064755552736602L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.categoryName;
+				}
+			}));
+			this.add(new Label("classifiedAdSubcategory", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 970648523535816386L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.subcategoryName;
+				}
+			}));
+			
+			this.add(new Label("classifiedAdTitle", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 6266642250638714559L;
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.newClassifiedAdTO.getTitle();
+				}
+			}));
+			this.add(new Label("classifiedAdDescription", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 12279343931559149L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.newClassifiedAdTO.getDescription();
+				}
+			}));
+			this.add(new Label("classifiedAdPrice", new LoadableDetachableModel(){
+				private static final long serialVersionUID = -4934863231126478229L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.newClassifiedAdTO.getPrice();
+				}
+			}));
+			
+			this.add(new Label("userDataEmail", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 5750430827354561280L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.newClassifiedAdTO.getEmail();
+				}
+			}));
+			this.add(new Label("userDataPhone", new LoadableDetachableModel(){
+				private static final long serialVersionUID = -3049466790761590794L;
+
+				@Override
+				protected Object load() {
+					return NewClassifiedAdPage.this.newClassifiedAdTO.getPhone();
+				}
+			}));
+			
+			Link confirmationLink = new Link("confirmationLink") {
+
+
+				@Override
+				public void onClick() {
+					
+				}
+
+			};
+
+			confirmationLink.add(new Label("confirmationLabel", "publicar mi anuncio"));
+			this.add(confirmationLink);
+			
 		}
 	
 	}
