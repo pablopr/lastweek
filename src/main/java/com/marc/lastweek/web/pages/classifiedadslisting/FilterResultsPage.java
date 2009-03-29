@@ -22,6 +22,7 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
+import com.marc.lastweek.web.components.SearchBox;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
@@ -61,10 +62,16 @@ public class FilterResultsPage extends BasePage {
 		}
 		
 		
+		
 		/*
 		 * The results panel
 		 */
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
+		/*
+		 * The search form
+		 */
+		this.add(new SearchBox("searchBox", parameters));
 		
 		/*
 		 * Categories
@@ -186,6 +193,12 @@ public class FilterResultsPage extends BasePage {
     				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME,
     						FilterResultsPage.this.categoryName);
                 }
+                if (filterParameters.getProvinceId()!=null) {
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+    						filterParameters.getProvinceId());
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+    						FilterResultsPage.this.provinceName);
+                }
                 
 				BookmarkablePageLink subcategoryLink = 
 					new BookmarkablePageLink("subcategoryLink",
@@ -202,5 +215,7 @@ public class FilterResultsPage extends BasePage {
 		subcategoriesDiv.add(subcategoriesList);
 		this.add(subcategoriesDiv);
 	}
+	
+	
 	
 }
