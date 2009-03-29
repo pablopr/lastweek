@@ -114,8 +114,7 @@ public class FilterResultsPage extends BasePage {
 		 * Provinces
 		 */
 		WebMarkupContainer provincesDiv = new WebMarkupContainer("provincesDiv");
-		ListView provincesList = new ListView("provincesList", 
-				new LoadableProvincesListModel()) {
+		ListView provincesList = new ListView("provincesList") {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
@@ -164,8 +163,7 @@ public class FilterResultsPage extends BasePage {
 		 * Subcategories
 		 */
 		WebMarkupContainer subcategoriesDiv = new WebMarkupContainer("subcategoriesDiv");
-		ListView subcategoriesList = new ListView("subcategoriesList",
-				new LoadableSubcategoriesListModel()) {
+		ListView subcategoriesList = new ListView("subcategoriesList") {
 
 			private static final long serialVersionUID = -5142681180212487928L;
 
@@ -197,7 +195,7 @@ public class FilterResultsPage extends BasePage {
 			}
 		};
 		if (!hasSubcategory && hasCategory) {
-			subcategoriesList.setModel(new LoadableSubcategoriesListModel());
+			subcategoriesList.setModel(new LoadableSubcategoriesListModel(filterParameters.getCategoryId()));
 		} else {
 			subcategoriesList.setVisible(false);
 		}
