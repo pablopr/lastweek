@@ -47,17 +47,17 @@ public class FilterResultsPage extends BasePage {
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
 			hasCategory = true;
 			this.categoryName = parameters.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
-			filterParameters.setCategoryId(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID));
+			filterParameters.setCategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
 			hasSubcategory = true;
 			this.subcategoryName = parameters.getString(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
-			filterParameters.setSubcategoryId(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID));
+			filterParameters.setSubcategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
 			hasProvince = true;
 			this.provinceName = parameters.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
-			filterParameters.setProvinceId(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID));
+			filterParameters.setProvinceId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
 		}
 		
 		

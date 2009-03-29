@@ -76,8 +76,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     protected void init() {
        
         super.init();
-       
-       
+        
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */

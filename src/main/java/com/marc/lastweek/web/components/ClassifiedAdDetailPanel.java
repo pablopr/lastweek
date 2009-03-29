@@ -38,7 +38,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer flag = classifiedAd.getFlag();
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
-		
+
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 		this.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
