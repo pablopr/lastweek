@@ -12,9 +12,11 @@ package com.marc.lastweek.web.components;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.util.ViewUtils;
@@ -22,12 +24,19 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdDetailPanel extends Panel {
 
 	private static final long serialVersionUID = -8566673466529089435L;
-
-	public ClassifiedAdDetailPanel(String id, Long classifiedAdId) {
+	
+	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
 		super(id);
 		
 		final ClassifiedAd classifiedAd = LastweekApplication.get().getGeneralService().find(
 				ClassifiedAd.class, classifiedAdId);
+		
+		final String title = classifiedAd.getTitle();
+		final String description = classifiedAd.getDescription();
+		final Double price = classifiedAd.getPrice();
+		final Integer flag = classifiedAd.getFlag();
+		final Integer state = classifiedAd.getState();
+		final String hashCode = classifiedAd.getHashCode();
 		
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
@@ -49,5 +58,28 @@ public class ClassifiedAdDetailPanel extends Panel {
 		classifiedAdSourceLink.add(new Label("classifiedAdSource", ViewUtils.labelizer(
 				CommonNamingValues.getSourceName(classifiedAd.getSource()))));
 		this.add(classifiedAdSourceLink);
+		// TODO: Put strings in properties files
+		final Label flagClassifiedAdLabel = new Label("flagClassifiedAdSpan", "Marcar anuncio como inapropiado");
+		final Label flaggedClassifiedAdLabel = new Label("flaggedClassifiedAdSpan", 
+				"El anuncio ha sido marcado como inapropiado");
+		flaggedClassifiedAdLabel.setVisible(false);
+		Link flagClassifiedAdLink =  new Link("flagClassifiedAdLink") {
+
+			private static final long serialVersionUID = -4262681914874430193L;
+
+			@Override
+			public void onClick() {
+				ModifiedClassifiedAdTO modifiedClassifiedAdTO = new ModifiedClassifiedAdTO(
+						classifiedAdId, title, description, price, Integer.valueOf(flag.intValue() + 1), 
+						state, hashCode);
+				LastweekApplication.get().getGeneralService().modify(ClassifiedAd.class, modifiedClassifiedAdTO);
+				this.setEnabled(false);
+				flagClassifiedAdLabel.setVisible(false);
+				flaggedClassifiedAdLabel.setVisible(true);
+			}
+		};
+		flagClassifiedAdLink.add(flagClassifiedAdLabel);
+		flagClassifiedAdLink.add(flaggedClassifiedAdLabel);
+		this.add(flagClassifiedAdLink);
 	}
 }
