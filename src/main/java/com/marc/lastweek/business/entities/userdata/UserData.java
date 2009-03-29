@@ -16,6 +16,9 @@ import java.util.Set;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 public class UserData {
+	
+	public static final int STATE_ACTIVE = 0;
+	public static final int STATE_BANNED = 1;
 
 	private Long id;
 	private String name;

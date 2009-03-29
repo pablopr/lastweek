@@ -22,6 +22,7 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
+import com.marc.lastweek.web.components.SearchBox;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
@@ -61,10 +62,16 @@ public class FilterResultsPage extends BasePage {
 		}
 		
 		
+		
 		/*
 		 * The results panel
 		 */
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
+		/*
+		 * The search form
+		 */
+		this.add(new SearchBox("searchBox", parameters));
 		
 		/*
 		 * Categories
@@ -114,8 +121,7 @@ public class FilterResultsPage extends BasePage {
 		 * Provinces
 		 */
 		WebMarkupContainer provincesDiv = new WebMarkupContainer("provincesDiv");
-		ListView provincesList = new ListView("provincesList", 
-				new LoadableProvincesListModel()) {
+		ListView provincesList = new ListView("provincesList") {
 
 			private static final long serialVersionUID = -5843308083402561880L;
 
@@ -164,8 +170,7 @@ public class FilterResultsPage extends BasePage {
 		 * Subcategories
 		 */
 		WebMarkupContainer subcategoriesDiv = new WebMarkupContainer("subcategoriesDiv");
-		ListView subcategoriesList = new ListView("subcategoriesList",
-				new LoadableSubcategoriesListModel()) {
+		ListView subcategoriesList = new ListView("subcategoriesList") {
 
 			private static final long serialVersionUID = -5142681180212487928L;
 
@@ -188,6 +193,12 @@ public class FilterResultsPage extends BasePage {
     				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME,
     						FilterResultsPage.this.categoryName);
                 }
+                if (filterParameters.getProvinceId()!=null) {
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+    						filterParameters.getProvinceId());
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+    						FilterResultsPage.this.provinceName);
+                }
                 
 				BookmarkablePageLink subcategoryLink = 
 					new BookmarkablePageLink("subcategoryLink",
@@ -197,12 +208,14 @@ public class FilterResultsPage extends BasePage {
 			}
 		};
 		if (!hasSubcategory && hasCategory) {
-			subcategoriesList.setModel(new LoadableSubcategoriesListModel());
+			subcategoriesList.setModel(new LoadableSubcategoriesListModel(filterParameters.getCategoryId()));
 		} else {
 			subcategoriesList.setVisible(false);
 		}
 		subcategoriesDiv.add(subcategoriesList);
 		this.add(subcategoriesDiv);
 	}
+	
+	
 	
 }

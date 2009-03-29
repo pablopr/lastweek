@@ -10,6 +10,9 @@
  */
 package com.marc.lastweek.web.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import loc.marc.commons.business.services.general.GeneralService;
 
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -25,9 +28,18 @@ public class LoadableSubcategoriesListModel extends LoadableDetachableModel {
 	@SpringBean
 	GeneralService generalService;
 	
+	private Long id;
+	
+	public LoadableSubcategoriesListModel(Long id) {
+		this.id = id;
+	}
+	
 	@Override
 	protected Object load() {
-		return LastweekApplication.get().getGeneralService().findAll(Subcategory.class);
+		Map<String,Object> parameters = new HashMap<String, Object>();
+        parameters.put("categoryId", this.id);
+
+		return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);
 	}
 
 }
