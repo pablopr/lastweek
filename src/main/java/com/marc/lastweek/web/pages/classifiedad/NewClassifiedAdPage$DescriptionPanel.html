@@ -6,8 +6,27 @@
 		<input type="text" wicket:id="price" /><br />
 		<input type="text" wicket:id="title" /><br />
 		<textarea" wicket:id="description" cols="60" rows="6"></textarea><br />
-	    <input type="reset" /><br />
-	    <a href="#" wicket:id="submitLink">submitLink</a>
+		
+		<legend>Upload form with ajax progress bar</legend>
+        <p>
+        <label for="upload">File</label>
+        <input wicket:id="fileInput" id="upload" type="file"/>
+        </p>
+        <span wicket:id="progress">[[ajax upload progressbar]]</span>
+        
+	    <a href="#" wicket:id="submitLink">enviar</a>
 	</form>
+	
+	
+	<div>
+      <h4>Fotos subidas a <span wicket:id="dir">(dir)</span>:</h4>
+      <table>
+        <tr wicket:id="fileList">
+            <td width="200"><span wicket:id="file">(file)</span></td>
+            <td><a href="#" wicket:id="delete"><img src="delete.gif" border="0"/></a></td>
+        </tr>
+      </table>
+    </div>
+	
 	
 </wicket:panel>

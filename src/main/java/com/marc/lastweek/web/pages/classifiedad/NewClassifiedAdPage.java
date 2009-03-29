@@ -10,30 +10,43 @@
  */
 package com.marc.lastweek.web.pages.classifiedad;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
+import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
+import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
+import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.util.ResourceUtils;
 
@@ -46,6 +59,8 @@ public class NewClassifiedAdPage extends BasePage {
 	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
 	protected String categoryName;
 	protected String subcategoryName;
+	protected String provinceName;
+	protected ProvincePanel provincePanel ;
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
@@ -53,16 +68,61 @@ public class NewClassifiedAdPage extends BasePage {
 	protected CheckCreatedAdPanel checkCreatedAdPanel;
 	protected FeedbackPanel feedbackPanel;
 	
+	
+	
+	
+	private class ProvincePanel extends Panel {
+
+		private static final long serialVersionUID = -7936905418698062099L;
+
+		public ProvincePanel(String id) {
+			super(id);
+			this.add(new ListView("provinceList", 
+					new LoadableProvincesListModel()) {
+
+				private static final long serialVersionUID = -5843308083402561880L;
+
+				@Override
+				protected void populateItem(ListItem listItem) {
+					Province province = (Province)listItem.getModelObject();
+					final Long provinceId = province.getId();
+					final String provinceName = province.getName();
+					
+					Link provinceLink = new Link("provinceLink") {
+
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void onClick() {
+							NewClassifiedAdPage.this.newClassifiedAdTO.setProvinceId(provinceId);
+							NewClassifiedAdPage.this.provinceName = provinceName;
+							ProvincePanel.this.setVisible(false);
+							
+							NewClassifiedAdPage.this.categoryPanel.setVisible(true);
+						}
+					};
+
+					provinceLink.add(new Label("provinceLabel",provinceName));
+					listItem.add(provinceLink);
+		        }
+			});
+		}
+
+	}
+
+
+	
 	private class CategoryPanel extends Panel {
 
 		private static final long serialVersionUID = -1266334687818119105L;
 
 		public CategoryPanel(String id) {
 			super(id);
-			add(new ListView("category", new LoadableCategoriesListModel()) {
+			CategoryPanel.this.setVisible(false);
+			this.add(new ListView("category", new LoadableCategoriesListModel()) {
 				
 				private static final long serialVersionUID = 6730094093871495627L;
-
+ 
 				@Override
 				protected void populateItem(ListItem item) {
 					Category  category = (Category)item.getModelObject();
@@ -105,7 +165,7 @@ public class NewClassifiedAdPage extends BasePage {
 	private class SubcategoryPanel extends Panel {
 
 		private static final long serialVersionUID = 7478601607373577524L;
-		protected Long categoryId = null;
+		protected Long categoryId ;
 
 		public  SubcategoryPanel(final String id) {
 			super(id);
@@ -116,10 +176,12 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				protected Object load() {
-						Map<String,Object> parameters = new HashMap<String,Object>();
-						parameters.put("categoryId",SubcategoryPanel.this.categoryId);
-						return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId",parameters);					
+					Map<String,Object> parameters = new HashMap<String, Object>();
+			        parameters.put("categoryId", SubcategoryPanel.this.categoryId);
+
+					return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);
 				}
+				
 			}){
 
 				private static final long serialVersionUID = -5397807417164068536L;
@@ -166,6 +228,15 @@ public class NewClassifiedAdPage extends BasePage {
 			super(id);
 			DescriptionPanel.this.setVisible(false);							
  			add(new DescriptionForm("descriptionForm"));
+ 			add(new Label("dir", NewClassifiedAdPage.this.getUploadFolder().getAbsolutePath()));
+ 			FileListView fileListView = new FileListView("fileList", new LoadableDetachableModel(){
+				private static final long serialVersionUID = 4896378814518090123L;
+				@Override
+ 	            protected List<File> load(){
+ 	                return Arrays.asList(getUploadFolder().listFiles());
+ 	            }
+ 	        });
+ 	        add(fileListView);
 		}
 	
 	}
@@ -182,16 +253,42 @@ public class NewClassifiedAdPage extends BasePage {
 		}
 	
 	}
+	
+	private class FileListView extends ListView{
+		private static final long serialVersionUID = 3201538754791639716L;
 
+        public FileListView(String name, final IModel files){
+            super(name, files);
+        }
+
+        @Override
+        protected void populateItem(ListItem listItem) {
+            final File file = (File)listItem.getModelObject();
+            listItem.add(new Label("file", file.getName()));
+            listItem.add(new Link("delete"){
+				private static final long serialVersionUID = -346244936373700794L;
+
+				@Override
+                public void onClick(){
+                    Files.remove(file);
+                    info("Deleted " + file);
+                }
+            });
+        }
+    }
+	
 	private class DescriptionForm extends Form {
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final TextField price;
 		protected final RequiredTextField title;
 		protected final TextArea description;
+		private final FileUploadField fileUploadField;
 	    
 
 	    public DescriptionForm(String id) {
 	        super(id);
+	        setMultiPart(true);
+	        
 	        this.price = new TextField("price", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPrice()), Double.class);
 	        this.price.setLabel(ResourceUtils.createResourceModel("newclassifiedad.form.price", NewClassifiedAdPage.this)); 
 
@@ -201,20 +298,43 @@ public class NewClassifiedAdPage extends BasePage {
 	        add(this.price);
 	        add(this.title);
 	        add(this.description);
+	        add(new UploadProgressBar("progress", this));
+	        add(this.fileUploadField = new FileUploadField("fileInput"));
 	        add(new SubmitLink("submitLink"){
-
-				private static final long serialVersionUID = 8056648125766325902L;
-
-				@Override
+	        	
+				private static final long serialVersionUID = 6132023129800501758L;
+				
+				final FileUpload upload = DescriptionForm.this.fileUploadField.getFileUpload();
+	        	
+	        	@Override
 				public void onSubmit() {
+					if (upload != null) {
+		            	
+		                // Create a new file
+		                File newFile = new File(getUploadFolder(), upload.getClientFileName());
+	
+		                // Check new file, delete if it allready existed
+		                NewClassifiedAdPage.this.checkFileExists(newFile);
+		                try{
+		                    // Save to new file
+		                    newFile.createNewFile();
+		                    upload.writeTo(newFile);
+	
+		                    NewClassifiedAdPage.this.info("saved file: " + upload.getClientFileName());
+		                }
+		                catch (Exception e) {
+		                    throw new IllegalStateException("Unable to write file");
+		                }
+					}
 					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
 			    	NewClassifiedAdPage.this.descriptionPanel.setVisible(false);
 					NewClassifiedAdPage.this.userDataPanel.setVisible(true);
-				}
-	        	
+	        	}
 	        });
+	        
+	        setMaxSize(Bytes.kilobytes(100));
 	    }
 	}
 	
@@ -322,7 +442,6 @@ public class NewClassifiedAdPage extends BasePage {
 				public void onClick() {
 					
 					//TODO finish the creation of userData and classifiedAd
-					NewClassifiedAdPage.this.newClassifiedAdTO.setProvinceId(Long.valueOf(1));
 					NewClassifiedAdPage.this.newClassifiedAdTO.setState(Integer.valueOf(1));
 					NewClassifiedAdPage.this.newClassifiedAdTO.setFlag(Integer.valueOf(0));
 					NewClassifiedAdPage.this.newClassifiedAdTO.setSource(Integer.valueOf(1));
@@ -341,7 +460,9 @@ public class NewClassifiedAdPage extends BasePage {
 	}
 
 	public NewClassifiedAdPage() {
-		super();	
+		super();
+		this.provincePanel = new ProvincePanel("provincePanel");
+		add(this.provincePanel);
 		this.categoryPanel = new CategoryPanel("categoryPanel");
 		add(this.categoryPanel);
 		this.subcategoryPanel = new SubcategoryPanel("subcategoryPanel");
@@ -369,6 +490,17 @@ public class NewClassifiedAdPage extends BasePage {
 	}
 
 
-
+	protected Folder getUploadFolder(){
+        return ((LastweekApplication)Application.get()).getUploadFolder();
+    }
+	
+	protected void checkFileExists(File newFile){
+        if (newFile.exists()){
+            // Try to delete the file
+            if (!Files.remove(newFile)){
+                throw new IllegalStateException("Unable to overwrite " + newFile.getAbsolutePath());
+            }
+        }
+    }
 
 }
