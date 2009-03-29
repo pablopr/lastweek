@@ -25,7 +25,7 @@ public class NewClassifiedAdTO implements Serializable {
 	private static final long serialVersionUID = 6846761775612804953L;
 	private Long categoryId;
 	private Long subcategoryId;
-	private Double price = Double.valueOf("-1");
+	private Double price = Double.valueOf("0");
 	private String title = "";
 	private String description = "";
 	private Long userDataId;
