@@ -47,6 +47,7 @@ public class NewClassifiedAdPage extends BasePage {
 	protected SubcategoryPanel subcategoryPanel;
 	protected DescriptionPanel descriptionPanel;
 	protected UserDataPanel userDataPanel;
+	protected CheckCreatedAdPanel checkCreatedAdPanel;
 
 	private class CategoryPanel extends Panel {
 
@@ -242,6 +243,17 @@ public class NewClassifiedAdPage extends BasePage {
 	    }
 	}
 
+	
+	private class CheckCreatedAdPanel extends Panel {
+
+		private static final long serialVersionUID = -7322178890866291550L;
+
+		public  CheckCreatedAdPanel(final String id) {
+			super(id);
+			CheckCreatedAdPanel.this.setVisible(false);							
+		}
+	
+	}
 
 	public NewClassifiedAdPage() {
 		super();	
@@ -253,6 +265,8 @@ public class NewClassifiedAdPage extends BasePage {
 		add(this.descriptionPanel);
 		this.userDataPanel = new UserDataPanel("userDataPanel");
 		add(this.userDataPanel);
+		this.checkCreatedAdPanel = new CheckCreatedAdPanel("checkCreatedAdPanel");
+		add(this.checkCreatedAdPanel);
 		
 		
 		
