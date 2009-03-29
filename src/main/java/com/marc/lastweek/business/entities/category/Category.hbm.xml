@@ -8,8 +8,7 @@
         <cache usage="nonstrict-read-write" />
   
         <id name="id" column="ID" unsaved-value="null">
-            <generator class="assigned" >
-            </generator>
+			<generator class="native" />
         </id>
          
         <property name="name" column="NAME" not-null="true" unique="true"/>
