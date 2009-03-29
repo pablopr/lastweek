@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
@@ -37,7 +38,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer flag = classifiedAd.getFlag();
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
-		
+
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 		this.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
@@ -60,9 +61,6 @@ public class ClassifiedAdDetailPanel extends Panel {
 		this.add(classifiedAdSourceLink);
 		// TODO: Put strings in properties files
 		final Label flagClassifiedAdLabel = new Label("flagClassifiedAdSpan", "Marcar anuncio como inapropiado");
-		final Label flaggedClassifiedAdLabel = new Label("flaggedClassifiedAdSpan", 
-				"El anuncio ha sido marcado como inapropiado");
-		flaggedClassifiedAdLabel.setVisible(false);
 		Link flagClassifiedAdLink =  new Link("flagClassifiedAdLink") {
 
 			private static final long serialVersionUID = -4262681914874430193L;
@@ -74,12 +72,10 @@ public class ClassifiedAdDetailPanel extends Panel {
 						state, hashCode);
 				LastweekApplication.get().getGeneralService().modify(ClassifiedAd.class, modifiedClassifiedAdTO);
 				this.setEnabled(false);
-				flagClassifiedAdLabel.setVisible(false);
-				flaggedClassifiedAdLabel.setVisible(true);
+				flagClassifiedAdLabel.setModel(new Model("El anuncio ha sido marcado como inapropiado."));
 			}
 		};
 		flagClassifiedAdLink.add(flagClassifiedAdLabel);
-		flagClassifiedAdLink.add(flaggedClassifiedAdLabel);
 		this.add(flagClassifiedAdLink);
 	}
 }

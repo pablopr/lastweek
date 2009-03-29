@@ -20,7 +20,7 @@ public final class PageParametersNaming {
 
 	public static final String PARAM_NAME_CLASSIFIED_AD_ID = "clid";
 
-	public static final String PARAM_NAME_SEARCH_TERM = "search";
+	public static final String PARAM_NAME_SEARCH_TERM = "filter";
 	
 }
 

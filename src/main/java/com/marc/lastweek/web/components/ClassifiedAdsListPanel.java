@@ -46,7 +46,6 @@ public class ClassifiedAdsListPanel extends Panel {
 			protected void populateItem(Item item) {
 				ClassifiedAd classifiedAd = (ClassifiedAd)item.getModelObject();
 				
-				// TODO: add image, add province and category
 				// TODO: look if all parameters must be present in URL for SEO
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
@@ -71,6 +70,17 @@ public class ClassifiedAdsListPanel extends Panel {
             paginationLinks.setVisible(false);
         }
         this.add(paginationLinks);
+        
+     // No results
+        WebMarkupContainer noResultsDiv = new WebMarkupContainer("noResults");
+        this.add(noResultsDiv);
+
+        if (classifiedList.getDataProvider().size() != 0) {
+            noResultsDiv.setVisible(false);
+        } else {
+        	paginationLinks.setVisible(false);
+        }
+
 	}
 
 	class FilterCalssifiedAdsProvider implements IDataProvider  {

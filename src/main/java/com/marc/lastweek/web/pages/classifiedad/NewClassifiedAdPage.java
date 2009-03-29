@@ -441,10 +441,6 @@ public class NewClassifiedAdPage extends BasePage {
 				@Override
 				public void onClick() {
 					
-					//TODO finish the creation of userData and classifiedAd
-					NewClassifiedAdPage.this.newClassifiedAdTO.setState(Integer.valueOf(1));
-					NewClassifiedAdPage.this.newClassifiedAdTO.setFlag(Integer.valueOf(0));
-					NewClassifiedAdPage.this.newClassifiedAdTO.setSource(Integer.valueOf(1));
 					LastweekApplication.get().getClassifiedService().createClassifiedAd(NewClassifiedAdPage.this.newClassifiedAdTO);
 					
 					NewClassifiedAdPage.this.info("se ha creado correctamente");

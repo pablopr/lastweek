@@ -22,6 +22,7 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
+import com.marc.lastweek.web.components.SearchBox;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
@@ -47,24 +48,30 @@ public class FilterResultsPage extends BasePage {
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
 			hasCategory = true;
 			this.categoryName = parameters.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
-			filterParameters.setCategoryId(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID));
+			filterParameters.setCategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
 			hasSubcategory = true;
 			this.subcategoryName = parameters.getString(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
-			filterParameters.setSubcategoryId(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID));
+			filterParameters.setSubcategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
 			hasProvince = true;
 			this.provinceName = parameters.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
-			filterParameters.setProvinceId(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID));
+			filterParameters.setProvinceId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
 		}
+		
 		
 		
 		/*
 		 * The results panel
 		 */
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
+		/*
+		 * The search form
+		 */
+		this.add(new SearchBox("searchBox", parameters));
 		
 		/*
 		 * Categories
@@ -186,6 +193,12 @@ public class FilterResultsPage extends BasePage {
     				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME,
     						FilterResultsPage.this.categoryName);
                 }
+                if (filterParameters.getProvinceId()!=null) {
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
+    						filterParameters.getProvinceId());
+    				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
+    						FilterResultsPage.this.provinceName);
+                }
                 
 				BookmarkablePageLink subcategoryLink = 
 					new BookmarkablePageLink("subcategoryLink",
@@ -202,5 +215,7 @@ public class FilterResultsPage extends BasePage {
 		subcategoriesDiv.add(subcategoriesList);
 		this.add(subcategoriesDiv);
 	}
+	
+	
 	
 }
