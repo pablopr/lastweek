@@ -50,9 +50,6 @@ public class NewClassifiedAdTO implements Serializable {
 		this.setProvinceId(newClassifiedAdAndUserDataTO.getProvinceId());
 		this.setCreationDate(new GregorianCalendar());
 		this.setPublicationDate(new GregorianCalendar());
-		this.setSource(newClassifiedAdAndUserDataTO.getSource());
-		this.setFlag(newClassifiedAdAndUserDataTO.getFlag());
-		this.setState(newClassifiedAdAndUserDataTO.getState());
 		this.setHashCode(newClassifiedAdAndUserDataTO.getHashCode());
 		
 	}
