@@ -36,17 +36,34 @@ public class FilterParametersPanel extends Panel {
 		
 		List<Filter> filtersList = initFilters(parameters);
 		
-		this.add(new ListView("filtersList", filtersList) {
+		this.add(new ListView("filterList", filtersList) {
 			private static final long serialVersionUID = 1194050258065567480L;
 
 			@Override
 			protected void populateItem(ListItem item) {
+				PageParameters newParameters = (PageParameters) parameters.clone();
 				Filter filter = (Filter)item.getModelObject();
-				this.add(new Label("filterType", ResourceUtils.createResourceModel(filter.getFilterType(),
+				item.add(new Label("filterType", ResourceUtils.createResourceModel(filter.getFilterType(),
 						FilterParametersPanel.this)));
-				this.add(new Label("filterValue", filter.getFilterValue()));
-				parameters.remove(filter.getFilterType());
-				this.add(new BookmarkablePageLink("filter-delete",FilterResultsPage.class,parameters));
+				item.add(new Label("filterValue", filter.getFilterValue()));
+
+				newParameters.remove(filter.getFilterType());
+				if (!filter.getFilterType().equals(PageParametersNaming.PARAM_NAME_SEARCH_TERM)) {
+					newParameters.remove(filter.getFilterName());
+				}
+				
+				// If category is removed, then subcategory is removed too
+				if (filter.getFilterType().equals(PageParametersNaming.PARAM_NAME_CATEGORY_ID)) {
+					if (newParameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
+						newParameters.remove(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID);
+						newParameters.remove(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
+					}
+				}
+				if (newParameters.size()>1) {
+					item.add(new BookmarkablePageLink("deleteLink",FilterResultsPage.class,newParameters));
+				} else {
+					item.add(new BookmarkablePageLink("deleteLink",LastweekApplication.get().getHomePage()));
+				}
 			}
 			
 		});
@@ -60,7 +77,8 @@ public class FilterParametersPanel extends Panel {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 					null,
-					parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM)));
+					parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM),
+					null));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
 			Category category = LastweekApplication.get().getGeneralService().get(Category.class, 
@@ -68,7 +86,8 @@ public class FilterParametersPanel extends Panel {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_CATEGORY_ID,
 					category.getId(),
-					category.getName()));
+					category.getName(),
+					PageParametersNaming.PARAM_NAME_CATEGORY_NAME));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
 			Subcategory subcategory = LastweekApplication.get().getGeneralService().get(Subcategory.class, 
@@ -76,7 +95,8 @@ public class FilterParametersPanel extends Panel {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
 					subcategory.getId(),
-					subcategory.getName()));
+					subcategory.getName(),
+					PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
 			Province province = LastweekApplication.get().getGeneralService().get(Province.class, 
@@ -84,7 +104,8 @@ public class FilterParametersPanel extends Panel {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_PROVINCE_ID,
 					province.getId(),
-					province.getName()));
+					province.getName(),
+					PageParametersNaming.PARAM_NAME_PROVINCE_NAME));
 		}
 		
 		return filtersList;

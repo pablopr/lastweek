@@ -34,11 +34,12 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
 
-	private static final int RESULTS_PER_PAGE = 10; 
+	private static final int RESULTS_PER_PAGE = 2; 
 
 	public ClassifiedAdsListPanel(String id, final FilterParameters filterParameters) {
 		super(id);
-
+		
+		WebMarkupContainer classifiedListBox = new WebMarkupContainer("classifiedListBox");
 		DataView classifiedList = new DataView("classifiedAdsList", new FilterCalssifiedAdsProvider(filterParameters), RESULTS_PER_PAGE){
 			private static final long serialVersionUID = 8440379131631972878L;
 
@@ -58,7 +59,10 @@ public class ClassifiedAdsListPanel extends Panel {
                 		ClassifiedAdDetailPage.class, linkParameters));
 			}
 		};
-		this.add(classifiedList);
+		classifiedListBox.add(classifiedList);
+		classifiedListBox.setOutputMarkupId(true);
+		this.add(classifiedListBox);
+		
         WebMarkupContainer paginationLinks = new WebMarkupContainer("paginationLinks");
         PagingNavigationIncrementLink forwardLink = new PagingNavigationIncrementLink( "onepageforward", 
         		classifiedList, 1 );

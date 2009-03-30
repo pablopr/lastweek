@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
+import org.apache.commons.lang.Validate;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -21,6 +22,7 @@ import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
 import com.marc.lastweek.web.components.SearchBox;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
@@ -28,6 +30,7 @@ import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.util.ViewUtils;
 
 public class FilterResultsPage extends BasePage {
 
@@ -43,24 +46,33 @@ public class FilterResultsPage extends BasePage {
 		boolean hasProvince = false;
 		
 		final FilterParameters filterParameters = new FilterParameters();
+		int paramCounter = 0;
 		
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM)!=null) {
+			paramCounter++;
 			filterParameters.setSearchString(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
 			hasCategory = true;
+			paramCounter++;
 			this.categoryName = parameters.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
 			filterParameters.setCategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
 			hasSubcategory = true;
+			paramCounter++;
 			this.subcategoryName = parameters.getString(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
 			filterParameters.setSubcategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
 			hasProvince = true;
+			paramCounter++;
 			this.provinceName = parameters.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
 			filterParameters.setProvinceId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
+		}
+		
+		if(paramCounter==0) {
+			setResponsePage(LastweekApplication.get().getHomePage());
 		}
 		
 		
@@ -74,6 +86,11 @@ public class FilterResultsPage extends BasePage {
 		 * The search form
 		 */
 		this.add(new SearchBox("searchBox", parameters));
+		
+		/*
+		 * The filter parameters panel
+		 */
+		this.add(new FilterParametersPanel("filterParameters", parameters));
 		
 		/*
 		 * Categories
@@ -91,7 +108,7 @@ public class FilterResultsPage extends BasePage {
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
-                		category.getName());
+                		ViewUtils.normalize(category.getName()));
                 if (filterParameters.getSearchString()!=null) {
                     linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                     		filterParameters.getSearchString());
@@ -100,7 +117,7 @@ public class FilterResultsPage extends BasePage {
     				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID,
     						filterParameters.getProvinceId());
     				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME,
-    						FilterResultsPage.this.provinceName);
+    						ViewUtils.normalize(FilterResultsPage.this.provinceName));
                 }
 
                 BookmarkablePageLink categoryLink = 
@@ -135,7 +152,7 @@ public class FilterResultsPage extends BasePage {
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
                 		province.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
-                		province.getName());
+                		ViewUtils.normalize(province.getName()));
                 if (filterParameters.getSearchString()!=null) {
                     linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                     		filterParameters.getSearchString());
