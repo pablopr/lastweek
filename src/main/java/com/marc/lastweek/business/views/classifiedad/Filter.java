@@ -11,6 +11,8 @@
 package com.marc.lastweek.business.views.classifiedad;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Filter implements Serializable {
 
@@ -19,12 +21,14 @@ public class Filter implements Serializable {
 	private String filterType;
 	private Long id;
 	private String filterValue;
-	
-	public Filter(String filterType, Long id, String filterValue) {
+	private String filterName;
+	public Filter(String filterType, Long id, String filterValue,
+			String filterName) {
 		super();
 		this.filterType = filterType;
 		this.id = id;
 		this.filterValue = filterValue;
+		this.filterName = filterName;
 	}
 	
 	public String getFilterType() {
@@ -49,5 +53,14 @@ public class Filter implements Serializable {
 	
 	public void setFilterValue(String filterValue) {
 		this.filterValue = filterValue;
+	}
+	
+	public String getFilterName() {
+		return this.filterName;
+	}
+	
+	public void setFilterName(String filterName) {
+		this.filterName = filterName;
 	}	
+	
 }

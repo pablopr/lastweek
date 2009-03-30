@@ -25,12 +25,18 @@ public class ViewUtils {
     
     public static String normalize(String text) {
         String normalizedtext = text;
-        normalizedtext = normalizedtext.replace ('à','a');
-        normalizedtext = normalizedtext.replace ('é','e');
-        normalizedtext = normalizedtext.replace ('í','i');
-        normalizedtext = normalizedtext.replace ('ó','o');
-        normalizedtext = normalizedtext.replace ('ú','u'); 
-        normalizedtext = normalizedtext.replace ('ñ','n');
+        normalizedtext = normalizedtext.replace ('‡','a');
+        normalizedtext = normalizedtext.replace ('Ž','e');
+        normalizedtext = normalizedtext.replace ('’','i');
+        normalizedtext = normalizedtext.replace ('œ','o');
+        normalizedtext = normalizedtext.replace ('œ','u');
+        normalizedtext = normalizedtext.replace ('–','n');
+        normalizedtext = normalizedtext.replace ('ç','A');
+        normalizedtext = normalizedtext.replace ('ƒ','E');
+        normalizedtext = normalizedtext.replace ('ê','I');
+        normalizedtext = normalizedtext.replace ('î','O');
+        normalizedtext = normalizedtext.replace ('ò','U'); 
+        normalizedtext = normalizedtext.replace ('„','N');
         return normalizedtext;
     }
 }
