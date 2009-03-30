@@ -333,8 +333,10 @@ public class NewClassifiedAdPage extends BasePage {
 			                try{
 			                	
 			                    //TODO check if creation succed
-			                    tempFile.renameTo(tempFile);
-		
+			                    tempFile.renameTo(newFile);
+			                    
+//			                    NewClassifiedAdPage.this.checkFileExists(tempFile);
+			                    
 			                    NewClassifiedAdPage.this.info("saved file: " + fileName);
 			                }
 			                catch (Exception e) {

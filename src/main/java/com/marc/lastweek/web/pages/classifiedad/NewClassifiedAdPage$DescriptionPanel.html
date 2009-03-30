@@ -1,36 +1,51 @@
+<div id="left-col" >
 
+</div>
+<div id="central-col" >
 <wicket:panel>
-	<form wicket:id="descriptionForm">
-	    <span>Detalles del anuncio</span> <br />
-	    <label></label>
-		<input type="text" wicket:id="price" /><br />
-		<input type="text" wicket:id="title" /><br />
-		<textarea" wicket:id="description" cols="60" rows="6"></textarea><br />
-        
-	    <a href="#" wicket:id="submitLink">enviar</a>
-	</form>
-	
-	<form wicket:id="fileUploadForm">
-		    <span>Sube tus fotos</span> <br />
-		    <label></label>
+        <div class="filter-box" >
+        	<div style="width: 450px">
+			<form wicket:id="descriptionForm">
+			    <h1>Detalles del anuncio</h1> 
+			    <label>Precio</label>
+				<input type="text" wicket:id="price" /><br /> <br />
+				<label>Titulo</label>
+				<input type="text" wicket:id="title" /><br /><br />
+				<label>Descripci—n</label> <br />
+				<textarea" wicket:id="description" cols=45" rows="6"></textarea><br />
+		        
+		        <div>
+					<a href="#" wicket:id="submitLink">siguiente paso</a>
+				</div>
+			</form>
 			
-	        <p>
-	        <label for="upload">File</label>
-	        <input wicket:id="fileInput" id="upload" type="file"/>
-	        </p>
-	        <input type="submit" value="Upload!"/>
-        	<span wicket:id="progress">[[ajax upload progressbar]]</span>
-	</form>
-	
-	<div>
-      <h4>Fotos subidas a <span wicket:id="dir">(dir)</span>:</h4>
-      <table>
-        <tr wicket:id="fileList">
-            <td width="200"><span wicket:id="file">(file)</span></td>
-            <td><a href="#" wicket:id="delete"><img src="delete.gif" border="0"/></a></td>
-        </tr>
-      </table>
-    </div>
-	
+			<form wicket:id="fileUploadForm">
+				    <span>Sube tus fotos</span> <br />
+				    <label></label>
+					
+			        <p>
+			        <label for="upload">Imagenes</label>
+			        <input wicket:id="fileInput" id="upload" type="file"/>
+			        </p>
+			        <input type="submit" value="Sube esta!"/>
+		        	<span wicket:id="progress">[[ajax upload progressbar]]</span>
+			</form>
+			</div>
+		
+			<div>
+		      <h4>Fotos subidas a <span wicket:id="dir">(dir)</span>:</h4>
+		      <table>
+		        <tr wicket:id="fileList">
+		            <td width="200"><span wicket:id="file">(file)</span></td>
+		            <td><a href="#" wicket:id="delete"><img src="delete.gif" border="0"/></a></td>
+		        </tr>
+		      </table>
+		    </div>
+   		</div>
 	
 </wicket:panel>
+</div>
+
+
+<div id="right-col" >
+</div>
