@@ -247,7 +247,7 @@ public class NewClassifiedAdPage extends BasePage {
 				private static final long serialVersionUID = 4896378814518090123L;
 				@Override
  	            protected List<File> load(){
- 	                return Arrays.asList(getUploadFolder().listFiles());
+ 	                return Arrays.asList(getTemporalUploadFolder().listFiles());
  	            }
  	        });
  	        add(fileListView);
