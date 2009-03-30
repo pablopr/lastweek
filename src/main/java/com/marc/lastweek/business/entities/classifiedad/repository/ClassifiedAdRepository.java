@@ -29,6 +29,8 @@ public class ClassifiedAdRepository {
 
 	public List<ClassifiedAd> filterAdvertisements(FilterParameters parameters, int start, int count) {
         Criteria criteriaQuery = advancedSearchQueyConstructor(parameters); 
+        criteriaQuery.setFirstResult(start);
+        criteriaQuery.setFetchSize(count);
         return criteriaQuery.list();
 	}
 
