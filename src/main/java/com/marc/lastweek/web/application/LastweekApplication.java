@@ -102,7 +102,6 @@ public class LastweekApplication extends AuthenticatedWebApplication {
          * Remove wicket tags from result HTML
          */
         getMarkupSettings().setStripWicketTags(true);
-       
     }  
    
     /*

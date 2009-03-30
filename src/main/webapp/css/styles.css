@@ -1,0 +1,152 @@
+body {
+    font-family: "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    margin: 0px;
+}
+
+pre {
+    font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera 4 - 6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+
+#header {
+    background-color: #0F67A1;
+    color:#FFFFFF;
+    height: 48px;
+}
+
+#main-content {
+    width: 950px;
+    margin: auto;
+    display: table;
+}
+
+#right-col {
+    float:right;
+    width:250px;
+}
+
+#left-box {
+    float:left;
+    width:700px;
+}
+
+#central-col {
+    float:right;
+    width:450px;
+}
+    
+#left-col {
+    float:left;
+    width:250px;
+}
+
+#footer {
+    display:block;
+    position:relative;
+}
+
+.app-name {
+    width: 950px;
+    margin: auto;
+    padding-top:9px;
+    display:block;
+    padding-left: 50px;
+}
+
+.logo {
+    background-image:url(../images/logo.png);
+    background-repeat:no-repeat;
+    height:30px;
+    width: 124px;
+    display: block;
+}
+
+.page-title {
+
+}
+
+.page-title a,.page-title a:hover, .page-title a:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.search-box {
+    float:right;
+    margin-right:50px;
+    margin-top:-34px;
+    color:#FFFFFF;
+    position:relative;
+    display:block;
+    font-style:italic;
+    font-size:1.2em;
+    padding:2px 8px;
+}
+
+.search-input {
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background:#FFFFFF none repeat scroll 0 0;
+    border:1px solid #AAAAAA;
+    color:#333333;
+    height:19px;
+    line-height:1;
+    padding:2px 5px;
+    width:150px;
+    font-size:1.1em;
+}
+
+.search-box a, .search-box a:hover,.search-box a:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.filter-box {
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background-color:#F0F0F0;
+    margin:20px;
+    padding:20px;
+}
+
+.filter-box a,.filter-box  a:hover {
+    color:#696969;
+    text-decoration: none;
+}
+    
+
+.classified-ads-list {
+    padding:20px;
+}
+
+.classified-ad-summary {
+    border-bottom:1px dashed #696969;
+}
+
+.classified-ad-summary table{
+    width: 100%;
+}
+
+/* override of the default attributes */
+ul,ol {
+    padding: 0px;
+    margin: 0px;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+}
+
+
+img {
+    border: 0px;
+}

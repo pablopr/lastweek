@@ -22,5 +22,16 @@ public class ViewUtils {
     public static String labelizer(Object obj) {
         return labelizer(obj, "dd/MM/yyyy");
     }
+    
+    public static String normalize(String text) {
+        String normalizedtext = text;
+        normalizedtext = normalizedtext.replace ('à','a');
+        normalizedtext = normalizedtext.replace ('é','e');
+        normalizedtext = normalizedtext.replace ('í','i');
+        normalizedtext = normalizedtext.replace ('ó','o');
+        normalizedtext = normalizedtext.replace ('ú','u'); 
+        normalizedtext = normalizedtext.replace ('ñ','n');
+        return normalizedtext;
+    }
 }
 
