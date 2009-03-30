@@ -6,37 +6,38 @@
 
 <wicket:panel>
     <div class="classified-ads-list">
-		<ul>
-			<li wicket:id="classifiedAdsList" class="classified-ad-summary">
-				<table>
-					<tr>
-						<td colspan="2">
-							<span wicket:id="classifiedAdTitle"/>
-						</td>
-						<td>
-							<span wicket:id="classifiedAdPublicationDate"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<!--  <span wicket:id="classifiedAdImage"/> -->
-						</td>
-						<td>
-							<span wicket:id="classifiedAdDescription"/>
-						</td>
-						<td>
-							<span wicket:id="classifiedAdPrice"/> <br/>
-							<a wicket:id="classifiedAdLink" href="">
-								Ver detalles
-							</a>
-						</td>
-					</tr>
-				</table>
-			</li>
-		</ul>
-		<div class="right" wicket:id="paginationLinks">
-        	<input wicket:id="onepagebackward" class="manage-button" type="submit" value="Pag. Anterior" />
-        	<input wicket:id="onepageforward" class="manage-button" type="submit" value="Pag. Siguiente" />
+    	<div wicket:id="classifiedListBox">
+			<ul>
+				<li wicket:id="classifiedAdsList" class="classified-ad-summary">
+					<table>
+						<tr>
+							<td colspan="2">
+								<span wicket:id="classifiedAdTitle"/>
+							</td>
+							<td>
+								<span wicket:id="classifiedAdPublicationDate"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<!--  <span wicket:id="classifiedAdImage"/> -->
+							</td>
+							<td>
+								<span wicket:id="classifiedAdDescription"/>
+							</td>
+							<td>
+								<span wicket:id="classifiedAdPrice"/> <br/>
+								<a wicket:id="classifiedAdLink" href="">
+									Ver detalles
+								</a>
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</div>
+		<div class="pagination" wicket:id="paginationLinks">
+        	<a wicket:id="onepagebackward" href="#">Pag. Anterior</a> - <a wicket:id="onepageforward" href="#">Pag. Siguiente</a>
     	</div>
     	<div wicket:id="noResults">
         	<span>No hay resultados para esta secci&oacute;n</span>
