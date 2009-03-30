@@ -18,6 +18,8 @@ import java.util.Map;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -77,7 +79,9 @@ public class NewClassifiedAdPage extends BasePage {
 
 		public ProvincePanel(String id) {
 			super(id);
-			this.add(new ListView("provinceList", 
+			this.setOutputMarkupId(true);
+			this.setOutputMarkupPlaceholderTag(true);
+			this.add(new ListView("province", 
 					new LoadableProvincesListModel()) {
 
 				private static final long serialVersionUID = -5843308083402561880L;
@@ -88,17 +92,21 @@ public class NewClassifiedAdPage extends BasePage {
 					final Long provinceId = province.getId();
 					final String provinceName = province.getName();
 					
-					Link provinceLink = new Link("provinceLink") {
+					Link provinceLink = new AjaxFallbackLink("provinceLink") {
 
 						private static final long serialVersionUID = 1L;
 
 						@Override
-						public void onClick() {
+						public void onClick(AjaxRequestTarget target) {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setProvinceId(provinceId);
 							NewClassifiedAdPage.this.provinceName = provinceName;
-							ProvincePanel.this.setVisible(false);
-							
+							ProvincePanel.this.setVisible(false);					
 							NewClassifiedAdPage.this.categoryPanel.setVisible(true);
+							if (target != null) {
+								target.addComponent(ProvincePanel.this);
+								target.addComponent(NewClassifiedAdPage.this.categoryPanel);
+							}
+							
 						}
 					};
 
@@ -118,6 +126,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 		public CategoryPanel(String id) {
 			super(id);
+			this.setOutputMarkupId(true);
+			this.setOutputMarkupPlaceholderTag(true);
 			CategoryPanel.this.setVisible(false);
 			this.add(new ListView("category", new LoadableCategoriesListModel()) {
 				
@@ -130,13 +140,13 @@ public class NewClassifiedAdPage extends BasePage {
 					final String categoryName = category.getName();
 					final int countSubcategories = category.getSubcategories().size();
 					
-					Link categoryLink = new Link("categoryLink") {
+					Link categoryLink = new AjaxFallbackLink("categoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
 
 
 						@Override
-						public void onClick() {
+						public void onClick(AjaxRequestTarget target) {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setCategoryId(categoryId);
 							NewClassifiedAdPage.this.categoryName = categoryName;
 							CategoryPanel.this.setVisible(false);
@@ -147,6 +157,11 @@ public class NewClassifiedAdPage extends BasePage {
 							else{
 								NewClassifiedAdPage.this.subcategoryPanel.setCategoryId(categoryId);
 								NewClassifiedAdPage.this.subcategoryPanel.setVisible(true);
+							}
+							if (target != null) {
+								target.addComponent(NewClassifiedAdPage.this.descriptionPanel);
+								target.addComponent(NewClassifiedAdPage.this.subcategoryPanel);
+								target.addComponent(CategoryPanel.this);
 							}
 						}
 
@@ -170,6 +185,8 @@ public class NewClassifiedAdPage extends BasePage {
 		public  SubcategoryPanel(final String id) {
 			super(id);
 			SubcategoryPanel.this.setVisible(false);
+			this.setOutputMarkupId(true);
+			this.setOutputMarkupPlaceholderTag(true);
 			add(new ListView("subcategory",new LoadableDetachableModel() {
 
 				private static final long serialVersionUID = 5737843643543228915L;
@@ -191,17 +208,20 @@ public class NewClassifiedAdPage extends BasePage {
 					Subcategory subcategory = (Subcategory)item.getModelObject();
 					final Long subcategoryId = subcategory.getId();
 					final String subcategoryName = subcategory.getName();
-					Link categoryLink = new Link("subcategoryLink") {
+					Link categoryLink = new AjaxFallbackLink("subcategoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
 
 						@Override
-						public void onClick() {
+						public void onClick(AjaxRequestTarget target) {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setSubcategoryId(subcategoryId);
 							NewClassifiedAdPage.this.subcategoryName = subcategoryName;
 							SubcategoryPanel.this.setVisible(false);
 							NewClassifiedAdPage.this.descriptionPanel.setVisible(true);
-
+							if (target != null) {
+								target.addComponent(SubcategoryPanel.this);
+								target.addComponent(NewClassifiedAdPage.this.descriptionPanel);
+							}
 						}
 
 					};				
@@ -226,6 +246,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 		public  DescriptionPanel(final String id) {
 			super(id);
+			this.setOutputMarkupId(true);
+			this.setOutputMarkupPlaceholderTag(true);
 			DescriptionPanel.this.setVisible(false);							
  			add(new DescriptionForm("descriptionForm"));
  			add(new Label("dir", NewClassifiedAdPage.this.getUploadFolder().getAbsolutePath()));
@@ -248,6 +270,8 @@ public class NewClassifiedAdPage extends BasePage {
 
 		public  UserDataPanel(final String id) {
 			super(id);
+			this.setOutputMarkupId(true);
+			this.setOutputMarkupPlaceholderTag(true);
 			UserDataPanel.this.setVisible(false);							
  			add(new UserDataForm("userDataForm"));
 		}

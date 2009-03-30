@@ -2,10 +2,12 @@
 <wicket:panel>
 	<form wicket:id="descriptionForm">
 	    <span>Detalles del anuncio</span> <br />
-	    <label></label>
-		<input type="text" wicket:id="price" /><br />
-		<input type="text" wicket:id="title" /><br />
-		<textarea" wicket:id="description" cols="60" rows="6"></textarea><br />
+	    <label for="price"> <wicket:message key="descriptionpanel.form.price"/></label>
+		<input id="price" type="text" wicket:id="price" /><br />
+		<label for="title"><wicket:message key="descriptionpanel.form.title"/></label>
+		<input id="title" type="text" wicket:id="title" /><br />
+		<label for="description"><wicket:message key="descriptionpanel.form.description"/></label> <br />
+		<textarea id="description" wicket:id="description" cols="60" rows="6"></textarea><br />
 		
 		<legend>Upload form with ajax progress bar</legend>
         <p>
