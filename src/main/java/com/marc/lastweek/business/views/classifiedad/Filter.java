@@ -11,8 +11,6 @@
 package com.marc.lastweek.business.views.classifiedad;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Filter implements Serializable {
 

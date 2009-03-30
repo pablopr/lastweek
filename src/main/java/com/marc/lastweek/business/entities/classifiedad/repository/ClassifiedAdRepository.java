@@ -27,6 +27,7 @@ public class ClassifiedAdRepository {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@SuppressWarnings("unchecked")
 	public List<ClassifiedAd> filterAdvertisements(FilterParameters parameters, int start, int count) {
         Criteria criteriaQuery = advancedSearchQueyConstructor(parameters); 
         criteriaQuery.setFirstResult(start);

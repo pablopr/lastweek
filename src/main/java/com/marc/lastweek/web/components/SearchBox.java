@@ -38,18 +38,18 @@ public class SearchBox  extends Panel {
 			super(id);
 
 			this.parameters = parameters; 
-			searchInput = new TextField("searchInput", new Model());
-			this.add(searchInput);
+			this.searchInput = new TextField("searchInput", new Model());
+			this.add(this.searchInput);
 			this.add(new SubmitLink("searchLink"));
 		}
 		
 		@Override
 		public void onSubmit() {
-			String searchTerm = (String) searchInput.getModelObject();
+			String searchTerm = (String) this.searchInput.getModelObject();
 			if (searchTerm!=null) {
-				parameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
+				this.parameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
 						searchTerm);
-				setResponsePage(FilterResultsPage.class, parameters);
+				setResponsePage(FilterResultsPage.class, this.parameters);
 			}
 		}
 	}

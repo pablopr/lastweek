@@ -11,33 +11,6 @@
 package com.marc.lastweek.business.services.images.impl;
 
 import com.marc.lastweek.business.services.images.ImageService;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-
-import java.util.Date;
-import java.util.UUID;
-
-import java.awt.Image;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import java.awt.geom.AffineTransform;
-
-import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class ImageServiceImpl implements ImageService{
 //    // CONSTANTS
