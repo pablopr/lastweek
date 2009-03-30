@@ -33,7 +33,6 @@ import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
-import com.marc.lastweek.web.util.ResourceUtils;
 
 
 @Component
@@ -103,7 +102,6 @@ public class LastweekApplication extends AuthenticatedWebApplication {
          * Remove wicket tags from result HTML
          */
         getMarkupSettings().setStripWicketTags(true);
-       
     }  
    
     /*
