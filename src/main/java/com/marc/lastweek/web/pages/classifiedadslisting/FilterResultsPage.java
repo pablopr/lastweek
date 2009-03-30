@@ -36,6 +36,8 @@ public class FilterResultsPage extends BasePage {
 	protected String provinceName = "";
 	
 	public FilterResultsPage(PageParameters parameters) {
+	    super(parameters);
+	    
 		boolean hasCategory = false;
 		boolean hasSubcategory = false;
 		boolean hasProvince = false;
@@ -112,7 +114,7 @@ public class FilterResultsPage extends BasePage {
 		if (!hasCategory) {
 			categoiresList.setModel(new LoadableCategoriesListModel());
 		} else {
-			categoiresList.setVisible(false);
+		    categoriesDiv.setVisible(false);
 		}
 		categoriesDiv.add(categoiresList);
 		this.add(categoriesDiv);
@@ -161,7 +163,7 @@ public class FilterResultsPage extends BasePage {
 		if (!hasProvince) {
 			provincesList.setModel(new LoadableProvincesListModel());
 		} else {
-			provincesList.setVisible(false);
+		    provincesDiv.setVisible(false);
 		}
 		provincesDiv.add(provincesList);
 		this.add(provincesDiv);
@@ -210,7 +212,7 @@ public class FilterResultsPage extends BasePage {
 		if (!hasSubcategory && hasCategory) {
 			subcategoriesList.setModel(new LoadableSubcategoriesListModel(filterParameters.getCategoryId()));
 		} else {
-			subcategoriesList.setVisible(false);
+		    subcategoriesDiv.setVisible(false);
 		}
 		subcategoriesDiv.add(subcategoriesList);
 		this.add(subcategoriesDiv);

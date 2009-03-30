@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+    <div id="filters-box">
+		<span>Filtrando por:</span>&nbsp;
+		<div wicket:id="filterList" class="filter">
+			<span wicket:id="filterType">[type]</span>&nbsp;
+			<span wicket:id="filterValue" class="filter-value">[value]</span>
+			<div class="filter-delete"><a wicket:id="deleteLink" href="#">x</a></div>
+		</div>
+    </div>
+</wicket:panel>
+
+</body>
+</html>
