@@ -31,6 +31,7 @@ public class ViewUtils {
         normalizedtext = normalizedtext.replace ('ó','o');
         normalizedtext = normalizedtext.replace ('ú','u'); 
         normalizedtext = normalizedtext.replace ('ñ','n');
+        normalizedtext = normalizedtext.replace ('¤', 'n');
         return normalizedtext;
     }
 }
