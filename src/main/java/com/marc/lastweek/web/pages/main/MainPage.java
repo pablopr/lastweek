@@ -26,6 +26,7 @@ import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
 import com.marc.lastweek.web.pages.classifiedad.NewClassifiedAdPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
+import com.marc.lastweek.web.util.ViewUtils;
 
 
 public class MainPage extends BasePage {
@@ -50,7 +51,7 @@ public class MainPage extends BasePage {
 				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
 						category.getId());
 				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
-						category.getName());
+						ViewUtils.normalize(category.getName()));
 
 				BookmarkablePageLink categoryLink = 
 					new BookmarkablePageLink("categoryLink", 
@@ -72,7 +73,7 @@ public class MainPage extends BasePage {
 				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
 						province.getId());
 				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
-						province.getName());
+				        ViewUtils.normalize(province.getName()));
 				BookmarkablePageLink provinceLink = 
 					new BookmarkablePageLink("provinceLink", 
 							FilterResultsPage.class, linkParameters);

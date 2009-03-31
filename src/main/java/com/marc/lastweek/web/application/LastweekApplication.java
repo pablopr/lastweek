@@ -33,13 +33,13 @@ import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.SignInSession;
-import com.marc.lastweek.web.util.ResourceUtils;
 
 
 @Component
 public class LastweekApplication extends AuthenticatedWebApplication {
 
 	private Folder uploadFolder = null;
+	private Folder temporalUploadFolder = null;
 	
     @Autowired
     private AaaService aaaService;
@@ -80,10 +80,15 @@ public class LastweekApplication extends AuthenticatedWebApplication {
        
         super.init();
         
+        //TODO change this -> upload folder
         this.uploadFolder = new Folder("/var/tmp/lastweek", "wicket-uploads");
         // Ensure folder exists
         this.uploadFolder.mkdirs();
-       
+        
+        this.temporalUploadFolder = new Folder("/var/tmp/lastweek", "wicket-uploads-temp");
+        // Ensure folder exists
+        this.temporalUploadFolder.mkdirs();
+        
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
@@ -103,7 +108,6 @@ public class LastweekApplication extends AuthenticatedWebApplication {
          * Remove wicket tags from result HTML
          */
         getMarkupSettings().setStripWicketTags(true);
-       
     }  
    
     /*
@@ -146,5 +150,11 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     public Folder getUploadFolder() {
         return this.uploadFolder;
     }
+    
+    public Folder getTemporalUploadFolder() {
+        return this.temporalUploadFolder;
+    }
+    
+    
 }
 
