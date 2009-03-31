@@ -8,6 +8,9 @@
 	<div wicket:id="searchBox"/>
     
      <div id="right-col" >
+        <div class="new-ad-box">
+            <a href="#" wicket:id="createNewAd">A&ntilde;ade tu anuncio<br/>Es gratis<br/>Es fresco</a>
+        </div>
         <div class="filter-box" wicket:id="provincesDiv">
             <ul>
                 <li wicket:id="provincesList">
@@ -23,33 +26,36 @@
     
     <div id="left-box">
     
-	    <div id="central-col" wicket:id="classifiedAdsPanel"></div>
-        <div id="left-col">
-        	<div class="filter-box" wicket:id="subcategoriesDiv">
-        		<ul>
-        			<li wicket:id="subcategoriesList">
-        				<a wicket:id="subcategoryLink" href="">
-        					<span wicket:id="subcategoryName">
-        						[Subcategory]
-        					</span>
-        				</a>
-        			</li>
-        		</ul>
-        	</div>
-        
-        	<div class="filter-box" wicket:id="categoriesDiv">
-        		<ul>
-        			<li wicket:id="categoriesList">
-        				<a wicket:id="categoryLink" href="">
-        					<span wicket:id="categoryName">
-        						[Category]
-        					</span>
-        				</a>
-        			</li>
-        		</ul>
-        	</div>
-        </div>
+	    <div id="central-col">
+ 		    <div wicket:id="filterParameters"/>
+	    	<div wicket:id="classifiedAdsPanel"/>
+	    </div>
+	    <div id="left-col">
+	    	<div class="filter-box" wicket:id="subcategoriesDiv">
+	    		<ul>
+	    			<li wicket:id="subcategoriesList">
+	    				<a wicket:id="subcategoryLink" href="">
+	    					<span wicket:id="subcategoryName">
+	    						[Subcategory]
+	    					</span>
+	    				</a>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    
+	    	<div class="filter-box" wicket:id="categoriesDiv">
+	    		<ul>
+	    			<li wicket:id="categoriesList">
+	    				<a wicket:id="categoryLink" href="">
+	    					<span wicket:id="categoryName">
+	    						[Category]
+	    					</span>
+	    				</a>
+	    			</li>
+	    		</ul>
+	    	</div>
     </div>
+</div>
 </wicket:extend>
 
 </body>

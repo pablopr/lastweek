@@ -9,11 +9,14 @@
  */
 package com.marc.lastweek.web.session;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.wicket.Request;
 import org.apache.wicket.Session;
 import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authorization.strategies.role.Roles;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.views.aaa.AuthenticatedUserData;
@@ -22,12 +25,13 @@ import com.marc.lastweek.commons.exceptions.IncorrectLoginException;
 
 public class SignInSession extends AuthenticatedWebSession {    
     private static final long serialVersionUID = 6817054705718877022L;
-
-    @SpringBean
+    
+    @Autowired
     AaaService aaaService;
     
     private AuthenticatedUserData user = null;
     private final Roles roles;
+    private Set<Long> favorites;
 
     
     public SignInSession(Request request) {
@@ -41,6 +45,7 @@ public class SignInSession extends AuthenticatedWebSession {
 
         this.user = null;
         this.roles.clear();
+        this.favorites = new HashSet<Long>();
 
         try {
             this.user = aaaService.loginUser(username, password);
@@ -79,5 +84,17 @@ public class SignInSession extends AuthenticatedWebSession {
     public static SignInSession get() {
         return (SignInSession) Session.get();
     }
+    
+    public Set<Long> getFavorites() {
+		return this.favorites;
+	}
+	
+	public void addFavorite(Long id) {
+		this.favorites.add(id);
+	}
+	
+	public void removeFavorite(Long id) {
+		this.favorites.remove(id);
+	}
 
 }
