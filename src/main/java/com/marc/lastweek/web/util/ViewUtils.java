@@ -25,6 +25,7 @@ public class ViewUtils {
     
     public static String normalize(String text) {
         String normalizedtext = text;
+
         normalizedtext = normalizedtext.replace ('‡','a');
         normalizedtext = normalizedtext.replace ('Ž','e');
         normalizedtext = normalizedtext.replace ('’','i');
@@ -37,6 +38,7 @@ public class ViewUtils {
         normalizedtext = normalizedtext.replace ('î','O');
         normalizedtext = normalizedtext.replace ('ò','U'); 
         normalizedtext = normalizedtext.replace ('„','N');
+
         return normalizedtext;
     }
 }

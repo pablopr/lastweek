@@ -60,6 +60,7 @@ pre {
     background-color:#F0F0F0;
     margin:10px;
     padding:10px;
+    border:2px solid #AAAAAA;
 }
 
 .app-name {
@@ -79,7 +80,6 @@ pre {
 }
 
 .page-title {
-
 }
 
 .page-title a,.page-title a:hover, .page-title a:visited {
@@ -90,7 +90,7 @@ pre {
 .search-box {
     float:right;
     margin-right:50px;
-    margin-top:-34px;
+    margin-top:-37px;
     color:#FFFFFF;
     position:relative;
     display:block;
@@ -125,8 +125,8 @@ pre {
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
     background-color:#F0F0F0;
-    margin:10px;
     padding:20px;
+    margin:10px;
 }
 
 .filter-box a,.filter-box  a:hover {
@@ -161,17 +161,42 @@ pre {
     -moz-border-radius-bottomright:10px;
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
-    width: 17px;
-    height: 17px;
+    width: 19px;
+    height: 19px;
     display: inline-block;
     background-color: #696969;
     text-align:center;
-	vertical-align:middle;
 }
 
 .filter-delete a, .filter-delete a:hover, .filter-delete a:visited {
     text-decoration: none;
     color: #FFFFFF;
+}
+
+.new-ad-box {
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background-color: #95CBE9;
+    text-align: center; 
+    color: #0F67A1;
+    margin: 10px;
+    padding:10px;
+}
+
+.new-ad-box a, .new-ad-box a:hover, .new-ad-box a:visited{
+    text-decoration: none;
+    font-size: 2.0em;
+    font-weight: bold;
+    color: #0F67A1;
+}
+
+.Map {
+    background:transparent url(../images/spain_map_1024.gif) no-repeat scroll 0 0;
+    height:335px;
+    margin-top:25px;
+    width:380px;
 }
 
 /* override of the default attributes */

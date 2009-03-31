@@ -59,7 +59,7 @@ public class FilterParametersPanel extends Panel {
 						newParameters.remove(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
 					}
 				}
-				if (newParameters.size()>1) {
+				if (newParameters.size()>=1) {
 					item.add(new BookmarkablePageLink("deleteLink",FilterResultsPage.class,newParameters));
 				} else {
 					item.add(new BookmarkablePageLink("deleteLink",LastweekApplication.get().getHomePage()));
