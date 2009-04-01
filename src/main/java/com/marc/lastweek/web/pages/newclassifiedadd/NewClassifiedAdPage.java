@@ -8,13 +8,12 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.classifiedad;
+package com.marc.lastweek.web.pages.newclassifiedadd;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
@@ -190,7 +189,7 @@ public class NewClassifiedAdPage extends BasePage {
 
 				@Override
 				protected Object load() {
-					Map<String,Object> parameters = new HashMap<String, Object>();
+					HashMap<String,Object> parameters = new HashMap<String, Object>();
 			        parameters.put("categoryId", SubcategoryPanel.this.categoryId);
 
 					return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);

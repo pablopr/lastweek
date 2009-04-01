@@ -29,7 +29,7 @@ import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
-import com.marc.lastweek.web.pages.classifiedad.NewClassifiedAdPage;
+import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdPage;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class FilterResultsPage extends BasePage {
