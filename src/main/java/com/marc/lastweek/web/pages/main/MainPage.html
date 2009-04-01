@@ -6,36 +6,47 @@
 </head>
 <body>
 <wicket:extend>
-	
 	<div wicket:id="searchBox"/>
+	    
+     <div id="right-col" >
+        <div class="new-ad-box">
+            <a href="#" wicket:id="newClassifiedAdLink">A&ntilde;ade tu anuncio<br/>Es gratis<br/>Es fresco</a>
+        </div>
+		<div class="filter-box">
+    		<ul>
+    			<li wicket:id="categoriesList">
+    				<a wicket:id="categoryLink" href="">
+    					<span wicket:id="categoryName">
+    						[Category]
+    					</span>
+    				</a>
+    			</li>
+    		</ul>
+    	</div>
+    </div>
+    
+    <div id="left-box">
+    
+	    <div id="central-col">
 
-	<a href="#" wicket:id="newClassifiedAdLink">Nuevo anuncio</a>
+			<div class="map"/>
 
- 
-
-	<div>
-		<div>
-			<ul>
-				<li wicket:id="provincesList">
-					<a wicket:id="provinceLink" href="">
-						<span wicket:id="provinceName"> [Province] </span> 
-					</a>
-				</li>
-			</ul>
-		</div>
-	
-		<div>
-			<ul>
-				<li wicket:id="categoriesList">
-					<a wicket:id="categoryLink" href=""> 
-						<span wicket:id="categoryName"> [Category] </span> 
-					</a>
-				</li>
-			</ul>
-		</div>
+	    </div>
+	    <div id="left-col">
+	       <div class="filter-box">
+	            <ul>
+	                <li wicket:id="provincesList" class="left-column">
+	                    <a wicket:id="provinceLink" href="">
+	                        <span wicket:id="provinceName">
+	                            [Province]
+	                        </span>
+	                    </a>
+	                </li>
+	            </ul>
+	        </div>
+	    	
+    	</div>
 	</div>
-    
-    
 </wicket:extend>
 </body>
 </html>

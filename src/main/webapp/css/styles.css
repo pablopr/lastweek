@@ -133,7 +133,15 @@ pre {
     color:#696969;
     text-decoration: none;
 }
+
+.left-column {
+	display: block;
+}
     
+.parallel-column {
+	!margin-top: -200px;
+	margin-left: 123px;
+}
 
 .classified-ads-list {
     padding:20px;
@@ -192,7 +200,7 @@ pre {
     color: #0F67A1;
 }
 
-.Map {
+.map {
     background:transparent url(../images/spain_map_1024.gif) no-repeat scroll 0 0;
     height:335px;
     margin-top:25px;
