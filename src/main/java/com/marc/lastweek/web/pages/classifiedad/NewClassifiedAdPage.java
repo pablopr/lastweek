@@ -11,7 +11,6 @@
 package com.marc.lastweek.web.pages.classifiedad;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +20,12 @@ import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
-import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -48,6 +44,7 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.AjaxFileUploadFormPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.pages.BasePage;
@@ -70,7 +67,6 @@ public class NewClassifiedAdPage extends BasePage {
 	protected UserDataPanel userDataPanel;
 	protected CheckCreatedAdPanel checkCreatedAdPanel;
 	protected FeedbackPanel feedbackPanel;
-	protected List<String> temporalFiles ;
 	
 	
 	
@@ -253,26 +249,15 @@ public class NewClassifiedAdPage extends BasePage {
 			DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm", new LoadableDetachableModel(){
 				private static final long serialVersionUID = 4896378814518090123L;
 				@Override
-			     protected List<String> load(){
-			         return NewClassifiedAdPage.this.temporalFiles;
+			     protected List<File> load(){
+			         return Arrays.asList(getTemporalUploadFolder().listFiles());
 			     }
  	        });
 			
  			this.add(descriptionForm);
  			
- 			final UploadTemporalFilesForm ajaxUploadForm = new UploadTemporalFilesForm("fileUploadForm");
-	        ajaxUploadForm.add(new UploadProgressBar("progress", ajaxUploadForm));
-	        this.add(ajaxUploadForm);
- 			
- 			this.add(new Label("dir", NewClassifiedAdPage.this.getUploadFolder().getAbsolutePath()));
- 			FileListView fileListView = new FileListView("fileList", new LoadableDetachableModel(){
-				private static final long serialVersionUID = 4896378814518090123L;
-				@Override
- 	            protected List<File> load(){
- 	                return Arrays.asList(getTemporalUploadFolder().listFiles());
- 	            }
- 	        });
- 	        add(fileListView);
+ 			AjaxFileUploadFormPanel uploadFilesForm = new AjaxFileUploadFormPanel("fileUploadFormPanel");
+ 			this.add(uploadFilesForm);
 		}
 	
 	}
@@ -293,28 +278,6 @@ public class NewClassifiedAdPage extends BasePage {
 	
 	}
 	
-	private class FileListView extends ListView{
-		private static final long serialVersionUID = 3201538754791639716L;
-
-        public FileListView(String name, final IModel files){
-            super(name, files);
-        }
-
-        @Override
-        protected void populateItem(ListItem listItem) {
-            final File file = (File)listItem.getModelObject();
-            listItem.add(new Label("file", file.getName()));
-            listItem.add(new Link("delete"){
-				private static final long serialVersionUID = -346244936373700794L;
-
-				@Override
-                public void onClick(){
-                    Files.remove(file);
-                    info("Deleted " + file);
-                }
-            });
-        }
-    }
 	
 	private class DescriptionForm extends Form {
 		private static final long serialVersionUID = 9053897905303403343L;
@@ -344,24 +307,24 @@ public class NewClassifiedAdPage extends BasePage {
 				@Override
 				public void onSubmit() {
 	        		
-	        		List<String> files = NewClassifiedAdPage.this.temporalFiles;
+	        		List<File> files = Arrays.asList(getTemporalUploadFolder().listFiles());
 	        		
 					if (files != null) {
 		            	
-						for (String fileName : files){
+						for (File file : files){
 							// Create a new file
-			                File newFile = new File(getUploadFolder(), fileName);
-			                File tempFile = new File(getTemporalUploadFolder(), fileName);
+			                File newFile = new File(getUploadFolder(), file.getAbsolutePath());
+			                
 			                // Check new file, delete if it allready existed
 			                NewClassifiedAdPage.this.checkFileExists(newFile);
 			                try{
 			                	
 			                    //TODO check if creation succed
-			                    tempFile.renameTo(newFile);
+			                	file.renameTo(newFile);
 			                    
 //			                    NewClassifiedAdPage.this.checkFileExists(tempFile);
 			                    
-			                    NewClassifiedAdPage.this.info("saved file: " + fileName);
+			                    NewClassifiedAdPage.this.info("saved file: " + file.getAbsolutePath());
 			                }
 			                catch (Exception e) {
 			                    throw new IllegalStateException("Unable to write file");
@@ -382,49 +345,7 @@ public class NewClassifiedAdPage extends BasePage {
 	    
 	}
 	
-	private class UploadTemporalFilesForm extends Form {
-		
-		private static final long serialVersionUID = 2713401468137390764L;
-		protected  FileUploadField fileUploadField;
-		
-	    public UploadTemporalFilesForm(String id) {
-	        super(id);
-	        setMultiPart(true);
-	        
-	        add(this.fileUploadField = new FileUploadField("fileInput"));
-	        setMaxSize(Bytes.kilobytes(100));
-	    }
-	    /**
-         * @see org.apache.wicket.markup.html.form.Form#onSubmit()
-         */
-        @Override
-        protected void onSubmit(){
-        	
-        	final FileUpload upload = UploadTemporalFilesForm.this.fileUploadField.getFileUpload();
-        	
-            if (upload != null){
-            	File newFile = new File(getTemporalUploadFolder(), upload.getClientFileName());
-        		
-                // Check new file, delete if it allready existed
-                NewClassifiedAdPage.this.checkFileExists(newFile);
-                try{
-                    // Save to new file
-                    newFile.createNewFile();
-                    upload.writeTo(newFile);
-
-                    NewClassifiedAdPage.this.info("saved file: " + upload.getClientFileName());
-                }
-                catch (Exception e) {
-                    throw new IllegalStateException("Unable to write file");
-                }
-                if (NewClassifiedAdPage.this.temporalFiles == null){
-                	NewClassifiedAdPage.this.temporalFiles = new  ArrayList<String>();
-                }
-                
-                NewClassifiedAdPage.this.temporalFiles.add(upload.getClientFileName());
-            }
-        }
-	}
+	
 	
 	
 
@@ -579,7 +500,6 @@ public class NewClassifiedAdPage extends BasePage {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	protected Folder getTemporalUploadFolder(){
         return ((LastweekApplication)Application.get()).getTemporalUploadFolder() ;
     }
