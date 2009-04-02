@@ -12,11 +12,20 @@ package com.marc.lastweek.business.entities.classifiedad;
 
 import java.util.Calendar;
 
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
+
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.userdata.UserData;
 
+@Indexed
 public class ClassifiedAd {
 	
 	public static final int SOURCE_OUR = 0;
@@ -28,19 +37,42 @@ public class ClassifiedAd {
 	public static final int STATE_BANNED = 2;
 
 	private Long id;
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String title;
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String description;
+	
 	private Double price;
+	
 	private String sourceURL;
+	
 	private Integer source;
+	
+	@Field(index=Index.UN_TOKENIZED)
 	private Integer flag;
+	
+	@Field(index=Index.UN_TOKENIZED)
 	private Integer state;
+	
 	private String hashCode;
+	
+	@IndexedEmbedded
 	private Category category;
+	
+	// TODO: uncomment embeded indexes 
+	//@IndexedEmbedded
 	private Subcategory subcategory;
+	
+	//@IndexedEmbedded
 	private Province province;
+	
 	private UserData userData;
+	
 	private Calendar creationDate;
+	
+	@DateBridge(resolution = Resolution.DAY)
 	private Calendar publicationDate;
 	
 	
