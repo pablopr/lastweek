@@ -1,6 +1,20 @@
 
 <wicket:panel>
         <div class="filter-box" >
+        	
+        	<div wicket:id="uploadImageAjax"></div>
+        	
+        	<div wicket:id="fileListDiv">
+		      <h4>Fotos subidas hasta ahora:</h4>
+		      <table>
+		        <tr wicket:id="fileList">
+		            <td width="200"><span wicket:id="file">(file)</span></td>
+		            <td><a href="#" wicket:id="delete"><img src="delete.gif" border="0"/></a></td>
+		        </tr>
+		      </table>
+		    </div>
+        	
+        	<p>fin del upload</p>
 			<form wicket:id="descriptionForm">
 			    <span>Detalles del anuncio</span> <br />
 			    <label for="price"> <wicket:message key="descriptionpanel.form.price"/></label>
@@ -14,7 +28,6 @@
 				</div>
 			</form>
 			
-			<div wicket:id="fileUploadFormPanel"></div>
 			
    		</div>
 	
