@@ -13,11 +13,14 @@ package com.marc.lastweek.business.entities.province;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.hibernate.search.annotations.DocumentId;
+
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 
 public class Province {
 	
+    @DocumentId
 	private Long id;
 	private String name;
 	

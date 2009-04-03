@@ -103,10 +103,52 @@
                 </prop>
                 <prop key="hibernate.search.indexing_strategy">
                     ${hibernate.search.indexing_strategy}
-                </prop>                                      
+                </prop>         
+                <prop key="org.hibernate.worker.execution">
+                    ${org.hibernate.worker.execution}
+                </prop>
+                <prop key="org.hibernate.worker.thread_pool.size">
+                    ${org.hibernate.worker.thread_pool.size}
+                </prop>
+                <prop key="org.hibernate.worker.buffer_queue.max">
+                    ${org.hibernate.worker.buffer_queue.max}
+                </prop>
+                <prop key="org.hibernate.worker.batch_size">
+                    ${org.hibernate.worker.batch_size}
+                </prop>
+                <prop key="hibernate.search.reader.strategy">
+                    ${hibernate.search.reader.strategy}
+                </prop>
+                <prop key="hibernate.search.default.transaction.merge_factor">
+                    ${hibernate.search.default.transaction.merge_factor}
+                </prop>
+                <prop key="hibernate.search.default.transaction.max_merge_docs">
+                    ${hibernate.search.default.transaction.max_merge_docs}
+                </prop>
+                <prop key="hibernate.search.default.transaction.max_buffered_docs">
+                    ${hibernate.search.default.transaction.max_buffered_docs}
+                </prop>
+                <prop key="hibernate.search.default.batch.merge_factor">
+                    ${hibernate.search.default.batch.merge_factor}
+                </prop>
+                <prop key="hibernate.search.default.batch.max_merge_docs">
+                    ${hibernate.search.default.batch.max_merge_docs}
+                </prop>
+                <prop key="hibernate.search.default.batch.max_buffered_docs">
+                    ${hibernate.search.default.batch.max_buffered_docs}
+                </prop>
+                <prop key="hibernate.search.default.optimizer.operation_limit.max">
+                    ${hibernate.search.default.optimizer.operation_limit.max}
+                </prop>
+                <prop key="hibernate.search.default.optimizer.transaction_limit.max">
+                    ${hibernate.search.default.optimizer.transaction_limit.max}
+                </prop>                                                 
             </props>
         </property>
         <property name="dataSource" ref="dataSource" />
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
     </bean>
    
     <!-- ******************************************************************* -->
