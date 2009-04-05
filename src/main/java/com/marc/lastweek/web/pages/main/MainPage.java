@@ -80,7 +80,7 @@ public class MainPage extends BasePage {
 							FilterResultsPage.class, linkParameters);
 				provinceLink.add(new Label("provinceName", province.getName()));
 
-				if (listItem.getIndex() > 26) {
+				if (listItem.getIndex()% 2 == 1) {
 					listItem.add(new SimpleAttributeModifier("class", "parallel-column"));
 				}
 
