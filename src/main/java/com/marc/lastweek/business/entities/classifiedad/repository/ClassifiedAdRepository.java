@@ -55,7 +55,7 @@ public class ClassifiedAdRepository {
 		}
 		if (parameters.getSearchString()!=null) {
 			// TODO: how to search in description
-			criteriaQuery.add(Restrictions.ilike("description", "%"+parameters.getSearchString()+"%"));
+			criteriaQuery.add(Restrictions.like("description", "%"+parameters.getSearchString()+"%"));
 		}
 		if (parameters.getSubcategoryId()!=null) {
 			criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));

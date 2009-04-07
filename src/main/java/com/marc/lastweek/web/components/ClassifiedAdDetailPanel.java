@@ -16,6 +16,8 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import sun.nio.cs.HistoricallyNamedCharset;
+
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
@@ -38,12 +40,18 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer flag = classifiedAd.getFlag();
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
-
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 		this.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 		this.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
 		this.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
+		this.add(new Label("provinceName",ViewUtils.labelizer(classifiedAd.getProvince().getName())));
+		this.add(new Label("categoryName",ViewUtils.labelizer(classifiedAd.getCategory().getName())));
+		this.add(new Label("subcategoryName",ViewUtils.labelizer(classifiedAd.getSubcategory().getName())));
+		this.add(new Label("userDataEmail",ViewUtils.labelizer(classifiedAd.getUserData().getEmail())));
+		this.add(new Label("userDataPhone",ViewUtils.labelizer(classifiedAd.getUserData().getPhone())));
+		this.add(new Label("userDataName",ViewUtils.labelizer(classifiedAd.getUserData().getName())));
+		 
 		final int sourceCode = classifiedAd.getSource().intValue();
 		ExternalLink classifiedAdSourceLink = new ExternalLink("classifiedAdSourceLink", classifiedAd.getSourceURL()) {
 
