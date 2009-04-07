@@ -11,6 +11,7 @@
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -29,7 +30,7 @@ import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BasePage;
-import com.marc.lastweek.web.pages.classifiedad.NewClassifiedAdPage;
+import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdPage;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class FilterResultsPage extends BasePage {
@@ -179,6 +180,11 @@ public class FilterResultsPage extends BasePage {
                 	new BookmarkablePageLink("provinceLink", 
                 			FilterResultsPage.class, linkParameters);
                 provinceLink.add(new Label("provinceName", province.getName()));
+                
+                if (listItem.getIndex()% 2 == 1) {
+                    listItem.add(new SimpleAttributeModifier("class", "parallel-column"));
+                }
+                
                 listItem.add(provinceLink);
 	        }
 		};

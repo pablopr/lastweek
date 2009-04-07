@@ -46,8 +46,7 @@ public class ClassifiedAdsListPanel extends Panel {
 			@Override
 			protected void populateItem(Item item) {
 				ClassifiedAd classifiedAd = (ClassifiedAd)item.getModelObject();
-				
-				// TODO: look if all parameters must be present in URL for SEO
+
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));

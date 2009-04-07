@@ -12,11 +12,31 @@ package com.marc.lastweek.business.entities.classifiedad;
 
 import java.util.Calendar;
 
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FullTextFilterDef;
+import org.hibernate.search.annotations.FullTextFilterDefs;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
+
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.userdata.UserData;
+import com.marc.lastweek.business.util.lucene.filters.CategoryFilterFactory;
+import com.marc.lastweek.business.util.lucene.filters.ProvinceFilterFactory;
+import com.marc.lastweek.business.util.lucene.filters.SubcategoryFilterFactory;
 
+@Indexed
+@FullTextFilterDefs( {
+    @FullTextFilterDef(name = "categoryFilter", impl = CategoryFilterFactory.class),
+    @FullTextFilterDef(name = "subcategoryFilter", impl = SubcategoryFilterFactory.class),
+    @FullTextFilterDef(name = "provinceFilter", impl = ProvinceFilterFactory.class)
+})
 public class ClassifiedAd {
 	
 	public static final int SOURCE_OUR = 0;
@@ -27,20 +47,43 @@ public class ClassifiedAd {
 	public static final int STATE_EXPIRED = 1;
 	public static final int STATE_BANNED = 2;
 
+	@DocumentId
 	private Long id;
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String title;
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String description;
+	
 	private Double price;
+	
 	private String sourceURL;
+	
 	private Integer source;
+	
+	@Field(index=Index.UN_TOKENIZED)
 	private Integer flag;
+	
+	@Field(index=Index.UN_TOKENIZED)
 	private Integer state;
+	
 	private String hashCode;
+	
+	@IndexedEmbedded
 	private Category category;
+	
+	@IndexedEmbedded
 	private Subcategory subcategory;
+	
+	@IndexedEmbedded
 	private Province province;
+	
 	private UserData userData;
+	
 	private Calendar creationDate;
+	
+	@DateBridge(resolution = Resolution.DAY)
 	private Calendar publicationDate;
 	
 	

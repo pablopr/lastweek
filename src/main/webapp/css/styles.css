@@ -2,6 +2,13 @@ body {
     font-family: "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
     font-size: 12px;
     margin: 0px;
+    background-color:#F5F5F5;
+}
+
+h1 {
+font-family:verdana;
+font-size:16px;
+margin:0 0 4px;
 }
 
 pre {
@@ -21,6 +28,9 @@ pre {
     height: 48px;
 }
 
+#main {
+    background-color:#FFFFFF;
+}
 #main-content {
     width: 950px;
     margin: auto;
@@ -48,8 +58,15 @@ pre {
 }
 
 #footer {
-    display:block;
-    position:relative;
+    border-top: 3px solid #0F67A1;
+    clear:both;
+    color:#292929;
+<<<<<<< HEAD:src/main/webapp/css/styles.css
+    padding:20px 0;
+=======
+    padding-top:20px;
+>>>>>>> a21cd3e649622458e7aabee8c14a78603b44cfe6:src/main/webapp/css/styles.css
+    text-align: center;
 }
 
 #filter-parameters {
@@ -133,7 +150,16 @@ pre {
     color:#696969;
     text-decoration: none;
 }
+
+.left-column {
+	display: block;
+	padding: 4px;
+}
     
+.parallel-column {
+    margin-left:117px;
+    margin-top:-19px;
+}
 
 .classified-ads-list {
     padding:20px;
@@ -192,11 +218,11 @@ pre {
     color: #0F67A1;
 }
 
-.Map {
-    background:transparent url(../images/spain_map_1024.gif) no-repeat scroll 0 0;
-    height:335px;
-    margin-top:25px;
-    width:380px;
+.map {
+    background:transparent url(../images/mapa.gif) no-repeat scroll 0 0;
+    height:358px;
+    margin:25px auto 0;
+    width:418px;
 }
 
 /* override of the default attributes */
@@ -211,4 +237,22 @@ ul,ol {
 
 img {
     border: 0px;
+}
+
+fieldset table th {
+	font-size:11px;
+	font-weight:normal;
+	padding-right:15px;
+	padding-top:7px;
+	text-align:right;
+	white-space:nowrap;
+}
+
+fieldset table td {
+	font-size:11px;
+	padding-bottom:5px;
+}
+td, th {
+	font-family:verdana;
+	vertical-align:top;
 }

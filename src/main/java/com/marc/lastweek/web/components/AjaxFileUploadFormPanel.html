@@ -1,0 +1,22 @@
+
+<wicket:panel>
+	<form wicket:id="fileUploadForm">
+				    <span>Sube tus fotos</span> <br />
+				    <label></label>
+					
+			        <label for="upload">Imagenes</label>
+			        <input wicket:id="fileInput" id="upload" type="file"/>
+			        <input type="button" wicket:id="save" value="Sube esta!" />
+	</form>
+			
+			<div>
+		      <h4>Fotos subidas a <span wicket:id="dir">(dir)</span>:</h4>
+		      <table>
+		        <tr wicket:id="fileList">
+		            <td width="200"><span wicket:id="file">(file)</span></td>
+		            <td><a href="#" wicket:id="delete"><img src="delete.gif" border="0"/></a></td>
+		        </tr>
+		      </table>
+		    </div>
+			
+</wicket:panel>
