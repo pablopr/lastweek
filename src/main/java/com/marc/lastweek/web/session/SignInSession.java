@@ -48,7 +48,7 @@ public class SignInSession extends AuthenticatedWebSession {
         this.favorites = new HashSet<Long>();
 
         try {
-            this.user = aaaService.loginUser(username, password);
+            this.user = this.aaaService.loginUser(username, password);
             this.roles.addAll(this.user.getRoles());
             return true;
         } catch (IncorrectLoginException e) {

@@ -13,11 +13,14 @@ package com.marc.lastweek.business.entities.category;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.hibernate.search.annotations.DocumentId;
+
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 public class Subcategory {
 	
+    @DocumentId
 	private Long id;
 	private String name;
 	private Category parent;

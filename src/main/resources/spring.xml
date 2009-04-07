@@ -25,7 +25,7 @@
     <!-- and make their values available to the application context so that  -->
     <!-- they can be assigned with "${propertyname}".                        -->
     <!-- ******************************************************************* -->
-    <context:property-placeholder  location="classpath:business.properties" />
+    <context:property-placeholder  location="classpath:business.properties,classpath:hibernate-search.properties" />
 
 
 
@@ -94,9 +94,61 @@
                 <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
                 <prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
                 <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                
+                <prop key="hibernate.search.default.directory_provider">
+                    ${hibernate.search.default.directory_provider}
+                </prop>
+                <prop key="hibernate.search.default.indexBase">
+                    ${hibernate.search.default.indexBase}
+                </prop>
+                <prop key="hibernate.search.indexing_strategy">
+                    ${hibernate.search.indexing_strategy}
+                </prop>         
+                <prop key="org.hibernate.worker.execution">
+                    ${org.hibernate.worker.execution}
+                </prop>
+                <prop key="org.hibernate.worker.thread_pool.size">
+                    ${org.hibernate.worker.thread_pool.size}
+                </prop>
+                <prop key="org.hibernate.worker.buffer_queue.max">
+                    ${org.hibernate.worker.buffer_queue.max}
+                </prop>
+                <prop key="org.hibernate.worker.batch_size">
+                    ${org.hibernate.worker.batch_size}
+                </prop>
+                <prop key="hibernate.search.reader.strategy">
+                    ${hibernate.search.reader.strategy}
+                </prop>
+                <prop key="hibernate.search.default.transaction.merge_factor">
+                    ${hibernate.search.default.transaction.merge_factor}
+                </prop>
+                <prop key="hibernate.search.default.transaction.max_merge_docs">
+                    ${hibernate.search.default.transaction.max_merge_docs}
+                </prop>
+                <prop key="hibernate.search.default.transaction.max_buffered_docs">
+                    ${hibernate.search.default.transaction.max_buffered_docs}
+                </prop>
+                <prop key="hibernate.search.default.batch.merge_factor">
+                    ${hibernate.search.default.batch.merge_factor}
+                </prop>
+                <prop key="hibernate.search.default.batch.max_merge_docs">
+                    ${hibernate.search.default.batch.max_merge_docs}
+                </prop>
+                <prop key="hibernate.search.default.batch.max_buffered_docs">
+                    ${hibernate.search.default.batch.max_buffered_docs}
+                </prop>
+                <prop key="hibernate.search.default.optimizer.operation_limit.max">
+                    ${hibernate.search.default.optimizer.operation_limit.max}
+                </prop>
+                <prop key="hibernate.search.default.optimizer.transaction_limit.max">
+                    ${hibernate.search.default.optimizer.transaction_limit.max}
+                </prop>                                                 
             </props>
         </property>
         <property name="dataSource" ref="dataSource" />
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
     </bean>
    
     <!-- ******************************************************************* -->
@@ -128,4 +180,10 @@
     <!-- org.springframework.dao.DataAccessException hierarchy.              -->
     <!-- ******************************************************************* -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+    <!-- ******************************************************************* -->
+    <!-- HIBERNATE SEARCH related stuff                                      -->
+    <!-- ******************************************************************* -->
+    <bean id="analyzer" class="${hibernate.search.analyzer}"/>
+    
 </beans>

@@ -20,7 +20,7 @@ public interface ClassifiedAdsService {
 
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count);
 	
-	public int countClassifiedAdsByFilterParameters(FilterParameters parameters);
+	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters);
 	
 	public void createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 }

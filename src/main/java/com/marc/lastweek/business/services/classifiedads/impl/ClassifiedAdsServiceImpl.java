@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.business.services.classifiedads.impl;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,12 +43,20 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	@Autowired
 	private GeneralRepository generalRepository;
 
+	// TODO: add one week before parameter (it actually must come from the controller)
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count) {
-		return this.classifiedAdRespository.filterAdvertisements(parameters, start, count);
+	    if (parameters.getSearchString()!=null) {
+	        return this.classifiedAdRespository.indexBasedSearch(parameters, Calendar.getInstance(),start, count);
+	    } 
+	    return this.classifiedAdRespository.basicSearch(parameters, Calendar.getInstance(),start, count);
+
 	}
 
-	public int countClassifiedAdsByFilterParameters(FilterParameters parameters) {
-		return this.classifiedAdRespository.countFilterAdvertisements(parameters);
+	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters) {
+	    if (parameters.getSearchString()!=null) {
+	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, Calendar.getInstance());
+	    }
+	    return this.classifiedAdRespository.basicSearchCountResults(parameters, Calendar.getInstance());
 	}
 	
 	@Transactional
@@ -79,8 +88,8 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
-		this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
-		
+		ClassifiedAd classifiedAd = this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
+		this.classifiedAdRespository.index(classifiedAd);
 	}
 	
 }
