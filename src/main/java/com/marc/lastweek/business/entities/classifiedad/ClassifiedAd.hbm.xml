@@ -3,46 +3,48 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.marc.lastweek.business.entities.classifiedad">
-  <class name="ClassifiedAd" table="CLASSIFIED_AD">
+	<class name="ClassifiedAd" table="CLASSIFIED_AD">
 
-        <cache usage="nonstrict-read-write" />
-  
-        <id name="id" column="ID" unsaved-value="null">
+		<cache usage="nonstrict-read-write" />
+
+		<id name="id" column="ID" unsaved-value="null">
 			<generator class="native" />
-        </id>
-        
-        
-        <property name="title" column="TITLE" not-null="true" />
-        <property name="price" column="PRICE" />
-        <property name="description" column="DESCRIPTION" />
-        <property name="sourceURL" column="SOURCE_URL" />
-        <property name="source" column="SOURCE" />
-        <property name="flag" column="FLAG" />
-        <property name="state" column="STATE" not-null="true" />
-        <property name="hashCode" column="HASH_CODE" not-null="true" unique="true"/>
-        <property name="creationDate" column="CREATION_DATE" not-null="true" 
-        	type="calendar"/>
-        <property name="publicationDate" column="PUBLICATION_DATE" not-null="true" 
-        	type="calendar"/>
-        
+		</id>
 
-    
-        
-          <many-to-one name="category" column="CATEGORY_ID"
-            class="com.marc.lastweek.business.entities.category.Category"/>
-            
-          <many-to-one name="subcategory" column="SUBCATEGORY_ID"
-            class="com.marc.lastweek.business.entities.category.Subcategory"/>
-            
-          <many-to-one name="province" column="PROVINCE_ID"
-            class="com.marc.lastweek.business.entities.province.Province"/>
-            
-          <many-to-one name="userData" column="USER_DATA_ID"
-            class="com.marc.lastweek.business.entities.userdata.UserData"/>
-        
-  </class>
- 
-  
+
+		<property name="title" column="TITLE" not-null="true" />
+		<property name="price" column="PRICE" />
+		<property name="description" column="DESCRIPTION" />
+		<property name="sourceURL" column="SOURCE_URL" />
+		<property name="source" column="SOURCE" />
+		<property name="flag" column="FLAG" />
+		<property name="state" column="STATE" not-null="true" />
+		<property name="hashCode" column="HASH_CODE" not-null="true"
+			unique="true" />
+		<property name="creationDate" column="CREATION_DATE"
+			not-null="true" type="calendar" />
+		<property name="publicationDate" column="PUBLICATION_DATE"
+			not-null="true" type="calendar" />
+
+
+		<many-to-one name="category" column="CATEGORY_ID"
+			class="com.marc.lastweek.business.entities.category.Category" />
+
+		<many-to-one name="subcategory" column="SUBCATEGORY_ID"
+			class="com.marc.lastweek.business.entities.category.Subcategory" />
+
+		<many-to-one name="province" column="PROVINCE_ID"
+			class="com.marc.lastweek.business.entities.province.Province" />
+
+		<many-to-one name="userData" column="USER_DATA_ID"
+			class="com.marc.lastweek.business.entities.userdata.UserData" />
+
+	</class>
+
+	<query name="getClassifiedAdsInList">
+		from ClassifiedAd where id in (?) 
+	</query>
+
 </hibernate-mapping>
 
          

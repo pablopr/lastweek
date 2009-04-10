@@ -96,5 +96,9 @@ public class SignInSession extends AuthenticatedWebSession {
 	public void removeFavorite(Long id) {
 		this.favorites.remove(id);
 	}
+	
+	public boolean containsFavorite(Long id) {
+		return this.favorites.contains(id);
+	}
 
 }
