@@ -14,31 +14,26 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
-import com.marc.lastweek.web.components.SearchBox;
+import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
+import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
-import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.pages.BaseSearchPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
-import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdPage;
 import com.marc.lastweek.web.util.ViewUtils;
 
 
-public class MainPage extends BasePage {
+public class MainPage extends BaseSearchPage {
 	public MainPage() {
 
-		this.add(new PageLink("newClassifiedAdLink",NewClassifiedAdPage.class));
-
-		/*
-		 * Search Box
-		 */
-		this.add(new SearchBox("searchBox", new PageParameters()));
+		this.add(new CreateNewAdPropagandaPanel("createNewAd"));
+		this.add(new FavoritesPropagandaPanel("favoritesBox"));
 
 		this.add(new ListView("categoriesList", 
 				new LoadableCategoriesListModel()) {

@@ -14,10 +14,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
 import com.marc.lastweek.web.application.LastweekApplication;
-import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.session.LastweekSession;
 
 
-public class BaseAuthPage extends BasePage {
+public class BaseAuthPage extends StandardPage {
 
 
     private static final long serialVersionUID = 2984793382247850718L;
@@ -39,14 +39,14 @@ public class BaseAuthPage extends BasePage {
 
             @Override
             public void onClick() {
-                SignInSession.get().signOut();
+                LastweekSession.get().signOut();
                 setResponsePage(LastweekApplication.get().getSignInPageClass());
             }
 
         };
         this.add(signout);
         
-        this.add(new Label("connectedUser", SignInSession.get().getUserLogin()));
+        this.add(new Label("connectedUser", LastweekSession.get().getUserLogin()));
 
     }
     

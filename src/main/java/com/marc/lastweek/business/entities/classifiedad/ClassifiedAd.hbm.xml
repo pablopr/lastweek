@@ -42,7 +42,7 @@
 	</class>
 
 	<query name="getClassifiedAdsInList">
-		from ClassifiedAd where id in (?) 
+		from ClassifiedAd where id in (:favorites) 
 	</query>
 
 </hibernate-mapping>

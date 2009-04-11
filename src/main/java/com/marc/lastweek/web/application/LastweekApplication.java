@@ -30,9 +30,10 @@ import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 import com.marc.lastweek.web.pages.main.MainPage;
-import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.session.LastweekSession;
 
 
 @Component
@@ -68,7 +69,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
    
     @Override
     protected Class<? extends AuthenticatedWebSession> getWebSessionClass() {
-        return SignInSession.class;
+        return LastweekSession.class;
     }
 
    
@@ -94,6 +95,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
          */
         mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
+        mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
        
        
         /*

@@ -23,17 +23,15 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
-import com.marc.lastweek.web.components.ClassifiedAdsListPanel;
-import com.marc.lastweek.web.components.SearchBox;
+import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
-import com.marc.lastweek.web.pages.BasePage;
-import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdPage;
+import com.marc.lastweek.web.pages.BaseSearchPage;
 import com.marc.lastweek.web.util.ViewUtils;
 
-public class FilterResultsPage extends BasePage {
+public class FilterResultsPage extends BaseSearchPage {
 
 	protected String categoryName = "";
 	protected String subcategoryName = "";
@@ -84,11 +82,6 @@ public class FilterResultsPage extends BasePage {
 		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
 		
 		/*
-		 * The search form
-		 */
-		this.add(new SearchBox("searchBox", parameters));
-		
-		/*
 		 * The filter parameters panel
 		 */
 		this.add(new FilterParametersPanel("filterParameters", parameters));
@@ -96,7 +89,7 @@ public class FilterResultsPage extends BasePage {
 		/*
 		 * Create new ad box
 		 */
-		this.add(new BookmarkablePageLink("createNewAd", NewClassifiedAdPage.class));
+		this.add(new CreateNewAdPropagandaPanel("createNewAd"));
 		
 		/*
 		 * Categories

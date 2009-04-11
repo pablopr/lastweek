@@ -1,4 +1,5 @@
 /*
+ * BasePage.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -16,8 +17,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
 public class BasePage extends WebPage {
 
-    private static final long serialVersionUID = 1133369278126501257L;
-
     private static final String CSS_URL = "css/styles.css";
 
     public BasePage() {
@@ -31,11 +30,7 @@ public class BasePage extends WebPage {
 
         add(HeaderContributor.forCss(CSS_URL));
 
-        /*
-         * Add link to main page in header
-         */
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
-        
+
     }
-    
 }

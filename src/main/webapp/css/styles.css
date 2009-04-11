@@ -6,9 +6,9 @@ body {
 }
 
 h1 {
-font-family:verdana;
-font-size:16px;
-margin:0 0 4px;
+	font-family:verdana;
+	font-size:16px;
+	margin:0 0 4px;
 }
 
 pre {
@@ -31,6 +31,7 @@ pre {
 #main {
     background-color:#FFFFFF;
 }
+
 #main-content {
     width: 950px;
     margin: auto;
@@ -61,11 +62,7 @@ pre {
     border-top: 3px solid #0F67A1;
     clear:both;
     color:#292929;
-<<<<<<< HEAD:src/main/webapp/css/styles.css
     padding:20px 0;
-=======
-    padding-top:20px;
->>>>>>> a21cd3e649622458e7aabee8c14a78603b44cfe6:src/main/webapp/css/styles.css
     text-align: center;
 }
 
@@ -161,6 +158,10 @@ pre {
     margin-top:-19px;
 }
 
+/*
+ * styles for classified ad listing 
+ */
+
 .classified-ads-list {
     padding:20px;
 }
@@ -172,6 +173,10 @@ pre {
 .classified-ad-summary table{
     width: 100%;
 }
+
+.classified-ad-title {
+}
+
 
 .filter-item {
 	display: inline;
@@ -199,6 +204,9 @@ pre {
     color: #FFFFFF;
 }
 
+/*
+ * PROPAGANDA
+ */
 .new-ad-box {
     -moz-border-radius-bottomleft:10px;
     -moz-border-radius-bottomright:10px;
@@ -218,11 +226,73 @@ pre {
     color: #0F67A1;
 }
 
+.favorites-box {
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background-color: #b0ffb4;
+    text-align: center; 
+    color: #35cb00;
+    margin: 10px;
+    padding:10px;
+}
+
+.favorites-box a, .favorites-box a:hover, .favorites-box a:visited{
+    text-decoration: none;
+    font-size: 2.0em;
+    font-weight: bold;
+    color: #35cb00;
+}
+
 .map {
     background:transparent url(../images/mapa.gif) no-repeat scroll 0 0;
     height:358px;
     margin:25px auto 0;
     width:418px;
+}
+
+/* feedback panels */
+
+div.feedbackPanel {
+    display:block;
+	margin:0 150px;
+}
+
+div.feedbackPanel ul {
+     width: 95%;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 5px;
+     padding-top: 0px;
+     padding-bottom: 0px;
+     padding-left: 0px;
+     text-align: center;
+}
+
+div.feedbackPanel ul li {
+    list-style: none;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+    font-weight: bold;
+}
+
+div.feedbackPanel ul li.feedbackPanelERROR {
+    background-color: #ffc9c9;
+    border: 2px solid #FF0000;
+    color: #FF0000;
+}
+
+div.feedbackPanel ul li.feedbackPanelINFO {
+    background-color: #b0ffb4;
+    border: 2px solid #35cb00;
+}
+
+div.feedbackPanel ul li.feedbackPanelWARNING {
+    background-color: #ffebb0;
+    border: 2px solid #f49b19;
 }
 
 /* override of the default attributes */

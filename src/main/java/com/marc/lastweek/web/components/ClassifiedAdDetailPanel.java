@@ -20,8 +20,7 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
-import com.marc.lastweek.web.pages.aaa.SignInPage;
-import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class ClassifiedAdDetailPanel extends Panel {
@@ -87,13 +86,15 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-				SignInSession.get().addFavorite(classifiedAdId);
+				LastweekSession.get().addFavorite(classifiedAdId);
+				info("Anuncio a–adido a favoritos");
+				this.setVisible(false);
 				
 			}
 			
 			@Override
 			public boolean isVisible() {
-				if (sourceCode == ClassifiedAd.SOURCE_OUR)
+				if (LastweekSession.get().containsFavorite(classifiedAdId))
 					return false;
 				return true;
 			}
