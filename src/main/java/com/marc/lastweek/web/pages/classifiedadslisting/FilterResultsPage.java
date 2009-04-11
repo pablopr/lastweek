@@ -24,6 +24,7 @@ import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
+import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.models.LoadableSubcategoriesListModel;
@@ -87,9 +88,10 @@ public class FilterResultsPage extends BaseSearchPage {
 		this.add(new FilterParametersPanel("filterParameters", parameters));
 		
 		/*
-		 * Create new ad box
+		 * Propaganda boxes
 		 */
 		this.add(new CreateNewAdPropagandaPanel("createNewAd"));
+		this.add(new FavoritesPropagandaPanel("favoritesBox"));
 		
 		/*
 		 * Categories

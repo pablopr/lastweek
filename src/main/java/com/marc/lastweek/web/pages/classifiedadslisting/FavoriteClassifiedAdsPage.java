@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,10 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 			}
 		};
 		this.add(classifiedList);
+		
+		// TODO: if list is empty, then add some kind of 'how to use favorites'
+		
+		// TODO: add send by email use case
 	}
 
 	public class LoadableFavoritesModel extends LoadableDetachableModel {
@@ -82,10 +87,13 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 		@Override
 		protected Object load() {
 			List<Long> favoritesList = LastweekSession.get().getFavorites();
+			if (favoritesList.size() > 0) {
 			Map<String,Object> parameters = new HashMap<String, Object>();
 	        parameters.put("favorites", favoritesList);
 			return LastweekApplication.get().getGeneralService().queryForList(ClassifiedAd.class,
 					"getClassifiedAdsInList", parameters);
+			} 
+			return new ArrayList<Long>();
 		}
 
 	}
