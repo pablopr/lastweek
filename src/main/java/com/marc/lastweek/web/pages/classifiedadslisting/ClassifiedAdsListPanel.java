@@ -34,7 +34,7 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
 
-	private static final int RESULTS_PER_PAGE = 2; 
+	private static final int RESULTS_PER_PAGE = 10; 
 
 	public ClassifiedAdsListPanel(String id, final FilterParameters filterParameters) {
 		super(id);
@@ -49,6 +49,7 @@ public class ClassifiedAdsListPanel extends Panel {
 
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
+				// TODO: get only extract from the ad (2 lines)
 				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 				PageParameters linkParameters = new PageParameters();

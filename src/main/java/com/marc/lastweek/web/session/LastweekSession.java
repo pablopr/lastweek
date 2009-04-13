@@ -100,5 +100,9 @@ public class LastweekSession extends AuthenticatedWebSession {
 	public boolean containsFavorite(Long id) {
 		return this.favorites.contains(id);
 	}
+	
+	public int favoritesCount() {
+		return this.favorites.size();
+	}
 
 }

@@ -9,30 +9,19 @@
     	<div wicket:id="classifiedListBox">
 			<ul>
 				<li wicket:id="classifiedAdsList" class="classified-ad-summary">
-					<table>
-						<tr>
-							<td colspan="2">
-								<span class="classified-ad-title" wicket:id="classifiedAdTitle"/>
-							</td>
-							<td>
-								<span wicket:id="classifiedAdPublicationDate"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<!--  <span wicket:id="classifiedAdImage"/> -->
-							</td>
-							<td>
-								<span wicket:id="classifiedAdDescription"/>
-							</td>
-							<td>
-								<span wicket:id="classifiedAdPrice"/> <br/>
-								<a wicket:id="classifiedAdLink" href="">
-									Ver detalles
-								</a>
-							</td>
-						</tr>
-					</table>
+				
+					<div class="classified-ad-image"></div>
+					<div class="classified-ad-body">
+						<div class="classified-ad-main">
+							<div class="classified-ad-title" wicket:id="classifiedAdTitle">[title]</div>
+							<div class="classified-ad-date" wicket:id="classifiedAdPublicationDate">[date]</div>
+							<div class="classified-ad-desc" wicket:id="classifiedAdDescription">[description]</div>
+						</div>
+						<div class="classified-ad-right">
+							<div class="classified-ad-price"><span wicket:id="classifiedAdPrice">[price]</span> Û</div>
+							<div class="classified-ad-details"><a wicket:id="classifiedAdLink" href="#">detalles</a></div>
+						</div>
+					</div>
 				</li>
 			</ul>
 		</div>

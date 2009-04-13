@@ -33,7 +33,6 @@ public class MainPage extends BaseSearchPage {
 	public MainPage() {
 
 		this.add(new CreateNewAdPropagandaPanel("createNewAd"));
-		this.add(new FavoritesPropagandaPanel("favoritesBox"));
 
 		this.add(new ListView("categoriesList", 
 				new LoadableCategoriesListModel()) {

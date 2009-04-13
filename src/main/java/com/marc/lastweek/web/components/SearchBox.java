@@ -12,7 +12,6 @@ package com.marc.lastweek.web.components;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
@@ -40,7 +39,6 @@ public class SearchBox  extends Panel {
 			this.parameters = parameters; 
 			this.searchInput = new TextField("searchInput", new Model());
 			this.add(this.searchInput);
-			this.add(new SubmitLink("searchLink"));
 		}
 		
 		@Override

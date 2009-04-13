@@ -15,6 +15,8 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
+import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
+
 public class BasePage extends WebPage {
 
     private static final String CSS_URL = "css/styles.css";
@@ -31,6 +33,7 @@ public class BasePage extends WebPage {
         add(HeaderContributor.forCss(CSS_URL));
 
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
+		this.add(new FavoritesPropagandaPanel("favoritesBox"));
 
     }
 }
