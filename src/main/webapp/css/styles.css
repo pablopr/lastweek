@@ -2,7 +2,7 @@ body {
     font-family: "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
     font-size: 12px;
     margin: 0px;
-    background-color:#F5F5F5;
+    background-color:#101010;
 }
 
 h1 {
@@ -23,9 +23,9 @@ pre {
 }
 
 #header {
-    background-color: #0F67A1;
-    color:#FFFFFF;
-    height: 48px;
+    color:#FEFEFE;
+    height:109px;
+    border-bottom: 3px solid #90c630;
 }
 
 #main {
@@ -59,7 +59,7 @@ pre {
 }
 
 #footer {
-    border-top: 3px solid #0F67A1;
+    border-top: 3px solid #90c630;
     clear:both;
     color:#292929;
     padding:20px 0;
@@ -80,17 +80,16 @@ pre {
 .app-name {
     width: 950px;
     margin: auto;
-    padding-top:9px;
     display:block;
     padding-left: 50px;
 }
 
 .logo {
-    background-image:url(../images/logo.png);
+    background-image:url(../images/logo2.png);
     background-repeat:no-repeat;
-    height:30px;
-    width: 124px;
     display: block;
+    height: 109px;
+    width: 384px;
 }
 
 .page-title {
