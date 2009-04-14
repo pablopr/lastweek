@@ -10,25 +10,48 @@
  */
 package com.marc.lastweek.business.services.images.impl;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.util.Date;
+import java.util.UUID;
+
+import javax.swing.ImageIcon;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.util.file.File;
+import org.apache.wicket.util.io.ByteArrayOutputStream;
+
 import com.marc.lastweek.business.services.images.ImageService;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class ImageServiceImpl implements ImageService{
-//    // CONSTANTS
-//    
-//    private static final Log logger = LogFactory.getLog(ImageServiceImpl.class);
-//    
-//    // CONSTRUCTORS
-//
-//    /**
-//     * Creates a new instance.
-//     */
-//    public ImageServiceImpl()
-//    {
-//        super();
-//    }
-//    
-//    // MEMBERS
-//
+    // CONSTANTS
+    
+    private static final Log logger = LogFactory.getLog(ImageServiceImpl.class);
+    
+    // CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    public ImageServiceImpl()
+    {
+        super();
+    }
+    
+    // MEMBERS
+
 //    public byte[] getImage(ImageEntry imageEntry)
 //        throws IOException
 //    {

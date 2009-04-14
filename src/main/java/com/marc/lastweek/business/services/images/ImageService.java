@@ -10,7 +10,14 @@
  */
 package com.marc.lastweek.business.services.images;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+
+import org.springframework.transaction.annotation.Transactional;
+
 public interface ImageService{
+	
 //    public byte[] getImage(ImageEntry imageEntry)
 //       throws IOException;
 //    
@@ -24,4 +31,5 @@ public interface ImageService{
 //    @Transactional
 //    public void save(ImageEntry imageEntry, InputStream imageStream)
 //       throws IOException;
+    
 }

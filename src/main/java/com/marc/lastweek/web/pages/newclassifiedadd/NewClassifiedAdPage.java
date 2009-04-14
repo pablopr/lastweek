@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -27,6 +28,7 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -342,6 +344,8 @@ public class NewClassifiedAdPage extends BasePage {
         @Override
         protected void populateItem(ListItem listItem) {
             final File file = (File)listItem.getModelObject();
+            Image wicketImage = new Image("image", new ResourceReference(FileListView.class, file.getName())); 
+            listItem.add(wicketImage);
             listItem.add(new Label("file", file.getName()));
             listItem.add(new Link("delete"){
 				private static final long serialVersionUID = -346244936373700794L;
