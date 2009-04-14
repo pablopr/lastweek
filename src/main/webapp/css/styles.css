@@ -2,12 +2,13 @@ body {
     font-family: "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
     font-size: 12px;
     margin: 0px;
-    background-color:#F5F5F5;
+    background-color:#1E1E1E;
 }
+
 h1 {
-font-family:verdana;
-font-size:16px;
-margin:0 0 4px;
+	font-family:verdana;
+	font-size:16px;
+	margin:0 0 4px;
 }
 
 pre {
@@ -22,14 +23,16 @@ pre {
 }
 
 #header {
-    background-color: #0F67A1;
-    color:#FFFFFF;
-    height: 48px;
+    color:#FEFEFE;
+    height:109px;
+    border-bottom: 3px solid #90c630;
+    background-color:#1E1E1E;
 }
 
 #main {
-    background-color:#FFFFFF;
+    background-color:#FEFEFE;
 }
+
 #main-content {
     width: 950px;
     margin: auto;
@@ -38,29 +41,34 @@ pre {
 
 #right-col {
     float:right;
-    width:250px;
+    width:249px;
+    position:relative;
 }
 
 #left-box {
     float:left;
-    width:700px;
+    width:699px;
+    position:relative;
 }
 
 #central-col {
     float:right;
-    width:450px;
+    width:448px;
+    position:relative;
 }
     
 #left-col {
     float:left;
-    width:250px;
+    width:249px;
+    position:relative;
 }
 
 #footer {
-    border-top: 3px solid #0F67A1;
+    border-top: 3px solid #90c630;
+    background-color:#1E1E1E;
     clear:both;
     color:#292929;
-    padding-top:20px;
+    padding:20px 0;
     text-align: center;
 }
 
@@ -78,17 +86,16 @@ pre {
 .app-name {
     width: 950px;
     margin: auto;
-    padding-top:9px;
     display:block;
     padding-left: 50px;
 }
 
 .logo {
-    background-image:url(../images/logo.png);
+    background-image:url(../images/logo2.png);
     background-repeat:no-repeat;
-    height:30px;
-    width: 124px;
     display: block;
+    height: 109px;
+    width: 384px;
 }
 
 .page-title {
@@ -101,8 +108,8 @@ pre {
 
 .search-box {
     float:right;
-    margin-right:50px;
-    margin-top:-37px;
+    margin-right:5px;
+    margin-top:-40px;
     color:#FFFFFF;
     position:relative;
     display:block;
@@ -112,17 +119,13 @@ pre {
 }
 
 .search-input {
-    -moz-border-radius-bottomleft:10px;
-    -moz-border-radius-bottomright:10px;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
-    background:#FFFFFF none repeat scroll 0 0;
-    border:1px solid #AAAAAA;
+    background:transparent url(../images/search_bg.png) no-repeat scroll 0 50%;
+    border: none;
     color:#333333;
     height:19px;
     line-height:1;
-    padding:2px 5px;
-    width:150px;
+    padding:5px 0 0 27px;
+    width:171px;
     font-size:1.1em;
 }
 
@@ -148,24 +151,86 @@ pre {
 
 .left-column {
 	display: block;
+	padding: 1px;
 }
     
 .parallel-column {
-    margin-left:133px;
-    margin-top:-20px;
+    margin-left:117px;
+    margin-top:-19px;
 }
+
+/*
+ * styles for classified ad listing 
+ */
 
 .classified-ads-list {
     padding:20px;
 }
 
 .classified-ad-summary {
-    border-bottom:1px dashed #696969;
+    border-bottom:1px solid #EEEEEE;
+	height:75px;
+	display: table;
+    position: relative;  
 }
 
-.classified-ad-summary table{
-    width: 100%;
+.classified-ad-body {
+	width: 350px;
+	float: right;
+	position:relative;
+    display:block;
 }
+
+.classified-ad-image{
+	width: 100px;
+	float:left;
+	position:relative;
+	display:block;
+}
+
+.classified-ad-main {
+	width: 270px;
+	float:left;
+	position:relative;
+	display:block;
+}
+
+.classified-ad-right {
+	width: 80px;
+	float: right;
+	position:relative;
+	display:block;
+}	
+
+.classified-ad-title {
+	font-weight: bold;
+	font-size:14px;
+	padding:3px 0;
+}	
+
+.classified-ad-date {
+	color: #696969;
+	font-size: 10px;
+}
+
+.classified-ad-price {
+	font-weight: bold;
+	font-size:14px;
+	padding:3px;
+	background-color: #F0F0F0;
+	text-align: center;
+}
+
+.classified-ad-details {
+	vertical-align: bottom;
+	text-align: right;
+}
+
+.classified-ad-details a, .classified-ad-details a:hover, .classified-ad-details a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+	
 
 .filter-item {
 	display: inline;
@@ -177,15 +242,15 @@ pre {
 }
 
 .filter-delete {
-	-moz-border-radius-bottomleft:10px;
-    -moz-border-radius-bottomright:10px;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
-    width: 19px;
-    height: 19px;
-    display: inline-block;
-    background-color: #696969;
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    background-color:#696969;
+    display:inline-block;
+    height:19px;
     text-align:center;
+    width:19px;
 }
 
 .filter-delete a, .filter-delete a:hover, .filter-delete a:visited {
@@ -193,23 +258,65 @@ pre {
     color: #FFFFFF;
 }
 
+/*
+ * PROPAGANDA
+ */
 .new-ad-box {
     -moz-border-radius-bottomleft:10px;
     -moz-border-radius-bottomright:10px;
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
-    background-color: #95CBE9;
-    text-align: center; 
-    color: #0F67A1;
+    background-color: #90c630;
+    color: #1E1E1E;
     margin: 10px;
     padding:10px;
 }
+.new-ad-main {
+    text-align: center; 
+}
 
-.new-ad-box a, .new-ad-box a:hover, .new-ad-box a:visited{
+.new-ad-main  a, .new-ad-main  a:hover, .new-ad-main  a:visited{
     text-decoration: none;
     font-size: 2.0em;
     font-weight: bold;
-    color: #0F67A1;
+    color: #1E1E1E;
+}
+
+.new-ad-info {
+    text-align:justify;
+}
+
+.new-ad-info  a, .new-ad-info  a:hover, .new-ad-info  a:visited{
+    text-decoration: underlined;
+    font-weight: bold;
+    color: #1E1E1E;
+}
+
+.favorites-box {
+    text-align: center; 
+    margin-top: -96px;
+    font-size: 8px;
+    float:right;
+    position:relative;
+    display:block;
+    margin-right:33px;
+}
+
+.favorites-box a, .favorites-box a:hover, .favorites-box a:visited{
+    text-decoration: none;
+    color: #fefefe;
+}
+
+.favorites-count {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.title {
+	padding: 20px 0;
+	text-align: center;
+	font-weight: bold;
+	font-size: 25px;
 }
 
 .map {
@@ -217,6 +324,57 @@ pre {
     height:358px;
     margin:25px auto 0;
     width:418px;
+}
+
+.show-button {
+    font-size: 1.0em;
+}
+
+.hidden {
+    display: none;
+}
+
+/* FEEDBACK PANELS */
+
+div.feedbackPanel {
+    display:block;
+	margin:0 150px;
+}
+
+div.feedbackPanel ul {
+     width: 95%;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 5px;
+     padding-top: 0px;
+     padding-bottom: 0px;
+     padding-left: 0px;
+     text-align: center;
+}
+
+div.feedbackPanel ul li {
+    list-style: none;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+    font-weight: bold;
+}
+
+div.feedbackPanel ul li.feedbackPanelERROR {
+    background-color: #ffc9c9;
+    border: 2px solid #FF0000;
+    color: #FF0000;
+}
+
+div.feedbackPanel ul li.feedbackPanelINFO {
+    background-color: #b0ffb4;
+    border: 2px solid #35cb00;
+}
+
+div.feedbackPanel ul li.feedbackPanelWARNING {
+    background-color: #ffebb0;
+    border: 2px solid #f49b19;
 }
 
 /* override of the default attributes */

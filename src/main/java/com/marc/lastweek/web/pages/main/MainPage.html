@@ -6,24 +6,7 @@
 </head>
 <body>
 <wicket:extend>
-	<div wicket:id="searchBox"/>
 	    
-     <div id="right-col" >
-        <div class="new-ad-box">
-            <a href="#" wicket:id="newClassifiedAdLink">A&ntilde;ade tu anuncio<br/>Es gratis<br/>Es fresco</a>
-        </div>
-		<div class="filter-box">
-    		<ul>
-    			<li wicket:id="categoriesList">
-    				<a wicket:id="categoryLink" href="">
-    					<span wicket:id="categoryName">
-    						[Category]
-    					</span>
-    				</a>
-    			</li>
-    		</ul>
-    	</div>
-    </div>
     
     <div id="left-box">
     
@@ -47,6 +30,21 @@
 	    	
     	</div>
 	</div>
+    
+    <div id="right-col" >
+        <div wicket:id="createNewAd"/>
+        <div class="filter-box">
+            <ul>
+                <li wicket:id="categoriesList">
+                    <a wicket:id="categoryLink" href="">
+                        <span wicket:id="categoryName">
+                            [Category]
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </wicket:extend>
 </body>
 </html>

@@ -1,139 +1,123 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.marc</groupId>
-    <artifactId>MARC-Lastweek</artifactId>
-    <packaging>war</packaging>
-    <version>1.0</version>
-    <name>Lastweek</name>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.marc</groupId>
+	<artifactId>MARC-Lastweek</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>Lastweek</name>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.html</include>
+					<include>**/*.js</include>
+				</includes>
+			</resource>
+		</resources>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>1.5</wtpversion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.html</include>
-                    <include>**/*.js</include>
-                </includes>
-            </resource>
-        </resources>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-        <testOutputDirectory>target/test-classes</testOutputDirectory>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <wtpversion>1.5</wtpversion>
-                </configuration>
-            </plugin>
-            
-            
-      <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <additionalProjectnatures>
-            <projectnature>wicketbench.wicketnature</projectnature>
-          </additionalProjectnatures>
-          <additionalBuildcommands>
-            <buildcommand>wicketbench.associatedMarkupAuditor</buildcommand>
-          </additionalBuildcommands>
-        </configuration>
-      </plugin>
-        </plugins>
-    </build>
-
-    <profiles>
-        <!-- development environment for felix -->
-        <profile>
-            <id>felix</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/felix</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <!-- development environment for pablopr -->
-        <profile>
-            <id>pablopr</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/pablopr</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <!-- development environment for murja -->
-        <profile>
-            <id>murja</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/murja</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <!-- development environment for pabloay -->
-        <profile>
-            <id>pabloay</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/pabloay</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <profile>
-            <!-- integration environment -->
-            <id>integration</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/integration</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <profile>
-            <!-- production environment -->
-            <id>stable</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/conf/stable</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>
-
-
+	<profiles>
+		<!-- development environment for felix -->
+		<profile>
+			<id>felix</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/felix</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<!-- development environment for pablopr -->
+		<profile>
+			<id>pablopr</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/pablopr</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<!-- development environment for murja -->
+		<profile>
+			<id>murja</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/murja</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<!-- development environment for pabloay -->
+		<profile>
+			<id>pabloay</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/pabloay</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<!-- integration environment -->
+			<id>integration</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/integration</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<!-- production environment -->
+			<id>stable</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/conf/stable</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+	
     <dependencies>
         <dependency>
             <groupId>org.apache.wicket</groupId>

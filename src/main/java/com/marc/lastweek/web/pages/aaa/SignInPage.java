@@ -17,17 +17,15 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import com.marc.lastweek.web.pages.BasePage;
-import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.pages.StandardPage;
+import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ResourceUtils;
 
 
 
-public class SignInPage extends BasePage {
+public class SignInPage extends StandardPage {
     
     private static final long serialVersionUID = -6197836028963536762L;
-    
-    private final FeedbackPanel feedbackPanel;
     
     public SignInPage() {
         this(null);
@@ -37,10 +35,6 @@ public class SignInPage extends BasePage {
     public SignInPage(PageParameters pageParameters) {
         
         super(pageParameters);
-
-        this.feedbackPanel = new FeedbackPanel("feedbackPanel");
-        this.feedbackPanel.setOutputMarkupPlaceholderTag(true);
-        add(this.feedbackPanel);
 
         this.add(new SignInForm("signinForm"));
         
@@ -78,7 +72,7 @@ public class SignInPage extends BasePage {
 
         @Override
         protected void onSubmit() {
-            SignInSession session = SignInSession.get();
+            LastweekSession session = LastweekSession.get();
 
             if (session.isSignedIn()) {
             	setResponsePage(getApplication().getHomePage());

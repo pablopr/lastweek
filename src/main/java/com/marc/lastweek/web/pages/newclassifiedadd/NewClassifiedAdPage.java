@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -28,11 +27,9 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -50,10 +47,10 @@ import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.upload.UploadPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
-import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.pages.StandardPage;
 import com.marc.lastweek.web.util.ResourceUtils;
 
-public class NewClassifiedAdPage extends BasePage {
+public class NewClassifiedAdPage extends StandardPage {
 
 
 	private static final long serialVersionUID = -7976014359463033532L;
@@ -69,10 +66,7 @@ public class NewClassifiedAdPage extends BasePage {
 	protected DescriptionPanel descriptionPanel;
 	protected UserDataPanel userDataPanel;
 	protected CheckCreatedAdPanel checkCreatedAdPanel;
-	protected FeedbackPanel feedbackPanel;
-	
-	
-	
+
 	private class ProvincePanel extends Panel {
 
 		private static final long serialVersionUID = -7936905418698062099L;
@@ -91,7 +85,7 @@ public class NewClassifiedAdPage extends BasePage {
 					Province province = (Province)listItem.getModelObject();
 					final Long provinceId = province.getId();
 					final String provinceName = province.getName();
-					
+
 					Link provinceLink = new AjaxFallbackLink("provinceLink") {
 
 						private static final long serialVersionUID = 1L;
@@ -106,20 +100,20 @@ public class NewClassifiedAdPage extends BasePage {
 								target.addComponent(ProvincePanel.this);
 								target.addComponent(NewClassifiedAdPage.this.categoryPanel);
 							}
-							
+
 						}
 					};
 
 					provinceLink.add(new Label("provinceLabel",provinceName));
 					listItem.add(provinceLink);
-		        }
+				}
 			});
 		}
 
 	}
 
 
-	
+
 	private class CategoryPanel extends Panel {
 
 		private static final long serialVersionUID = -1266334687818119105L;
@@ -130,16 +124,16 @@ public class NewClassifiedAdPage extends BasePage {
 			this.setOutputMarkupPlaceholderTag(true);
 			CategoryPanel.this.setVisible(false);
 			this.add(new ListView("categoryListView", new LoadableCategoriesListModel()) {
-				
+
 				private static final long serialVersionUID = 6730094093871495627L;
- 
+
 				@Override
 				protected void populateItem(ListItem item) {
 					Category  category = (Category)item.getModelObject();
 					final Long categoryId = category.getId();
 					final String categoryName = category.getName();
 					final int countSubcategories = category.getSubcategories().size();
-					
+
 					Link categoryLink = new AjaxFallbackLink("categoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
@@ -150,7 +144,7 @@ public class NewClassifiedAdPage extends BasePage {
 							NewClassifiedAdPage.this.newClassifiedAdTO.setCategoryId(categoryId);
 							NewClassifiedAdPage.this.pageCategoryName = categoryName;
 							CategoryPanel.this.setVisible(false);
-							
+
 							if (countSubcategories == 0){
 								NewClassifiedAdPage.this.descriptionPanel.setVisible(true);
 							}
@@ -194,11 +188,11 @@ public class NewClassifiedAdPage extends BasePage {
 				@Override
 				protected Object load() {
 					HashMap<String,Object> parameters = new HashMap<String, Object>();
-			        parameters.put("categoryId", SubcategoryPanel.this.categoryId);
+					parameters.put("categoryId", SubcategoryPanel.this.categoryId);
 
 					return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);
 				}
-				
+
 			}){
 
 				private static final long serialVersionUID = -5397807417164068536L;
@@ -237,91 +231,91 @@ public class NewClassifiedAdPage extends BasePage {
 			this.categoryId = categoryId;
 		}
 	}
-	
-	
-	
+
+
+
 	private class DescriptionPanel extends Panel {
 
 		private static final long serialVersionUID = 3616303310835436664L;
-		
+
 		protected FileListDiv fileListDiv = new FileListDiv("fileListDiv");
-		
+
 		public  DescriptionPanel(final String id) {
 			super(id);
 			this.setOutputMarkupId(true);
 			this.setOutputMarkupPlaceholderTag(true);
 			DescriptionPanel.this.setVisible(false);
-			
+
 			DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm", new LoadableDetachableModel(){
 				private static final long serialVersionUID = 4896378814518090123L;
 				@Override
-			     protected List<File> load(){
-			         return Arrays.asList(getTemporalUploadFolder().listFiles());
-			     }
- 	        });
-			
+				protected List<File> load(){
+					return Arrays.asList(getTemporalUploadFolder().listFiles());
+				}
+			});
+
 			FileListView fileListView = new FileListView("fileList", new LoadableDetachableModel(){
- 				private static final long serialVersionUID = 4896378814518090123L;
- 				
- 				@Override
- 		            protected List<File> load(){
- 		                return Arrays.asList(((LastweekApplication)Application.get()).getTemporalUploadFolder().listFiles());
- 		            }
- 		        });
- 			
-// 			AjaxFileUploadFormPanel uploadFilesForm = new AjaxFileUploadFormPanel("fileUploadFormPanel");
-// 			this.add(uploadFilesForm);
+				private static final long serialVersionUID = 4896378814518090123L;
 
- 			
- 			add(new UploadPanel("uploadImageAjax"){ 
+				@Override
+				protected List<File> load(){
+					return Arrays.asList(((LastweekApplication)Application.get()).getTemporalUploadFolder().listFiles());
+				}
+			});
+
+			// 			AjaxFileUploadFormPanel uploadFilesForm = new AjaxFileUploadFormPanel("fileUploadFormPanel");
+			// 			this.add(uploadFilesForm);
+
+
+			add(new UploadPanel("uploadImageAjax"){ 
 				private static final long serialVersionUID = 1L;
-			
-				@Override 
-		          public String onFileUploaded(FileUpload upload) { 
-		        	  
-		          	//TODO move to service and use imageUtils
-		              if (upload != null){
-		              	File newFile = new File(getTemporalUploadFolder(), upload.getClientFileName());
-		          		
-		                  // Check new file, delete if it allready existed
-		              	checkFileExists(newFile);
-		                  try{
-		                      // Save to new file
-		                      newFile.createNewFile();
-		                      upload.writeTo(newFile);
 
-		                      info("saved file: " + upload.getClientFileName());
-		                  }
-		                  catch (Exception e) {
-		                      throw new IllegalStateException("Unable to write file");
-		                  }
-		              }
-		              return ""; 
-		          } 
-		       
-		          @Override 
-		          public void onUploadFinished(AjaxRequestTarget target, String filename, String newFileUrl) { 
-		        	  System.out.println("se acabo el upload");
-		              //when upload is finished, will be called 
-//		              messageLabel.setModelObject(newFileUrl); 
-//		              target.addComponent(messageLabel); 
-//		       
-//		              avatarImage.setImageResource(new MyBlobImageResource(((WebSession)getSession()).getUser().getUsername())); 
-		              target.addComponent(DescriptionPanel.this.fileListDiv); 
-//		              ((BasePage)parent).onAvatarChanged(target); 
-		          } 
-		      });  
- 			
- 			this.fileListDiv.add(fileListView);
- 			this.add(this.fileListDiv);
- 		
- 			this.add(descriptionForm);
- 			
+				@Override 
+				public String onFileUploaded(FileUpload upload) { 
+
+					//TODO move to service and use imageUtils
+					if (upload != null){
+						File newFile = new File(getTemporalUploadFolder(), upload.getClientFileName());
+
+						// Check new file, delete if it allready existed
+						checkFileExists(newFile);
+						try{
+							// Save to new file
+							newFile.createNewFile();
+							upload.writeTo(newFile);
+
+							info("saved file: " + upload.getClientFileName());
+						}
+						catch (Exception e) {
+							throw new IllegalStateException("Unable to write file");
+						}
+					}
+					return ""; 
+				} 
+
+				@Override 
+				public void onUploadFinished(AjaxRequestTarget target, String filename, String newFileUrl) { 
+					System.out.println("se acabo el upload");
+					//when upload is finished, will be called 
+					//		              messageLabel.setModelObject(newFileUrl); 
+					//		              target.addComponent(messageLabel); 
+					//		       
+					//		              avatarImage.setImageResource(new MyBlobImageResource(((WebSession)getSession()).getUser().getUsername())); 
+					target.addComponent(DescriptionPanel.this.fileListDiv); 
+					//		              ((BasePage)parent).onAvatarChanged(target); 
+				} 
+			});  
+
+			this.fileListDiv.add(fileListView);
+			this.add(this.fileListDiv);
+
+			this.add(descriptionForm);
+
 		}
-	
+
 	}
-	
-	
+
+
 	private class FileListDiv extends WebMarkupContainer{
 		private static final long serialVersionUID = 7058344388159207398L;
 
@@ -330,35 +324,32 @@ public class NewClassifiedAdPage extends BasePage {
 			this.setOutputMarkupId(true);
 			this.setOutputMarkupPlaceholderTag(true);
 		}
-		
-		
+
+
 	}
-	
+
 	private class FileListView extends ListView{
 		private static final long serialVersionUID = 3201538754791639716L;
 
-        public FileListView(String name, final IModel files){
-            super(name, files);
-        }
+		public FileListView(String name, final IModel files){
+			super(name, files);
+		}
 
-        @Override
-        protected void populateItem(ListItem listItem) {
-            final File file = (File)listItem.getModelObject();
-            Image wicketImage = new Image("image", new ResourceReference(FileListView.class, file.getName())); 
-            listItem.add(wicketImage);
-            listItem.add(new Label("file", file.getName()));
-            listItem.add(new Link("delete"){
+		protected void populateItem(ListItem listItem) {
+			final File file = (File)listItem.getModelObject();
+			listItem.add(new Label("file", file.getName()));
+			listItem.add(new Link("delete"){
 				private static final long serialVersionUID = -346244936373700794L;
 				@Override
-                public void onClick(){
-                    Files.remove(file);
-                    info("Deleted " + file);
-                }
-            });
-        }
-    }
+				public void onClick(){
+					Files.remove(file);
+					info("Deleted " + file);
+				}
+			});
+		}
+	}
 
-	
+
 	private class UserDataPanel extends Panel {
 
 		private static final long serialVersionUID = -7322178890866291550L;
@@ -368,117 +359,117 @@ public class NewClassifiedAdPage extends BasePage {
 			this.setOutputMarkupId(true);
 			this.setOutputMarkupPlaceholderTag(true);
 			UserDataPanel.this.setVisible(false);							
- 			add(new UserDataForm("userDataForm"));
+			add(new UserDataForm("userDataForm"));
 		}
-	
+
 	}
-	
-	
+
+
 	private class DescriptionForm extends Form {
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final TextField price;
 		protected final RequiredTextField title;
 		protected final TextArea description;
-	    
 
-	    public DescriptionForm(String id, IModel model) {
-	        super(id, model);
-	        setMultiPart(true);
-	        
-	        this.price = new TextField("price", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPrice()), Double.class);
-	        this.price.setLabel(ResourceUtils.createResourceModel("newclassifiedad.form.price", NewClassifiedAdPage.this)); 
 
-	        this.title = new RequiredTextField("title", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getTitle()));
-	        this.description = new TextArea("description", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getDescription()));
-	        this.description.setRequired(true);
-	        add(this.price);
-	        add(this.title);
-	        add(this.description);
-	        
-	        
-	        add(new SubmitLink("submitLink"){
-	        	
+		public DescriptionForm(String id, IModel model) {
+			super(id, model);
+			setMultiPart(true);
+
+			this.price = new TextField("price", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPrice()), Double.class);
+			this.price.setLabel(ResourceUtils.createResourceModel("newclassifiedad.form.price", NewClassifiedAdPage.this)); 
+
+			this.title = new RequiredTextField("title", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getTitle()));
+			this.description = new TextArea("description", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getDescription()));
+			this.description.setRequired(true);
+			add(this.price);
+			add(this.title);
+			add(this.description);
+
+
+			add(new SubmitLink("submitLink"){
+
 				private static final long serialVersionUID = 1377358372101952950L;
 
 				@Override
 				public void onSubmit() {
-	        		
-	        		List<File> files = Arrays.asList(getTemporalUploadFolder().listFiles());
-	        		
+
+					List<File> files = Arrays.asList(getTemporalUploadFolder().listFiles());
+
 					if (files != null) {
-		            	
+
 						for (File file : files){
 							// Create a new file
-			                File newFile = new File(getUploadFolder(), file.getAbsolutePath());
-			                
-			                // Check new file, delete if it allready existed
-			                NewClassifiedAdPage.this.checkFileExists(newFile);
-			                try{
-			                	
-			                    //TODO check if creation succed
-			                	file.renameTo(newFile);
-			                    
-//			                    NewClassifiedAdPage.this.checkFileExists(tempFile);
-			                    
-			                    NewClassifiedAdPage.this.info("saved file: " + file.getAbsolutePath());
-			                }
-			                catch (Exception e) {
-			                    throw new IllegalStateException("Unable to write file");
-			                }
+							File newFile = new File(getUploadFolder(), file.getAbsolutePath());
+
+							// Check new file, delete if it allready existed
+							NewClassifiedAdPage.this.checkFileExists(newFile);
+							try{
+
+								//TODO check if creation succed
+								file.renameTo(newFile);
+
+								//			                    NewClassifiedAdPage.this.checkFileExists(tempFile);
+
+								NewClassifiedAdPage.this.info("saved file: " + file.getAbsolutePath());
+							}
+							catch (Exception e) {
+								throw new IllegalStateException("Unable to write file");
+							}
 						}
-		                
+
 					}
 					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
-			    	NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
-			    	NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
-			    	NewClassifiedAdPage.this.descriptionPanel.setVisible(false);
+					NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
+					NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
+					NewClassifiedAdPage.this.descriptionPanel.setVisible(false);
 					NewClassifiedAdPage.this.userDataPanel.setVisible(true);
-	        	}
-	        });
-	        
-	        setMaxSize(Bytes.kilobytes(100));
-	    }
-	    
-	}
-	
-	
-	
-	
+				}
+			});
 
-	
+			setMaxSize(Bytes.kilobytes(100));
+		}
+
+	}
+
+
+
+
+
+
 	private class UserDataForm extends Form {
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final RequiredTextField email;
 		protected final TextField phone;
-	    
 
-	    public UserDataForm(String id) {
-	        super(id);
-	        this.phone = new TextField("phone", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPhone()), String.class);
 
-	        this.email = new RequiredTextField("email", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getEmail()));
-	        this.email.add(EmailAddressValidator.getInstance());
-	        this.email.setRequired(true);
-	        
-	        add(this.phone);
-	        add(this.email);
-	        add(new SubmitLink("submitUserDataLink"){
+		public UserDataForm(String id) {
+			super(id);
+			this.phone = new TextField("phone", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getPhone()), String.class);
+
+			this.email = new RequiredTextField("email", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getEmail()));
+			this.email.add(EmailAddressValidator.getInstance());
+			this.email.setRequired(true);
+
+			add(this.phone);
+			add(this.email);
+			add(new SubmitLink("submitUserDataLink"){
 
 				private static final long serialVersionUID = 8056648125766325902L;
 
 				@Override
 				public void onSubmit() {
 					NewClassifiedAdPage.this.newClassifiedAdTO.setPhone(UserDataForm.this.phone.getModelObjectAsString());
-			    	NewClassifiedAdPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
-			    	NewClassifiedAdPage.this.userDataPanel.setVisible(false);
-			    	NewClassifiedAdPage.this.checkCreatedAdPanel.setVisible(true);
+					NewClassifiedAdPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
+					NewClassifiedAdPage.this.userDataPanel.setVisible(false);
+					NewClassifiedAdPage.this.checkCreatedAdPanel.setVisible(true);
 				}
-	        	
-	        });
-	    }
+
+			});
+		}
 	}
 
-	
+
 	private class CheckCreatedAdPanel extends Panel {
 
 		private static final long serialVersionUID = -7322178890866291550L;
@@ -486,7 +477,7 @@ public class NewClassifiedAdPage extends BasePage {
 		public  CheckCreatedAdPanel(final String id) {
 			super(id);
 			CheckCreatedAdPanel.this.setVisible(false);	
-			
+
 			this.add(new Label("classifiedAdCategory", new LoadableDetachableModel(){
 				private static final long serialVersionUID = 6214064755552736602L;
 
@@ -503,7 +494,7 @@ public class NewClassifiedAdPage extends BasePage {
 					return NewClassifiedAdPage.this.pageSubcategoryName;
 				}
 			}));
-			
+
 			this.add(new Label("classifiedAdTitle", new LoadableDetachableModel(){
 				private static final long serialVersionUID = 6266642250638714559L;
 				@Override
@@ -527,7 +518,7 @@ public class NewClassifiedAdPage extends BasePage {
 					return NewClassifiedAdPage.this.newClassifiedAdTO.getPrice();
 				}
 			}));
-			
+
 			this.add(new Label("userDataEmail", new LoadableDetachableModel(){
 				private static final long serialVersionUID = 5750430827354561280L;
 
@@ -544,26 +535,27 @@ public class NewClassifiedAdPage extends BasePage {
 					return NewClassifiedAdPage.this.newClassifiedAdTO.getPhone();
 				}
 			}));
-			
+
 			Link confirmationLink = new Link("confirmationLink") {
 
 				private static final long serialVersionUID = 5478474480425390258L;
 
 				@Override
 				public void onClick() {
-					
+
 					LastweekApplication.get().getClassifiedService().createClassifiedAd(NewClassifiedAdPage.this.newClassifiedAdTO);
-					
-					NewClassifiedAdPage.this.info("se ha creado correctamente");
+
+					setResponsePage(getApplication().getHomePage());
+					getSession().info("se ha creado correctamente");
 				}
 
 			};
 
 			confirmationLink.add(new Label("confirmationLabel", "publicar mi anuncio"));
 			this.add(confirmationLink);
-			
+
 		}
-	
+
 	}
 
 	public NewClassifiedAdPage() {
@@ -580,12 +572,6 @@ public class NewClassifiedAdPage extends BasePage {
 		add(this.userDataPanel);
 		this.checkCreatedAdPanel = new CheckCreatedAdPanel("checkCreatedAdPanel");
 		add(this.checkCreatedAdPanel);
-		
-		
-		
-		this.feedbackPanel  = new FeedbackPanel("feedbackPanel");
-		this.feedbackPanel.setOutputMarkupId(true);
-		add(this.feedbackPanel);
 	}
 
 
@@ -593,25 +579,24 @@ public class NewClassifiedAdPage extends BasePage {
 
 	public NewClassifiedAdPage(PageParameters pageParameters) {
 		super(pageParameters);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected Folder getTemporalUploadFolder(){
-        return ((LastweekApplication)Application.get()).getTemporalUploadFolder() ;
-    }
-	
+		return ((LastweekApplication)Application.get()).getTemporalUploadFolder() ;
+	}
+
 
 	protected Folder getUploadFolder(){
-        return ((LastweekApplication)Application.get()).getUploadFolder();
-    }
-	
+		return ((LastweekApplication)Application.get()).getUploadFolder();
+	}
+
 	protected void checkFileExists(File newFile){
-        if (newFile.exists()){
-            // Try to delete the file
-            if (!Files.remove(newFile)){
-                throw new IllegalStateException("Unable to overwrite " + newFile.getAbsolutePath());
-            }
-        }
-    }
+		if (newFile.exists()){
+			// Try to delete the file
+			if (!Files.remove(newFile)){
+				throw new IllegalStateException("Unable to overwrite " + newFile.getAbsolutePath());
+			}
+		}
+	}
 
 }
