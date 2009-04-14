@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -49,7 +50,7 @@ public class FilterResultsPage extends BaseSearchPage {
 		
 		if (parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM)!=null) {
 			paramCounter++;
-			filterParameters.setSearchString(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM));
+			filterParameters.setSearchString(StringEscapeUtils.unescapeHtml(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM)));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
 			hasCategory = true;
@@ -107,7 +108,7 @@ public class FilterResultsPage extends BaseSearchPage {
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
                 		category.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
-                		ViewUtils.normalize(category.getName()));
+                        StringEscapeUtils.escapeHtml(category.getName()));
                 if (filterParameters.getSearchString()!=null) {
                     linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                     		filterParameters.getSearchString());
@@ -151,7 +152,7 @@ public class FilterResultsPage extends BaseSearchPage {
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
                 		province.getId());
                 linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
-                		ViewUtils.normalize(province.getName()));
+                		StringEscapeUtils.escapeHtml(province.getName()));
                 if (filterParameters.getSearchString()!=null) {
                     linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                     		filterParameters.getSearchString());
@@ -205,7 +206,7 @@ public class FilterResultsPage extends BaseSearchPage {
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID,
 						subcategory.getId());
 				linkParameters.put(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME,
-						subcategory.getName());
+				        StringEscapeUtils.escapeHtml(subcategory.getName()));
 				if (filterParameters.getSearchString()!=null) {
                     linkParameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
                     		filterParameters.getSearchString());

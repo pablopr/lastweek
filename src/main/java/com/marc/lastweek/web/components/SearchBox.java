@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.web.components;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -46,7 +47,7 @@ public class SearchBox  extends Panel {
 			String searchTerm = (String) this.searchInput.getModelObject();
 			if (searchTerm!=null) {
 				this.parameters.put(PageParametersNaming.PARAM_NAME_SEARCH_TERM, 
-						searchTerm);
+						StringEscapeUtils.escapeHtml(searchTerm));
 				setResponsePage(FilterResultsPage.class, this.parameters);
 			}
 		}

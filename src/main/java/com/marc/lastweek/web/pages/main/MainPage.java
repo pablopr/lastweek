@@ -10,6 +10,7 @@
 package com.marc.lastweek.web.pages.main;
 
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
@@ -20,13 +21,11 @@ import org.apache.wicket.markup.html.list.ListView;
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
-import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.BaseSearchPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
-import com.marc.lastweek.web.util.ViewUtils;
 
 
 public class MainPage extends BaseSearchPage {
@@ -46,7 +45,7 @@ public class MainPage extends BaseSearchPage {
 				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_ID, 
 						category.getId());
 				linkParameters.put(PageParametersNaming.PARAM_NAME_CATEGORY_NAME, 
-						ViewUtils.normalize(category.getName()));
+				        StringEscapeUtils.escapeHtml(category.getName()));
 
 				BookmarkablePageLink categoryLink = 
 					new BookmarkablePageLink("categoryLink", 
@@ -68,7 +67,7 @@ public class MainPage extends BaseSearchPage {
 				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
 						province.getId());
 				linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
-						ViewUtils.normalize(province.getName()));
+				        StringEscapeUtils.escapeHtml(province.getName()));
 				BookmarkablePageLink provinceLink = 
 					new BookmarkablePageLink("provinceLink", 
 							FilterResultsPage.class, linkParameters);

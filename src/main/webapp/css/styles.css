@@ -2,6 +2,7 @@ body {
     font-family: "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
     font-size: 12px;
     margin: 0px;
+    background-color:#1E1E1E;
 }
 
 h1 {
@@ -40,22 +41,26 @@ pre {
 
 #right-col {
     float:right;
-    width:250px;
+    width:249px;
+    position:relative;
 }
 
 #left-box {
     float:left;
-    width:700px;
+    width:699px;
+    position:relative;
 }
 
 #central-col {
     float:right;
-    width:450px;
+    width:448px;
+    position:relative;
 }
     
 #left-col {
     float:left;
-    width:250px;
+    width:249px;
+    position:relative;
 }
 
 #footer {
@@ -146,7 +151,7 @@ pre {
 
 .left-column {
 	display: block;
-	padding: 4px;
+	padding: 1px;
 }
     
 .parallel-column {
@@ -164,14 +169,16 @@ pre {
 
 .classified-ad-summary {
     border-bottom:1px solid #EEEEEE;
-    clear:both;
 	height:75px;
+	display: table;
+    position: relative;  
 }
 
 .classified-ad-body {
 	width: 350px;
 	float: right;
 	position:relative;
+    display:block;
 }
 
 .classified-ad-image{
@@ -235,15 +242,15 @@ pre {
 }
 
 .filter-delete {
-	-moz-border-radius-bottomleft:10px;
-    -moz-border-radius-bottomright:10px;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
-    width: 19px;
-    height: 19px;
-    display: inline-block;
-    background-color: #696969;
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    background-color:#696969;
+    display:inline-block;
+    height:19px;
     text-align:center;
+    width:19px;
 }
 
 .filter-delete a, .filter-delete a:hover, .filter-delete a:visited {
@@ -260,15 +267,27 @@ pre {
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
     background-color: #90c630;
-    text-align: center; 
     color: #1E1E1E;
     margin: 10px;
     padding:10px;
 }
+.new-ad-main {
+    text-align: center; 
+}
 
-.new-ad-box a, .new-ad-box a:hover, .new-ad-box a:visited{
+.new-ad-main  a, .new-ad-main  a:hover, .new-ad-main  a:visited{
     text-decoration: none;
     font-size: 2.0em;
+    font-weight: bold;
+    color: #1E1E1E;
+}
+
+.new-ad-info {
+    text-align:justify;
+}
+
+.new-ad-info  a, .new-ad-info  a:hover, .new-ad-info  a:visited{
+    text-decoration: underlined;
     font-weight: bold;
     color: #1E1E1E;
 }
@@ -307,7 +326,15 @@ pre {
     width:418px;
 }
 
-/* feedback panels */
+.show-button {
+    font-size: 1.0em;
+}
+
+.hidden {
+    display: none;
+}
+
+/* FEEDBACK PANELS */
 
 div.feedbackPanel {
     display:block;

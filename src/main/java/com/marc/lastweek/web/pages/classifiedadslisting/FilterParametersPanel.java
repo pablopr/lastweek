@@ -13,6 +13,7 @@ package com.marc.lastweek.web.pages.classifiedadslisting;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -77,7 +78,7 @@ public class FilterParametersPanel extends Panel {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 					null,
-					parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM),
+					StringEscapeUtils.unescapeHtml(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM)),
 					null));
 		}
 		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {

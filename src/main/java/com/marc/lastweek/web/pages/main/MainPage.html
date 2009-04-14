@@ -7,20 +7,6 @@
 <body>
 <wicket:extend>
 	    
-     <div id="right-col" >
-        <div wicket:id="createNewAd"/>
-		<div class="filter-box">
-    		<ul>
-    			<li wicket:id="categoriesList">
-    				<a wicket:id="categoryLink" href="">
-    					<span wicket:id="categoryName">
-    						[Category]
-    					</span>
-    				</a>
-    			</li>
-    		</ul>
-    	</div>
-    </div>
     
     <div id="left-box">
     
@@ -44,6 +30,21 @@
 	    	
     	</div>
 	</div>
+    
+    <div id="right-col" >
+        <div wicket:id="createNewAd"/>
+        <div class="filter-box">
+            <ul>
+                <li wicket:id="categoriesList">
+                    <a wicket:id="categoryLink" href="">
+                        <span wicket:id="categoryName">
+                            [Category]
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </wicket:extend>
 </body>
 </html>

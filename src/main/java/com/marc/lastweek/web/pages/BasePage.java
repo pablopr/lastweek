@@ -20,6 +20,7 @@ import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 public class BasePage extends WebPage {
 
     private static final String CSS_URL = "css/styles.css";
+    private static final String JQUERY_URL = "js/jquery-1.2.6.min.js";
 
     public BasePage() {
         this(null);
@@ -31,6 +32,7 @@ public class BasePage extends WebPage {
         super(pageParameters);
 
         add(HeaderContributor.forCss(CSS_URL));
+        add(HeaderContributor.forJavaScript(JQUERY_URL));
 
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
 		this.add(new FavoritesPropagandaPanel("favoritesBox"));
