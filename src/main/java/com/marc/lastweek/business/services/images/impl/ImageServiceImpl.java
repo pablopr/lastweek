@@ -10,187 +10,210 @@
  */
 package com.marc.lastweek.business.services.images.impl;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
-
-import javax.swing.ImageIcon;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.util.file.File;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.io.ByteArrayOutputStream;
+import org.springframework.stereotype.Service;
 
 import com.marc.lastweek.business.services.images.ImageService;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.marc.lastweek.business.views.images.ImageEntry;
 
+@Service
 public class ImageServiceImpl implements ImageService{
-    // CONSTANTS
-    
+   
+	// CONSTANTS
     private static final Log logger = LogFactory.getLog(ImageServiceImpl.class);
     
-    // CONSTRUCTORS
-
     /**
      * Creates a new instance.
      */
-    public ImageServiceImpl()
-    {
+    public ImageServiceImpl(){
         super();
     }
-    
-    // MEMBERS
 
-//    public byte[] getImage(ImageEntry imageEntry)
-//        throws IOException
-//    {
-//        if (isImageAvailable(imageEntry)) {
-//            // Open the file, then read it in.
-//            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-//            InputStream inStream =
-//                new FileInputStream(new File(imageEntry.getFileName()));
-//            copy(inStream, outStream);
-//            inStream.close();
-//            outStream.close();
-//            return outStream.toByteArray();
-//        } else {
-//            return createNotAvailableImage(imageEntry.getContentType());
-//        }
-//    }
-//    
-//    public Date getLastModifyTime(ImageEntry imageEntry)
-//    {
-//        File f = new File(imageEntry.getFileName());
-//        return new Date(f.lastModified());
-//    }
-// 
-//    public boolean isImageAvailable(ImageEntry imageEntry)
-//    {
-//        return (
-//                new File(imageEntry.getFileName()).exists() &&
-//                new File(imageEntry.getThumbName()).exists()
-//            );
-//    }
-//    
-//    /* Spring Injected */
-//    private File imageDir;
-//    public void setImageDir(String dirName)
-//    {
-//        imageDir = new File(dirName);
-//    }
-//
-//    /* Spring Injected */
-//    private ImageEntryDAO imageEntryDAO;
-//    /** The DAO implementation that will be used internally. */
-//    public void setImageEntryDAO(ImageEntryDAO imageEntryDAO)
-//    {
-//        this.imageEntryDAO = imageEntryDAO;
-//    }
-//
-//    public byte[] getThumbnail(ImageEntry imageEntry)
-//        throws IOException
-//    {
-//        if (isImageAvailable(imageEntry)) {
-//            // Open the file, then read it in.
-//            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-//            InputStream inStream =
-//                new FileInputStream(new File(imageEntry.getThumbName()));
-//            copy(inStream, outStream);
-//            inStream.close();
-//            outStream.close();
-//            return outStream.toByteArray();
-//        } else {
-//            byte[] imageData = createNotAvailableImage(imageEntry.getContentType());
-//            return scaleImage(imageData, getThumbnailSize());
-//        }
-//    }
-//
-//    /* Spring Injected */
-//    private int thumbnailSize;
-//    public int getThumbnailSize()
-//    {
-//        return this.thumbnailSize;
-//    }
-//    public void setThumbnailSize(int size)
-//    {
-//        this.thumbnailSize = size;
-//    }
-//    
-//    // METHODS
-// 
-//    /**
-//     * Copies data from src into dst.
-//     */
-//    private void copy(InputStream source, OutputStream destination)
-//        throws IOException
-//    {
-//        try {
-//            // Transfer bytes from source to destination
-//            byte[] buf = new byte[1024];
-//            int len;
-//            while ((len = source.read(buf)) > 0) {
-//                destination.write(buf, 0, len);
-//            }
-//            source.close();
-//            destination.close();
-//            if (logger.isDebugEnabled()) {
-//                logger.debug("Copying image...");
-//            }
-//        } catch (IOException ioe) {
-//            logger.error(ioe);
-//            throw ioe;
-//        }
-//    }
-//    
-//    private File createImageFile(String suffix)
-//    {
-//        UUID uuid = UUID.randomUUID();
-//        File file = new File(imageDir, uuid.toString() + suffix);
-//        if (logger.isDebugEnabled()) {
-//            logger.debug("File " + file.getAbsolutePath() + " created.");
-//        }
-//        return file;
-//    }
-//    
-//    private byte[] createNotAvailableImage(String contentType)
-//        throws IOException
-//    {
-//        // Load the "Image Not Available"
-//        // image from jar, then write it out.
-//        StringBuffer name = new StringBuffer("com/mysticcoders/resources/ImageNotAvailable.");
-//        if ("image/jpeg".equalsIgnoreCase(contentType)) {
-//            name.append("jpg");
-//        } else if ("image/png".equalsIgnoreCase(contentType)) {
-//            name.append("png");
-//        } else {
-//            name.append("gif");
-//        }
-//        URL url = getClass().getClassLoader().getResource(
-//                name.toString()
-//            );
-//        InputStream in = url.openStream();
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        copy(in, out);
-//        in.close();
-//        out.close();
-//        return out.toByteArray();
-//    }
-// 
-//    /** @see ImageService#save(ImageEntry) */
-//    public void save(ImageEntry imageEntry, InputStream imageStream)
-//        throws IOException
-//    {
+    /* Spring Injected */
+    private File imageDir;
+    private int thumbnailSize;
+    private static final String UPLOAD_FOLDER = "/var/tmp/lastweek/wicket-uploads";
+    
+	private static final String TEMPORAL_UPLOAD_FOLDER = "/var/tmp/lastweek/wicket-uploads-temp";
+	
+	
+	public List<File> getAllTemporalFiles(String temporalDir) {
+		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+		temporalFolder.mkdir();
+		return Arrays.asList(temporalFolder.listFiles());
+	}
+    
+	public void saveTemporalImage(FileUpload fileUpload, String temporalDir) {
+		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+		
+		File newFile = new File(temporalFolder, fileUpload.getClientFileName());
+
+		// Check new file, delete if it allready existed
+		checkFileExists(newFile);
+		try{
+			// Save to new file
+			newFile.createNewFile();
+			fileUpload.writeTo(newFile);
+
+		}
+		catch (Exception e) {
+			throw new IllegalStateException("Unable to write file");
+		}
+		
+	}
+	
+	public void saveAllImages(String temporalDir) {
+		Folder folder = new Folder(UPLOAD_FOLDER, temporalDir);
+		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+		
+		List<File> files = Arrays.asList(temporalFolder.listFiles());
+
+		if (files != null) {
+			
+			for (File file : files){
+				// Create a new file
+				File newFile = new File(folder, file.getAbsolutePath());
+	
+				// Check new file, delete if it allready existed
+				checkFileExists(newFile);
+				try{
+					//TODO check if creation succed
+					file.renameTo(newFile);
+	
+				}
+				catch (Exception e) {
+					throw new IllegalStateException("Unable to write file");
+				}
+			}
+		}
+		
+	}
+	
+	protected void checkFileExists(File newFile){
+		if (newFile.exists()){
+			// Try to delete the file
+			if (!Files.remove(newFile)){
+				throw new IllegalStateException("Unable to overwrite " + newFile.getAbsolutePath());
+			}
+		}
+	}
+    
+    public byte[] getImage(ImageEntry imageEntry)
+        throws IOException {
+        if (isImageAvailable(imageEntry)) {
+            // Open the file, then read it in.
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            InputStream inStream =
+                new FileInputStream(new File(imageEntry.getFileName()));
+            copy(inStream, outStream);
+            inStream.close();
+            outStream.close();
+            return outStream.toByteArray();
+        }
+		return createNotAvailableImage(imageEntry.getContentType());
+    }
+    
+    public Date getLastModifyTime(ImageEntry imageEntry){
+        File f = new File(imageEntry.getFileName());
+        return new Date(f.lastModified());
+    }
+ 
+    public boolean isImageAvailable(ImageEntry imageEntry){
+        return (new File(imageEntry.getFileName()).exists());
+    }
+    
+    public byte[] getThumbnail(ImageEntry imageEntry)
+        throws IOException {
+    	
+        if (isImageAvailable(imageEntry)) {
+            // Open the file, then read it in.
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            InputStream inStream =
+                new FileInputStream(new File(imageEntry.getThumbName()));
+            copy(inStream, outStream);
+            inStream.close();
+            outStream.close();
+            return outStream.toByteArray();
+        }
+		byte[] imageData = createNotAvailableImage(imageEntry.getContentType());
+		return scaleImage(imageData, getThumbnailSize());
+    }
+
+ 
+    /**
+     * Copies data from src into dst.
+     */
+    private void copy(InputStream source, OutputStream destination)
+        throws IOException{
+        try {
+            // Transfer bytes from source to destination
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = source.read(buf)) > 0) {
+                destination.write(buf, 0, len);
+            }
+            source.close();
+            destination.close();
+            if (logger.isDebugEnabled()) {
+                logger.debug("Copying image...");
+            }
+        } catch (IOException ioe) {
+            logger.error(ioe);
+            throw ioe;
+        }
+    }
+    
+    private File createImageFile(String suffix){
+        UUID uuid = UUID.randomUUID();
+        File file = new File(imageDir, uuid.toString() + suffix);
+        if (logger.isDebugEnabled()) {
+            logger.debug("File " + file.getAbsolutePath() + " created.");
+        }
+        return file;
+    }
+    
+    private byte[] createNotAvailableImage(String contentType)
+        throws IOException{
+        // Load the "Image Not Available"
+        // image from jar, then write it out.
+        StringBuffer name = new StringBuffer("com/marc/lastweek/resources/ImageNotAvailable.");
+        if ("image/jpeg".equalsIgnoreCase(contentType)) {
+            name.append("jpg");
+        } else if ("image/png".equalsIgnoreCase(contentType)) {
+            name.append("png");
+        } else {
+            name.append("gif");
+        }
+        URL url = getClass().getClassLoader().getResource(
+                name.toString()
+            );
+        InputStream in = url.openStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        copy(in, out);
+        in.close();
+        out.close();
+        return out.toByteArray();
+    }
+ 
+    /** @see ImageService#save(ImageEntry) */
+    public void save(ImageEntry imageEntry, InputStream imageStream)
+        throws IOException{
 //        // Read in the image data.
 //       ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //       copy(imageStream, baos);
@@ -226,11 +249,10 @@ public class ImageServiceImpl implements ImageService{
 //       
 //       // Save the image info in the database
 //       imageEntryDAO.save(imageEntry);
-//   }
-//   
-//   private byte[] scaleImage(byte[] imageData, int maxSize)
-//       throws IOException
-//   {
+   }
+   
+   private byte[] scaleImage(byte[] imageData, int maxSize)
+       throws IOException{
 //       if (logger.isDebugEnabled()) {
 //           logger.debug("Scaling image...");
 //       }
@@ -281,5 +303,25 @@ public class ImageServiceImpl implements ImageService{
 //          logger.debug("Scaling done.");
 //       }
 //       return os.toByteArray();
-//   }
+	   return null;
+   }
+
+	public File getImageDir() {
+		return this.imageDir;
+	}
+	
+	public void setImageDir(File imageDir) {
+		this.imageDir = imageDir;
+	}
+	
+	public int getThumbnailSize() {
+		return this.thumbnailSize;
+	}
+	
+	public void setThumbnailSize(int thumbnailSize) {
+		this.thumbnailSize = thumbnailSize;
+	}
+
+   
+   
 }

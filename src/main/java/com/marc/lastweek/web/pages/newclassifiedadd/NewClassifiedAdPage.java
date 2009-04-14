@@ -11,12 +11,11 @@
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.Resource;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -27,6 +26,7 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -35,8 +35,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.Files;
-import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
+import org.apache.wicket.util.resource.FileResourceStream;
+import org.apache.wicket.util.resource.IResourceStream;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.entities.category.Category;
@@ -60,6 +61,7 @@ public class NewClassifiedAdPage extends StandardPage {
 	protected String pageCategoryName;
 	protected String pageSubcategoryName;
 	protected String pageProvinceName;
+	protected String imageRandomDir = "testing";
 	protected ProvincePanel provincePanel ;
 	protected CategoryPanel categoryPanel;
 	protected SubcategoryPanel subcategoryPanel;
@@ -239,7 +241,8 @@ public class NewClassifiedAdPage extends StandardPage {
 		private static final long serialVersionUID = 3616303310835436664L;
 
 		protected FileListDiv fileListDiv = new FileListDiv("fileListDiv");
-
+		
+		
 		public  DescriptionPanel(final String id) {
 			super(id);
 			this.setOutputMarkupId(true);
@@ -250,7 +253,7 @@ public class NewClassifiedAdPage extends StandardPage {
 				private static final long serialVersionUID = 4896378814518090123L;
 				@Override
 				protected List<File> load(){
-					return Arrays.asList(getTemporalUploadFolder().listFiles());
+					return LastweekApplication.get().getImageService().getAllTemporalFiles(imageRandomDir);
 				}
 			});
 
@@ -259,12 +262,9 @@ public class NewClassifiedAdPage extends StandardPage {
 
 				@Override
 				protected List<File> load(){
-					return Arrays.asList(((LastweekApplication)Application.get()).getTemporalUploadFolder().listFiles());
+					return LastweekApplication.get().getImageService().getAllTemporalFiles(imageRandomDir);
 				}
 			});
-
-			// 			AjaxFileUploadFormPanel uploadFilesForm = new AjaxFileUploadFormPanel("fileUploadFormPanel");
-			// 			this.add(uploadFilesForm);
 
 
 			add(new UploadPanel("uploadImageAjax"){ 
@@ -275,34 +275,16 @@ public class NewClassifiedAdPage extends StandardPage {
 
 					//TODO move to service and use imageUtils
 					if (upload != null){
-						File newFile = new File(getTemporalUploadFolder(), upload.getClientFileName());
-
-						// Check new file, delete if it allready existed
-						checkFileExists(newFile);
-						try{
-							// Save to new file
-							newFile.createNewFile();
-							upload.writeTo(newFile);
-
-							info("saved file: " + upload.getClientFileName());
-						}
-						catch (Exception e) {
-							throw new IllegalStateException("Unable to write file");
-						}
+						LastweekApplication.get().getImageService().saveTemporalImage(upload, imageRandomDir);
 					}
 					return ""; 
 				} 
 
 				@Override 
 				public void onUploadFinished(AjaxRequestTarget target, String filename, String newFileUrl) { 
-					System.out.println("se acabo el upload");
 					//when upload is finished, will be called 
-					//		              messageLabel.setModelObject(newFileUrl); 
-					//		              target.addComponent(messageLabel); 
-					//		       
-					//		              avatarImage.setImageResource(new MyBlobImageResource(((WebSession)getSession()).getUser().getUsername())); 
 					target.addComponent(DescriptionPanel.this.fileListDiv); 
-					//		              ((BasePage)parent).onAvatarChanged(target); 
+					
 				} 
 			});  
 
@@ -327,6 +309,8 @@ public class NewClassifiedAdPage extends StandardPage {
 
 
 	}
+	
+	
 
 	private class FileListView extends ListView{
 		private static final long serialVersionUID = 3201538754791639716L;
@@ -335,17 +319,41 @@ public class NewClassifiedAdPage extends StandardPage {
 			super(name, files);
 		}
 
+		@Override
 		protected void populateItem(ListItem listItem) {
 			final File file = (File)listItem.getModelObject();
+			
+			listItem.add(new Image("image", new ImageFileResource(file)));
+			
 			listItem.add(new Label("file", file.getName()));
 			listItem.add(new Link("delete"){
 				private static final long serialVersionUID = -346244936373700794L;
 				@Override
 				public void onClick(){
 					Files.remove(file);
-					info("Deleted " + file);
+					info("Has borrado " + file.getName());
 				}
 			});
+		}
+		
+		private class ImageFileResource extends Resource{
+			private static final long serialVersionUID = -4393593327489597112L;
+			private File file;
+			
+			public ImageFileResource(File file) {
+				super();
+				this.file = file;
+			}
+
+			@Override
+			public IResourceStream getResourceStream() {
+				return new FileResourceStream(this.file);
+			}
+			
+			public void setFile(File file){
+				this.file = file;
+			}
+			
 		}
 	}
 
@@ -394,31 +402,9 @@ public class NewClassifiedAdPage extends StandardPage {
 				@Override
 				public void onSubmit() {
 
-					List<File> files = Arrays.asList(getTemporalUploadFolder().listFiles());
-
-					if (files != null) {
-
-						for (File file : files){
-							// Create a new file
-							File newFile = new File(getUploadFolder(), file.getAbsolutePath());
-
-							// Check new file, delete if it allready existed
-							NewClassifiedAdPage.this.checkFileExists(newFile);
-							try{
-
-								//TODO check if creation succed
-								file.renameTo(newFile);
-
-								//			                    NewClassifiedAdPage.this.checkFileExists(tempFile);
-
-								NewClassifiedAdPage.this.info("saved file: " + file.getAbsolutePath());
-							}
-							catch (Exception e) {
-								throw new IllegalStateException("Unable to write file");
-							}
-						}
-
-					}
+					
+					LastweekApplication.get().getImageService().saveAllImages(imageRandomDir);
+					
 					NewClassifiedAdPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 					NewClassifiedAdPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
 					NewClassifiedAdPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
@@ -581,22 +567,5 @@ public class NewClassifiedAdPage extends StandardPage {
 		super(pageParameters);
 	}
 
-	protected Folder getTemporalUploadFolder(){
-		return ((LastweekApplication)Application.get()).getTemporalUploadFolder() ;
-	}
-
-
-	protected Folder getUploadFolder(){
-		return ((LastweekApplication)Application.get()).getUploadFolder();
-	}
-
-	protected void checkFileExists(File newFile){
-		if (newFile.exists()){
-			// Try to delete the file
-			if (!Files.remove(newFile)){
-				throw new IllegalStateException("Unable to overwrite " + newFile.getAbsolutePath());
-			}
-		}
-	}
 
 }
