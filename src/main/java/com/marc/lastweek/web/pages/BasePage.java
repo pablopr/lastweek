@@ -20,7 +20,7 @@ import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 public class BasePage extends WebPage {
 
     private static final String CSS_URL = "css/styles.css";
-    private static final String JQUERY_URL = "js/jquery-1.2.6.min.js";
+    private static final String JQUERY_URL = "js/jquery-1.3.2.min.js";
 
     public BasePage() {
         this(null);

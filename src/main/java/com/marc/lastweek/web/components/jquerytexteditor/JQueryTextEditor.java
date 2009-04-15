@@ -9,7 +9,7 @@
  * accordance with the terms of the license agreement you entered into
  * with denodo technologies S.L.
  */
-package loc.denodo.mashupmanager.web.components.jquerytexteditor;
+package com.marc.lastweek.web.components.jquerytexteditor;
 
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.behavior.AttributeAppender;

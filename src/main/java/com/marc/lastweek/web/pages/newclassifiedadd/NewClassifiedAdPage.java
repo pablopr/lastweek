@@ -45,6 +45,7 @@ import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
 import com.marc.lastweek.web.components.upload.UploadPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
@@ -377,7 +378,7 @@ public class NewClassifiedAdPage extends StandardPage {
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final TextField price;
 		protected final RequiredTextField title;
-		protected final TextArea description;
+		protected final JQueryTextEditor description;
 
 
 		public DescriptionForm(String id, IModel model) {
@@ -388,7 +389,7 @@ public class NewClassifiedAdPage extends StandardPage {
 			this.price.setLabel(ResourceUtils.createResourceModel("newclassifiedad.form.price", NewClassifiedAdPage.this)); 
 
 			this.title = new RequiredTextField("title", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getTitle()));
-			this.description = new TextArea("description", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getDescription()));
+			this.description = new JQueryTextEditor("description", new Model(NewClassifiedAdPage.this.newClassifiedAdTO.getDescription()));
 			this.description.setRequired(true);
 			add(this.price);
 			add(this.title);
