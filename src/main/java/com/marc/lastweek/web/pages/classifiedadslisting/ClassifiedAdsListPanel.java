@@ -106,7 +106,7 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = Integer.valueOf(LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters)));
+				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters));
 			}
 			return this.resultsCount.intValue();
 		}

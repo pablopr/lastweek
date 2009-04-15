@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -179,15 +178,6 @@ public class ImageServiceImpl implements ImageService{
         }
     }
     
-    private File createImageFile(String suffix){
-        UUID uuid = UUID.randomUUID();
-        File file = new File(imageDir, uuid.toString() + suffix);
-        if (logger.isDebugEnabled()) {
-            logger.debug("File " + file.getAbsolutePath() + " created.");
-        }
-        return file;
-    }
-    
     private byte[] createNotAvailableImage(String contentType)
         throws IOException{
         // Load the "Image Not Available"
@@ -212,8 +202,7 @@ public class ImageServiceImpl implements ImageService{
     }
  
     /** @see ImageService#save(ImageEntry) */
-    public void save(ImageEntry imageEntry, InputStream imageStream)
-        throws IOException{
+    public void save(ImageEntry imageEntry, InputStream imageStream) {
 //        // Read in the image data.
 //       ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //       copy(imageStream, baos);
@@ -251,8 +240,7 @@ public class ImageServiceImpl implements ImageService{
 //       imageEntryDAO.save(imageEntry);
    }
    
-   private byte[] scaleImage(byte[] imageData, int maxSize)
-       throws IOException{
+   private byte[] scaleImage(byte[] imageData, int maxSize) {
 //       if (logger.isDebugEnabled()) {
 //           logger.debug("Scaling image...");
 //       }
