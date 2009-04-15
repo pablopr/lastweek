@@ -36,6 +36,5 @@ public class BasePage extends WebPage {
 
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
 		this.add(new FavoritesPropagandaPanel("favoritesBox"));
-
     }
 }

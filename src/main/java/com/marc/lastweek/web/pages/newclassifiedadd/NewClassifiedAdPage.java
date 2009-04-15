@@ -530,7 +530,7 @@ public class NewClassifiedAdPage extends StandardPage {
 				@Override
 				public void onClick() {
 
-					LastweekApplication.get().getClassifiedService().createClassifiedAd(NewClassifiedAdPage.this.newClassifiedAdTO);
+					LastweekApplication.get().getClassifiedAdsService().createClassifiedAd(NewClassifiedAdPage.this.newClassifiedAdTO);
 
 					setResponsePage(getApplication().getHomePage());
 					getSession().info("se ha creado correctamente");
