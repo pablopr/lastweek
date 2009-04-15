@@ -17,6 +17,10 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	
 	private static final long serialVersionUID = -1393594287491092763L;
 	
+	private String categoryName;
+	private String subcategoryName;
+	private String provinceName;
+	private String imageRandomDir = "testing";
 	private Long categoryId;
 	private Long subcategoryId;
 	private String email = "";
@@ -95,5 +99,39 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	public Long getProvinceId() {
 		return this.provinceId;
 	}
+
+	public String getCategoryName() {
+		return this.categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getSubcategoryName() {
+		return this.subcategoryName;
+	}
+
+	public void setSubcategoryName(String subcategoryName) {
+		this.subcategoryName = subcategoryName;
+	}
+
+	public String getProvinceName() {
+		return this.provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getImageRandomDir() {
+		return this.imageRandomDir;
+	}
+
+	public void setImageRandomDir(String imageRandomDir) {
+		this.imageRandomDir = imageRandomDir;
+	}
+	
+	
 		
 }
