@@ -13,13 +13,7 @@
         	
         	<div wicket:id="fileListDiv">
 		      <h4>Fotos subidas hasta ahora:</h4>
-		      <table>
-		        <tr wicket:id="fileList">
-		        	 <td><img wicket:id="image"></img></td>
-		            <td width="200"><span wicket:id="file">(file)</span></td>
-		            <td><a href="#" wicket:id="delete">borrar imagen</a></td>
-		        </tr>
-		      </table>
+		      <div wicket:id="fileListViewPanel"/>
 		    </div>
         	
 			<form wicket:id="descriptionForm">
@@ -29,10 +23,8 @@
 				<label for="title"><wicket:message key="descriptionpanel.form.title"/></label>
 				<input id="title" type="text" wicket:id="title" /><br />
 				<label for="description"><wicket:message key="descriptionpanel.form.description"/></label> <br />
-				<textarea id="description" wicket:id="description" cols=45" rows="6"></textarea><br />					        
-		        <div>
-					<a href="#" wicket:id="submitLink">siguiente paso</a>
-				</div>
+				<textarea id="description" wicket:id="description" cols=45" rows="6"></textarea><br />	
+				<input type="submit"  value="siguiente"/>			        
 			</form>
 			
 			

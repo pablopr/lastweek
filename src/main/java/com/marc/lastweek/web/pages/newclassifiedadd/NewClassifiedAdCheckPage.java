@@ -10,6 +10,9 @@
  */
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
+import java.io.File;
+import java.util.List;
+
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,6 +21,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 
 public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 
@@ -27,6 +31,10 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 		this.newClassifiedAdTO = newClassifiedAdTO;
 
 		WebMarkupContainer checkDiv = new WebMarkupContainer("checkDiv");
+		
+		List<File> fileList = LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdCheckPage.this.newClassifiedAdTO.getImageRandomDir());
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", fileList);
+		checkDiv.add(fileListViewPanel);
 
 		checkDiv.add(new Label("classifiedAdCategory", new LoadableDetachableModel(){
 			private static final long serialVersionUID = 6214064755552736602L;
