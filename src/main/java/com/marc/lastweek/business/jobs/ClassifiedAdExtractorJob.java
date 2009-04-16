@@ -26,12 +26,11 @@ public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBe
 			ApplicationContext applicationContext = this.getApplicationContext(context);
 			
 			ClassifiedAdsService classifiedAdsService = (ClassifiedAdsService) applicationContext.getBean("classifiedAdsServiceImpl");
-			
-			if ( classifiedAdsService != null ) {
-				log.info("Task finished normally");
-			} else {
-				log.info("Task finished with errors");
-			}
+										
+			WebConversation wc = new WebConversation();
+		    WebRequest     req = new GetMethodWebRequest( "http://www.elpais.com" );
+		    WebResponse   resp = wc.getResponse( req );
+		    log.info(resp.getText());
 			
 		} catch (Exception e) {
 			log.info("Task finished with errors" + e);
