@@ -128,7 +128,8 @@ public class ClassifiedAdRepository {
         return  new Integer(fullTextQuery.list().size());
     }
 
-    public List<ClassifiedAd> indexBasedSearch (FilterParameters parameters, Calendar from, int start, int count) {    
+    @SuppressWarnings("unchecked")
+	public List<ClassifiedAd> indexBasedSearch (FilterParameters parameters, Calendar from, int start, int count) {    
 
         FullTextQuery fullTextQuery =  this.getFullTextQuery(parameters, from);
 

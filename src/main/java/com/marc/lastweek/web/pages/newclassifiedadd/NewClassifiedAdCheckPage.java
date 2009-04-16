@@ -101,7 +101,7 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 			@Override
 			public void onClick() {
 
-				LastweekApplication.get().getClassifiedService().createClassifiedAd(NewClassifiedAdCheckPage.this.newClassifiedAdTO);
+				LastweekApplication.get().getClassifiedAdsService().createClassifiedAd(NewClassifiedAdCheckPage.this.newClassifiedAdTO);
 
 				setResponsePage(getApplication().getHomePage());
 				getSession().info("se ha creado correctamente");

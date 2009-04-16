@@ -105,7 +105,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-            /WEB-INF/classes/spring.xml
+            /WEB-INF/classes/spring.xml,
+            /WEB-INF/classes/spring-sch.xml
         </param-value>
 	</context-param>
 

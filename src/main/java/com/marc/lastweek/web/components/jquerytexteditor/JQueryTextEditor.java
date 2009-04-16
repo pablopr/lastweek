@@ -1,13 +1,12 @@
 /*
  * @(#)JQueryTextEditor.java
- *
- * Copyright (c) 2.009, denodo technologies, S.L. All Rights Reserved.
+* Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
- * denodo technologies, S.L. ("Confidential Information"). You shall not
+ * Monte Alto Research Center ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
- * with denodo technologies S.L.
+ * with Monte Alto Research Center
  */
 package com.marc.lastweek.web.components.jquerytexteditor;
 
@@ -45,7 +44,7 @@ public class JQueryTextEditor extends TextArea {
     protected void onBeforeRender() {
         super.onBeforeRender();
         
-        if(addJQuery) {
+        if(this.addJQuery) {
             this.add(HeaderContributor.forJavaScript(new ResourceReference(JQueryTextEditor.class,
                     JQUERY_URL)));
         }

@@ -100,13 +100,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedAdsService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = Integer.valueOf(LastweekApplication.get().getClassifiedService().countClassifiedAdsByFilterParameters((this.filterParameters)));
+				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters));
 			}
 			return this.resultsCount.intValue();
 		}
