@@ -88,7 +88,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
-		ClassifiedAd classifiedAd = this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
+		this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
 	}
 	
 }

@@ -11,10 +11,11 @@
 package com.marc.lastweek.web.components.selfpropaganda;
 
 import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdPage;
+import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
+import com.marc.lastweek.web.pages.newclassifiedadd.NewClassifiedAdProvincePage;
 
 public class CreateNewAdPropagandaPanel extends Panel {
 
@@ -24,6 +25,15 @@ public class CreateNewAdPropagandaPanel extends Panel {
 	public CreateNewAdPropagandaPanel(String id) {
 		super(id);
 		add(HeaderContributor.forJavaScript(SLIDER_URL));
-		this.add(new BookmarkablePageLink("createNewAd", NewClassifiedAdPage.class));
+		this.add(new Link("createNewAd") {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick() {
+				this.setResponsePage(new NewClassifiedAdProvincePage(new NewClassifiedAdAndUserDataTO()));
+
+			}
+		});
 	}
 }

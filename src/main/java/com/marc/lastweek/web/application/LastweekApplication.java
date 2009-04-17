@@ -47,7 +47,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     private GeneralService generalService;
    
     @Autowired
-    private ClassifiedAdsService classifiedService;
+    private ClassifiedAdsService classifiedAdsService;
     
     @Autowired
     private ImageService imageService;
@@ -138,8 +138,8 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return this.generalService;
     }
 
-    public ClassifiedAdsService getClassifiedService() {
-        return this.classifiedService;
+    public ClassifiedAdsService getClassifiedAdsService() {
+        return this.classifiedAdsService;
     }
 
 	public ImageService getImageService() {

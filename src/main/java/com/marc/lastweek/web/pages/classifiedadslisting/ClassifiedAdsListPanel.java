@@ -50,7 +50,9 @@ public class ClassifiedAdsListPanel extends Panel {
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 				// TODO: get only extract from the ad (2 lines)
-				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
+				Label description = new Label("classifiedAdDescription",ViewUtils.getDigest(classifiedAd.getDescription()));
+				description.setEscapeModelStrings(false);
+				item.add(description);
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
@@ -100,13 +102,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedAdsService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = Integer.valueOf(LastweekApplication.get().getClassifiedService().countClassifiedAdsByFilterParameters((this.filterParameters)));
+				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters));
 			}
 			return this.resultsCount.intValue();
 		}

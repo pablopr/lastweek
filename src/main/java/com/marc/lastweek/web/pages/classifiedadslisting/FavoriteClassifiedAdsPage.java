@@ -52,7 +52,9 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 				
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
-				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
+				Label description = new Label("classifiedAdDescription",ViewUtils.getDigest(classifiedAd.getDescription()));
+				description.setEscapeModelStrings(false);
+				item.add(description);
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 				
 				PageParameters linkParameters = new PageParameters();

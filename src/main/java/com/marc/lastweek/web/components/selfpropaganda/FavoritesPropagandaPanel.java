@@ -31,7 +31,7 @@ public class FavoritesPropagandaPanel extends Panel {
 
 			@Override
 			protected Object load() {
-				return LastweekSession.get().favoritesCount();
+				return Integer.valueOf(LastweekSession.get().favoritesCount());
 			}
 			
 		}));

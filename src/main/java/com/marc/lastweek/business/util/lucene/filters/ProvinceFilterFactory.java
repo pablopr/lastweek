@@ -34,13 +34,13 @@ public class ProvinceFilterFactory extends Filter {
     @Key
     public FilterKey getKey() {
         StandardFilterKey key = new StandardFilterKey();
-        key.addParameter( provinceId );
+        key.addParameter( this.provinceId );
         return key;
     }
     
     @Factory
     public Filter getFilter() {
-        Query query = new TermQuery( new Term("province.id", provinceId.toString() ) );
+        Query query = new TermQuery( new Term("province.id", this.provinceId.toString() ) );
         return new CachingWrapperFilter( new QueryWrapperFilter(query) );
     }
 }

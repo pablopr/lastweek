@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.marc</groupId>
-	<artifactId>MARC-Lastweek</artifactId>
+	<artifactId>lastweek</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>Lastweek</name>
@@ -238,6 +238,11 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-snowball</artifactId>
             <version>2.4.0</version>
+        </dependency>
+        <dependency>
+			<groupId>javanettasks</groupId>
+			<artifactId>httpunit</artifactId>
+			<version>1.7</version>
         </dependency>
     </dependencies>
 
