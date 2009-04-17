@@ -92,7 +92,8 @@ public abstract class UploadPanel extends Panel {
      * callback called by the innerIframe
      *
      */ 
-    private void addOnUploadedCallback() { 
+    @SuppressWarnings("synthetic-access")
+	private void addOnUploadedCallback() { 
         final OnUploadedBehavior onUploadBehavior = new OnUploadedBehavior(); 
         add(onUploadBehavior); 
         add(new WebComponent("onUploaded") { 
