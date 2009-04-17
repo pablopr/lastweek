@@ -14,8 +14,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 
-import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
-
 public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBean {	
 	
 	@Override
@@ -24,13 +22,13 @@ public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBe
 		try {
 			
 			ApplicationContext applicationContext = this.getApplicationContext(context);
-			
-			ClassifiedAdsService classifiedAdsService = (ClassifiedAdsService) applicationContext.getBean("classifiedAdsServiceImpl");
-										
-			WebConversation wc = new WebConversation();
-		    WebRequest     req = new GetMethodWebRequest( "http://www.elpais.com" );
-		    WebResponse   resp = wc.getResponse( req );
-		    log.info(resp.getText());
+//			
+//			ClassifiedAdsService classifiedAdsService = (ClassifiedAdsService) applicationContext.getBean("classifiedAdsServiceImpl");
+//										
+//			WebConversation wc = new WebConversation();
+//		    WebRequest     req = new GetMethodWebRequest( "http://www.elpais.com" );
+//		    WebResponse   resp = wc.getResponse( req );
+//		    log.info(resp.getText());
 			
 		} catch (Exception e) {
 			log.info("Task finished with errors" + e);

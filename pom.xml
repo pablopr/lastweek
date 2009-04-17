@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.marc</groupId>
-	<artifactId>MARC-Lastweek</artifactId>
+	<artifactId>lastweek</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>Lastweek</name>
