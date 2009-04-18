@@ -17,7 +17,7 @@ public abstract class NewClassifiedAdPage extends StandardPage {
 
 	private static final long serialVersionUID = -7976014359463033532L;
 
-	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO = new NewClassifiedAdAndUserDataTO();
+	protected NewClassifiedAdAndUserDataTO newClassifiedAdTO;
 
 	public NewClassifiedAdPage(NewClassifiedAdAndUserDataTO newClassifiedAdTO) {
 		super();

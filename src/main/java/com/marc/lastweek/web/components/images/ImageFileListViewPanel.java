@@ -23,6 +23,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.resource.FileResourceStream;
 import org.apache.wicket.util.resource.IResourceStream;
 
@@ -32,9 +33,9 @@ import com.marc.lastweek.web.application.LastweekApplication;
 public class ImageFileListViewPanel extends Panel{
 
 	private static final long serialVersionUID = -6023857527416347119L;
-	protected final String dirPath;
+	protected final Folder dirPath;
 	
-	public ImageFileListViewPanel(String id, String dirPath) {
+	public ImageFileListViewPanel(String id, Folder dirPath) {
 		super(id);
 		this.dirPath = dirPath;
 		this.setOutputMarkupId(true);

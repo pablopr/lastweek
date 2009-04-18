@@ -49,7 +49,7 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			public String onFileUploaded(FileUpload upload) { 
 
 				if (upload != null){
-					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
+					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 				}
 				return ""; 
 			} 
@@ -65,7 +65,7 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		descriptionDiv.add(uploadPanel);
 		
 		
-		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 		
 		this.fileListDiv = new FileListDiv("fileListDiv");
 		this.fileListDiv.add(fileListViewPanel);
@@ -75,7 +75,7 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			private static final long serialVersionUID = 4896378814518090123L;
 			@Override
 			protected List<File> load(){
-				return LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
+				return LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 			}
 		});
 		
@@ -127,7 +127,6 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 
 		@Override
 		protected void onSubmit() {
-			LastweekApplication.get().getImageService().saveAllImages(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 			
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
