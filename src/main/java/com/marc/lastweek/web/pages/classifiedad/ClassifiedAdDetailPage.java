@@ -11,6 +11,7 @@
 package com.marc.lastweek.web.pages.classifiedad;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.link.Link;
 
 import com.marc.lastweek.web.components.ClassifiedAdDetailPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
@@ -26,5 +27,15 @@ public class ClassifiedAdDetailPage extends BasePage {
 			.getLong(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID));
 		
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
+		this.add(new Link("backLink") {
+		
+			private static final long serialVersionUID = -5687954349037273279L;
+
+			@Override
+			public void onClick() {
+//				this.setResponsePage();
+//				System.out.println(((SignInSession)getSession()).getLastPage());
+			}
+		});
 	}
 }

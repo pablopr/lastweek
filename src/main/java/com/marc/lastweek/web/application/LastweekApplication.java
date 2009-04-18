@@ -115,6 +115,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
      */
     @Override
     protected IRequestCycleProcessor newRequestCycleProcessor() {
+    	
         return new WebRequestCycleProcessor() {
             @Override
             protected IRequestCodingStrategy newRequestCodingStrategy() {
@@ -155,6 +156,24 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return this.temporalUploadFolder;
     }
     
-    
+//    @Override
+//	public RequestCycle newRequestCycle(Request request, Response response) {
+//		return new MyWebRequestCycle(this, (WebRequest)request, response);
+//	}
+//
+//	private class MyWebRequestCycle extends WebRequestCycle {
+//
+//		public MyWebRequestCycle(WebApplication application,
+//				WebRequest request, Response response) {
+//			super(application, request, response);
+//		}
+//
+//		@Override
+//		public void detach() {
+//			SignInSession session = (SignInSession)getWebSession();
+//			session.setLastPage(getRequest().getPage());
+//			super.detach();
+//		}
+//    }
 }
 

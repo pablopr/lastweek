@@ -32,6 +32,7 @@ public class SignInSession extends AuthenticatedWebSession {
     private AuthenticatedUserData user = null;
     private final Roles roles;
     private Set<Long> favorites;
+//    private Page lastPage;
 
     
     public SignInSession(Request request) {
@@ -96,5 +97,13 @@ public class SignInSession extends AuthenticatedWebSession {
 	public void removeFavorite(Long id) {
 		this.favorites.remove(id);
 	}
+
+//	public Page getLastPage() {
+//		return this.lastPage;
+//	}
+//
+//	public void setLastPage(Page lastPage) {
+//		this.lastPage = lastPage;
+//	}
 
 }

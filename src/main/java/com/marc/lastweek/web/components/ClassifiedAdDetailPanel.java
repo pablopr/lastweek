@@ -16,8 +16,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import sun.nio.cs.HistoricallyNamedCharset;
-
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
