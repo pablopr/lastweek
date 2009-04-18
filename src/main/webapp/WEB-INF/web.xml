@@ -12,20 +12,10 @@
 
 	<!--
 		*******************************************************************
-	-->
-	<!--
 		The "openSessionInView" filter allows hibernate sessions to be
-	-->
-	<!--
 		opened when the request starts and closed when it ends, thus
-	-->
-	<!--
 		allowing view artifacts to traverse lazy relations on business
-	-->
-	<!--
 		objects.
-	-->
-	<!--
 		*******************************************************************
 	-->
 	<filter>
@@ -51,20 +41,10 @@
 
 	<!--
 		*******************************************************************
-	-->
-	<!--
 		Wicket filter. It is important that this filter is declared after
-	-->
-	<!--
 		the OpenSessionInView one, so that the latter executes first, and
-	-->
-	<!--
 		opens the Hibernate session that both the wicket page (and the
-	-->
-	<!--
 		business layer need.
-	-->
-	<!--
 		*******************************************************************
 	-->
 	<filter>
@@ -107,6 +87,7 @@
 		<param-value>
             /WEB-INF/classes/spring.xml,
             /WEB-INF/classes/spring-sch.xml
+            /WEB-INF/classes/spring-mail.xml
         </param-value>
 	</context-param>
 
