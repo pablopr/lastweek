@@ -27,7 +27,7 @@ public class SubcategoryFilterFactory  extends Filter {
     
     private Long subcategoryId;
 
-    public void setProvinceId(Long subcategoryId) {
+    public void setSubcategoryId(Long subcategoryId) {
         this.subcategoryId = subcategoryId;
     }
     
