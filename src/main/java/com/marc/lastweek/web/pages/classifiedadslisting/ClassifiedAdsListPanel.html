@@ -26,7 +26,15 @@
 			</ul>
 		</div>
 		<div class="pagination" wicket:id="paginationLinks">
-        	<a wicket:id="onepagebackward" href="#">Pag. Anterior</a> - <a wicket:id="onepageforward" href="#">Pag. Siguiente</a>
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="no-pagination-small"></td>
+					<td class="pagination-link"><a wicket:id="onepagebackward" href="#">&lt; Pag. Anterior</a></td>
+					<td class="no-pagination-small"></td>
+					<td class="pagination-link"><a wicket:id="onepageforward" href="#">Pag. Siguiente &gt;</a></td>
+					<td class="no-pagination-big"></td>
+				</tr>
+			</table>
     	</div>
     	<div wicket:id="noResults">
         	<span>No hay resultados para esta secci&oacute;n</span>
