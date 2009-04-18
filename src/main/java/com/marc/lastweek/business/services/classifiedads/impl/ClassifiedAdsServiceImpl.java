@@ -43,7 +43,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	@Autowired
 	private GeneralRepository generalRepository;
 
-	// TODO: add one week before parameter (it actually must come from the controller)
+	// TODO: add one week before parameter (actually it must come from the controller)
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count) {
 	    if (parameters.getSearchString()!=null) {
 	        return this.classifiedAdRespository.indexBasedSearch(parameters, Calendar.getInstance(),start, count);
@@ -88,8 +88,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
-		ClassifiedAd classifiedAd = this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
-		this.classifiedAdRespository.index(classifiedAd);
+		this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
 	}
 	
 }

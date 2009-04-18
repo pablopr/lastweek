@@ -15,9 +15,9 @@ import org.apache.wicket.markup.html.link.Link;
 
 import com.marc.lastweek.web.components.ClassifiedAdDetailPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
-import com.marc.lastweek.web.pages.BasePage;
+import com.marc.lastweek.web.pages.StandardPage;
 
-public class ClassifiedAdDetailPage extends BasePage {
+public class ClassifiedAdDetailPage extends StandardPage {
 
 	public ClassifiedAdDetailPage(PageParameters parameters) {
 		super(parameters);

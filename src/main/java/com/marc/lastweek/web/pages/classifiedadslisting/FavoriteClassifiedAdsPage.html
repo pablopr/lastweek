@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:extend>
+    
+    <div id="left-box">
+    
+	    <div id="central-col">
+	    	<div class="title">
+	    		Tus anuncios favoritos
+	    	</div>
+			<div>
+				<ul>
+					<li wicket:id="classifiedAdsList" class="classified-ad-summary">
+					
+						<div class="classified-ad-image"></div>
+						<div class="classified-ad-body">
+							<div class="classified-ad-main">
+								<div class="classified-ad-title">
+									<span wicket:id="classifiedAdTitle">[title]</span>
+									<div class="filter-delete"><a wicket:id="deleteLink" href="#">x</a></div>
+								</div>
+								<div class="classified-ad-date" wicket:id="classifiedAdPublicationDate">[date]</div>
+								<div class="classified-ad-desc" wicket:id="classifiedAdDescription">[description]</div>
+							</div>
+							<div class="classified-ad-right">
+								<div class="classified-ad-price"><span wicket:id="classifiedAdPrice">[price]</span> Û</div>
+								<div class="classified-ad-details"><a wicket:id="classifiedAdLink" href="#">detalles</a></div>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+			</div>
+	    </div>
+	    
+	    <div id="left-col">
+
+    	</div>
+	</div>
+	
+    <div id="right-col" >
+        <div  wicket:id="createNewAd"/>
+    </div>
+
+</wicket:extend>
+
+</body>
+</html>

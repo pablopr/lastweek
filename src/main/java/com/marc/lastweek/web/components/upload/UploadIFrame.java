@@ -22,9 +22,9 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 
 public abstract class UploadIFrame extends WebPage { 
  
-    private boolean uploaded = false; 
-    private FileUploadField uploadField; 
-    private String newFileUrl; 
+    boolean uploaded = false; 
+    FileUploadField uploadField; 
+    String newFileUrl; 
  
     public UploadIFrame() { 
         add(new UploadForm("form")); 
@@ -43,12 +43,22 @@ public abstract class UploadIFrame extends WebPage {
      */ 
     protected abstract String manageInputSream(FileUpload upload); 
     private class UploadForm extends Form { 
-        public UploadForm(String id) { 
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public UploadForm(String id) { 
             super(id); 
-            uploadField = new FileUploadField("file"); 
-            add(uploadField); 
+            UploadIFrame.this.uploadField = new FileUploadField("file"); 
+            add(UploadIFrame.this.uploadField); 
             add(new AjaxLink("submit"){ 
-                @Override 
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override 
                 public void onClick(AjaxRequestTarget target) { 
                     target.appendJavascript("showProgressWheel()"); 
                 } 
@@ -57,11 +67,11 @@ public abstract class UploadIFrame extends WebPage {
  
         @Override 
         public void onSubmit() { 
-            FileUpload upload = uploadField.getFileUpload(); 
-            newFileUrl = manageInputSream(upload); 
+            FileUpload upload = UploadIFrame.this.uploadField.getFileUpload(); 
+            UploadIFrame.this.newFileUrl = manageInputSream(upload); 
             //file is now uploaded, and the IFrame will be reloaded, during 
             //reload we need to run the callback 
-            uploaded = true; 
+            UploadIFrame.this.uploaded = true; 
         } 
  
     } 
@@ -69,16 +79,21 @@ public abstract class UploadIFrame extends WebPage {
     private void addOnUploadedCallback() { 
         //a hacked component to run the callback on the parent 
         add(new WebComponent("onUploaded") { 
-            @Override 
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override 
             protected void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) { 
-                if (uploaded) { 
-                    if (uploadField.getFileUpload() != null){ 
+                if (UploadIFrame.this.uploaded) { 
+                    if (UploadIFrame.this.uploadField.getFileUpload() != null){ 
                         replaceComponentTagBody(markupStream, openTag, 
                                 "window.parent." + getOnUploadedCallback() + "('" + 
-                                uploadField.getFileUpload().getClientFileName() + "','" + 
-                                newFileUrl +"')"); 
+                                UploadIFrame.this.uploadField.getFileUpload().getClientFileName() + "','" + 
+                                UploadIFrame.this.newFileUrl +"')"); 
                     } 
-                    uploaded = false; 
+                    UploadIFrame.this.uploaded = false; 
                 } 
             } 
         }); 

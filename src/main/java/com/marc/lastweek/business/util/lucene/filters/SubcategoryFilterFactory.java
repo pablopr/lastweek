@@ -34,13 +34,13 @@ public class SubcategoryFilterFactory  extends Filter {
     @Key
     public FilterKey getKey() {
         StandardFilterKey key = new StandardFilterKey();
-        key.addParameter( subcategoryId );
+        key.addParameter( this.subcategoryId );
         return key;
     }
     
     @Factory
     public Filter getFilter() {
-        Query query = new TermQuery( new Term("subcategory.id", subcategoryId.toString() ) );
+        Query query = new TermQuery( new Term("subcategory.id", this.subcategoryId.toString() ) );
         return new CachingWrapperFilter( new QueryWrapperFilter(query) );
     }
 }

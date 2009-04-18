@@ -34,13 +34,13 @@ public class CategoryFilterFactory extends Filter {
     @Key
     public FilterKey getKey() {
         StandardFilterKey key = new StandardFilterKey();
-        key.addParameter( categoryId );
+        key.addParameter( this.categoryId );
         return key;
     }
     
     @Factory
     public Filter getFilter() {
-        Query query = new TermQuery( new Term("category.id", categoryId.toString() ) );
+        Query query = new TermQuery( new Term("category.id", this.categoryId.toString() ) );
         return new CachingWrapperFilter( new QueryWrapperFilter(query) );
     }
 }

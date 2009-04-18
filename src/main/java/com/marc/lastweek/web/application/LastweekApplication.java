@@ -22,24 +22,23 @@ import org.apache.wicket.protocol.http.request.CryptedUrlWebRequestCodingStrateg
 import org.apache.wicket.protocol.http.request.WebRequestCodingStrategy;
 import org.apache.wicket.request.IRequestCodingStrategy;
 import org.apache.wicket.request.IRequestCycleProcessor;
-import org.apache.wicket.util.file.Folder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
+import com.marc.lastweek.business.services.images.ImageService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
+import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
 import com.marc.lastweek.web.pages.main.MainPage;
-import com.marc.lastweek.web.session.SignInSession;
+import com.marc.lastweek.web.session.LastweekSession;
 
 
 @Component
 public class LastweekApplication extends AuthenticatedWebApplication {
 
-	private Folder uploadFolder = null;
-	private Folder temporalUploadFolder = null;
 	
     @Autowired
     private AaaService aaaService;
@@ -48,7 +47,10 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     private GeneralService generalService;
    
     @Autowired
-    private ClassifiedAdsService classifiedService;
+    private ClassifiedAdsService classifiedAdsService;
+    
+    @Autowired
+    private ImageService imageService;
    
     public LastweekApplication() {
         super();
@@ -68,7 +70,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
    
     @Override
     protected Class<? extends AuthenticatedWebSession> getWebSessionClass() {
-        return SignInSession.class;
+        return LastweekSession.class;
     }
 
    
@@ -80,20 +82,13 @@ public class LastweekApplication extends AuthenticatedWebApplication {
        
         super.init();
         
-        //TODO change this -> upload folder
-        this.uploadFolder = new Folder("/var/tmp/lastweek", "wicket-uploads");
-        // Ensure folder exists
-        this.uploadFolder.mkdirs();
-        
-        this.temporalUploadFolder = new Folder("/var/tmp/lastweek", "wicket-uploads-temp");
-        // Ensure folder exists
-        this.temporalUploadFolder.mkdirs();
         
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
         mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
+        mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
        
        
         /*
@@ -144,17 +139,14 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return this.generalService;
     }
 
-    public ClassifiedAdsService getClassifiedService() {
-        return this.classifiedService;
+    public ClassifiedAdsService getClassifiedAdsService() {
+        return this.classifiedAdsService;
     }
+
+	public ImageService getImageService() {
+		return this.imageService;
+	}
     
-    public Folder getUploadFolder() {
-        return this.uploadFolder;
-    }
-    
-    public Folder getTemporalUploadFolder() {
-        return this.temporalUploadFolder;
-    }
     
 //    @Override
 //	public RequestCycle newRequestCycle(Request request, Response response) {

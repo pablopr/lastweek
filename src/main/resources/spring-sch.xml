@@ -12,44 +12,28 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
  
+	<bean name="classifiedAdExtractorJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		 <property name="jobClass" value="com.marc.lastweek.business.jobs.ClassifiedAdExtractorJob" />
+	</bean>
  
-  
-    <!-- ****************** SCHEDULER ********************** -->
-
-    <!-- JOBS TO RUN BY THE SCHEDULER -->
- <!--   <bean id="metaSolvPollingTaskJob"
-        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="metaSolvPollingTask" />
-        <property name="targetMethod" value="execute" />
-    </bean>
-    -->
-    <!-- TRIGGERS TO RUN BY THE SCHEDULER -->
-    <!--
-    <bean id="metaSolvPollingTaskTrigger"
-        class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail"
-            ref="metaSolvPollingTaskJob" />
-        <property name="cronExpression">
-            <value>${metaSolvPollingTask.timeTable}</value>
-        </property>
-        <property name="name"
-            value="metaSolvPollingTaskTrigger" />
-        <property name="group" value="geigrac" />
-    </bean>
-    -->
-    <!-- ADDING TRIGGERS TO THE SCHEDULER -->
-    
-    <!--
-    <bean id="scheduler"
-        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="triggers">
-            <list>
-                <ref bean="metaSolvPollingTaskTrigger" />
-            </list>
-        </property>
-        <property name="autoStartup" value="true" />
-    </bean>
- -->
+	<bean id="classifiedAdExtractorJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	    <property name="jobDetail" ref="classifiedAdExtractorJob" />
+	    <property name="startDelay" value="1" />
+	    <property name="repeatInterval" value="10000" />
+	</bean>
+	
+	<bean id="scheduler"
+	    class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="classifiedAdExtractorJobTrigger" />
+	        </list>
+	    </property>
+	    <property name="autoStartup" value="true" />
+	     <property name="applicationContextSchedulerContextKey">
+            <value>applicationContext</value>
+    	</property>
+	</bean>
  
 </beans>
  

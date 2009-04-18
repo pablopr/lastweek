@@ -8,7 +8,7 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.components;
+package com.marc.lastweek.web.pages.classifiedadslisting;
 
 import java.util.Iterator;
 
@@ -34,7 +34,7 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
 
-	private static final int RESULTS_PER_PAGE = 2; 
+	private static final int RESULTS_PER_PAGE = 5; 
 
 	public ClassifiedAdsListPanel(String id, final FilterParameters filterParameters) {
 		super(id);
@@ -49,7 +49,10 @@ public class ClassifiedAdsListPanel extends Panel {
 
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
-				item.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
+				// TODO: get only extract from the ad (2 lines)
+				Label description = new Label("classifiedAdDescription",ViewUtils.getDigest(classifiedAd.getDescription()));
+				description.setEscapeModelStrings(false);
+				item.add(description);
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 				PageParameters linkParameters = new PageParameters();
                 linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
@@ -99,13 +102,13 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedAdsService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = Integer.valueOf(LastweekApplication.get().getClassifiedService().countClassifiedAdsByFilterParameters((this.filterParameters)));
+				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters));
 			}
 			return this.resultsCount.intValue();
 		}

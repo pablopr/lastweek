@@ -7,6 +7,8 @@ import org.apache.commons.lang.LocaleUtils;
 
 public class ViewUtils {
 
+	public static final int MAX_LENGTH_DIGEST = 85;
+	
     public static String labelizer(Object obj, String datePattern) {
         if (obj!=null) {
             if (obj instanceof Calendar) {
@@ -21,6 +23,13 @@ public class ViewUtils {
     
     public static String labelizer(Object obj) {
         return labelizer(obj, "dd/MM/yyyy");
+    }
+    
+    public static String getDigest(String text) {
+    	if (text.length()<MAX_LENGTH_DIGEST) {
+    		return text;
+    	}
+    	return text.substring(0, MAX_LENGTH_DIGEST)+"...";
     }
     
     public static String normalize(String text) {

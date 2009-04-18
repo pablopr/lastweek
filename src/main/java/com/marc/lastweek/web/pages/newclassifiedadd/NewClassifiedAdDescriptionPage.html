@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:extend>
+	<div class="filter-box" wicket:id="descriptionDiv">
+        	
+        	<div wicket:id="uploadImageAjax"></div>
+        	
+<!--        	<div wicket:id="fileListDiv">-->
+<!--		      <h4>Fotos subidas hasta ahora:</h4>-->
+<!--		      <div wicket:id="fileListViewPanel"/>-->
+<!--		    </div>-->
+        	
+			<form wicket:id="descriptionForm">
+			    <span>Detalles del anuncio</span> <br />
+			    <label for="price"> <wicket:message key="descriptionpanel.form.price"/></label>
+				<input id="price" type="text" wicket:id="price" /><br />
+				<label for="title"><wicket:message key="descriptionpanel.form.title"/></label>
+				<input id="title" type="text" wicket:id="title" /><br />
+				<label for="description"><wicket:message key="descriptionpanel.form.description"/></label> <br />
+
+				<textarea id="description" wicket:id="description" cols=45" rows="6"></textarea><br />	
+				<input type="submit"  value="siguiente"/>			        
+
+			</form>
+			
+			
+   		</div>
+	
+</wicket:extend>
+
+</body>
+</html>
+

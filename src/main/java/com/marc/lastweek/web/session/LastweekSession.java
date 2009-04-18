@@ -9,8 +9,8 @@
  */
 package com.marc.lastweek.web.session;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.Session;
@@ -23,7 +23,7 @@ import com.marc.lastweek.business.views.aaa.AuthenticatedUserData;
 import com.marc.lastweek.commons.exceptions.IncorrectLoginException;
 
 
-public class SignInSession extends AuthenticatedWebSession {    
+public class LastweekSession extends AuthenticatedWebSession {    
     private static final long serialVersionUID = 6817054705718877022L;
     
     @Autowired
@@ -31,13 +31,12 @@ public class SignInSession extends AuthenticatedWebSession {
     
     private AuthenticatedUserData user = null;
     private final Roles roles;
-    private Set<Long> favorites;
-//    private Page lastPage;
-
+    private List<Long> favorites;
     
-    public SignInSession(Request request) {
+    public LastweekSession(Request request) {
         super(request);
         this.roles = new Roles();
+        this.favorites = new ArrayList<Long>();
     }
 
     
@@ -46,7 +45,6 @@ public class SignInSession extends AuthenticatedWebSession {
 
         this.user = null;
         this.roles.clear();
-        this.favorites = new HashSet<Long>();
 
         try {
             this.user = this.aaaService.loginUser(username, password);
@@ -82,11 +80,11 @@ public class SignInSession extends AuthenticatedWebSession {
         return (this.user == null)?  null : this.user.getLogin();
     }
     
-    public static SignInSession get() {
-        return (SignInSession) Session.get();
+    public static LastweekSession get() {
+        return (LastweekSession) Session.get();
     }
     
-    public Set<Long> getFavorites() {
+    public List<Long> getFavorites() {
 		return this.favorites;
 	}
 	
@@ -96,6 +94,14 @@ public class SignInSession extends AuthenticatedWebSession {
 	
 	public void removeFavorite(Long id) {
 		this.favorites.remove(id);
+	}
+	
+	public boolean containsFavorite(Long id) {
+		return this.favorites.contains(id);
+	}
+	
+	public int favoritesCount() {
+		return this.favorites.size();
 	}
 
 //	public Page getLastPage() {

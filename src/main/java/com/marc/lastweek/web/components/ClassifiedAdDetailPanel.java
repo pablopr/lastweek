@@ -20,6 +20,7 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class ClassifiedAdDetailPanel extends Panel {
@@ -38,6 +39,8 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer flag = classifiedAd.getFlag();
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
+		final int sourceCode = classifiedAd.getSource().intValue();
+		
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
 		this.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
@@ -50,7 +53,6 @@ public class ClassifiedAdDetailPanel extends Panel {
 		this.add(new Label("userDataPhone",ViewUtils.labelizer(classifiedAd.getUserData().getPhone())));
 		this.add(new Label("userDataName",ViewUtils.labelizer(classifiedAd.getUserData().getName())));
 		 
-		final int sourceCode = classifiedAd.getSource().intValue();
 		ExternalLink classifiedAdSourceLink = new ExternalLink("classifiedAdSourceLink", classifiedAd.getSourceURL()) {
 
 			private static final long serialVersionUID = -5872308114085631059L;
@@ -62,13 +64,14 @@ public class ClassifiedAdDetailPanel extends Panel {
 				return true;
 			}
 		};
+		
 		classifiedAdSourceLink.add(new Label("classifiedAdSource", ViewUtils.labelizer(
 				CommonNamingValues.getSourceName(classifiedAd.getSource()))));
 		this.add(classifiedAdSourceLink);
+		
 		// TODO: Put strings in properties files
 		final Label flagClassifiedAdLabel = new Label("flagClassifiedAdSpan", "Marcar anuncio como inapropiado");
 		Link flagClassifiedAdLink =  new Link("flagClassifiedAdLink") {
-
 			private static final long serialVersionUID = -4262681914874430193L;
 
 			@Override
@@ -83,5 +86,26 @@ public class ClassifiedAdDetailPanel extends Panel {
 		};
 		flagClassifiedAdLink.add(flagClassifiedAdLabel);
 		this.add(flagClassifiedAdLink);
+		
+		Link addToFavoritesLink = new Link("addToFavoritesLink") {
+			private static final long serialVersionUID = 8340452899324058655L;
+
+			@Override
+			public void onClick() {
+				LastweekSession.get().addFavorite(classifiedAdId);
+				info("Anuncio a�adido a favoritos");
+				this.setVisible(false);
+				
+			}
+			
+			@Override
+			public boolean isVisible() {
+				if (LastweekSession.get().containsFavorite(classifiedAdId))
+					return false;
+				return true;
+			}
+			
+		};
+		this.add(addToFavoritesLink);
 	}
 }

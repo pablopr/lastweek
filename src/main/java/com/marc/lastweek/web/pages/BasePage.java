@@ -1,4 +1,5 @@
 /*
+ * BasePage.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -14,11 +15,12 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
+import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
+
 public class BasePage extends WebPage {
 
-    private static final long serialVersionUID = 1133369278126501257L;
-
     private static final String CSS_URL = "css/styles.css";
+    private static final String JQUERY_URL = "js/jquery-1.3.2.min.js";
 
     public BasePage() {
         this(null);
@@ -30,12 +32,9 @@ public class BasePage extends WebPage {
         super(pageParameters);
 
         add(HeaderContributor.forCss(CSS_URL));
+        add(HeaderContributor.forJavaScript(JQUERY_URL));
 
-        /*
-         * Add link to main page in header
-         */
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
-        
+		this.add(new FavoritesPropagandaPanel("favoritesBox"));
     }
-    
 }

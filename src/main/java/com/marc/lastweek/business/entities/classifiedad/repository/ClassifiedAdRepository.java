@@ -12,7 +12,7 @@ package com.marc.lastweek.business.entities.classifiedad.repository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
- 
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
@@ -28,7 +28,7 @@ import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Repository;
- 
+
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
  
@@ -127,11 +127,12 @@ public class ClassifiedAdRepository {
         FullTextQuery fullTextQuery = this.getFullTextQuery(parameters, from);
         return new Integer(fullTextQuery.list().size());
     }
- 
-    public List<ClassifiedAd> indexBasedSearch (FilterParameters parameters, Calendar from, int start, int count) {
- 
-        FullTextQuery fullTextQuery = this.getFullTextQuery(parameters, from);
- 
+
+    @SuppressWarnings("unchecked")
+	public List<ClassifiedAd> indexBasedSearch (FilterParameters parameters, Calendar from, int start, int count) {    
+
+        FullTextQuery fullTextQuery =  this.getFullTextQuery(parameters, from);
+
         // TODO : add order by date
 // SortField[] sortFields = new SortField[2];
 // sortFields[0] = new SortField();

@@ -1,7 +1,17 @@
 
-<wicket:panel>
-        <div class="filter-box" >
-		<h1> Revisa tu anuncio fresco! </h1>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:extend>
+	<div class="filter-box" wicket:id="checkDiv">
+   		<h1> Revisa tu anuncio fresco! </h1>
+   		
+<!--   		<div wicket:id="fileListViewPanel"/>-->
+   		
 		<table class="">
 			<tr>
 				<td colspan="2">
@@ -34,5 +44,10 @@
 	
 	<a href="#" wicket:id="confirmationLink"><label wicket:id="confirmationLabel">Publicar el anuncio</label></a>
 	</div>
-</wicket:panel>
+	
+</wicket:extend>
+
+</body>
+</html>
+
 
