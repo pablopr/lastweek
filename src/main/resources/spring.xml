@@ -26,7 +26,7 @@
     <!-- they can be assigned with "${propertyname}".                        -->
     <!-- ******************************************************************* -->
     <context:property-placeholder  location="classpath:business.properties,classpath:hibernate-search.properties,
-    	mail-messages.properties" />
+    	classpath:mail.properties" />
 
 
 

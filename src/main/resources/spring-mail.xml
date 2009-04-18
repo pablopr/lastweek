@@ -47,7 +47,7 @@
 <!-- Mail Service -->    
 
     <bean id="mailServiceTarget"  
-        class="com.mundor.business.services.mail.impl.MailServiceImpl">
+        class="com.marc.lastweek.business.services.mail.impl.MailServiceImpl">
       <property name="javaMailSender">
         <ref bean="javaMailSender"/>
       </property>
@@ -60,7 +60,7 @@
       
       <property name="velocityTemplates">
         <map>
-          <entry key="notify" value="com/mundor/business/services/mail/impl/templates/NotifyTemplate.vm"></entry>                    
+          <entry key="favorites" value="mail-templates/favorites.vm"></entry>                    
         </map>        
       </property> 
                 
