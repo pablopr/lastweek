@@ -27,6 +27,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
 import com.marc.lastweek.web.components.upload.UploadPanel;
 import com.marc.lastweek.web.util.ResourceUtils;
@@ -47,7 +48,6 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			@Override 
 			public String onFileUploaded(FileUpload upload) { 
 
-				//TODO move to service and use imageUtils
 				if (upload != null){
 					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 				}
@@ -64,13 +64,12 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		
 		descriptionDiv.add(uploadPanel);
 		
-//		List<File> fileList = LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 		
-//		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", fileList);
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 		
-//		this.fileListDiv = new FileListDiv("fileListDiv");
-//		this.fileListDiv.add(fileListViewPanel);
-//		descriptionDiv.add(this.fileListDiv);
+		this.fileListDiv = new FileListDiv("fileListDiv");
+		this.fileListDiv.add(fileListViewPanel);
+		descriptionDiv.add(this.fileListDiv);
 
 		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm", new LoadableDetachableModel(){
 			private static final long serialVersionUID = 4896378814518090123L;

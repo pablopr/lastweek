@@ -26,22 +26,25 @@ import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.resource.FileResourceStream;
 import org.apache.wicket.util.resource.IResourceStream;
 
+import com.marc.lastweek.web.application.LastweekApplication;
+
 
 public class ImageFileListViewPanel extends Panel{
 
 	private static final long serialVersionUID = -6023857527416347119L;
-	protected final List<File> fileList;
+	protected final String dirPath;
 	
-	public ImageFileListViewPanel(String id, List<File> fileList) {
+	public ImageFileListViewPanel(String id, String dirPath) {
 		super(id);
-		this.fileList = fileList;
+		this.dirPath = dirPath;
+		this.setOutputMarkupId(true);
 		
 		ImageFileListView fileListView = new ImageFileListView("fileList", new LoadableDetachableModel(){
 			private static final long serialVersionUID = 4896378814518090123L;
 
 			@Override
 			protected List<File> load(){
-				return ImageFileListViewPanel.this.fileList;
+				return 	LastweekApplication.get().getImageService().getAllTemporalFiles(ImageFileListViewPanel.this.dirPath);
 			}
 		});
 		
@@ -53,6 +56,7 @@ public class ImageFileListViewPanel extends Panel{
 
 		public ImageFileListView(String name, final IModel files){
 			super(name, files);
+			this.setOutputMarkupId(true);
 		}
 
 		@Override
