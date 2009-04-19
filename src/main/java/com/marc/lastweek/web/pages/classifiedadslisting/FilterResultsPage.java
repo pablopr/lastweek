@@ -71,7 +71,7 @@ public class FilterResultsPage extends BaseSearchPage {
 			filterParameters.setProvinceId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
 		}
 		
-		if(paramCounter==0) {
+		if (paramCounter==0) {
 			setResponsePage(LastweekApplication.get().getHomePage());
 		}
 		
