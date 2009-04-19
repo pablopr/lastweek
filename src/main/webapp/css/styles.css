@@ -226,11 +226,194 @@ pre {
 	text-align: right;
 }
 
+/********** CLASSIFIED AD DETAILS **********/
+
+.classified-ad-details-table {
+	width: 80%;
+}
+
+.classified-ad-details-title {
+	font-weight: bold;
+	font-size:18px;
+	width: 100%;
+	float:left;
+}	
+
+.classified-ad-details-date {
+	color: #696969;
+	font-size: 18px;
+	float: right;
+	text-align: right;
+	width: 100%;
+}
+
+.classified-ad-details-summary {
+	width: 80%;
+}
+
+.classified-ad-details-summary-table {
+	
+	width: 45%;
+	height: 203px;
+	float:left;
+	position:relative;
+	display:block;
+	line-height: 463%;
+}
+
+.classified-ad-details-summary-table-label {
+	width: 100%;
+	color: #696969;
+}
+
+.classified-ad-details-summary-table-detail {
+	width: 100%;
+	background-color: #F0F0F0;
+}
+
+.classified-ad-details-image {
+	top:20%;
+	width: 45%;
+	padding-left: 35px;
+	float: right;
+	position:relative;
+	display:block;
+}
+
+.classified-ad-details-image img {
+	border:2px solid #90c630;
+	width: 230px;
+	height: 175px;
+}
+
+.classified-ad-details-links {
+	width: 71%;
+	float:none;
+	display: block;
+	position:relative;
+	clear:both;
+}
+
+.classified-ad-details-menu {
+	margin-top: 10px;
+	width: 36%;
+	display: block;
+	position:relative;	
+}
+
+.classified-ad-details-description-link {
+	margin-top: 10px;
+	background-color: #F0F0F0;
+	width: 40%;
+	float:left;
+	display: block;
+	position:relative;
+	text-align: center;
+	font-size: 18px;
+	border-top: 1px solid #90c630;
+	border-left: 1px solid #90c630;
+	border-right: 1px solid #90c630;
+}
+
+.classified-ad-details-contact-link {
+	margin-top: 10px;
+	background-color: #F0F0F0;
+	width: 40%;
+	float:left;
+	display: block;
+	position:relative;
+	text-align: center;
+	font-size: 18px;
+	border-top: 1px solid #90c630;
+	border-left: 1px solid #90c630;
+	border-right: 1px solid #90c630;
+}
+
+.classified-ad-details-contact {
+	width: 71%;
+	float: none;
+	clear: both;
+	border: 1px solid #90c630;
+}
+
+.classified-ad-details-description {
+	width: 71%;
+	float: none;
+	clear: both;
+	border: 1px solid #90c630;
+}
+
+.classified-ad-details-price {
+	font-weight: bold;
+	font-size:14px;
+	text-align:right;
+}
+
+.classified-ad-details-province {
+	font-size:14px;
+	float: right;
+}
+
+.classified-ad-details-category {
+	font-size:14px;
+	float: right;
+}
+
+.classified-ad-details-source {
+	float:left;
+}
+
+.classified-ad-details-flag {
+	float:right;
+	clear:both;
+	width:280px;
+	text-align: right;
+}
+
+.classified-ad-details-fav {
+	float:right;
+}
+
 .classified-ad-details a, .classified-ad-details a:hover, .classified-ad-details a:visited {
 	color: #696969;
 	text-decoration: none;
 }
-	
+
+.classified-ad-details-source a, .classified-ad-details-source a:hover, .classified-ad-details-source a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+
+.classified-ad-details-flag a, .classified-ad-details-flag a:hover, .classified-ad-details-flag a:visited {
+	color: #ff3131;
+	text-decoration: none;
+}
+
+.classified-ad-details-fav a, .classified-ad-details-fav a:hover, .classified-ad-details-fav a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+
+.classified-ad-details-description-link a, .classified-ad-details-description-link a:hover, .classified-ad-details-description-link a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+
+.classified-ad-details-contact-link a, .classified-ad-details-contact-link a:hover, .classified-ad-details-contact-link a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+
+.back-link {
+	float: none;
+	clear: both;
+}
+
+.back-link a, .back-link a:hover, .back-link a:visited {
+	color: #696969;
+	text-decoration: none;
+}
+
 /* PAGINATION LINKS */
 .no-pagination-small {
 	border-top: 1px solid #000000;

@@ -3,72 +3,131 @@
 
 <html xmlns:wicket="http://wicket.apache.org/">
 <body>
-
 <wicket:panel>
 	<div>
-		<table class="">
-			<tr>
-				<td colspan="2">
-					<span wicket:id="classifiedAdTitle"/>
-				</td>
-				<td>
-					<span wicket:id="classifiedAdPublicationDate"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<!--  <span wicket:id="classifiedAdImage"/> -->
-				</td>
-				<td>
-					<span wicket:id="classifiedAdDescription"/>
-				</td>
-				<td>
-					<span wicket:id="classifiedAdPrice"/> <br/>
-					<a wicket:id="classifiedAdSourceLink" href="">
-						<wicket:message key="classifiedAdDetails.source"/> 
-						<span wicket:id="classifiedAdSource"/> <br/>
-					</a>
-					<a wicket:id="flagClassifiedAdLink" href="">
-						<span wicket:id="flagClassifiedAdSpan">
-							[Marcar anuncio como inapropiado]
-						</span>
-					</a>
-					<br/>
-					<a wicket:id="addToFavoritesLink" href="#">A&ntilde;adir a Favoritos</a>
-				</td>
-			</tr>
-		</table>
-		<table>
-			<tr>
-				<td>
-					<span wicket:id="provinceName"/> <br/>
-				</td>
-				<td>
-					<span wicket:id="categoryName"/> <br/>
-				</td>
-				<td>
-					<span wicket:id="subcategoryName"/> <br/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
+		<div class="classified-ad-details-table">
+			<table class="classified-ad-details-table">
+				<tr>
+					<td>
+						<span class="classified-ad-details-title" wicket:id="classifiedAdTitle"/>
+					</td>
+					<td>
+						<div class="classified-ad-details-date">
+							<wicket:message key="classifiedAdDetails.from"/>
+							<span wicket:id="classifiedAdPublicationDate"/>
+							<wicket:message key="classifiedAdDetails.days"/>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="classified-ad-details-summary">
+			<div class="classified-ad-details-summary-table">
+				<table>
+					<tr>
+						<td>
+							<div class="classified-ad-details-summary-table-label" wocket:id="classifiedAdPriceLabel">
+								<wicket:message key="classifiedAdDetails.price"/>
+							</div>
+						</td>
+						<td class="classified-ad-details-summary-table-detail">
+							<div class="classified-ad-details-price" >
+								<span wicket:id="classifiedAdPrice"/> &euro;<br/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="classified-ad-details-summary-table-label" wocket:id="classifiedAdProvinceLabel">
+								<wicket:message key="classifiedAdDetails.province"/>
+							</div>
+						</td>
+						<td class="classified-ad-details-summary-table-detail">
+							<div class="classified-ad-details-province" wicket:id="provinceName"/> <br/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div  class="classified-ad-details-summary-table-label"wocket:id="classifiedAdCategoryLabel">
+								<wicket:message key="classifiedAdDetails.category"/>
+							</div>
+						</td>
+						<td class="classified-ad-details-summary-table-detail">
+							<div class="classified-ad-details-category">
+								<span wicket:id="categoryName"/> -> <span wicket:id="subcategoryName"/> <br/>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="classified-ad-details-image">
+				<img alt="jaja" src="http://img.ebayanuncios.es/25/45/254530b3262479d18a152de4aa23628e_big.jpg"/>
+			</div>
+		</div>
+		<div class="classified-ad-details-menu">
+			<div class="classified-ad-details-description-link">
+				<a wicket:id="classifiedAdDescriptionLink" href="">
+					<wicket:message key="classifiedAdDetails.description"/>
+				</a>
+			</div>
+		</div>
+		<div class="classified-ad-details-description">
+			<div wicket:id="classifiedAdDescription"/>
+		</div>
+		<div class="classified-ad-details-menu">
+			<div class="classified-ad-details-contact-link"> 
+				<a wicket:id="classifiedAdContactLink" href="">
 					<wicket:message key="classifiedAdDetails.contact"/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<span wicket:id="userDataEmail"/>
-				</td>
-				<td>
-					<span wicket:id="userDataPhone"/>
-				</td>
-				<td>
-					<span wicket:id="userDataName"/>
-				</td>
-			</tr>
-		</table>
+				</a>
+			</div>
+		</div>
+		<div class="classified-ad-details-contact">
+			<table>
+				<tr>
+					<td>
+						<wicket:message key="classifiedAdDetails.user"/>:
+					</td>
+					<td>
+						<div wicket:id="userDataName"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<wicket:message key="classifiedAdDetails.email"/>:
+					</td>
+					<td>
+						<div wicket:id="userDataEmail"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<wicket:message key="classifiedAdDetails.phone"/>:
+					</td>
+					<td>
+						<div wicket:id="userDataPhone"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="classified-ad-details-links">
+			<div class="classified-ad-details-source">
+				<a wicket:id="classifiedAdSourceLink" href="">
+					<wicket:message key="classifiedAdDetails.source"/> 
+					<span wicket:id="classifiedAdSource"/> <br/>
+				</a>
+			</div>
+			<div class="classified-ad-details-fav">
+				<a wicket:id="addToFavoritesLink" href="#">A&ntilde;adir a Favoritos</a>
+			</div>
+			<div class="classified-ad-details-flag">
+				<a wicket:id="flagClassifiedAdLink" href="">
+					<span wicket:id="flagClassifiedAdSpan">
+						[Marcar anuncio como inapropiado]
+					</span>
+				</a>
+			</div>
+		</div>
 	</div>
 </wicket:panel>
-
 </body>
 </html>

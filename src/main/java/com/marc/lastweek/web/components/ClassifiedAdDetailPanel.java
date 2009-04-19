@@ -21,6 +21,7 @@ import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.session.LastweekSession;
+import com.marc.lastweek.web.util.DateUtils;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class ClassifiedAdDetailPanel extends Panel {
@@ -42,13 +43,33 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final int sourceCode = classifiedAd.getSource().intValue();
 		
 		// TODO: add image, add province and category
-		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
+		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(DateUtils.getDaysFromThen(classifiedAd.getPublicationDate()))));
 		this.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 		this.add(new Label("classifiedAdDescription",ViewUtils.labelizer(classifiedAd.getDescription())));
 		this.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
 		this.add(new Label("provinceName",ViewUtils.labelizer(classifiedAd.getProvince().getName())));
 		this.add(new Label("categoryName",ViewUtils.labelizer(classifiedAd.getCategory().getName())));
 		this.add(new Label("subcategoryName",ViewUtils.labelizer(classifiedAd.getSubcategory().getName())));
+		this.add(new Link("classifiedAdDescriptionLink") {
+
+			private static final long serialVersionUID = 7411597974910148218L;
+
+			@Override
+			public void onClick() {
+				
+			}
+			
+		});
+		this.add(new Link("classifiedAdContactLink") {
+
+			private static final long serialVersionUID = -4262681914874430193L;
+
+			@Override
+			public void onClick() {
+				
+			}
+			
+		});
 		this.add(new Label("userDataEmail",ViewUtils.labelizer(classifiedAd.getUserData().getEmail())));
 		this.add(new Label("userDataPhone",ViewUtils.labelizer(classifiedAd.getUserData().getPhone())));
 		this.add(new Label("userDataName",ViewUtils.labelizer(classifiedAd.getUserData().getName())));
