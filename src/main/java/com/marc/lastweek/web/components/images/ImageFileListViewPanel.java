@@ -15,14 +15,16 @@ import java.util.List;
 
 import org.apache.wicket.Resource;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.resource.FileResourceStream;
 import org.apache.wicket.util.resource.IResourceStream;
 
@@ -32,9 +34,9 @@ import com.marc.lastweek.web.application.LastweekApplication;
 public class ImageFileListViewPanel extends Panel{
 
 	private static final long serialVersionUID = -6023857527416347119L;
-	protected final String dirPath;
+	protected final Folder dirPath;
 	
-	public ImageFileListViewPanel(String id, String dirPath) {
+	public ImageFileListViewPanel(String id, Folder dirPath) {
 		super(id);
 		this.dirPath = dirPath;
 		this.setOutputMarkupId(true);
@@ -63,7 +65,16 @@ public class ImageFileListViewPanel extends Panel{
 		protected void populateItem(ListItem listItem) {
 			final File file = (File)listItem.getModelObject();
 			
-			listItem.add(new Image("image", new ImageFileResource(file)));
+			listItem.add(new NonCachingImage("image",
+                    new AbstractReadOnlyModel() {
+						private static final long serialVersionUID = -3793771756226385126L;
+
+							@Override
+                            public Object getObject() {
+                                    return new ImageFileResource(file);
+                            }
+                    })
+			);
 			
 			listItem.add(new Label("file", file.getName()));
 			listItem.add(new Link("delete"){

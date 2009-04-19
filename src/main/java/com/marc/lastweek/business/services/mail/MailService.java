@@ -15,5 +15,5 @@ import java.util.List;
 
 public interface MailService {
 
-	public void sendFavoritesMail(String addresses, List<Long> favoritesList);
+	public void sendFavoritesMail(String address, List<Long> favoritesList);
 }

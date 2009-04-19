@@ -12,15 +12,24 @@ package com.marc.lastweek.business.views.commons;
 
 import java.io.Serializable;
 
+import org.apache.wicket.util.file.Folder;
+
+import com.marc.lastweek.web.application.LastweekApplication;
+
 public class NewClassifiedAdAndUserDataTO implements Serializable {
 	
 	
 	private static final long serialVersionUID = -1393594287491092763L;
 	
+	public NewClassifiedAdAndUserDataTO() {
+		super();
+		this.temporalFolder = LastweekApplication.get().getImageService().createTemporalFolder();
+	}
+
 	private String categoryName;
 	private String subcategoryName;
 	private String provinceName;
-	private String imageRandomDir = "testing";
+	private Folder temporalFolder;
 	private Long categoryId;
 	private Long subcategoryId;
 	private String email = "";
@@ -124,14 +133,13 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 		this.provinceName = provinceName;
 	}
 
-	public String getImageRandomDir() {
-		return this.imageRandomDir;
+	public Folder getTemporalFolder() {
+		return this.temporalFolder;
 	}
 
-	public void setImageRandomDir(String imageRandomDir) {
-		this.imageRandomDir = imageRandomDir;
+	public void setTemporalFolder(Folder temporalFolder) {
+		this.temporalFolder = temporalFolder;
 	}
-	
-	
+
 		
 }
