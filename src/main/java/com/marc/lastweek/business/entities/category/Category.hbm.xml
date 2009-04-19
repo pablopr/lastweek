@@ -14,12 +14,12 @@
         <property name="name" column="NAME" not-null="true" unique="true"/>
         
         
-        <set name="subcategories" access="field" inverse="false" order-by="NAME">
+        <set name="subcategories"  table="CATEGORY_SUBCATEGORY" >
             <cache usage="nonstrict-read-write" />
             <key>
                 <column name="CATEGORY_ID"/>
             </key>
-            <one-to-many class="com.marc.lastweek.business.entities.category.Subcategory" />
+            <many-to-many column="SUBCATEGORY_ID" class="com.marc.lastweek.business.entities.category.Subcategory" />
         </set>
         
         <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">

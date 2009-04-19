@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
+import com.marc.lastweek.business.views.classifiedad.NewExternalClassifiedAdTO;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 
 public interface ClassifiedAdsService {
@@ -23,4 +24,6 @@ public interface ClassifiedAdsService {
 	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters);
 	
 	public void createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
+	
+	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
 }

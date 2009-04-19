@@ -9,12 +9,15 @@
 	<div class="filter-box" wicket:id="userDataDiv">
   	<form wicket:id="userDataForm">
 	    <h2>Datos de contacto</h2> 
+	    <label>Tu nombre</label> <br />
+		<input type="text" wicket:id="name" /><br /><br />
 	    <label>Teléfono</label> <br />
 		<input type="text" wicket:id="phone" /><br /><br />
 		<label>Email</label> <br />
 		<input type="text" wicket:id="email" /><br /><br />
 	    <a href="#" wicket:id="submitUserDataLink">Siguiente paso</a>
 	</form>
+	<a href="#" wicket:id="backLink"><label wicket:id="backLinkLabel">Volver</label></a>
 	</div>
 	
 </wicket:extend>

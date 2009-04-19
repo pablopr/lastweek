@@ -28,6 +28,7 @@ import com.marc.lastweek.business.entities.userdata.UserData;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.business.views.classifiedad.NewClassifiedAdTO;
+import com.marc.lastweek.business.views.classifiedad.NewExternalClassifiedAdTO;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.business.views.userdata.NewUserDataTO;
 
@@ -88,7 +89,13 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
+		newClassifiedAdTO.setHashCode(newClassifiedAdAndUserDataTO.getTemporalFolder().getName());
+		
 		this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
+	}
+
+	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO) {
+		this.generalService.add(ClassifiedAd.class,newExternalClassifiedAdTO);
 	}
 	
 }

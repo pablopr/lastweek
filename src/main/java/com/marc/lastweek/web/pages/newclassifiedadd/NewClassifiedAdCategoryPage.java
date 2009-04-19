@@ -60,7 +60,7 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 					final Long categoryId = category.getId();
 					final String categoryName = category.getName();
 					final int countSubcategories = category.getSubcategories().size();
-
+					
 					Link categoryLink = new AjaxFallbackLink("categoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
@@ -72,14 +72,14 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 							NewClassifiedAdCategoryPage.this.newClassifiedAdTO.setCategoryName(categoryName);
 							CategoryPanel.this.setVisible(false);
 
-							if (countSubcategories == 0){
+							if ( countSubcategories == 0 ) {
 								this.setResponsePage(new NewClassifiedAdDescriptionPage(NewClassifiedAdCategoryPage.this.newClassifiedAdTO));
 							}
 							else{
 								NewClassifiedAdCategoryPage.this.subcategoryPanel.setCategoryId(categoryId);
 								NewClassifiedAdCategoryPage.this.subcategoryPanel.setVisible(true);
 							}
-							if (target != null) {
+							if ( target != null ) {
 								target.addComponent(NewClassifiedAdCategoryPage.this.subcategoryPanel);
 								target.addComponent(CategoryPanel.this);
 							}
@@ -92,6 +92,18 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 				}
 
 			});
+			
+			Link backLink = new Link("backLink") {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void onClick() {
+					this.setResponsePage(new NewClassifiedAdProvincePage(NewClassifiedAdCategoryPage.this.newClassifiedAdTO));
+
+				}
+			};
+			backLink.add(new Label("backLinkLabel", "volver"));
+			this.add(backLink);
 		}
 
 	}
@@ -147,6 +159,19 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 				}
 
 			});
+			
+			Link backLink = new Link("backLink") {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void onClick() {
+					SubcategoryPanel.this.setVisible(false);
+					NewClassifiedAdCategoryPage.this.categoryPanel.setVisible(true);
+
+				}
+			};
+			backLink.add(new Label("backLinkLabel", "volver"));
+			this.add(backLink);
 
 		}
 		public void setCategoryId(Long categoryId){

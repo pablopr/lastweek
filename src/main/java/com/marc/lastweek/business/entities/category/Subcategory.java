@@ -15,7 +15,6 @@ import java.util.Set;
 
 import org.hibernate.search.annotations.DocumentId;
 
-import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 public class Subcategory {
@@ -23,8 +22,9 @@ public class Subcategory {
     @DocumentId
 	private Long id;
 	private String name;
-	private Category parent;
-	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>(); 
+	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>();
+	private Set<Category> categories = new LinkedHashSet<Category>();
+
 	
 	
 	
@@ -47,11 +47,13 @@ public class Subcategory {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Category getParent() {
-		return this.parent;
+	
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
-	public void setParent(Category parent) {
-		this.parent = parent;
+	
+	public Set<Category> getCategories() {
+		return this.categories;
 	}
 	
 	
