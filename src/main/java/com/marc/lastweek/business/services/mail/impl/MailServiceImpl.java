@@ -39,7 +39,7 @@ public class MailServiceImpl implements MailService {
 	
     private static final String CHARSET = "ISO-8859-1";
     private static final Locale SPANISH_LOCALE = new Locale("es");  
-	private final static String MAIL_MESSAGES_FILE = "mail-templates/mail-messages.properties";
+	private final static String MAIL_MESSAGES_FILE = "mail-templates/mail-messages";
 
 	protected JavaMailSender javaMailSender = null;
 
@@ -53,6 +53,8 @@ public class MailServiceImpl implements MailService {
 	public void sendFavoritesMail(String address, List<Long> favoritesList) {
 		// TODO get classified ad inforamtion
 		Map templateData = new HashMap();
+		
+		templateData.put("prueba", "movida con ‡centos y e–es");
 		
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_FAVORITES, templateData, address);
 	}

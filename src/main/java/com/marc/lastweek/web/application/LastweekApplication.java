@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.business.services.images.ImageService;
+import com.marc.lastweek.business.services.mail.MailService;
 import com.marc.lastweek.web.pages.aaa.SignInPage;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
@@ -51,6 +52,9 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     
     @Autowired
     private ImageService imageService;
+    
+    @Autowired
+    private MailService mailService;
    
     public LastweekApplication() {
         super();
@@ -146,7 +150,9 @@ public class LastweekApplication extends AuthenticatedWebApplication {
 		return this.imageService;
 	}
     
-    
+    public MailService getMailService() {
+    	return this.mailService;
+    }
     
 }
 
