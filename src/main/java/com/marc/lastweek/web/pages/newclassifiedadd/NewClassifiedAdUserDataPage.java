@@ -11,10 +11,12 @@
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 
@@ -30,6 +32,18 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 		WebMarkupContainer userDataDiv = new WebMarkupContainer("userDataDiv");
 		
 		userDataDiv.add(new UserDataForm("userDataForm"));
+		
+		Link backLink = new Link("backLink") {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick() {
+				this.setResponsePage(new NewClassifiedAdDescriptionPage(NewClassifiedAdUserDataPage.this.newClassifiedAdTO));
+
+			}
+		};
+		backLink.add(new Label("backLinkLabel", "volver"));
+		userDataDiv.add(backLink);
 		
 		this.add(userDataDiv);
 	}

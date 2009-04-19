@@ -44,6 +44,18 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 
 		checkDiv.add(new Label("userDataEmail", ViewUtils.labelizer(this.newClassifiedAdTO.getEmail())));
 		checkDiv.add(new Label("userDataPhone", ViewUtils.labelizer(this.newClassifiedAdTO.getPhone())));
+		
+		Link backLink = new Link("backLink") {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick() {
+				this.setResponsePage(new NewClassifiedAdUserDataPage(NewClassifiedAdCheckPage.this.newClassifiedAdTO));
+
+			}
+		};
+		backLink.add(new Label("backLinkLabel", "volver"));
+		checkDiv.add(backLink);
 
 		Link confirmationLink = new Link("confirmationLink") {
 			private static final long serialVersionUID = 5478474480425390258L;

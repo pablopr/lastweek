@@ -52,7 +52,7 @@ public class NewClassifiedAdProvincePage extends NewClassifiedAdPage {
 
 					}
 				};
-
+					
 				provinceLink.add(new Label("provinceLabel",provinceName));
 				listItem.add(provinceLink);
 			}
