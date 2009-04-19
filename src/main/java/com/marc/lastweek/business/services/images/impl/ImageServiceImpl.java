@@ -60,10 +60,8 @@ public class ImageServiceImpl implements ImageService{
     
 	public void saveTemporalImage(FileUpload fileUpload, Folder temporalFolder) {
 		
-		String suffix = getFileTypeSuffix(fileUpload.getContentType());
-		
 		try{
-			File newFile =  createImageFile(temporalFolder, suffix);
+			File newFile =  createImageFile(temporalFolder, fileUpload.getClientFileName());
 			// Save to new file
 			fileUpload.writeTo(newFile);
 
@@ -126,9 +124,8 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	
-	private File createImageFile(Folder dir, String suffix){
-        UUID uuid = UUID.randomUUID();
-        File file = new File(dir, uuid.toString() + suffix);
+	private File createImageFile(Folder dir, String fileName){
+        File file = new File(dir, fileName);
         if (logger.isDebugEnabled()) {
             logger.debug("File " + file.getAbsolutePath() + " created.");
         }

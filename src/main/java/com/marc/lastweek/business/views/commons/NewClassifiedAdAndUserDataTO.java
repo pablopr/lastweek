@@ -32,6 +32,7 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	private Folder temporalFolder;
 	private Long categoryId;
 	private Long subcategoryId;
+	private String name = "";
 	private String email = "";
 	private String phone = "";
 	private Double price = Double.valueOf("0");
@@ -139,6 +140,14 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 
 	public void setTemporalFolder(Folder temporalFolder) {
 		this.temporalFolder = temporalFolder;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 		
