@@ -39,16 +39,19 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final RequiredTextField email;
 		protected final TextField phone;
+		protected final RequiredTextField name;
 
 
 		public UserDataForm(String id) {
 			super(id);
+			this.name = new RequiredTextField("email", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getName()));
 			this.phone = new TextField("phone", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getPhone()), String.class);
 
 			this.email = new RequiredTextField("email", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getEmail()));
 			this.email.add(EmailAddressValidator.getInstance());
 			this.email.setRequired(true);
 
+			add(this.name);
 			add(this.phone);
 			add(this.email);
 			add(new SubmitLink("submitUserDataLink"){
@@ -57,6 +60,7 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 
 				@Override
 				public void onSubmit() {
+					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setName(UserDataForm.this.name.getModelObjectAsString());
 					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setPhone(UserDataForm.this.phone.getModelObjectAsString());
 					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
 					this.setResponsePage(new NewClassifiedAdCheckPage(NewClassifiedAdUserDataPage.this.newClassifiedAdTO));
