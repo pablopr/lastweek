@@ -48,6 +48,7 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			@Override 
 			public String onFileUploaded(FileUpload upload) { 
 
+				//TODO move to service and use imageUtils
 				if (upload != null){
 					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 				}
@@ -64,8 +65,9 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		
 		descriptionDiv.add(uploadPanel);
 		
+		List<File> fileList = LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 		
-		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", fileList);
 		
 		this.fileListDiv = new FileListDiv("fileListDiv");
 		this.fileListDiv.add(fileListViewPanel);
