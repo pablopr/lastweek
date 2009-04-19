@@ -16,10 +16,12 @@ import java.util.List;
 import org.apache.wicket.Resource;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.util.file.Files;
@@ -64,7 +66,16 @@ public class ImageFileListViewPanel extends Panel{
 		protected void populateItem(ListItem listItem) {
 			final File file = (File)listItem.getModelObject();
 			
-			listItem.add(new Image("image", new ImageFileResource(file)));
+			listItem.add(new NonCachingImage("image",
+                    new AbstractReadOnlyModel() {
+						private static final long serialVersionUID = -3793771756226385126L;
+
+							@Override
+                            public Object getObject() {
+                                    return new ImageFileResource(file);
+                            }
+                    })
+			);
 			
 			listItem.add(new Label("file", file.getName()));
 			listItem.add(new Link("delete"){

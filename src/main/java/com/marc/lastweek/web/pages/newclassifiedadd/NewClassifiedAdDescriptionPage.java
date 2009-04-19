@@ -10,17 +10,12 @@
  */
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
-import java.io.File;
-import java.util.List;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -71,14 +66,7 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		this.fileListDiv.add(fileListViewPanel);
 		descriptionDiv.add(this.fileListDiv);
 
-		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm", new LoadableDetachableModel(){
-			private static final long serialVersionUID = 4896378814518090123L;
-			@Override
-			protected List<File> load(){
-				return LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
-			}
-		});
-		
+		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm");
 		descriptionDiv.add(descriptionForm);
 		
 		
@@ -104,8 +92,8 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		protected final JQueryTextEditor description;
 
 
-		public DescriptionForm(String id, IModel model) {
-			super(id, model);
+		public DescriptionForm(String id) {
+			super(id);
 			setMultiPart(true);
 
 			this.price = new TextField("price", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getPrice()), Double.class);
