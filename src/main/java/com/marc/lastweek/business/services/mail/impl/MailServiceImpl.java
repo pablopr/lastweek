@@ -17,11 +17,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.DateTool;
-import org.apache.velocity.tools.generic.MathTool;
 import org.apache.velocity.tools.generic.ResourceTool;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,7 +29,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.mail.MailService;
+import com.marc.lastweek.web.application.LastweekApplication;
 
 public class MailServiceImpl implements MailService {
 	
@@ -39,7 +41,7 @@ public class MailServiceImpl implements MailService {
 	
     private static final String CHARSET = "ISO-8859-1";
     private static final Locale SPANISH_LOCALE = new Locale("es");  
-	private final static String MAIL_MESSAGES_FILE = "mail-templates/mail-messages.properties";
+	private final static String MAIL_MESSAGES_FILE = "mail-templates/mail-messages";
 
 	protected JavaMailSender javaMailSender = null;
 
@@ -51,8 +53,14 @@ public class MailServiceImpl implements MailService {
 	
 
 	public void sendFavoritesMail(String address, List<Long> favoritesList) {
-		// TODO get classified ad inforamtion
+		Map<String,Object> parameters = new HashMap<String, Object>();
+		parameters.put("favorites", favoritesList);
+		List adsList = LastweekApplication.get().getGeneralService().queryForList(ClassifiedAd.class,
+				"getClassifiedAdsInList", parameters);
+		
 		Map templateData = new HashMap();
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
+		templateData.put("adsList", adsList);
 		
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_FAVORITES, templateData, address);
 	}
@@ -85,7 +93,7 @@ public class MailServiceImpl implements MailService {
     		final Map<String, Object> templateData, final String mailTo) {
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            public void prepare(MimeMessage mimeMessage) throws Exception {
+            public void prepare(MimeMessage mimeMessage) throws MessagingException {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
 
                 // Set message attributes
@@ -97,7 +105,6 @@ public class MailServiceImpl implements MailService {
                 Map<String, Object> model = new HashMap<String, Object>();
                 model.put("locale", locale);
                 model.put("dateTool", new DateTool());
-                model.put("mathTool", new MathTool());
                 model.put("resourceTool", new ResourceTool());
 
                 // Insert data in the template

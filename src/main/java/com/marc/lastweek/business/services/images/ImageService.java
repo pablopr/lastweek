@@ -11,7 +11,6 @@
 package com.marc.lastweek.business.services.images;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +27,6 @@ public interface ImageService{
     
     public Date getLastModifyTime(ImageEntry imageEntry);
     
-    public byte[] getThumbnail(ImageEntry imageEntry)
-       throws IOException;
-
     
     @Transactional
     public void saveTemporalImage(FileUpload fileUpload, Folder temporalDir);
