@@ -24,9 +24,9 @@ public class EbayPisosAdapter {
 		"En venta"
 	};
 	
-//	private final static int[] EBAY_PISOS_CATEGORIES_TO_LASTWEEK_CATEGORIES = {
-//		3,4,2
-//	};
+	private final static long[] EBAY_PISOS_CATEGORIES_TO_LASTWEEK_CATEGORIES = {
+		3,4,2
+	};
 //	
 //	private final static String[] EBAY_PISOS_SUBCATEGORIES = {
 //		"Casas Pisos\n Piso",
@@ -40,7 +40,7 @@ public class EbayPisosAdapter {
 	
 	
 	public final static NewExternalClassifiedAdTO adapt(EbayPisosAd ebayPisosAd){
-		Long categoryId = Long.valueOf(ArrayUtils.indexOf(EBAY_PISOS_CATEGORIES, ebayPisosAd.getCategory().trim()));
+		long categoryId = EBAY_PISOS_CATEGORIES_TO_LASTWEEK_CATEGORIES[ArrayUtils.indexOf(EBAY_PISOS_CATEGORIES, ebayPisosAd.getCategory().trim())];
 		Double price = null;
 		try {
 				price = Double.valueOf(ebayPisosAd.getPrice().replaceFirst("EUR", ""));
@@ -51,7 +51,7 @@ public class EbayPisosAdapter {
 		Long provinceId = Long.valueOf(1); 
 		
 		return new NewExternalClassifiedAdTO(
-				categoryId,
+				Long.valueOf(categoryId),
 				null,
 				price,
 				ebayPisosAd.getTitle(),

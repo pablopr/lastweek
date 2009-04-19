@@ -44,6 +44,9 @@
 	<query name="getClassifiedAdsInList">
 		from ClassifiedAd where id in (:favorites) 
 	</query>
+	<query name="getClassifiedAdByUrl">
+		from ClassifiedAd where sourceURL = :sourceURL
+	</query>
 
 </hibernate-mapping>
 
