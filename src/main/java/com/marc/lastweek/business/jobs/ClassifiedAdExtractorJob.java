@@ -14,21 +14,20 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 
+import com.marc.lastweek.extractionengine.extractors.EbayPisosExtractorService;
+import com.marc.lastweek.extractionengine.naming.UrlNaming;
+
 public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBean {	
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
-		try {
-			
+		try {			
 			ApplicationContext applicationContext = this.getApplicationContext(context);
-//			
-//			ClassifiedAdsService classifiedAdsService = (ClassifiedAdsService) applicationContext.getBean("classifiedAdsServiceImpl");
-//										
-//			WebConversation wc = new WebConversation();
-//		    WebRequest     req = new GetMethodWebRequest( "http://www.elpais.com" );
-//		    WebResponse   resp = wc.getResponse( req );
-//		    log.info(resp.getText());
+			EbayPisosExtractorService EbayPisosExtractorService = (EbayPisosExtractorService) applicationContext.getBean("ebayPisosExtractorServiceImpl"); 
+			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
+				EbayPisosExtractorService.processProvince( province );
+			}	
 			
 		} catch (Exception e) {
 			log.info("Task finished with errors" + e);

@@ -72,14 +72,14 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 							NewClassifiedAdCategoryPage.this.newClassifiedAdTO.setCategoryName(categoryName);
 							CategoryPanel.this.setVisible(false);
 
-							if (countSubcategories == 0){
+							if ( countSubcategories == 0 ) {
 								this.setResponsePage(new NewClassifiedAdDescriptionPage(NewClassifiedAdCategoryPage.this.newClassifiedAdTO));
 							}
 							else{
 								NewClassifiedAdCategoryPage.this.subcategoryPanel.setCategoryId(categoryId);
 								NewClassifiedAdCategoryPage.this.subcategoryPanel.setVisible(true);
 							}
-							if (target != null) {
+							if ( target != null ) {
 								target.addComponent(NewClassifiedAdCategoryPage.this.subcategoryPanel);
 								target.addComponent(CategoryPanel.this);
 							}

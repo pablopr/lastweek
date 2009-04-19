@@ -13,8 +13,13 @@
 
 		<property name="name" column="NAME" not-null="true" unique="true" />
 
-		<many-to-one name="parent" column="CATEGORY_ID"
-			class="com.marc.lastweek.business.entities.category.Category" />
+		<set name="categories"  table="CATEGORY_SUBCATEGORY" >
+            <cache usage="nonstrict-read-write" />
+            <key>
+                <column name="SUBCATEGORY_ID"/>
+            </key>
+            <many-to-many column="CATEGORY_ID" class="com.marc.lastweek.business.entities.category.Category" />
+        </set>
 
 		<set name="classifiedAds" access="field" inverse="false"
 			order-by="PUBLICATION_DATE">
@@ -29,8 +34,8 @@
 
 	</class>
 	<query name="findSubcategoriesByCategoryId" cacheable="true">
-		from Subcategory s
-		where s.parent.id = :categoryId
+		select s from Subcategory s join s.categories as category 
+		where category.id = :categoryId
 	</query>
 
 </hibernate-mapping>

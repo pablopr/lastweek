@@ -19,7 +19,7 @@
 	<bean id="classifiedAdExtractorJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 	    <property name="jobDetail" ref="classifiedAdExtractorJob" />
 	    <property name="startDelay" value="1" />
-	    <property name="repeatInterval" value="10000" />
+	    <property name="repeatInterval" value="1000000000" />
 	</bean>
 	
 	<bean id="scheduler"
