@@ -1,1 +1,12 @@
-<h1>mail de prueba: ${prueba}</h1>
+<h2>Sus favoritos en LASTWEEK</h2>
+<ul>
+    #foreach( $ad in $adsList )
+       <li>
+            <h3><a href="${baseurl}/${ad.id}">${ad.title}</a></h3>
+             #if (! $ad.price)
+                Precio: ${ad.price} <br/>             
+             #end
+            ${ad.description}
+       </li>                      
+    #end 
+</ul>

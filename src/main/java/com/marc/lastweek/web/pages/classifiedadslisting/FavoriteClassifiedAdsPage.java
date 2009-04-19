@@ -40,12 +40,14 @@ import com.marc.lastweek.web.util.ViewUtils;
 
 public class FavoriteClassifiedAdsPage extends StandardPage {
 
+	protected ListView classifiedList; 
+
 	public FavoriteClassifiedAdsPage() {
 		super();
 
 		this.add(new CreateNewAdPropagandaPanel("createNewAd"));
 
-		ListView classifiedList = new ListView("classifiedAdsList", 
+		this.classifiedList = new ListView("classifiedAdsList", 
 				new LoadableFavoritesModel()){
 
 			private static final long serialVersionUID = 4626162638077489818L;
@@ -109,22 +111,30 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 		private static final long serialVersionUID = -2958958251868355060L;
 
 		protected TextField mailAddress; 
-		
+
 		public SendFavoritesMailForm(String id) {
 			super(id);
 			mailAddress = new TextField("mailAddress", new Model());
 			mailAddress.add(EmailAddressValidator.getInstance());
 			mailAddress.setRequired(true);
-			mailAddress.setLabel(ResourceUtils.createResourceModel("email.form.label", FavoriteClassifiedAdsPage.this));
+			mailAddress.setLabel(ResourceUtils.createResourceModel("mail.form.label", FavoriteClassifiedAdsPage.this));
 			this.add(mailAddress);
 		}
 
 		@Override
 		protected void onSubmit() {
-			String emailAddress = this.mailAddress.getModelObjectAsString();
-			LastweekApplication.get().getMailService().sendFavoritesMail(emailAddress,
-					LastweekSession.get().getFavorites());
-			info(ResourceUtils.getResourceString("mail.sent", FavoriteClassifiedAdsPage.this, emailAddress));
+			if (classifiedList.getList().size()>0) {
+				String emailAddress = this.mailAddress.getModelObjectAsString();
+				try {
+					LastweekApplication.get().getMailService().sendFavoritesMail(emailAddress,
+							LastweekSession.get().getFavorites());
+					info(ResourceUtils.getResourceString("mail.sent", FavoriteClassifiedAdsPage.this, emailAddress));
+				} catch (Exception e) {
+					error(ResourceUtils.getResourceString("mail.error", FavoriteClassifiedAdsPage.this, emailAddress));
+				}
+			} else {
+				warn(ResourceUtils.getResourceString("mail.empty", FavoriteClassifiedAdsPage.this));
+			}
 		}
 
 	}
