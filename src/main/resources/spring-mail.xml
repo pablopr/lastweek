@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- Mail Sender -->
+    <bean id="javaMailSender"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<list>
+				<value>
+					org.springframework.mail.javamail.JavaMailSender
+				</value>
+			</list>
+		</property>
+        <property name="target">
+			<ref bean="javaMailSenderTarget" />
+		</property>
+    </bean>
+       
+    <bean id="javaMailSenderTarget"  
+        class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="${mail.host}"/>
+      <property name="username" value="${mail.username}"/> 
+      <property name="password" value="${mail.password}"/>
+      <property name="port" value="${mail.port}"/>
+      <property name="protocol" value="${mail.protocol}"/>
+      <property name="javaMailProperties">
+        <map>
+          <entry key="mail.smtps.auth" value="${mail.smtps.auth}"></entry>
+          <entry key="mail.smtp.starttls.enable" value="${mail.smtp.starttls.enable}"></entry>
+        </map>        
+      </property>       
+    </bean>
+    
+<!-- Velocity Engine -->
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+    </bean>    
+    
+<!-- Mail Service -->    
+
+    <bean id="mailServiceTarget"  
+        class="com.marc.lastweek.business.services.mail.impl.MailServiceImpl">
+      <property name="javaMailSender">
+        <ref bean="javaMailSender"/>
+      </property>
+      <property name="velocityEngine">
+        <ref bean="velocityEngine"/>
+      </property>
+      <property name="from">
+        <value>${mail.from}</value>
+      </property>      
+      
+      <property name="velocityTemplates">
+        <map>
+          <entry key="favorites" value="mail-templates/favorites.vm"></entry>                    
+        </map>        
+      </property> 
+                
+    </bean>
+     
+</beans>

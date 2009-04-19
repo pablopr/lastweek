@@ -15,33 +15,38 @@ import java.util.List;
 
 import org.apache.wicket.Resource;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.resource.FileResourceStream;
 import org.apache.wicket.util.resource.IResourceStream;
+
+import com.marc.lastweek.web.application.LastweekApplication;
 
 
 public class ImageFileListViewPanel extends Panel{
 
 	private static final long serialVersionUID = -6023857527416347119L;
-	protected final List<File> fileList;
+	protected final Folder dirPath;
 	
-	public ImageFileListViewPanel(String id, List<File> fileList) {
+	public ImageFileListViewPanel(String id, Folder dirPath) {
 		super(id);
-		this.fileList = fileList;
+		this.dirPath = dirPath;
+		this.setOutputMarkupId(true);
 		
 		ImageFileListView fileListView = new ImageFileListView("fileList", new LoadableDetachableModel(){
 			private static final long serialVersionUID = 4896378814518090123L;
 
 			@Override
 			protected List<File> load(){
-				return ImageFileListViewPanel.this.fileList;
+				return 	LastweekApplication.get().getImageService().getAllTemporalFiles(ImageFileListViewPanel.this.dirPath);
 			}
 		});
 		
@@ -53,13 +58,23 @@ public class ImageFileListViewPanel extends Panel{
 
 		public ImageFileListView(String name, final IModel files){
 			super(name, files);
+			this.setOutputMarkupId(true);
 		}
 
 		@Override
 		protected void populateItem(ListItem listItem) {
 			final File file = (File)listItem.getModelObject();
 			
-			listItem.add(new Image("image", new ImageFileResource(file)));
+			listItem.add(new NonCachingImage("image",
+                    new AbstractReadOnlyModel() {
+						private static final long serialVersionUID = -3793771756226385126L;
+
+							@Override
+                            public Object getObject() {
+                                    return new ImageFileResource(file);
+                            }
+                    })
+			);
 			
 			listItem.add(new Label("file", file.getName()));
 			listItem.add(new Link("delete"){

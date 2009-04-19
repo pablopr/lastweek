@@ -34,7 +34,7 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdsListPanel extends Panel {
 	private static final long serialVersionUID = -2481706792408827434L;
 
-	private static final int RESULTS_PER_PAGE = 10; 
+	private static final int RESULTS_PER_PAGE = 5; 
 
 	public ClassifiedAdsListPanel(String id, final FilterParameters filterParameters) {
 		super(id);

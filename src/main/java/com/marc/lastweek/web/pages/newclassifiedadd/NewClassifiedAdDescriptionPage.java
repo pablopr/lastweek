@@ -10,23 +10,19 @@
  */
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
-import java.io.File;
-import java.util.List;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.validation.validator.StringValidator;
 
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
 import com.marc.lastweek.web.components.upload.UploadPanel;
 import com.marc.lastweek.web.util.ResourceUtils;
@@ -47,9 +43,8 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			@Override 
 			public String onFileUploaded(FileUpload upload) { 
 
-				//TODO move to service and use imageUtils
 				if (upload != null){
-					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
+					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 				}
 				return ""; 
 			} 
@@ -64,22 +59,14 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		
 		descriptionDiv.add(uploadPanel);
 		
-//		List<File> fileList = LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 		
-//		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", fileList);
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 		
-//		this.fileListDiv = new FileListDiv("fileListDiv");
-//		this.fileListDiv.add(fileListViewPanel);
-//		descriptionDiv.add(this.fileListDiv);
+		this.fileListDiv = new FileListDiv("fileListDiv");
+		this.fileListDiv.add(fileListViewPanel);
+		descriptionDiv.add(this.fileListDiv);
 
-		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm", new LoadableDetachableModel(){
-			private static final long serialVersionUID = 4896378814518090123L;
-			@Override
-			protected List<File> load(){
-				return LastweekApplication.get().getImageService().getAllTemporalFiles(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
-			}
-		});
-		
+		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm");
 		descriptionDiv.add(descriptionForm);
 		
 		
@@ -105,8 +92,8 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		protected final JQueryTextEditor description;
 
 
-		public DescriptionForm(String id, IModel model) {
-			super(id, model);
+		public DescriptionForm(String id) {
+			super(id);
 			setMultiPart(true);
 
 			this.price = new TextField("price", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getPrice()), Double.class);
@@ -128,7 +115,6 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 
 		@Override
 		protected void onSubmit() {
-			LastweekApplication.get().getImageService().saveAllImages(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getImageRandomDir());
 			
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());

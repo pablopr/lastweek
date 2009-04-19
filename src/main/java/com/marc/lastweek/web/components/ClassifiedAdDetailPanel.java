@@ -15,11 +15,13 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.file.Folder;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ViewUtils;
 
@@ -40,6 +42,11 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
 		final int sourceCode = classifiedAd.getSource().intValue();
+		
+		Folder imageFolder = LastweekApplication.get().getImageService().findFolderFromName(classifiedAd.getHashCode());
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", imageFolder);
+		this.add(fileListViewPanel);
+
 		
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));

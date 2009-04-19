@@ -168,7 +168,7 @@ pre {
 }
 
 .classified-ad-summary {
-    border-bottom:1px solid #EEEEEE;
+    border-top:1px solid #EEEEEE;
 	height:75px;
 	display: table;
     position: relative;  
@@ -231,7 +231,38 @@ pre {
 	text-decoration: none;
 }
 	
+/* PAGINATION LINKS */
+.no-pagination-small {
+	border-top: 1px solid #000000;
+	width:15px;
+}
 
+.no-pagination-big {
+	border-top: 1px solid #000000;
+	width:100px;
+}
+
+.pagination-link {
+	border-bottom:1px solid #000000;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-top: 0px solid #FFF;
+	padding: 5px 10px;
+}
+
+.pagination-link a, .pagination-link a:visited {
+	color:#90c630;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+.pagination-link a:hover {
+	color:#000000;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+/* FILTERS */
 .filter-item {
 	display: inline;
 }

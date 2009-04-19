@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,22 +53,16 @@ public class ImageServiceImpl implements ImageService{
 	private static final String TEMPORAL_UPLOAD_FOLDER = "/var/tmp/lastweek/wicket-uploads-temp";
 	
 	
-	public List<File> getAllTemporalFiles(String temporalDir) {
-		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+	public List<File> getAllTemporalFiles(Folder temporalFolder) {
 		temporalFolder.mkdir();
 		return Arrays.asList(temporalFolder.listFiles());
 	}
     
-	public void saveTemporalImage(FileUpload fileUpload, String temporalDir) {
-		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+	public void saveTemporalImage(FileUpload fileUpload, Folder temporalFolder) {
 		
-		File newFile = new File(temporalFolder, fileUpload.getClientFileName());
-
-		// Check new file, delete if it allready existed
-		checkFileExists(newFile);
 		try{
+			File newFile =  createImageFile(temporalFolder, fileUpload.getClientFileName());
 			// Save to new file
-			newFile.createNewFile();
 			fileUpload.writeTo(newFile);
 
 		}
@@ -77,9 +72,8 @@ public class ImageServiceImpl implements ImageService{
 		
 	}
 	
-	public void saveAllImages(String temporalDir) {
-		Folder folder = new Folder(UPLOAD_FOLDER, temporalDir);
-		Folder temporalFolder = new Folder(TEMPORAL_UPLOAD_FOLDER, temporalDir);
+	public void saveAllImages(Folder temporalFolder) {
+		Folder folder = createSaveFolder(temporalFolder);
 		
 		List<File> files = Arrays.asList(temporalFolder.listFiles());
 
@@ -87,19 +81,23 @@ public class ImageServiceImpl implements ImageService{
 			
 			for (File file : files){
 				// Create a new file
-				File newFile = new File(folder, file.getAbsolutePath());
-	
+				File newFile = new File(folder, file.getName());
+				
+				
 				// Check new file, delete if it allready existed
 				checkFileExists(newFile);
 				try{
+					
 					//TODO check if creation succed
-					file.renameTo(newFile);
+					Files.writeTo(newFile, new FileInputStream(file));
+					Files.remove(file);
 	
 				}
 				catch (Exception e) {
 					throw new IllegalStateException("Unable to write file");
 				}
 			}
+			temporalFolder.delete();
 		}
 		
 	}
@@ -113,20 +111,50 @@ public class ImageServiceImpl implements ImageService{
 		}
 	}
     
-    public byte[] getImage(ImageEntry imageEntry)
-        throws IOException {
-        if (isImageAvailable(imageEntry)) {
-            // Open the file, then read it in.
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-            InputStream inStream =
-                new FileInputStream(new File(imageEntry.getFileName()));
-            copy(inStream, outStream);
-            inStream.close();
-            outStream.close();
-            return outStream.toByteArray();
+	private String getFileTypeSuffix(String contentType){
+		 String suffix = null;
+	       if ("image/gif".equalsIgnoreCase(contentType)) {
+	           suffix = ".gif";
+	       } else if ("image/jpeg".equalsIgnoreCase(contentType)) {
+	           suffix = ".jpeg";
+	       } else if ("image/png".equalsIgnoreCase(contentType)) {
+	           suffix = ".png";
+	       }
+	      return suffix;
+	}
+
+	
+	private File createImageFile(Folder dir, String fileName){
+        File file = new File(dir, fileName);
+        if (logger.isDebugEnabled()) {
+            logger.debug("File " + file.getAbsolutePath() + " created.");
         }
-		return createNotAvailableImage(imageEntry.getContentType());
+        return file;
     }
+	
+	
+	public Folder createTemporalFolder(){
+		return this.createRandomDir(TEMPORAL_UPLOAD_FOLDER);
+	}
+	
+	public Folder createSaveFolder(Folder temporalFolder){
+		Folder folder = new Folder(UPLOAD_FOLDER, temporalFolder.getName());
+		folder.mkdir();
+		return folder;
+	}
+	
+	public Folder findFolderFromName(String folderName){
+		return new Folder(UPLOAD_FOLDER, folderName);
+	}
+	
+	public Folder createRandomDir(String basePath){
+		UUID uuid = UUID.randomUUID();
+		Folder folder = new Folder(basePath, uuid.toString());
+		folder.mkdir();
+		return folder;
+		
+	}
+	
     
     public Date getLastModifyTime(ImageEntry imageEntry){
         File f = new File(imageEntry.getFileName());
@@ -201,44 +229,6 @@ public class ImageServiceImpl implements ImageService{
         return out.toByteArray();
     }
  
-    /** @see ImageService#save(ImageEntry) */
-    public void save(ImageEntry imageEntry, InputStream imageStream) {
-//        // Read in the image data.
-//       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//       copy(imageStream, baos);
-//       baos.close();
-//       byte[] imageData = baos.toByteArray();
-//       baos = null;
-//
-//       // Get the image's suffix
-//       String suffix = null;
-//       if ("image/gif".equalsIgnoreCase(imageEntry.getContentType())) {
-//           suffix = ".gif";
-//       } else if ("image/jpeg".equalsIgnoreCase(imageEntry.getContentType())) {
-//           suffix = ".jpeg";
-//       } else if ("image/png".equalsIgnoreCase(imageEntry.getContentType())) {
-//           suffix = ".png";
-//       }
-//       
-//       // Create a unique name for the file in the image directory and
-//       // write the image data into it.
-//       File newFile = createImageFile(suffix);
-//       OutputStream outStream = new FileOutputStream(newFile);
-//       outStream.write(imageData);
-//       outStream.close();
-//       imageEntry.setFileName(newFile.getAbsolutePath());
-//
-//       // Create a thumbnail
-//       newFile = createImageFile(".jpeg");
-//       byte[] thumbnailData = scaleImage(imageData, getThumbnailSize());
-//       outStream = new FileOutputStream(newFile);
-//       outStream.write(thumbnailData);
-//       outStream.close();        
-//       imageEntry.setThumbName(newFile.getAbsolutePath());
-//       
-//       // Save the image info in the database
-//       imageEntryDAO.save(imageEntry);
-   }
    
    private byte[] scaleImage(byte[] imageData, int maxSize) {
 //       if (logger.isDebugEnabled()) {
