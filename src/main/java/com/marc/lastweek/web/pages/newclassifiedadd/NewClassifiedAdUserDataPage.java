@@ -44,7 +44,7 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 
 		public UserDataForm(String id) {
 			super(id);
-			this.name = new RequiredTextField("email", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getName()));
+			this.name = new RequiredTextField("name", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getName()));
 			this.phone = new TextField("phone", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getPhone()), String.class);
 
 			this.email = new RequiredTextField("email", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getEmail()));

@@ -13,9 +13,9 @@ package com.marc.lastweek.web.components.images;
 import java.io.File;
 import java.util.List;
 
-import org.apache.wicket.Resource;
+import org.apache.wicket.extensions.markup.html.image.resource.ThumbnailImageResource;
+import org.apache.wicket.markup.html.WebResource;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -35,6 +35,7 @@ import com.marc.lastweek.web.application.LastweekApplication;
 public class ImageFileListViewPanel extends Panel{
 
 	private static final long serialVersionUID = -6023857527416347119L;
+	private static final int IMAGE_THUMBNAIL_SIZE = 100;
 	protected final Folder dirPath;
 	
 	public ImageFileListViewPanel(String id, Folder dirPath) {
@@ -72,7 +73,7 @@ public class ImageFileListViewPanel extends Panel{
 
 							@Override
                             public Object getObject() {
-                                    return new ImageFileResource(file);
+                                    return new ThumbnailImageResource(new ImageFileResource(file), IMAGE_THUMBNAIL_SIZE);
                             }
                     })
 			);
@@ -88,7 +89,7 @@ public class ImageFileListViewPanel extends Panel{
 			});
 		}
 		
-		private class ImageFileResource extends Resource{
+		private class ImageFileResource extends WebResource{
 			private static final long serialVersionUID = -4393593327489597112L;
 			private File file;
 			

@@ -14,11 +14,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
@@ -26,12 +26,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
-import org.apache.wicket.util.io.ByteArrayOutputStream;
 import org.springframework.stereotype.Service;
 
 import com.marc.lastweek.business.services.images.ImageService;
 import com.marc.lastweek.business.views.images.ImageEntry;
-
+import com.marc.lastweek.web.application.LastweekApplication;
+ 	
 @Service
 public class ImageServiceImpl implements ImageService{
    
@@ -43,14 +43,17 @@ public class ImageServiceImpl implements ImageService{
      */
     public ImageServiceImpl(){
         super();
+        this.imagesProperties = this.getImagesProperties();
     }
 
-    /* Spring Injected */
-    private File imageDir;
-    private int thumbnailSize;
-    private static final String UPLOAD_FOLDER = "/var/tmp/lastweek/wicket-uploads";
+    private static final String IMAGES_FILE_PROPERTIES = "images.properties";
     
-	private static final String TEMPORAL_UPLOAD_FOLDER = "/var/tmp/lastweek/wicket-uploads-temp";
+    private static final String UPLOAD_FOLDER_KEY = "images.upload.basepath";
+    private static final String UPLOAD_TEMPORAL_FOLDER_KEY = "images.upload.temporal.basepath";
+   
+    private Properties imagesProperties;
+
+	
 	
 	
 	public List<File> getAllTemporalFiles(Folder temporalFolder) {
@@ -59,7 +62,6 @@ public class ImageServiceImpl implements ImageService{
 	}
     
 	public void saveTemporalImage(FileUpload fileUpload, Folder temporalFolder) {
-		
 		try{
 			File newFile =  createImageFile(temporalFolder, fileUpload.getClientFileName());
 			// Save to new file
@@ -134,17 +136,17 @@ public class ImageServiceImpl implements ImageService{
 	
 	
 	public Folder createTemporalFolder(){
-		return this.createRandomDir(TEMPORAL_UPLOAD_FOLDER);
+		return this.createRandomDir(this.imagesProperties.getProperty(UPLOAD_TEMPORAL_FOLDER_KEY));
 	}
 	
 	public Folder createSaveFolder(Folder temporalFolder){
-		Folder folder = new Folder(UPLOAD_FOLDER, temporalFolder.getName());
+		Folder folder = new Folder(this.imagesProperties.getProperty(UPLOAD_FOLDER_KEY), temporalFolder.getName());
 		folder.mkdir();
 		return folder;
 	}
 	
 	public Folder findFolderFromName(String folderName){
-		return new Folder(UPLOAD_FOLDER, folderName);
+		return new Folder(this.imagesProperties.getProperty(UPLOAD_FOLDER_KEY), folderName);
 	}
 	
 	public Folder createRandomDir(String basePath){
@@ -165,140 +167,28 @@ public class ImageServiceImpl implements ImageService{
         return (new File(imageEntry.getFileName()).exists());
     }
     
-    public byte[] getThumbnail(ImageEntry imageEntry)
-        throws IOException {
-    	
-        if (isImageAvailable(imageEntry)) {
-            // Open the file, then read it in.
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-            InputStream inStream =
-                new FileInputStream(new File(imageEntry.getThumbName()));
-            copy(inStream, outStream);
-            inStream.close();
-            outStream.close();
-            return outStream.toByteArray();
-        }
-		byte[] imageData = createNotAvailableImage(imageEntry.getContentType());
-		return scaleImage(imageData, getThumbnailSize());
-    }
-
- 
-    /**
-     * Copies data from src into dst.
-     */
-    private void copy(InputStream source, OutputStream destination)
-        throws IOException{
-        try {
-            // Transfer bytes from source to destination
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = source.read(buf)) > 0) {
-                destination.write(buf, 0, len);
-            }
-            source.close();
-            destination.close();
-            if (logger.isDebugEnabled()) {
-                logger.debug("Copying image...");
-            }
-        } catch (IOException ioe) {
-            logger.error(ioe);
-            throw ioe;
-        }
-    }
-    
-    private byte[] createNotAvailableImage(String contentType)
-        throws IOException{
-        // Load the "Image Not Available"
-        // image from jar, then write it out.
-        StringBuffer name = new StringBuffer("com/marc/lastweek/resources/ImageNotAvailable.");
-        if ("image/jpeg".equalsIgnoreCase(contentType)) {
-            name.append("jpg");
-        } else if ("image/png".equalsIgnoreCase(contentType)) {
-            name.append("png");
-        } else {
-            name.append("gif");
-        }
-        URL url = getClass().getClassLoader().getResource(
-                name.toString()
-            );
-        InputStream in = url.openStream();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        copy(in, out);
-        in.close();
-        out.close();
-        return out.toByteArray();
-    }
- 
+	private Properties getImagesProperties(){
+		return getPropertiesFromFile(IMAGES_FILE_PROPERTIES);
+	}
+	
+	private Properties getPropertiesFromFile(String fileName){
+	      /* Read properties file */
+        ClassLoader loader = LastweekApplication.class.getClassLoader();  
+        URL url = loader.getResource(fileName);  
+        InputStream in;
+        Properties properties = new Properties(); 
+		try {
+			in = url.openStream();
+			properties.load(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return properties;
+	}
    
-   private byte[] scaleImage(byte[] imageData, int maxSize) {
-//       if (logger.isDebugEnabled()) {
-//           logger.debug("Scaling image...");
-//       }
-//       // Get the image from a file.
-//       Image inImage = new ImageIcon(imageData).getImage();
-//
-//       // Determine the scale.
-//       double scale = (double) maxSize / (double) inImage.getHeight(null);
-//       if (inImage.getWidth(null) > inImage.getHeight(null)) {
-//           scale = (double) maxSize / (double) inImage.getWidth(null);
-//       }
-//
-//       // Determine size of new image.
-//       // One of the dimensions should equal maxSize.
-//       int scaledW = (int) (scale * inImage.getWidth(null));
-//       int scaledH = (int) (scale * inImage.getHeight(null));
-//
-//       // Create an image buffer in which to paint on.
-//       BufferedImage outImage = new BufferedImage(
-//               scaledW, scaledH, BufferedImage.TYPE_INT_RGB
-//           );
-//
-//       // Set the scale.
-//       AffineTransform tx = new AffineTransform();
-//
-//       // If the image is smaller than the desired image size,
-//       // don't bother scaling.
-//       if (scale < 1.0d) {
-//           tx.scale(scale, scale);
-//       }
-//
-//       // Paint image.
-//       Graphics2D g2d = outImage.createGraphics();
-//       g2d.setRenderingHint(
-//               RenderingHints.KEY_ANTIALIASING,
-//               RenderingHints.VALUE_ANTIALIAS_ON
-//           );
-//       g2d.drawImage(inImage, tx, null);
-//       g2d.dispose();
-//
-//       // JPEG-encode the image
-//       // and write to file.
-//       ByteArrayOutputStream os = new ByteArrayOutputStream();
-//       JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-//       encoder.encode(outImage);
-//       os.close();
-//       if (logger.isDebugEnabled()) {
-//          logger.debug("Scaling done.");
-//       }
-//       return os.toByteArray();
-	   return null;
-   }
 
-	public File getImageDir() {
-		return this.imageDir;
-	}
-	
-	public void setImageDir(File imageDir) {
-		this.imageDir = imageDir;
-	}
-	
-	public int getThumbnailSize() {
-		return this.thumbnailSize;
-	}
-	
-	public void setThumbnailSize(int thumbnailSize) {
-		this.thumbnailSize = thumbnailSize;
-	}
 
    
    
