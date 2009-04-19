@@ -32,7 +32,6 @@ public class LastweekSession extends AuthenticatedWebSession {
     private AuthenticatedUserData user = null;
     private final Roles roles;
     private List<Long> favorites;
-
     
     public LastweekSession(Request request) {
         super(request);
@@ -104,5 +103,13 @@ public class LastweekSession extends AuthenticatedWebSession {
 	public int favoritesCount() {
 		return this.favorites.size();
 	}
+
+//	public Page getLastPage() {
+//		return this.lastPage;
+//	}
+//
+//	public void setLastPage(Page lastPage) {
+//		this.lastPage = lastPage;
+//	}
 
 }

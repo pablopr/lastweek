@@ -26,5 +26,6 @@ public class ClassifiedAdDetailPage extends StandardPage {
 			.getLong(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID));
 		
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
+		
 	}
 }
