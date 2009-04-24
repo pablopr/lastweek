@@ -55,10 +55,10 @@ public class MailServiceImpl implements MailService {
 	public void sendFavoritesMail(String address, List<Long> favoritesList) {
 		Map<String,Object> parameters = new HashMap<String, Object>();
 		parameters.put("favorites", favoritesList);
-		List adsList = LastweekApplication.get().getGeneralService().queryForList(ClassifiedAd.class,
+		List<ClassifiedAd> adsList = LastweekApplication.get().getGeneralService().queryForList(ClassifiedAd.class,
 				"getClassifiedAdsInList", parameters);
 		
-		Map templateData = new HashMap();
+		Map<String,Object> templateData = new HashMap<String,Object>();
 		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
 		templateData.put("adsList", adsList);
 		
