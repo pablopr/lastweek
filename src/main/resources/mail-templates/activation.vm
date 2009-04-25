@@ -1,0 +1,21 @@
+<h2>Hola ${ad.userData.name}, activa tu anuncio fresco en LASTWEEK</h2>
+<h3>Haz click en el siguiente enlace para publicar tu anuncio</h3><br/>   
+<h3><a href="${baseurl}/${ad.hashCode}">${ad.title}</a></h3>
+<p> 
+   #if (! $ad.price)
+                Precio: ${ad.price} <br/>             
+   #end
+   ${ad.description}
+</p>
+<p>
+Si tu programa de email no reconoce el enlace anterior, escr’belo directamente en tu navegador.
+</p>
+<p>
+Tu anuncio estar‡ fresco en LASTWEEK durante 7 d’as. 
+</p>
+<p>
+POR FAVOR, GUARDA ESTE EMAIL - Con este enlace luego podr‡s BORRAR y REFRESCAR tu anuncio. 
+</p>
+
+
+Gracias por escogernos.

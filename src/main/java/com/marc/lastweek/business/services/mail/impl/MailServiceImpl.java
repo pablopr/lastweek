@@ -36,6 +36,7 @@ import com.marc.lastweek.web.application.LastweekApplication;
 public class MailServiceImpl implements MailService {
 	
 	private final static String TEMPLATE_FAVORITES = "favorites";
+	private final static String TEMPLATE_ACTIVATION = "activation";
 	
 	private final static String FIELD_SUBJECT = ".subject";
 	
@@ -63,6 +64,14 @@ public class MailServiceImpl implements MailService {
 		templateData.put("adsList", adsList);
 		
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_FAVORITES, templateData, address);
+	}
+	
+	public void sendActivationMail(ClassifiedAd classifiedAd) {
+		
+		Map<String,Object> templateData = new HashMap<String,Object>();
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clhash");
+		templateData.put("ad", classifiedAd);
+		this.sendMail(SPANISH_LOCALE, TEMPLATE_ACTIVATION, templateData, classifiedAd.getUserData().getEmail());
 	}
 
 	@Required

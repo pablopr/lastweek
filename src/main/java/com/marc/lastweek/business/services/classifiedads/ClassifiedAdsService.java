@@ -25,7 +25,7 @@ public interface ClassifiedAdsService {
 	
 	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date);
 	
-	public void createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
+	public ClassifiedAd createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 	
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
 }

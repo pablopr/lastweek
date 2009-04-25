@@ -61,7 +61,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	}
 	
 	@Transactional
-	public void createClassifiedAd(final NewClassifiedAdAndUserDataTO newClassifiedAdAndUserDataTO){
+	public ClassifiedAd createClassifiedAd(final NewClassifiedAdAndUserDataTO newClassifiedAdAndUserDataTO){
 		
 		HashMap<String, Object> userDataParameters = new HashMap<String,Object>();
 		UserData userData = null;
@@ -91,7 +91,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
 		newClassifiedAdTO.setHashCode(newClassifiedAdAndUserDataTO.getTemporalFolder().getName());
 		
-		this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
+		return this.generalService.add(ClassifiedAd.class,newClassifiedAdTO);
 	}
 
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO) {
