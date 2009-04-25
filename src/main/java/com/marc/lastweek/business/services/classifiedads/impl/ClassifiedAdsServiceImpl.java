@@ -45,19 +45,19 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	private GeneralRepository generalRepository;
 
 	// TODO: add one week before parameter (actually it must come from the controller)
-	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count) {
+	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count, Calendar date) {
 	    if (parameters.getSearchString()!=null) {
-	        return this.classifiedAdRespository.indexBasedSearch(parameters, Calendar.getInstance(),start, count);
+	        return this.classifiedAdRespository.indexBasedSearch(parameters, date ,start, count);
 	    } 
-	    return this.classifiedAdRespository.basicSearch(parameters, Calendar.getInstance(),start, count);
+	    return this.classifiedAdRespository.basicSearch(parameters, date, start, count);
 
 	}
 
-	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters) {
+	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date) {
 	    if (parameters.getSearchString()!=null) {
-	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, Calendar.getInstance());
+	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, date);
 	    }
-	    return this.classifiedAdRespository.basicSearchCountResults(parameters, Calendar.getInstance());
+	    return this.classifiedAdRespository.basicSearchCountResults(parameters, date);
 	}
 	
 	@Transactional

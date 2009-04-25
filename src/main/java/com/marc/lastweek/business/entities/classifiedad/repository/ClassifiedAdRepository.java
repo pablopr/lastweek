@@ -47,19 +47,19 @@ public class ClassifiedAdRepository {
 */
     @SuppressWarnings("unchecked")
     public List<ClassifiedAd> basicSearch(FilterParameters parameters, Calendar from, int start, int count) {
-        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters);
+        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters, from);
         criteriaQuery.setFirstResult(start);
         criteriaQuery.setFetchSize(count);
         return criteriaQuery.list();
     }
  
     public Integer basicSearchCountResults(FilterParameters parameters, Calendar from) {
-        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters);
+        Criteria criteriaQuery = advancedSearchQueyConstructor(parameters, from);
  
         return new Integer(criteriaQuery.list().size());
     }
  
-    private Criteria advancedSearchQueyConstructor(FilterParameters parameters) {
+    private Criteria advancedSearchQueyConstructor(FilterParameters parameters, Calendar from) {
  
         Criteria criteriaQuery =
             this.sessionFactory.getCurrentSession().createCriteria(ClassifiedAd.class);
@@ -74,6 +74,8 @@ public class ClassifiedAdRepository {
         if (parameters.getSubcategoryId()!=null) {
             criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));
         }
+        criteriaQuery.add(Restrictions.ge("publicationDate", from));
+        criteriaQuery.addOrder(Order.desc("publicationDate"));
         return criteriaQuery;
     }
  
