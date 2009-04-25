@@ -12,8 +12,12 @@ package com.marc.lastweek.business.services.mail;
 
 import java.util.List;
 
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+
 
 public interface MailService {
 
 	public void sendFavoritesMail(String address, List<Long> favoritesList);
+	
+	public void sendActivationMail(ClassifiedAd classifiedAd);
 }
