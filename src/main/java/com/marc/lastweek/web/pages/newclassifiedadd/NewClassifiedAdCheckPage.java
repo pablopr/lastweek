@@ -77,7 +77,6 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 				String emailAddress = classifiedAd.getUserData().getEmail();
 				try {
 					LastweekApplication.get().getMailService().sendActivationMail(classifiedAd);
-					
 					getSession().info(ResourceUtils.getResourceString("mail.sent", NewClassifiedAdCheckPage.this, emailAddress));
 					
 					setResponsePage(getApplication().getHomePage());

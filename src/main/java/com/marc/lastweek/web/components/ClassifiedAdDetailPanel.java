@@ -38,6 +38,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 	private static final long serialVersionUID = -8566673466529089435L;
 	private static final int IMAGE_THUMBNAIL_SIZE = 200;
 	
+	
 	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
 		super(id);
 

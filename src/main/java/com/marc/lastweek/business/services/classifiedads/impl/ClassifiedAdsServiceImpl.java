@@ -79,14 +79,14 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		if ( userData == null ) {
 			NewUserDataTO userDataTO = new NewUserDataTO(newClassifiedAdAndUserDataTO);
 			userDataTO.setState(Integer.valueOf(UserData.STATE_ACTIVE));
-			userData = this.generalService.add(UserData.class, new NewUserDataTO(newClassifiedAdAndUserDataTO));
+			userData = this.generalService.add(UserData.class, userDataTO);
 		
 		}
 				
 		
 		NewClassifiedAdTO newClassifiedAdTO = new NewClassifiedAdTO(newClassifiedAdAndUserDataTO);
 		newClassifiedAdTO.setUserDataId(userData.getId());
-		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
+		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_INACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
 		newClassifiedAdTO.setHashCode(newClassifiedAdAndUserDataTO.getTemporalFolder().getName());
@@ -98,4 +98,13 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		this.generalService.add(ClassifiedAd.class,newExternalClassifiedAdTO);
 	}
 	
+	
+	@Transactional
+	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash){
+		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
+		if (ad.getHashCode().equals(classifiedAdIdHash)){
+			ad.setState(Integer.valueOf(UserData.STATE_ACTIVE));
+		}
+		return ad;
+	}
 }

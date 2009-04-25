@@ -1,6 +1,6 @@
-<h2>Hola ${ad.userData.name}, activa tu anuncio fresco en LASTWEEK</h2>
-<h3>Haz click en el siguiente enlace para publicar tu anuncio</h3><br/>   
-<h3><a href="${baseurl}/${ad.hashCode}">${ad.title}</a></h3>
+<h3>Hola ${ad.userData.name}, activa tu anuncio fresco en LASTWEEK</h3>
+<h4>Haz click en el siguiente enlace para publicar tu anuncio</h4><br/>   
+<h3><a href="${baseurl}/${ad.id}/code/${ad.hashCode}">Anuncio ${ad.title} en LastWeek</a></h3>
 <p> 
    #if (! $ad.price)
                 Precio: ${ad.price} <br/>             
