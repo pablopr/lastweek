@@ -93,7 +93,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-
+				// TODO: Complete onClick action
 			}
 
 		});
@@ -103,7 +103,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-
+				// TODO: Complete onClick action
 			}
 
 		});
