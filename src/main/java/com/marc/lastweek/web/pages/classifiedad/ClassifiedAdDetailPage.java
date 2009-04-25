@@ -12,7 +12,7 @@ package com.marc.lastweek.web.pages.classifiedad;
 
 import org.apache.wicket.PageParameters;
 
-import com.marc.lastweek.web.components.ClassifiedAdDetailPanel;
+import com.marc.lastweek.web.components.classifiedaddetails.ClassifiedAdDetailPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.StandardPage;
 

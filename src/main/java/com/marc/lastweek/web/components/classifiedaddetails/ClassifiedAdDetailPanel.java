@@ -8,21 +8,17 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.components;
+package com.marc.lastweek.web.components.classifiedaddetails;
 
 import java.io.File;
+import java.util.List;
 
-import org.apache.wicket.extensions.markup.html.image.resource.ThumbnailImageResource;
-import org.apache.wicket.markup.html.WebResource;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.Folder;
-import org.apache.wicket.util.resource.FileResourceStream;
-import org.apache.wicket.util.resource.IResourceStream;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
@@ -36,7 +32,6 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdDetailPanel extends Panel {
 
 	private static final long serialVersionUID = -8566673466529089435L;
-	private static final int IMAGE_THUMBNAIL_SIZE = 200;
 	
 	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
 		super(id);
@@ -58,18 +53,16 @@ public class ClassifiedAdDetailPanel extends Panel {
 				"fileListViewPanel", imageFolder);
 		this.add(fileListViewPanel);
 
-		final File file = 
-			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder).get(0);
-		this.add(new NonCachingImage("image", new AbstractReadOnlyModel() {
-
-			private static final long serialVersionUID = 2231398467162415338L;
-
-			@Override
-			public Object getObject() {
-				return new ThumbnailImageResource(new ImageFileResource(file),
-						IMAGE_THUMBNAIL_SIZE);
-			}
-		}));
+		List<File> images = 
+			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder);
+		
+		if (images.size() != 0) {
+			final File file = images.get(0);
+			this.add(new ClassifiedAdImagePanel("imagePanel", file));
+		}
+		else {
+			this.add(new Label("imagePanel", new Model("No hay fotos disponibles")));
+		}
 
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate", ViewUtils
@@ -93,7 +86,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-
+				// TODO: Pending to be removed
 			}
 
 		});
@@ -103,7 +96,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-
+				// TODO: Pending to be removed
 			}
 
 		});
@@ -173,26 +166,5 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 		};
 		this.add(addToFavoritesLink);
-	}
-	
-	private class ImageFileResource extends WebResource{
-		
-		private static final long serialVersionUID = 6296035402530112497L;
-		private File file;
-		
-		public ImageFileResource(File file) {
-			super();
-			this.file = file;
-		}
-
-		@Override
-		public IResourceStream getResourceStream() {
-			return new FileResourceStream(this.file);
-		}
-		
-		public void setFile(File file){
-			this.file = file;
-		}
-		
 	}
 }
