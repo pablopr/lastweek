@@ -35,7 +35,5 @@ public class ClassifiedAdDetailPage extends StandardPage {
 			this.getSession().info(ResourceUtils.getResourceString("ad.activation.done", ClassifiedAdDetailPage.this));
 		}
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
-
-		
 	}
 }

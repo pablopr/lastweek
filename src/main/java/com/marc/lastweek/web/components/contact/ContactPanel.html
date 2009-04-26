@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+	<div class="contact-panel">
+		<form wicket:id="contactForm">
+		    <wicket:message key="contactpanel.form.email"/>:
+			<input id="email" type="text" wicket:id="email" cols="45"></input><br/>
+			<wicket:message key="contactpanel.form.text"/>:
+			<textarea id="text" wicket:id="text" cols="48" rows="6">
+			</textarea><br/>
+			<div class="contact-panel-submit">
+				<input type="submit" value="send"/>
+			</div>
+		</form>
+	</div>
+</wicket:panel>
+
+</body>
+</html>

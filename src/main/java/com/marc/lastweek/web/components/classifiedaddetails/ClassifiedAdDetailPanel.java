@@ -13,6 +13,7 @@ package com.marc.lastweek.web.components.classifiedaddetails;
 import java.io.File;
 import java.util.List;
 
+import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -24,8 +25,8 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.contact.ContactPanel;
 import com.marc.lastweek.web.components.imagegallery.JQueryImagegallery;
-import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.DateUtils;
 import com.marc.lastweek.web.util.ViewUtils;
@@ -33,11 +34,13 @@ import com.marc.lastweek.web.util.ViewUtils;
 public class ClassifiedAdDetailPanel extends Panel {
 
 	private static final long serialVersionUID = -8566673466529089435L;
-	
+
+	private final static String SLIDER_URL="js/slider.js";
 	
 	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
 		super(id);
 
+		add(HeaderContributor.forJavaScript(SLIDER_URL));
 		final ClassifiedAd classifiedAd = LastweekApplication.get()
 				.getGeneralService().find(ClassifiedAd.class, classifiedAdId);
 
@@ -87,24 +90,27 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-				// TODO: Complete onClick action
+
 			}
 
 		});
+		final ContactPanel contactPanel = new ContactPanel("contactPanel", null, classifiedAdId);
+		this.add(contactPanel);
+		contactPanel.setOutputMarkupId(true);
 		this.add(new Link("classifiedAdContactLink") {
 
 			private static final long serialVersionUID = -4262681914874430193L;
 
 			@Override
 			public void onClick() {
-				// TODO: Complete onClick action
+				
 			}
 
 		});
-		this.add(new Label("userDataEmail", ViewUtils.labelizer(classifiedAd
-				.getUserData().getEmail())));
-		this.add(new Label("userDataPhone", ViewUtils.labelizer(classifiedAd
-				.getUserData().getPhone())));
+//		this.add(new Label("userDataEmail", ViewUtils.labelizer(classifiedAd
+//				.getUserData().getEmail())));
+//		this.add(new Label("userDataPhone", ViewUtils.labelizer(classifiedAd
+//				.getUserData().getPhone())));
 		this.add(new Label("userDataName", ViewUtils.labelizer(classifiedAd
 				.getUserData().getName())));
 

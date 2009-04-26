@@ -422,6 +422,16 @@ pre {
 	text-decoration: none;
 }
 
+.contact-panel {
+	text-align: left;
+	width: 60%;
+	margin-left: 5px;
+}
+
+.contact-panel-submit {
+	float:right;
+}
+
 .back-link {
 	clear: both;
 	float: none;
