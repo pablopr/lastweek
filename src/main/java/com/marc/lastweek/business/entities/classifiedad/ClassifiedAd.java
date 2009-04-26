@@ -12,27 +12,31 @@ package com.marc.lastweek.business.entities.classifiedad;
 
 import java.util.Calendar;
 
-import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.FullTextFilterDef;
 import org.hibernate.search.annotations.FullTextFilterDefs;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Resolution;
-import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.Parameter;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
 import com.marc.lastweek.business.entities.province.Province;
 import com.marc.lastweek.business.entities.userdata.UserData;
+import com.marc.lastweek.business.util.lucene.bridges.CalendarBridge;
 import com.marc.lastweek.business.util.lucene.filters.CategoryFilterFactory;
+import com.marc.lastweek.business.util.lucene.filters.DateFilterFactory;
 import com.marc.lastweek.business.util.lucene.filters.ProvinceFilterFactory;
+import com.marc.lastweek.business.util.lucene.filters.StateFilter;
 import com.marc.lastweek.business.util.lucene.filters.SubcategoryFilterFactory;
 
 @Indexed
 @FullTextFilterDefs( {
+	@FullTextFilterDef(name = "stateFilter", impl = StateFilter.class),
+	@FullTextFilterDef(name = "dateFilter", impl = DateFilterFactory.class),
     @FullTextFilterDef(name = "categoryFilter", impl = CategoryFilterFactory.class),
     @FullTextFilterDef(name = "subcategoryFilter", impl = SubcategoryFilterFactory.class),
     @FullTextFilterDef(name = "provinceFilter", impl = ProvinceFilterFactory.class)
@@ -50,10 +54,10 @@ public class ClassifiedAd {
 	@DocumentId
 	private Long id;
 	
-	@Field(index=Index.TOKENIZED, store=Store.NO)
+	@Field(index=Index.TOKENIZED)
 	private String title;
 	
-	@Field(index=Index.TOKENIZED, store=Store.NO)
+	@Field(index=Index.TOKENIZED)
 	private String description;
 	
 	private Double price;
@@ -62,7 +66,6 @@ public class ClassifiedAd {
 	
 	private Integer source;
 	
-	@Field(index=Index.UN_TOKENIZED)
 	private Integer flag;
 	
 	@Field(index=Index.UN_TOKENIZED)
@@ -83,7 +86,8 @@ public class ClassifiedAd {
 	
 	private Calendar creationDate;
 	
-	@DateBridge(resolution = Resolution.DAY)
+	@Field(index=Index.UN_TOKENIZED)
+	@FieldBridge(impl = CalendarBridge.class)
 	private Calendar publicationDate;
 	
 	
