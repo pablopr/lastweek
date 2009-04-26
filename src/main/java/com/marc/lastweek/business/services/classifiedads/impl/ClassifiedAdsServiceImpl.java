@@ -18,6 +18,7 @@ import loc.marc.commons.business.entities.general.GeneralRepository;
 import loc.marc.commons.business.services.general.GeneralService;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,21 +44,22 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	
 	@Autowired
 	private GeneralRepository generalRepository;
+	
+	private static final Logger logger = Logger.getLogger(ClassifiedAdsServiceImpl.class);
 
-	// TODO: add one week before parameter (actually it must come from the controller)
-	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count) {
+	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count, Calendar date) {
 	    if (parameters.getSearchString()!=null) {
-	        return this.classifiedAdRespository.indexBasedSearch(parameters, Calendar.getInstance(),start, count);
+	        return this.classifiedAdRespository.indexBasedSearch(parameters, date ,start, count);
 	    } 
-	    return this.classifiedAdRespository.basicSearch(parameters, Calendar.getInstance(),start, count);
+	    return this.classifiedAdRespository.basicSearch(parameters, date, start, count);
 
 	}
 
-	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters) {
+	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date) {
 	    if (parameters.getSearchString()!=null) {
-	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, Calendar.getInstance());
+	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, date);
 	    }
-	    return this.classifiedAdRespository.basicSearchCountResults(parameters, Calendar.getInstance());
+	    return this.classifiedAdRespository.basicSearchCountResults(parameters, date);
 	}
 	
 	@Transactional
@@ -79,14 +81,14 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		if ( userData == null ) {
 			NewUserDataTO userDataTO = new NewUserDataTO(newClassifiedAdAndUserDataTO);
 			userDataTO.setState(Integer.valueOf(UserData.STATE_ACTIVE));
-			userData = this.generalService.add(UserData.class, new NewUserDataTO(newClassifiedAdAndUserDataTO));
+			userData = this.generalService.add(UserData.class, userDataTO);
 		
 		}
 				
 		
 		NewClassifiedAdTO newClassifiedAdTO = new NewClassifiedAdTO(newClassifiedAdAndUserDataTO);
 		newClassifiedAdTO.setUserDataId(userData.getId());
-		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
+		newClassifiedAdTO.setState(Integer.valueOf(ClassifiedAd.STATE_INACTIVE));
 		newClassifiedAdTO.setSource(Integer.valueOf(ClassifiedAd.SOURCE_OUR));
 		newClassifiedAdTO.setFlag(Integer.valueOf(0));
 		newClassifiedAdTO.setHashCode(newClassifiedAdAndUserDataTO.getTemporalFolder().getName());
@@ -98,4 +100,13 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		this.generalService.add(ClassifiedAd.class,newExternalClassifiedAdTO);
 	}
 	
+	
+	@Transactional
+	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash){
+		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
+		if (ad.getHashCode().equals(classifiedAdIdHash)){
+			ad.setState(Integer.valueOf(UserData.STATE_ACTIVE));
+		}
+		return ad;
+	}
 }

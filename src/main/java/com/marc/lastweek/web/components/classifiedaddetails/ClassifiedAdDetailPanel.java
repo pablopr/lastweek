@@ -34,6 +34,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 	private static final long serialVersionUID = -8566673466529089435L;
 	
+	
 	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
 		super(id);
 

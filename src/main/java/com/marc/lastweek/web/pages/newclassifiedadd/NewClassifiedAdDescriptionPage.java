@@ -121,7 +121,6 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			add(this.price);
 			add(this.title);
 			add(this.description);
-			
 
 			setMaxSize(Bytes.kilobytes(100));
 		}

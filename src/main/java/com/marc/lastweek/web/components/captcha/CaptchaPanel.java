@@ -25,8 +25,8 @@ public class CaptchaPanel extends Panel{
 	private static final long serialVersionUID = 4980146094259571240L;
 	
 	/** Random captcha password to match against. */
-    private final String imagePass = randomString(6, 8);
-    private final ValueMap properties = new ValueMap();
+    final String imagePass = randomString(6, 8);
+    final ValueMap properties = new ValueMap();
     
 	public CaptchaPanel(String id) {
 		super(id);
@@ -59,11 +59,11 @@ public class CaptchaPanel extends Panel{
             });
         }
 
-        @Override
+        @Override 
         public void onSubmit(){
             if (!CaptchaPanel.this.imagePass.equals(getPassword())){
                 error("Captcha password '" + getPassword() + "' is wrong.\n" +
-                    "Correct password was: " + imagePass);
+                    "Correct password was: " + CaptchaPanel.this.imagePass);
             }
             else{
                 info("Success!");
@@ -87,7 +87,7 @@ public class CaptchaPanel extends Panel{
     }
 
 
-    private String getPassword(){
-        return properties.getString("password");
+    protected String getPassword(){
+        return this.properties.getString("password");
     }
 }

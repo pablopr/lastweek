@@ -10,8 +10,11 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
+import java.util.Calendar;
 import java.util.Iterator;
+import java.util.Locale;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -23,6 +26,7 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.joda.time.DateTime;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
@@ -94,21 +98,26 @@ public class ClassifiedAdsListPanel extends Panel {
 
 		private FilterParameters filterParameters;
 		private Integer resultsCount;
+		private Calendar date;
 
 		public FilterCalssifiedAdsProvider(FilterParameters filterParameters) {
 			super();
 			this.filterParameters = filterParameters;
+			DateTime now = new DateTime(Calendar.getInstance());
+			this.date = DateUtils.truncate(now.minusWeeks(1).toCalendar(getLocale()), Calendar.DAY_OF_MONTH);
 		}
 
 		@SuppressWarnings("unchecked")
 		public Iterator iterator(int start, int count) {
-			return LastweekApplication.get().getClassifiedAdsService().findClassifiedAdsByFilterParameters(this.filterParameters, start, count)
+			return LastweekApplication.get().getClassifiedAdsService().
+			findClassifiedAdsByFilterParameters(this.filterParameters, start, count, this.date)
 			.iterator();
 		}
 
 		public int size() {
 			if (this.resultsCount == null) {
-				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().countClassifiedAdsByFilterParameters((this.filterParameters));
+				this.resultsCount = LastweekApplication.get().getClassifiedAdsService().
+				countClassifiedAdsByFilterParameters(this.filterParameters, this.date);
 			}
 			return this.resultsCount.intValue();
 		}

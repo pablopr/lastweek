@@ -10,6 +10,7 @@
  */
 package com.marc.lastweek.business.services.classifiedads;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
@@ -19,11 +20,14 @@ import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 
 public interface ClassifiedAdsService {
 
-	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count);
+	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, 
+			int count, Calendar date);
 	
-	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters);
+	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date);
 	
 	public ClassifiedAd createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 	
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
+	
+	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
 }

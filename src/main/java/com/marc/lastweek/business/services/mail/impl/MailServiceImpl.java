@@ -69,7 +69,8 @@ public class MailServiceImpl implements MailService {
 	public void sendActivationMail(ClassifiedAd classifiedAd) {
 		
 		Map<String,Object> templateData = new HashMap<String,Object>();
-		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clhash");
+		//TODO localhost:8080? change!
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
 		templateData.put("ad", classifiedAd);
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_ACTIVATION, templateData, classifiedAd.getUserData().getEmail());
 	}
