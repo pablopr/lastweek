@@ -23,7 +23,7 @@ public interface ClassifiedAdsService {
 	
 	public Integer countClassifiedAdsByFilterParameters(FilterParameters parameters);
 	
-	public void createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
+	public ClassifiedAd createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 	
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
 }

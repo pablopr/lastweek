@@ -24,6 +24,7 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.ModifiedClassifiedAdTO;
 import com.marc.lastweek.commons.naming.CommonNamingValues;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.imagegallery.JQueryImagegallery;
 import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.DateUtils;
@@ -49,19 +50,18 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 		Folder imageFolder = LastweekApplication.get().getImageService()
 				.findFolderFromName(classifiedAd.getHashCode());
-		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel(
-				"fileListViewPanel", imageFolder);
-		this.add(fileListViewPanel);
-
+		
 		List<File> images = 
 			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder);
 		
 		if (images.size() != 0) {
 			final File file = images.get(0);
-			this.add(new ClassifiedAdImagePanel("imagePanel", file));
+//			this.add(new ClassifiedAdImagePanel("imagePanel", file));
+			this.add(new JQueryImagegallery("gallery", images));
 		}
 		else {
-			this.add(new Label("imagePanel", new Model("No hay fotos disponibles")));
+//			this.add(new Label("imagePanel", new Model("No hay fotos disponibles")));
+			this.add(new Label("gallery", new Model("No hay fotos disponibles")));
 		}
 
 		// TODO: add image, add province and category
@@ -71,7 +71,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 		this.add(new Label("classifiedAdTitle", ViewUtils
 				.labelizer(classifiedAd.getTitle())));
 		this.add(new Label("classifiedAdDescription", ViewUtils
-				.labelizer(classifiedAd.getDescription())));
+				.labelizer(classifiedAd.getDescription())).setEscapeModelStrings(false));
 		this.add(new Label("classifiedAdPrice", ViewUtils
 				.labelizer(classifiedAd.getPrice())));
 		this.add(new Label("provinceName", ViewUtils.labelizer(classifiedAd
@@ -86,7 +86,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-				// TODO: Pending to be removed
+				// TODO: Complete onClick action
 			}
 
 		});
@@ -96,7 +96,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-				// TODO: Pending to be removed
+				// TODO: Complete onClick action
 			}
 
 		});

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
 import com.marc.lastweek.extractionengine.entities.EbayAnunciosAd;
@@ -37,6 +38,7 @@ public class EbayAnunciosExtractorServiceImpl implements EbayAnunciosExtractorSe
 //	@Autowired
 //	private ClassifiedAdsService classifiedAdsService;
 	
+	@Transactional
 	public void processProvince(String provinceSuffix) throws SAXException, IOException {
 		String provincePageUrl = UrlNaming.EBAY_PISOS_BASE_URL + provinceSuffix;
 		log.info("Processing " + provincePageUrl);

@@ -10,14 +10,22 @@
  */
 package com.marc.lastweek.web.pages.newclassifiedadd;
 
+import java.io.File;
+import java.util.List;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.util.file.Folder;
 
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.imagegallery.JQueryImagegallery;
 import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
+import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
+import com.marc.lastweek.web.session.LastweekSession;
+import com.marc.lastweek.web.util.ResourceUtils;
 import com.marc.lastweek.web.util.ViewUtils;
 
 public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
@@ -30,7 +38,9 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 		WebMarkupContainer checkDiv = new WebMarkupContainer("checkDiv");
 		
 		Folder temporalFolder = NewClassifiedAdCheckPage.this.newClassifiedAdTO.getTemporalFolder();
-		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", temporalFolder);
+		List<File> images = LastweekApplication.get().getImageService().getAllTemporalFiles(temporalFolder);
+		
+		JQueryImagegallery fileListViewPanel = new JQueryImagegallery("fileListViewPanel", images);
 		checkDiv.add(fileListViewPanel);
 
 		checkDiv.add(new Label("classifiedAdCategory", ViewUtils.labelizer(this.newClassifiedAdTO.getCategoryName())));
@@ -63,10 +73,18 @@ public class NewClassifiedAdCheckPage extends NewClassifiedAdPage{
 			@Override
 			public void onClick() {
 				LastweekApplication.get().getImageService().saveAllImages(NewClassifiedAdCheckPage.this.newClassifiedAdTO.getTemporalFolder());
-				LastweekApplication.get().getClassifiedAdsService().createClassifiedAd(NewClassifiedAdCheckPage.this.newClassifiedAdTO);
-
-				setResponsePage(getApplication().getHomePage());
-				getSession().info("se ha creado correctamente");
+				ClassifiedAd classifiedAd = LastweekApplication.get().getClassifiedAdsService().createClassifiedAd(NewClassifiedAdCheckPage.this.newClassifiedAdTO);
+				String emailAddress = classifiedAd.getUserData().getEmail();
+				try {
+					LastweekApplication.get().getMailService().sendActivationMail(classifiedAd);
+					
+					getSession().info(ResourceUtils.getResourceString("mail.sent", NewClassifiedAdCheckPage.this, emailAddress));
+					
+					setResponsePage(getApplication().getHomePage());
+					
+				} catch (Exception e) {
+					getSession().error(ResourceUtils.getResourceString("mail.error", NewClassifiedAdCheckPage.this, emailAddress));
+				}
 			}
 		};
 		// 	FIXME: localized messages from properties!!!

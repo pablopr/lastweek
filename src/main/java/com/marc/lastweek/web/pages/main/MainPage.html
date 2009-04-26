@@ -1,50 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:wicket="http://wicket.apache.org/">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<wicket:extend>
-  
-    
-    <div id="left-box">
-    
-   <div id="central-col">
- 
-      <div class="map"/>
- 
-   </div>
-   <div id="left-col">
-   <div class="filter-box">
-   <ul>
-   <li wicket:id="provincesList" class="left-column">
-   <a wicket:id="provinceLink" href="">
-   <span wicket:id="provinceName">
-   [Province]
-   </span>
-   </a>
-   </li>
-   </ul>
-   </div>
-     
-      </div>
-  </div>
-    
-    <div id="right-col" >
-        <div wicket:id="createNewAd"/>
-        <div class="filter-box">
-            <ul>
-                <li wicket:id="categoriesList">
-                    <a wicket:id="categoryLink" href="">
-                        <span wicket:id="categoryName">
-                            [Category]
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</wicket:extend>
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<wicket:extend>
+			<div id="left-box">
+	    
+	   			<div id="central-col">
+			      	<div class="map"></div>
+					<div id="left-col">
+	   					<div class="filter-box">
+	   						<ul>
+	   							<li wicket:id="provincesList" class="left-column">
+	   								<a wicket:id="provinceLink" href="">
+	   										<span wicket:id="provinceName">
+	   											[Province]
+	   										</span>
+	   								</a>
+							   </li>
+	   						</ul>
+	   					</div>     
+	      			</div>
+	  			</div> <!-- end central-col -->
+	    
+	    		<div id="right-col" >
+	        		<div wicket:id="createNewAd"></div>
+        			<div class="filter-box">
+            			<ul>
+                			<li wicket:id="categoriesList">	
+                    			<a wicket:id="categoryLink" href="">
+                        			<span wicket:id="categoryName">
+                            			[Category]
+                        			</span>
+                    			</a>
+                			</li>
+            			</ul>
+        			</div>
+	    		</div> <!--  end right-col -->
+	    		
+	    	</div>  <!-- end left-box -->    		
+		</wicket:extend>
+	</body>
 </html>

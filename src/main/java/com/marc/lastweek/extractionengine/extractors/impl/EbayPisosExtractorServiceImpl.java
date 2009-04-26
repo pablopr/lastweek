@@ -11,12 +11,18 @@
 package com.marc.lastweek.extractionengine.extractors.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import loc.marc.commons.business.services.general.GeneralService;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.extractionengine.adapters.EbayPisosAdapter;
 import com.marc.lastweek.extractionengine.entities.EbayPisosAd;
@@ -40,6 +46,9 @@ public class EbayPisosExtractorServiceImpl implements EbayPisosExtractorService 
 	@Autowired
 	private ClassifiedAdsService classifiedAdsService;
 	
+	@Autowired 
+	private GeneralService generalService;
+	
 	public void processProvince(String provinceSuffix) throws SAXException, IOException {
 		String provincePageUrl = UrlNaming.EBAY_PISOS_BASE_URL + provinceSuffix;
 		log.info("Processing " + provinceSuffix);
@@ -57,10 +66,14 @@ public class EbayPisosExtractorServiceImpl implements EbayPisosExtractorService 
 							if ( j == 1) {
 								TableCell tableCell= webtable.getTableCell(i,j);
 								WebLink[] weblinks = tableCell.getLinks();
-								EbayPisosAd ebayAd = processDetailPage( UrlNaming.EBAY_PISOS_BASE_URL + weblinks[0].getURLString() );
-								this.classifiedAdsService.createExternalClassfiedAd(EbayPisosAdapter.adapt(ebayAd));
-								log.info(ebayAd);
-								log.info("\n");
+								String adUrl = UrlNaming.EBAY_PISOS_BASE_URL + weblinks[0].getURLString();
+								Map<String,Object> queryParameters = new HashMap<String,Object>();
+								queryParameters.put("sourceURL", adUrl.trim());
+								ClassifiedAd classifiedAd = this.generalService.queryForObject(ClassifiedAd.class, "getClassifiedAdByUrl", queryParameters);
+								if ( classifiedAd == null ) {
+									EbayPisosAd ebayAd = processDetailPage( adUrl );
+									this.classifiedAdsService.createExternalClassfiedAd(EbayPisosAdapter.adapt(ebayAd));
+								}								
 							} 
 						}
 					}
@@ -98,7 +111,7 @@ public class EbayPisosExtractorServiceImpl implements EbayPisosExtractorService 
 		title = possibleTitles[0].getText();
 		
 		HTMLElement descriptionDiv = webResponse.getElementWithID("section1");
-		description = descriptionDiv.getText();
+		description = StringUtils.abbreviate(descriptionDiv.getText(),450);
 		
 		WebImage[] images = webResponse.getImages();
 		if ( images != null ) {

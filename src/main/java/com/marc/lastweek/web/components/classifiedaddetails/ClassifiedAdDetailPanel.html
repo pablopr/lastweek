@@ -4,57 +4,63 @@
 <html xmlns:wicket="http://wicket.apache.org/">
 <body>
 <wicket:panel>
-	<div class="">
-		<div>
-			<table class="classified-ad-details-table">
-				<tr>
-					<td>
-						<span class="classified-ad-details-title" wicket:id="classifiedAdTitle"/>
-					</td>
-					<td>
-						<div class="classified-ad-details-date">
-							<wicket:message key="classifiedAdDetails.from"/>
-							<span wicket:id="classifiedAdPublicationDate"/>
-							<wicket:message key="classifiedAdDetails.days"/>
-						</div>
-					</td>
-				</tr>
-			</table>
+	<div class="classified-ad-details-main">
+		<div class="classified-ad-details-titlebar">
+			<div class="classified-ad-details-title" wicket:id="classifiedAdTitle"/>
+			<div class="classified-ad-details-date">
+				<wicket:message key="classifiedAdDetails.publishedFrom"/>
+				<span wicket:id="classifiedAdPublicationDate"/>
+				<wicket:message key="classifiedAdDetails.days"/>
+			</div>
 		</div>
 		<div class="classified-ad-details-summary">
 			<div class="classified-ad-details-summary-table">
 				<table>
 					<tr>
 						<td>
-							<div class="classified-ad-details-summary-table-label" wocket:id="classifiedAdPriceLabel">
+							<div class="classified-ad-details-summary-label">
 								<wicket:message key="classifiedAdDetails.price"/>
 							</div>
 						</td>
-						<td class="classified-ad-details-summary-table-detail">
-							<div class="classified-ad-details-price" >
-								<span wicket:id="classifiedAdPrice"/> &euro;<br/>
+						<td class="classified-ad-details-summary-detail">
+							<div class="classified-ad-details-summary-value">
+								<span wicket:id="classifiedAdPrice"/>&nbsp;&euro;
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<div class="classified-ad-details-summary-table-label" wocket:id="classifiedAdProvinceLabel">
+							<div class="classified-ad-details-summary-label">
 								<wicket:message key="classifiedAdDetails.province"/>
 							</div>
 						</td>
-						<td class="classified-ad-details-summary-table-detail">
-							<div class="classified-ad-details-province" wicket:id="provinceName"/> <br/>
+						<td class="classified-ad-details-summary-detail">
+							<div class="classified-ad-details-summary-value">
+								<span wicket:id="provinceName"/>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<div  class="classified-ad-details-summary-table-label"wocket:id="classifiedAdCategoryLabel">
+							<div class="classified-ad-details-summary-label">
 								<wicket:message key="classifiedAdDetails.category"/>
 							</div>
 						</td>
-						<td class="classified-ad-details-summary-table-detail">
-							<div class="classified-ad-details-category">
-								<span wicket:id="categoryName"/> -> <span wicket:id="subcategoryName"/> <br/>
+						<td class="classified-ad-details-summary-detail">
+							<div class="classified-ad-details-summary-value">
+								<span wicket:id="categoryName"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="classified-ad-details-summary-label" wocket:id="classifiedAdCategoryLabel">
+								<wicket:message key="classifiedAdDetails.subcategory"/>
+							</div>
+						</td>
+						<td class="classified-ad-details-summary-detail">
+							<div class="classified-ad-details-summary-value">
+								<span wicket:id="subcategoryName"/>
 							</div>
 						</td>
 					</tr>
@@ -62,27 +68,28 @@
 			</div>
 			<div class="classified-ad-details-image">
 <!--				<img alt="jaja" src="http://img.ebayanuncios.es/25/45/254530b3262479d18a152de4aa23628e_big.jpg"/>-->
-				<span wicket:id="imagePanel"/>
+				<div wicket:id="gallery"/>
+				
 			</div>
 		</div>
-		<div class="classified-ad-details-menu">
-			<div class="classified-ad-details-description-link">
+		<div>
+			<div class="classified-ad-details-menu-description-header">
 				<a wicket:id="classifiedAdDescriptionLink" href="">
 					<wicket:message key="classifiedAdDetails.description"/>
 				</a>
 			</div>
 		</div>
-		<div class="classified-ad-details-description">
+		<div class="classified-ad-details-menu-description">
 			<div wicket:id="classifiedAdDescription"/>
 		</div>
-		<div class="classified-ad-details-menu">
-			<div class="classified-ad-details-contact-link"> 
+		<div>
+			<div class="classified-ad-details-menu-contact-header"> 
 				<a wicket:id="classifiedAdContactLink" href="">
 					<wicket:message key="classifiedAdDetails.contact"/>
 				</a>
 			</div>
 		</div>
-		<div class="classified-ad-details-contact">
+		<div class="classified-ad-details-menu-contact">
 			<table>
 				<tr>
 					<td>
@@ -128,7 +135,6 @@
 				</a>
 			</div>
 		</div>
-		<div wicket:id="fileListViewPanel"/>
 	</div>
 </wicket:panel>
 </body>
