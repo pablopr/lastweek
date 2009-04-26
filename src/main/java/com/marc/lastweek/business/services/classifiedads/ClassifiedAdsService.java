@@ -28,4 +28,6 @@ public interface ClassifiedAdsService {
 	public ClassifiedAd createClassifiedAd(NewClassifiedAdAndUserDataTO newClassifiedAdTO);
 	
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
+	
+	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
 }

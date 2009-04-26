@@ -50,6 +50,7 @@ public class ClassifiedAd {
 	public static final int STATE_ACTIVE = 0;
 	public static final int STATE_EXPIRED = 1;
 	public static final int STATE_BANNED = 2;
+	public static final int STATE_INACTIVE = 3;
 
 	@DocumentId
 	private Long id;

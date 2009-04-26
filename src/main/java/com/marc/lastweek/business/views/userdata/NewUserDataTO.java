@@ -20,6 +20,7 @@ import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 public class NewUserDataTO implements Serializable {
 	
 	private static final long serialVersionUID = -6863770140554188284L;
+	private String name = "";
 	private String email = "";
 	private String phone = "";
 	private Integer state = Integer.valueOf(0);
@@ -27,6 +28,7 @@ public class NewUserDataTO implements Serializable {
 	public NewUserDataTO(NewClassifiedAdAndUserDataTO newClassifiedAndUserDataTo) {
 		this.email = newClassifiedAndUserDataTo.getEmail();
 		this.phone = newClassifiedAndUserDataTo.getPhone();
+		this.name = newClassifiedAndUserDataTo.getName();
 	}
 	
 	public void setEmail(String email) {
@@ -54,6 +56,15 @@ public class NewUserDataTO implements Serializable {
 	@TransferAsAttribute
 	public Integer getState() {
 		return this.state;
+	}
+	
+	@TransferAsAttribute
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

@@ -12,9 +12,11 @@ package com.marc.lastweek.web.pages.classifiedad;
 
 import org.apache.wicket.PageParameters;
 
+import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.ClassifiedAdDetailPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.StandardPage;
+import com.marc.lastweek.web.util.ResourceUtils;
 
 public class ClassifiedAdDetailPage extends StandardPage {
 
@@ -25,7 +27,15 @@ public class ClassifiedAdDetailPage extends StandardPage {
 		final Long classifiedAdId = Long.valueOf(parameters
 			.getLong(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID));
 		
+		final String classifiedAdIdHash = parameters
+			.getString(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_HASH);
+		
+		if (classifiedAdIdHash != null){
+			LastweekApplication.get().getClassifiedAdsService().activateClassifiedAd(classifiedAdId, classifiedAdIdHash);
+			this.getSession().info(ResourceUtils.getResourceString("ad.activation.done", ClassifiedAdDetailPage.this));
+		}
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
+
 		
 	}
 }
