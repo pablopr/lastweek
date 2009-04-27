@@ -90,35 +90,17 @@
 			</div>
 		</div>
 		<div class="classified-ad-details-menu-contact">
-			<table>
-				<tr>
-					<td>
-						<wicket:message key="classifiedAdDetails.user"/>:
-					</td>
-					<td>
-						<div wicket:id="userDataName"/>
-					</td>
-				</tr>
-<!--				<tr>-->
-<!--					<td>-->
-<!--						<wicket:message key="classifiedAdDetails.email"/>:-->
-<!--					</td>-->
-<!--					<td>-->
-<!--						<div wicket:id="userDataEmail"/>-->
-<!--					</td>-->
-<!--				</tr>-->
-<!--				<tr>-->
-<!--					<td>-->
-<!--						<wicket:message key="classifiedAdDetails.phone"/>:-->
-<!--					</td>-->
-<!--					<td>-->
-<!--						<div wicket:id="userDataPhone"/>-->
-<!--					</td>-->
-<!--				</tr>-->
-			</table>
-			<div class="slider">
-				<a href="#" class="show-button">Enviar mensaje</a>
-				<div class="hidden" wicket:id="contactPanel"/>
+			<div class="classified-ad-details-username">
+				<wicket:message key="classifiedAdDetails.user"/>:
+				<span wicket:id="userDataName"/>
+			</div>
+			<div class="classified-ad-details-contact">
+				<div class="slider">
+					<a href="#" class="show-button">Enviar mensaje</a>
+					<div class="hidden">
+						<div class="classified-ad-details-contact-panel" wicket:id="contactPanel"/>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="classified-ad-details-links">

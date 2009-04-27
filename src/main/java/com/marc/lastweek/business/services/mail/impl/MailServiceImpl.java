@@ -37,6 +37,7 @@ public class MailServiceImpl implements MailService {
 	
 	private final static String TEMPLATE_FAVORITES = "favorites";
 	private final static String TEMPLATE_ACTIVATION = "activation";
+	private final static String TEMPLATE_CONTACT = "contact";
 	
 	private final static String FIELD_SUBJECT = ".subject";
 	
@@ -74,11 +75,23 @@ public class MailServiceImpl implements MailService {
 		templateData.put("ad", classifiedAd);
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_ACTIVATION, templateData, classifiedAd.getUserData().getEmail());
 	}
-
+    
+	public void sendContactMail(String senderName, String senderEmail, String text,
+			ClassifiedAd classifiedAd) {
+		Map<String,Object> templateData = new HashMap<String,Object>();
+		//TODO localhost:8080? change!
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
+		templateData.put("ad", classifiedAd);
+		templateData.put("senderName", senderName);
+		templateData.put("senderEmail", senderEmail);
+		templateData.put("text", text);
+		this.sendMail(SPANISH_LOCALE, TEMPLATE_CONTACT, templateData, classifiedAd.getUserData().getEmail());
+	}
+	
 	@Required
 	public void setFrom(String from) {
 		this.from = from;
-	}    
+	}
 
 	@Required
 	public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -139,7 +152,5 @@ public class MailServiceImpl implements MailService {
     public static String getMailMessageEntry(Locale locale, String key, Object...arguments) {				
 		return MessageFormat.format(ResourceBundle.getBundle(MAIL_MESSAGES_FILE, locale).
 				getString(key), arguments);
-	}	
-
-
+	}
 }

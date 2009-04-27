@@ -20,4 +20,6 @@ public interface MailService {
 	public void sendFavoritesMail(String address, List<Long> favoritesList);
 	
 	public void sendActivationMail(ClassifiedAd classifiedAd);
+	
+	public void sendContactMail(String senderName, String senderEmail, String text, ClassifiedAd classifiedAd);
 }

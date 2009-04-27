@@ -18,14 +18,21 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import com.marc.lastweek.web.pages.main.MainPage;
+import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
+import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
+import com.marc.lastweek.web.util.ResourceUtils;
 
 public class ContactPanel extends Panel {
 
 	private static final long serialVersionUID = 51477335048445934L;
+	
+	protected final ClassifiedAd classifiedAd;
 
-	public ContactPanel(String id, final Long userId, final Long classifiedAdId) {
+	public ContactPanel(String id, final Long userId, Long classifiedAdId) {
 		super(id);
+		this.classifiedAd = LastweekApplication.get()
+			.getGeneralService().find(ClassifiedAd.class, classifiedAdId);
 		this.add(new ContactForm("contactForm"));
 	}
 	
@@ -34,28 +41,34 @@ public class ContactPanel extends Panel {
 		private static final long serialVersionUID = -2757989694854220101L;
 		
 		protected final RequiredTextField email;
+		protected final RequiredTextField name;
 		protected final TextArea text;
 
 		public ContactForm(String id) {
 			super(id);
-			
+			this.name = new RequiredTextField("name", new Model());
+			this.name.add(StringValidator.lengthBetween(5, 50));
 			this.email = new RequiredTextField("email", new Model());
 			this.email.add(EmailAddressValidator.getInstance());
-//			this.text = new JQueryTextEditor("text");
-			this.text = new TextArea("text", new Model());
-			this.text.add(StringValidator.lengthBetween(5, 510));
+			this.text = new JQueryTextEditor("text");
+			this.text.add(StringValidator.lengthBetween(15, 510));
+			this.text.setEscapeModelStrings(false);
 			this.text.setRequired(true);
+			add(this.name);
 			add(this.email);
 			add(this.text);
 		}
 
-
 		@Override
 		protected void onSubmit() {
 			
-			this.setResponsePage(MainPage.class);
-
-			super.onSubmit();
+			LastweekApplication.get().getMailService().sendContactMail(this.name.getModelObjectAsString(), 
+					this.email.getModelObjectAsString(), this.text.getModelObjectAsString(), 
+					ContactPanel.this.classifiedAd);
+			this.name.setModel(new Model());
+			this.email.setModel(new Model());
+			this.text.setModel(new Model());
+			info(ResourceUtils.getResourceString("contactpanel.form.emailSent", ContactPanel.this));
 		}
 
 	}

@@ -73,6 +73,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 				.labelizer(DateUtils.getDaysFromThen(classifiedAd
 						.getPublicationDate()))));
 		this.add(new Label("classifiedAdTitle", ViewUtils
+//				.labelizer(classifiedAd.getTitle())));
 				.labelizer(classifiedAd.getTitle())));
 		this.add(new Label("classifiedAdDescription", ViewUtils
 				.labelizer(classifiedAd.getDescription())).setEscapeModelStrings(false));

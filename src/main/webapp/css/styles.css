@@ -340,6 +340,22 @@ pre {
 	width: 42.5%;
 }
 
+.classified-ad-details-username {
+	float:left;
+}
+
+.classified-ad-details-contact {
+	text-align:right;
+}
+
+.classified-ad-details-contact a, .classified-ad-details-contact a:hover, .classified-ad-details-contact a:visited {
+	color: #696969;
+	text-decoration: none;
+	float:right;
+	text-align:right;
+	clear:both;
+}
+
 .classified-ad-details-menu-contact {
 	-moz-border-radius-bottomleft: 5px;
 	-moz-border-radius-bottomright: 5px;
@@ -363,9 +379,9 @@ pre {
 .classified-ad-details-links {
 	clear: both;
 	display: block;
-	float: none;
+	float: right;
 	position: relative;
-	width: 100%;
+	width: 50%;
 }
 
 .classified-ad-details-source {
@@ -374,7 +390,6 @@ pre {
 }
 
 .classified-ad-details-flag {
-	clear: both;
 	float: right;
 	padding-top: 5px;
 	text-align: right;
@@ -382,7 +397,7 @@ pre {
 }
 
 .classified-ad-details-fav {
-	float: right;
+	float: left;
 	padding-top: 5px;
 }
 
@@ -423,9 +438,8 @@ pre {
 }
 
 .contact-panel {
+	margin-top: 25px;
 	text-align: left;
-	width: 60%;
-	margin-left: 5px;
 }
 
 .contact-panel-submit {

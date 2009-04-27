@@ -1,0 +1,14 @@
+<h3>Hola ${ad.userData.name}.</h3> 
+<p>
+<b>${senderName}</b> ha visto tu anuncio "${ad.title}" en LASTWEEK y te ha escrito el siguiente mensaje:</h3>
+</p>
+<p> 
+   ${text}
+</p>
+
+<p>
+No respondas este correo. Si quieres ponerte en contacto con <b>${senderName}</b>, puedes enviarle un email a:
+<i>${senderEmail}</i><br/>
+</p>
+
+Gracias por escogernos.
