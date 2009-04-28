@@ -57,7 +57,7 @@ public class EbayExtractorServiceImpl implements EbayExtractorService {
 	}
 
     public void importEbayAnunciosAds(List<EbayPisosAd> ebayPisosAds) {
-        // TODO Auto-generated method stub
+        // TODO implement
         
     }
 	
