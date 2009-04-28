@@ -112,18 +112,20 @@ public class ImageServiceImpl implements ImageService{
 			}
 		}
 	}
-    
-	private String getFileTypeSuffix(String contentType){
-		 String suffix = null;
-	       if ("image/gif".equalsIgnoreCase(contentType)) {
-	           suffix = ".gif";
-	       } else if ("image/jpeg".equalsIgnoreCase(contentType)) {
-	           suffix = ".jpeg";
-	       } else if ("image/png".equalsIgnoreCase(contentType)) {
-	           suffix = ".png";
-	       }
-	      return suffix;
-	}
+ 
+//TODO: remove this method if it is never used
+	
+//	private String getFileTypeSuffix(String contentType){
+//		 String suffix = null;
+//	       if ("image/gif".equalsIgnoreCase(contentType)) {
+//	           suffix = ".gif";
+//	       } else if ("image/jpeg".equalsIgnoreCase(contentType)) {
+//	           suffix = ".jpeg";
+//	       } else if ("image/png".equalsIgnoreCase(contentType)) {
+//	           suffix = ".png";
+//	       }
+//	      return suffix;
+//	}
 
 	
 	private File createImageFile(Folder dir, String fileName){

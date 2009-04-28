@@ -17,19 +17,25 @@ import org.quartz.SchedulerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import com.marc.lastweek.commons.exceptions.InternalErrorException;
+
 public abstract class ApplicationContextAwareQuartzJobBean extends QuartzJobBean{
 
     private static final String APPLICATION_CONTEXT_KEY = "applicationContext";
     protected static final Logger log = Logger.getLogger(ApplicationContextAwareQuartzJobBean.class);
 	
-	protected ApplicationContext getApplicationContext(JobExecutionContext context) throws SchedulerException  { 
-		ApplicationContext appCtx = null;
-        appCtx = (ApplicationContext) context.getScheduler().getContext().get(APPLICATION_CONTEXT_KEY);
-        if ( appCtx == null ) {
-            throw new JobExecutionException(
-                    "No application context available in scheduler context for key \"" + APPLICATION_CONTEXT_KEY + "\"");
-        }
-        return appCtx;
+	protected ApplicationContext getApplicationContext(JobExecutionContext context)  {
+	    try {
+    		ApplicationContext appCtx = null;
+            appCtx = (ApplicationContext) context.getScheduler().getContext().get(APPLICATION_CONTEXT_KEY);
+            if ( appCtx == null ) {
+                throw new JobExecutionException(
+                        "No application context available in scheduler context for key \"" + APPLICATION_CONTEXT_KEY + "\"");
+            }
+            return appCtx;
+	    } catch (SchedulerException e) {
+	        throw new InternalErrorException(e);
+	    }
 
 	}
 }

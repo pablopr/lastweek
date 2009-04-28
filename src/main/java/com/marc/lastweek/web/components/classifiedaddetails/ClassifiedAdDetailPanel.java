@@ -59,7 +59,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder);
 		
 		if (images.size() != 0) {
-			final File file = images.get(0);
+//			final File file = images.get(0);
 //			this.add(new ClassifiedAdImagePanel("imagePanel", file));
 			this.add(new JQueryImagegallery("gallery", images));
 		}
@@ -91,7 +91,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-
+			    //TODO: add onClick
 			}
 
 		});
@@ -104,7 +104,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 			@Override
 			public void onClick() {
-				
+				//TODO: add onClick
 			}
 
 		});

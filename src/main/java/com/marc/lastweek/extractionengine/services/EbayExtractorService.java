@@ -8,12 +8,15 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.extractionengine.extractors;
+package com.marc.lastweek.extractionengine.services;
 
-import java.io.IOException;
+import java.util.List;
 
-import org.xml.sax.SAXException;
+import com.marc.lastweek.extractionengine.entities.EbayPisosAd;
 
-public interface EbayAnunciosExtractorService {
-	public void processProvince(String provinceSuffix) throws SAXException, IOException;
+public interface EbayExtractorService {
+    
+	public void importEbayPisosAds(List<EbayPisosAd> ebayPisosAds);
+	
+	public void importEbayAnunciosAds(List<EbayPisosAd> ebayPisosAds);
 }

@@ -12,7 +12,6 @@ package com.marc.lastweek.web.pages.classifiedadslisting;
 
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.Locale;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.wicket.PageParameters;

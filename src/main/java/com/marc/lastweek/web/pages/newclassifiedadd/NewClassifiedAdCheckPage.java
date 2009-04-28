@@ -22,9 +22,6 @@ import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.imagegallery.JQueryImagegallery;
-import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
-import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
-import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ResourceUtils;
 import com.marc.lastweek.web.util.ViewUtils;
 

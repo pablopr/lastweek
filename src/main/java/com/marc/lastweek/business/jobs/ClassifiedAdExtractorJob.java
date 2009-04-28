@@ -14,24 +14,25 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 
-import com.marc.lastweek.extractionengine.extractors.EbayPisosExtractorService;
+import com.marc.lastweek.extractionengine.extractors.EbayPisosProvinceExtractor;
 import com.marc.lastweek.extractionengine.naming.UrlNaming;
+import com.marc.lastweek.extractionengine.services.EbayExtractorService;
 
 public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBean {	
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
-		try {			
-			ApplicationContext applicationContext = this.getApplicationContext(context);
-			EbayPisosExtractorService EbayPisosExtractorService = (EbayPisosExtractorService) applicationContext.getBean("ebayPisosExtractorServiceImpl"); 
-			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
-				EbayPisosExtractorService.processProvince( province );
-			}	
 			
-		} catch (Exception e) {
-			log.info("Task finished with errors" + e);
-		}
+			ApplicationContext applicationContext = this.getApplicationContext(context);
+			EbayExtractorService EbayPisosExtractorService = (EbayExtractorService) applicationContext.getBean("ebayExtractorServiceImpl"); 
+			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
+			    log.info("Extracting :" + province);
+			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province);
+			    ebayPisosProvinceExtractor.doExtraction();
+			    EbayPisosExtractorService.importEbayPisosAds(ebayPisosProvinceExtractor.getExtractedAds());    
+			}			
+		
 		
 	}
 	

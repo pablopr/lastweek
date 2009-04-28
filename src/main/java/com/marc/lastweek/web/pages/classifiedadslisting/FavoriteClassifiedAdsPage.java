@@ -82,7 +82,7 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 				item.add(deleteLink);
 			}
 		};
-		this.add(classifiedList);
+		this.add(this.classifiedList);
 
 		// TODO: if list is empty, then add some kind of 'how to use favorites'
 
@@ -114,16 +114,16 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 
 		public SendFavoritesMailForm(String id) {
 			super(id);
-			mailAddress = new TextField("mailAddress", new Model());
-			mailAddress.add(EmailAddressValidator.getInstance());
-			mailAddress.setRequired(true);
-			mailAddress.setLabel(ResourceUtils.createResourceModel("mail.form.label", FavoriteClassifiedAdsPage.this));
-			this.add(mailAddress);
+			this.mailAddress = new TextField("mailAddress", new Model());
+			this.mailAddress.add(EmailAddressValidator.getInstance());
+			this.mailAddress.setRequired(true);
+			this.mailAddress.setLabel(ResourceUtils.createResourceModel("mail.form.label", FavoriteClassifiedAdsPage.this));
+			this.add(this.mailAddress);
 		}
 
 		@Override
 		protected void onSubmit() {
-			if (classifiedList.getList().size()>0) {
+			if (FavoriteClassifiedAdsPage.this.classifiedList.getList().size()>0) {
 				String emailAddress = this.mailAddress.getModelObjectAsString();
 				try {
 					LastweekApplication.get().getMailService().sendFavoritesMail(emailAddress,

@@ -18,7 +18,6 @@ import loc.marc.commons.business.entities.general.GeneralRepository;
 import loc.marc.commons.business.services.general.GeneralService;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +44,6 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	@Autowired
 	private GeneralRepository generalRepository;
 	
-	private static final Logger logger = Logger.getLogger(ClassifiedAdsServiceImpl.class);
-
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count, Calendar date) {
 	    if (parameters.getSearchString()!=null) {
 	        return this.classifiedAdRespository.indexBasedSearch(parameters, date ,start, count);

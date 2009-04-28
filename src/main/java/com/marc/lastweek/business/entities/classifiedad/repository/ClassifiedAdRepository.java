@@ -80,7 +80,7 @@ public class ClassifiedAdRepository {
 			criteriaQuery.createCriteria("subcategory").add(Restrictions.eq("id", parameters.getSubcategoryId()));
 		}
 		criteriaQuery.add(Restrictions.ge("publicationDate", from));
-		criteriaQuery.add(Restrictions.eq("state", ClassifiedAd.STATE_ACTIVE));
+		criteriaQuery.add(Restrictions.eq("state", Integer.valueOf(ClassifiedAd.STATE_ACTIVE)));
 		return criteriaQuery;
 	}
 
