@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
-import com.marc.lastweek.extractionengine.adapters.EbayPisosAdapter;
-import com.marc.lastweek.extractionengine.entities.EbayPisosAd;
+import com.marc.lastweek.extractionengine.adapters.EbayAdAdapter;
+import com.marc.lastweek.extractionengine.entities.EbayAd;
 import com.marc.lastweek.extractionengine.services.EbayExtractorService;
 
 @Service
@@ -36,10 +36,10 @@ public class EbayExtractorServiceImpl implements EbayExtractorService {
 	private GeneralService generalService;
 	
 	@Transactional
-	public void importEbayPisosAds(List<EbayPisosAd> ebayPisosAds) {	 
-	    for (EbayPisosAd ebayPisosAd: ebayPisosAds) {	 
-	        if ( !existsExternalClassifiedAd(ebayPisosAd.getUrl()) ) {
-	            this.classifiedAdsService.createExternalClassfiedAd(EbayPisosAdapter.adapt(ebayPisosAd));
+	public void importEbayPisosAds(List<EbayAd> ebayAds) {	 
+	    for (EbayAd ebayAd: ebayAds) {	 
+	        if ( !existsExternalClassifiedAd(ebayAd.getUrl()) ) {
+	            this.classifiedAdsService.createExternalClassfiedAd(EbayAdAdapter.adapt(ebayAd));
 	        }
 	    }
 	    	
@@ -56,7 +56,7 @@ public class EbayExtractorServiceImpl implements EbayExtractorService {
         return existsExternalClassifiedAd;
 	}
 
-    public void importEbayAnunciosAds(List<EbayPisosAd> ebayPisosAds) {
+    public void importEbayAnunciosAds(List<EbayAd> ebayAds) {
         // TODO implement
         
     }

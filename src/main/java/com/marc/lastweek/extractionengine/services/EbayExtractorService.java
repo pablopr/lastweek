@@ -12,11 +12,11 @@ package com.marc.lastweek.extractionengine.services;
 
 import java.util.List;
 
-import com.marc.lastweek.extractionengine.entities.EbayPisosAd;
+import com.marc.lastweek.extractionengine.entities.EbayAd;
 
 public interface EbayExtractorService {
     
-	public void importEbayPisosAds(List<EbayPisosAd> ebayPisosAds);
+	public void importEbayPisosAds(List<EbayAd> ebayPisosAds);
 	
-	public void importEbayAnunciosAds(List<EbayPisosAd> ebayPisosAds);
+	public void importEbayAnunciosAds(List<EbayAd> ebayPisosAds);
 }

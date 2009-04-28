@@ -14,9 +14,9 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.NewExternalClassifiedAdTO;
-import com.marc.lastweek.extractionengine.entities.EbayPisosAd;
+import com.marc.lastweek.extractionengine.entities.EbayAd;
 
-public class EbayPisosAdapter {
+public class EbayAdAdapter {
 	
 	private final static String[] EBAY_PISOS_CATEGORIES = {
 		"Alquiler",
@@ -39,11 +39,11 @@ public class EbayPisosAdapter {
 //	};
 	
 	
-	public final static NewExternalClassifiedAdTO adapt(EbayPisosAd ebayPisosAd){
-		long categoryId = EBAY_PISOS_CATEGORIES_TO_LASTWEEK_CATEGORIES[ArrayUtils.indexOf(EBAY_PISOS_CATEGORIES, ebayPisosAd.getCategory().trim())];
+	public final static NewExternalClassifiedAdTO adapt(EbayAd ebayAd){
+		long categoryId = EBAY_PISOS_CATEGORIES_TO_LASTWEEK_CATEGORIES[ArrayUtils.indexOf(EBAY_PISOS_CATEGORIES, ebayAd.getCategory().trim())];
 		Double price = null;
 		try {
-				price = Double.valueOf(ebayPisosAd.getPrice().replaceFirst("EUR", ""));
+				price = Double.valueOf(ebayAd.getPrice().replaceFirst("EUR", ""));
 		} catch (Exception e) {
 			price = Double.valueOf(0);
 		}
@@ -54,13 +54,13 @@ public class EbayPisosAdapter {
 				Long.valueOf(categoryId),
 				null,
 				price,
-				ebayPisosAd.getTitle(),
-				ebayPisosAd.getDescription(),
+				ebayAd.getTitle(),
+				ebayAd.getDescription(),
 				null,
 				null,
 				provinceId,
 				Integer.valueOf(ClassifiedAd.SOURCE_EBAY),
-				ebayPisosAd.getUrl(),
+				ebayAd.getUrl(),
 				Integer.valueOf(0),
 				Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 	}

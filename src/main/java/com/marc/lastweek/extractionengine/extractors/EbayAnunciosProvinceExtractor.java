@@ -1,5 +1,5 @@
 /*
- * EbayPisosExtractor.java
+ * EbayAnunciosExtractor.java
  * Copyright (c) 2009, Monte Alto Research Center, All Rights Reserved.
  *
  * This software is the confidential and proprietary information of
@@ -20,14 +20,18 @@ import com.marc.lastweek.extractionengine.naming.UrlNaming;
 import com.meterware.httpunit.HTMLElement;
 import com.meterware.httpunit.WebImage;
 
-public class EbayPisosProvinceExtractor extends EbayProvinceExtractor{
 
-    private final static Logger log = Logger.getLogger(EbayPisosProvinceExtractor.class);
+public class EbayAnunciosProvinceExtractor extends EbayProvinceExtractor {
+   
+       
     
-    public EbayPisosProvinceExtractor(String provinceUrlSuffix) {
+    public EbayAnunciosProvinceExtractor(String provinceUrlSuffix) {
         super(provinceUrlSuffix);
-        this.setBaseUrl(UrlNaming.EBAY_PISOS_BASE_URL);
+        this.setBaseUrl(UrlNaming.EBAY_ANUNCIOS_BASE_URL);
     }
+    
+   private final static Logger log = Logger.getLogger(EbayPisosProvinceExtractor.class);
+    
     
     @Override
     protected void processDetailPage(String detailPageUrl) throws Exception {
@@ -37,7 +41,7 @@ public class EbayPisosProvinceExtractor extends EbayProvinceExtractor{
                                              this.getPlaceFromDetailTable(),
                                              this.getDateFromDetailTable(),
                                              this.getPriceFromDetailTable(),
-                                             this.getSubCategoryFromDetailTable(),
+                                             null,
                                              this.getCategoryFromDetailTable(), detailPageUrl,this.getImgUrlFromDetailPage()));
 
     }
@@ -63,7 +67,7 @@ public class EbayPisosProvinceExtractor extends EbayProvinceExtractor{
         WebImage[] images = this.getAdDetailWebResponse().getImages();
         if ( images != null ) {
             for ( WebImage image: images ) {
-                if ( image.getSource().contains("http://img.ebaypisos.es") ) {
+                if ( image.getSource().contains("http://img.ebayanuncios.es") ) {
                         imgUrl = image.getSource();
                         break;
                 }               
@@ -84,13 +88,8 @@ public class EbayPisosProvinceExtractor extends EbayProvinceExtractor{
         return this.getDetailTable().getTableCell(2,1).getText();
     }
     
-    private String getSubCategoryFromDetailTable() {
-        return this.getDetailTable().getTableCell(3,1).getText();
-
-    }
-    
     private String getCategoryFromDetailTable() {
-        return this.getDetailTable().getTableCell(4,1).getText();
+        return this.getDetailTable().getTableCell(3,1).getText();
     }
     
 }
