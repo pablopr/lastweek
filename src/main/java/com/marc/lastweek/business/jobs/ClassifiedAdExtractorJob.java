@@ -10,6 +10,8 @@
  */
 package com.marc.lastweek.business.jobs;
 
+import java.util.ArrayList;
+
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
@@ -30,14 +32,16 @@ public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBe
 			
 			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
 			    log.info("Extracting :" + province);
-			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province);
+			    // TODO pass the already extracted ads as a parameter
+			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province, new ArrayList<String>());
 			    ebayPisosProvinceExtractor.doExtraction();
 			    EbayPisosExtractorService.importEbayPisosAds(ebayPisosProvinceExtractor.getExtractedAds());    
 			}
 			
 			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
                 log.info("Extracting :" + province);
-                EbayAnunciosProvinceExtractor ebayAnunciosProvinceExtractor = new EbayAnunciosProvinceExtractor(province);
+                // TODO pass the already extracted ads as a parameter
+                EbayAnunciosProvinceExtractor ebayAnunciosProvinceExtractor = new EbayAnunciosProvinceExtractor(province, new ArrayList<String>());
                 ebayAnunciosProvinceExtractor.doExtraction();
                 EbayPisosExtractorService.importEbayPisosAds(ebayAnunciosProvinceExtractor.getExtractedAds());    
             }           

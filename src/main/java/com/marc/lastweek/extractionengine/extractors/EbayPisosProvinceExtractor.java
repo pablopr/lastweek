@@ -10,6 +10,8 @@
  */
 package com.marc.lastweek.extractionengine.extractors;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
@@ -20,8 +22,8 @@ import com.meterware.httpunit.WebImage;
 
 public class EbayPisosProvinceExtractor extends EbayProvinceExtractor{
     
-    public EbayPisosProvinceExtractor(String provinceUrlSuffix) {
-        super(provinceUrlSuffix);
+    public EbayPisosProvinceExtractor(String provinceUrlSuffix, List<String> alreadyExtractedAds) {
+        super(provinceUrlSuffix, alreadyExtractedAds);
         this.setBaseUrl(UrlNaming.EBAY_PISOS_BASE_URL);
     }
     

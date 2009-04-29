@@ -33,6 +33,7 @@ public abstract class EbayProvinceExtractor {
     
     private List<String> adsUrl;
     private List<EbayAd> extractedAds;
+    private List<String> alreadyExtractedAdsUrl;
     
     private String provinceUrlSuffix;
     
@@ -47,11 +48,12 @@ public abstract class EbayProvinceExtractor {
     
     private String baseUrl;
 
-    public EbayProvinceExtractor(String provinceUrlSuffix) {
+    public EbayProvinceExtractor(String provinceUrlSuffix, List<String> alreadyExtractedAds) {
         this.adsUrl = new ArrayList<String>();
         this.extractedAds = new ArrayList<EbayAd>();
         this.doProcess = true;          
-        this.provinceUrlSuffix = provinceUrlSuffix;                 
+        this.provinceUrlSuffix = provinceUrlSuffix;     
+        this.alreadyExtractedAdsUrl = alreadyExtractedAds;
     }
     
     public void doExtraction() {
@@ -89,7 +91,12 @@ public abstract class EbayProvinceExtractor {
     
     private void getCurrentPageAdsLinks() throws SAXException {              
         for (WebTable webTable: this.getCurrentPageWebTablesWithAds()) {
-            this.adsUrl.add(getAdLink(webTable));
+            String adUrl = getAdLink(webTable);
+            if ( this.alreadyExtractedAdsUrl.contains(adUrl) ) {
+                this.doProcess = false;
+            } else {                              
+                this.adsUrl.add(adUrl);
+            }
         }        
     }
     
