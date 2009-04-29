@@ -106,4 +106,5 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 		}
 		return ad;
 	}
+
 }

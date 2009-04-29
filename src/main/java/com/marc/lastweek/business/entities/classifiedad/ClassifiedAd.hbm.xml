@@ -44,9 +44,15 @@
 	<query name="getClassifiedAdsInList">
 		from ClassifiedAd where id in (:favorites) 
 	</query>
+	
 	<query name="getClassifiedAdByUrl">
 		from ClassifiedAd where sourceURL = :sourceURL
 	</query>
+	
+	<query name="getExternalsAdsUrl">
+        select distinct sourceURL from ClassifiedAd where sourceURL is not null
+    </query>
+	
 
 </hibernate-mapping>
 

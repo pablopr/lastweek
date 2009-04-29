@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import com.marc.lastweek.commons.exceptions.InternalErrorException;
 import com.marc.lastweek.extractionengine.entities.EbayAd;
 import com.marc.lastweek.extractionengine.naming.UrlNaming;
+import com.meterware.httpunit.ClientProperties;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebConversation;
@@ -30,6 +31,8 @@ import com.meterware.httpunit.WebTable;
 
 public abstract class EbayProvinceExtractor {
  private final static Logger log = Logger.getLogger(EbayPisosProvinceExtractor.class);
+     
+    private int pageCounter = 0;
     
     private List<String> adsUrl;
     private List<EbayAd> extractedAds;
@@ -70,14 +73,20 @@ public abstract class EbayProvinceExtractor {
     
     private void startWebConversation() {
         try {
-            Validate.notEmpty(this.baseUrl, "baseUrl has to be set");            
-            HttpUnitOptions.setScriptingEnabled( false );     
-            String provincePageUrl = this.baseUrl + this.provinceUrlSuffix;
-            this.AdListWebConversation = new WebConversation();    
-            this.AdListWebResponse = this.AdListWebConversation.getResponse(provincePageUrl);
+            log.info("starting web conversation");
+            Validate.notEmpty(this.baseUrl, "baseUrl has to be set");
+            String provincePageUrl = this.baseUrl + this.provinceUrlSuffix;            
+            ClientProperties.getDefaultProperties().setIframeSupported( false );            
+            HttpUnitOptions.setScriptingEnabled( false );
+            HttpUnitOptions.setExceptionsThrownOnErrorStatus( false );
+            HttpUnitOptions.setExceptionsThrownOnScriptError( false );           
+            this.AdListWebConversation = new WebConversation();                     
+            log.info("about to access " + provincePageUrl);
+            this.AdListWebResponse = this.AdListWebConversation.getResponse(provincePageUrl);            
+            log.info("web conversation started");
         } catch (Exception e) {
             this.doProcess = false;
-            log.error(e);
+            log.error(e);            
         }
     }
         
@@ -89,7 +98,7 @@ public abstract class EbayProvinceExtractor {
         }
     }
     
-    private void getCurrentPageAdsLinks() throws SAXException {              
+    private void getCurrentPageAdsLinks() throws SAXException {             
         for (WebTable webTable: this.getCurrentPageWebTablesWithAds()) {
             String adUrl = getAdLink(webTable);
             if ( this.alreadyExtractedAdsUrl.contains(adUrl) ) {
@@ -112,13 +121,15 @@ public abstract class EbayProvinceExtractor {
     }
     
     private String getAdLink(WebTable webTableWithAd) {
+        log.info("getAdLink");
         String result = "";
         for (int i = 0; i < webTableWithAd.getRowCount() ; i++) {
             for (int j = 0; j < webTableWithAd.getColumnCount(); j++) {
                 if ( j == 1) {
                     TableCell tableCell= webTableWithAd.getTableCell(i,j);
                     WebLink[] weblinks = tableCell.getLinks();
-                    result = UrlNaming.EBAY_PISOS_BASE_URL + weblinks[0].getURLString();                                                                                                             
+                    result = UrlNaming.EBAY_PISOS_BASE_URL + weblinks[0].getURLString();
+                    log.info(result);
                 } 
             }
         }
@@ -131,6 +142,8 @@ public abstract class EbayProvinceExtractor {
             if ( nextLink != null ) {
                 nextLink.click();
                 this.AdListWebResponse = this.AdListWebConversation.getCurrentPage();
+                this.pageCounter++;
+                if ( this.pageCounter == 3 ) this.doProcess = false; 
             } else {
                 this.doProcess = false;
             } 

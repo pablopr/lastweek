@@ -10,17 +10,14 @@
  */
 package com.marc.lastweek.extractionengine.services.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import loc.marc.commons.business.services.general.GeneralService;
+import loc.marc.commons.business.entities.general.GeneralRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.extractionengine.adapters.EbayAdAdapter;
 import com.marc.lastweek.extractionengine.entities.EbayAd;
@@ -32,34 +29,24 @@ public class EbayExtractorServiceImpl implements EbayExtractorService {
 	@Autowired
 	private ClassifiedAdsService classifiedAdsService;
 	
-	@Autowired 
-	private GeneralService generalService;
+    @Autowired
+    private GeneralRepository generalRepository;
 	
 	@Transactional
 	public void importEbayPisosAds(List<EbayAd> ebayAds) {	 
 	    for (EbayAd ebayAd: ebayAds) {	 
-	        if ( !existsExternalClassifiedAd(ebayAd.getUrl()) ) {
-	            this.classifiedAdsService.createExternalClassfiedAd(EbayAdAdapter.adapt(ebayAd));
-	        }
+	        this.classifiedAdsService.createExternalClassfiedAd(EbayAdAdapter.adapt(ebayAd));
 	    }
 	    	
 	}
 	
-	private boolean existsExternalClassifiedAd(String sourceUrl) {
-	    boolean existsExternalClassifiedAd = false;
-	    Map<String,Object> queryParameters = new HashMap<String,Object>();
-        queryParameters.put("sourceURL", sourceUrl.trim());
-        ClassifiedAd classifiedAd = this.generalService.queryForObject(ClassifiedAd.class, "getClassifiedAdByUrl", queryParameters);
-        if ( classifiedAd != null ) {
-            existsExternalClassifiedAd = true;
-        }
-        return existsExternalClassifiedAd;
-	}
-
     public void importEbayAnunciosAds(List<EbayAd> ebayAds) {
-        // TODO implement
-        
-    }
+        // TODO implement        
+    }	
 	
+    @Transactional(readOnly=true)
+    public List<String> getExternalsAdsUrl() {
+      return this.generalRepository.queryForList(String.class, "getExternalsAdsUrl", null);
+    }
 	
 }

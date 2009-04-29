@@ -10,13 +10,12 @@
  */
 package com.marc.lastweek.business.jobs;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 
-import com.marc.lastweek.extractionengine.extractors.EbayAnunciosProvinceExtractor;
 import com.marc.lastweek.extractionengine.extractors.EbayPisosProvinceExtractor;
 import com.marc.lastweek.extractionengine.naming.UrlNaming;
 import com.marc.lastweek.extractionengine.services.EbayExtractorService;
@@ -28,23 +27,22 @@ public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBe
 			throws JobExecutionException {
 			
 			ApplicationContext applicationContext = this.getApplicationContext(context);
-			EbayExtractorService EbayPisosExtractorService = (EbayExtractorService) applicationContext.getBean("ebayExtractorServiceImpl");
+			EbayExtractorService ebayPisosExtractorService = (EbayExtractorService) applicationContext.getBean("ebayExtractorServiceImpl");
+			List<String> alreadyExtractedUrls = ebayPisosExtractorService.getExternalsAdsUrl();
 			
 			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
 			    log.info("Extracting :" + province);
-			    // TODO pass the already extracted ads as a parameter
-			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province, new ArrayList<String>());
+			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province, alreadyExtractedUrls);
 			    ebayPisosProvinceExtractor.doExtraction();
-			    EbayPisosExtractorService.importEbayPisosAds(ebayPisosProvinceExtractor.getExtractedAds());    
+			    ebayPisosExtractorService.importEbayPisosAds(ebayPisosProvinceExtractor.getExtractedAds());    
 			}
 			
-			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
-                log.info("Extracting :" + province);
-                // TODO pass the already extracted ads as a parameter
-                EbayAnunciosProvinceExtractor ebayAnunciosProvinceExtractor = new EbayAnunciosProvinceExtractor(province, new ArrayList<String>());
-                ebayAnunciosProvinceExtractor.doExtraction();
-                EbayPisosExtractorService.importEbayPisosAds(ebayAnunciosProvinceExtractor.getExtractedAds());    
-            }           
+//			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
+//                log.info("Extracting :" + province);
+//                EbayAnunciosProvinceExtractor ebayAnunciosProvinceExtractor = new EbayAnunciosProvinceExtractor(province, alreadyExtractedUrls);
+//                ebayAnunciosProvinceExtractor.doExtraction();
+//                ebayPisosExtractorService.importEbayPisosAds(ebayAnunciosProvinceExtractor.getExtractedAds());    
+//            }           
 			
 	}
 	

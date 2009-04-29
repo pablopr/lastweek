@@ -19,4 +19,7 @@ public interface EbayExtractorService {
 	public void importEbayPisosAds(List<EbayAd> ebayPisosAds);
 	
 	public void importEbayAnunciosAds(List<EbayAd> ebayPisosAds);
+	
+	public List<String> getExternalsAdsUrl();
+
 }

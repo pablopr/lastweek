@@ -30,4 +30,5 @@ public interface ClassifiedAdsService {
 	public void createExternalClassfiedAd(NewExternalClassifiedAdTO newExternalClassifiedAdTO);
 	
 	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
+	
 }
