@@ -11,10 +11,8 @@
 package com.marc.lastweek.extractionengine.extractors;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import com.marc.lastweek.extractionengine.entities.EbayAd;
 import com.marc.lastweek.extractionengine.helpers.DomHelper;
 import com.marc.lastweek.extractionengine.naming.UrlNaming;
 import com.meterware.httpunit.HTMLElement;
@@ -28,25 +26,11 @@ public class EbayAnunciosProvinceExtractor extends EbayProvinceExtractor {
     public EbayAnunciosProvinceExtractor(String provinceUrlSuffix) {
         super(provinceUrlSuffix);
         this.setBaseUrl(UrlNaming.EBAY_ANUNCIOS_BASE_URL);
-    }
-    
-   private final static Logger log = Logger.getLogger(EbayPisosProvinceExtractor.class);
+    }   
     
     
     @Override
-    protected void processDetailPage(String detailPageUrl) throws Exception {
-        log.info("Processing: " + detailPageUrl);
-        this.addEbayAd(new EbayAd(this.getTitleFromDetailPage(),
-                                             this.getDescriptionFromDetailPage(),
-                                             this.getPlaceFromDetailTable(),
-                                             this.getDateFromDetailTable(),
-                                             this.getPriceFromDetailTable(),
-                                             null,
-                                             this.getCategoryFromDetailTable(), detailPageUrl,this.getImgUrlFromDetailPage()));
-
-    }
-    
-    private String getTitleFromDetailPage() throws SAXException {
+    protected String getTitleFromDetailPage() throws SAXException {
         String title = "";
         HTMLElement[] possibleTitles = DomHelper.getElementsWithClassName(this.getAdDetailWebResponse(), "tit-head");
         if ( possibleTitles.length > 0 ) {
@@ -55,14 +39,16 @@ public class EbayAnunciosProvinceExtractor extends EbayProvinceExtractor {
         return title;
     }
     
-    private String getDescriptionFromDetailPage() throws SAXException {
+    @Override
+    protected String getDescriptionFromDetailPage() throws SAXException {
         String description = "";
         HTMLElement descriptionDiv = this.getAdDetailWebResponse().getElementWithID("section1");
         description = StringUtils.abbreviate(descriptionDiv.getText(),450);
         return description;
     }
     
-    private String getImgUrlFromDetailPage() throws SAXException {
+    @Override
+    protected String getImgUrlFromDetailPage() throws SAXException {
         String imgUrl = "";
         WebImage[] images = this.getAdDetailWebResponse().getImages();
         if ( images != null ) {
@@ -76,19 +62,23 @@ public class EbayAnunciosProvinceExtractor extends EbayProvinceExtractor {
         return imgUrl;
     }
     
-    private String getPlaceFromDetailTable() {        
+    @Override
+    protected String getPlaceFromDetailTable() {        
         return this.getDetailTable().getTableCell(0,1).getText();                  
     }
     
-    private String getPriceFromDetailTable() {
+    @Override
+    protected String getPriceFromDetailTable() {
         return this.getDetailTable().getTableCell(1,1).getText();
     }
     
-    private String getDateFromDetailTable() {       
+    @Override
+    protected String getDateFromDetailTable() {       
         return this.getDetailTable().getTableCell(2,1).getText();
     }
     
-    private String getCategoryFromDetailTable() {
+    @Override
+    protected String getCategoryFromDetailTable() {
         return this.getDetailTable().getTableCell(3,1).getText();
     }
     

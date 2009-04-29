@@ -158,8 +158,54 @@ public abstract class EbayProvinceExtractor {
         this.detailTable = null;
     }
     
-    protected abstract void processDetailPage(String detailPageUrl) throws Exception;
+    private void processDetailPage(String detailPageUrl) throws Exception {
+        log.info("Processing: " + detailPageUrl);
+        this.addEbayAd(new EbayAd(this.getTitleFromDetailPage(),
+                                             this.getDescriptionFromDetailPage(),
+                                             this.getPlaceFromDetailTable(),
+                                             this.getDateFromDetailTable(),
+                                             this.getPriceFromDetailTable(),
+                                             this.getSubCategoryFromDetailTable(),
+                                             this.getCategoryFromDetailTable(), detailPageUrl,this.getImgUrlFromDetailPage()));
+
+    }    
     
+    
+    @SuppressWarnings("unused")
+    protected String getTitleFromDetailPage() throws SAXException {
+        return "";
+    }
+    
+    @SuppressWarnings("unused")
+    protected String getDescriptionFromDetailPage() throws SAXException {
+        return "";
+    }
+    
+    @SuppressWarnings("unused")
+    protected String getImgUrlFromDetailPage() throws SAXException{
+        return "";
+    }
+    
+    protected String getPlaceFromDetailTable() {
+        return "";
+    }
+    
+    protected String getPriceFromDetailTable() {
+        return "";
+    }
+    
+    protected String getDateFromDetailTable() {
+        return "";
+    }
+
+    protected String getSubCategoryFromDetailTable() {
+        return "";
+    }
+    
+    protected String getCategoryFromDetailTable() {
+        return "";
+    }
+     
     public void addEbayAd(EbayAd ebayAd) {
         this.extractedAds.add(ebayAd);
     }
@@ -179,5 +225,8 @@ public abstract class EbayProvinceExtractor {
     public List<EbayAd> getExtractedAds() {
         return this.extractedAds;       
     }
+    
+    
+    
     
 }
