@@ -31,8 +31,6 @@ import com.meterware.httpunit.WebTable;
 
 public abstract class EbayProvinceExtractor {
  private final static Logger log = Logger.getLogger(EbayPisosProvinceExtractor.class);
-     
-    private int pageCounter = 0;
     
     private List<String> adsUrl;
     private List<EbayAd> extractedAds;
@@ -141,9 +139,7 @@ public abstract class EbayProvinceExtractor {
             WebLink nextLink = this.AdListWebResponse.getLinkWith("Siguiente");
             if ( nextLink != null ) {
                 nextLink.click();
-                this.AdListWebResponse = this.AdListWebConversation.getCurrentPage();
-                this.pageCounter++;
-                if ( this.pageCounter == 3 ) this.doProcess = false; 
+                this.AdListWebResponse = this.AdListWebConversation.getCurrentPage(); 
             } else {
                 this.doProcess = false;
             } 
