@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:wicket="http://wicket.apache.org/">
+<body>
+
+<wicket:panel>
+	<div wicket:id="paginatorBox" class="paginator">
+	<ul>
+		<li><a wicket:id="firstPageLink" href="#">1</a></li>
+		
+		<li wicket:id="beforeCurrentPageItem" >
+		    <a wicket:id="beforeCurrentPageLink" href="#"><span wicket:id="beforeCurrentPageLabel">[2]</span></a>
+	    </li>
+		<li wicket:id="currentPageItem">
+		    <span wicket:id="currentPageLabel" class="current">[3]</span>
+	    </li>
+		<li wicket:id="afterCurrentPageItem">
+		    <a wicket:id="afterCurrentPageLink" href="#"><span wicket:id="afterCurrentPageLabel">[4]</span></a>
+	    </li>
+		<li wicket:id="twoAfterCurrentPageItem">
+            <a wicket:id="twoAfterCurrentPageLink" href="#"><span wicket:id="twoAfterCurrentPageLabel">[5]</span></a>
+        </li>
+		
+		<li><a wicket:id="lastPageLink" href="#"><span wicket:id="lastPageLabel">[23]</span></a></li>
+		
+		<li class="separata" />
+		<li wicket:id="previousPageItem" class="previous"><a class="IR" wicket:id="previousPageLink" href="#"><span>Anterior</span></a></li>
+		<li wicket:id="nextPageItem" class="next"><a class="IR" wicket:id="nextPageLink" href="#"><span>Siguiente</span></a></li>
+	</ul>
+	</div>
+</wicket:panel>
+
+</body>
+</html>
