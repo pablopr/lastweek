@@ -77,8 +77,9 @@ public class MailServiceImpl implements MailService {
 	}
     
 	public void sendContactMail(String senderName, String senderEmail, String text,
-			ClassifiedAd classifiedAd) {
+			Long classifiedAdId) {
 		Map<String,Object> templateData = new HashMap<String,Object>();
+		ClassifiedAd classifiedAd = LastweekApplication.get().getGeneralService().get(ClassifiedAd.class, classifiedAdId);
 		//TODO localhost:8080? change!
 		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
 		templateData.put("ad", classifiedAd);

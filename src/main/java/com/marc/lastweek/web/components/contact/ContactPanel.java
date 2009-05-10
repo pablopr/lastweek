@@ -18,7 +18,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
 import com.marc.lastweek.web.util.ResourceUtils;
@@ -27,13 +26,12 @@ public class ContactPanel extends Panel {
 
 	private static final long serialVersionUID = 51477335048445934L;
 	
-	protected final ClassifiedAd classifiedAd;
+	protected final Long classifiedAdId;
 
 	public ContactPanel(String id, final Long userId, Long classifiedAdId) {
 		super(id);
-		this.classifiedAd = LastweekApplication.get()
-			.getGeneralService().find(ClassifiedAd.class, classifiedAdId);
 		this.add(new ContactForm("contactForm"));
+		this.classifiedAdId = classifiedAdId;
 	}
 	
 	private class ContactForm extends Form {
@@ -64,7 +62,7 @@ public class ContactPanel extends Panel {
 			
 			LastweekApplication.get().getMailService().sendContactMail(this.name.getModelObjectAsString(), 
 					this.email.getModelObjectAsString(), this.text.getModelObjectAsString(), 
-					ContactPanel.this.classifiedAd);
+					ContactPanel.this.classifiedAdId);
 			this.name.setModel(new Model());
 			this.email.setModel(new Model());
 			this.text.setModel(new Model());

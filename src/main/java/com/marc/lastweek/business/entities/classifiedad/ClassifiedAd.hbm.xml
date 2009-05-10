@@ -18,6 +18,7 @@
 		<property name="sourceURL" column="SOURCE_URL" />
 		<property name="source" column="SOURCE" />
 		<property name="flag" column="FLAG" />
+		<property name="showPhone" column="SHOW_PHONE" />
 		<property name="state" column="STATE" not-null="true" />
 		<property name="hashCode" column="HASH_CODE" not-null="true"
 			unique="true" />

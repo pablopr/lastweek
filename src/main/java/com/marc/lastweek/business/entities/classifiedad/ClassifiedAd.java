@@ -68,6 +68,8 @@ public class ClassifiedAd {
 	
 	private Integer flag;
 	
+	private Boolean showPhone;
+	
 	@Field(index=Index.UN_TOKENIZED)
 	private Integer state;
 	
@@ -181,7 +183,12 @@ public class ClassifiedAd {
 	public void setPublicationDate(Calendar publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-	
+	public Boolean getShowPhone() {
+		return this.showPhone;
+	}
+	public void setShowPhone(Boolean showPhone) {
+		this.showPhone = showPhone;
+	}
 
 }
 

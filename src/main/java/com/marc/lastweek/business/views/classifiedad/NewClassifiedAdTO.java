@@ -39,6 +39,7 @@ public class NewClassifiedAdTO implements Serializable {
 	private Integer flag;
 	private Integer state;
 	private String hashCode = "";
+	private Boolean showPhone = Boolean.TRUE;
 	
 	
 	public NewClassifiedAdTO(NewClassifiedAdAndUserDataTO newClassifiedAdAndUserDataTO) {
@@ -51,6 +52,7 @@ public class NewClassifiedAdTO implements Serializable {
 		this.setCreationDate(new GregorianCalendar());
 		this.setPublicationDate(new GregorianCalendar());
 		this.setHashCode(newClassifiedAdAndUserDataTO.getHashCode());
+		this.setShowPhone(newClassifiedAdAndUserDataTO.getShowPhone());
 		
 	}
 	
@@ -166,6 +168,15 @@ public class NewClassifiedAdTO implements Serializable {
 	@TransferAsAttribute
 	public Integer getState() {
 		return this.state;
+	}
+
+	@TransferAsAttribute
+	public Boolean getShowPhone() {
+		return this.showPhone;
+	}
+
+	public void setShowPhone(Boolean showPhone) {
+		this.showPhone = showPhone;
 	}
 	
 }
