@@ -10,7 +10,10 @@
  */
 package com.marc.lastweek.web.pages.classifiedadslisting;
 
+import java.util.Calendar;
+
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -18,6 +21,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.joda.time.DateTime;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.category.Subcategory;
@@ -81,7 +85,9 @@ public class FilterResultsPage extends BaseSearchPage {
 		/*
 		 * The results panel
 		 */
-		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));	
+		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		
+		this.add(new RecommendedClassifiedAdsListPanel("recommendedClassifiedAdsPanel"));
 		
 		/*
 		 * The filter parameters panel
@@ -241,9 +247,24 @@ public class FilterResultsPage extends BaseSearchPage {
 		this.add(subcategoriesDiv);
 	}
 	
+    /* We only add a filterparameters to the history if the result of the search 
+     * by its terms has some elements. We do the call to the service here. Let's 
+     * hope hibernate caches everything.
+     */
+	private final void addFilterParametersToHistory(FilterParameters filterParameters) {
+        if ( this.filterParametersHasResults(filterParameters) ) {
+            this.getLastweekSession().addFilterParametersToHistory(filterParameters);
+        }
+	}
 	
-	public final void addFilterParametersToHistory(FilterParameters filterParameters) {
-	    this.getLastweekSession().addFilterParametersToHistory(filterParameters);
+	private boolean filterParametersHasResults(FilterParameters filterParameters) {	    
+	    DateTime now = new DateTime(Calendar.getInstance());
+        Calendar date = DateUtils.truncate(now.minusWeeks(1).toCalendar(getLocale()), Calendar.DAY_OF_MONTH);
+        return !LastweekApplication
+                .get()
+                 .getClassifiedAdsService()
+                  .findClassifiedAdsByFilterParameters(filterParameters, 0, 15, date)                  
+                  .isEmpty();
 	}
 	
 	

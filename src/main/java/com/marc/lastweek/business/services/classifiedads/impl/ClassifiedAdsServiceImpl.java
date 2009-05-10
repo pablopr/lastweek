@@ -45,7 +45,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	private GeneralRepository generalRepository;
 	
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count, Calendar date) {
-	    if (parameters.getSearchString()!=null) {
+	    if ( parameters.getSearchString() != null ) {
 	        return this.classifiedAdRespository.indexBasedSearch(parameters, date ,start, count);
 	    } 
 	    return this.classifiedAdRespository.basicSearch(parameters, date, start, count);
@@ -53,7 +53,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	}
 
 	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date) {
-	    if (parameters.getSearchString()!=null) {
+	    if ( parameters.getSearchString() != null ) {
 	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, date);
 	    }
 	    return this.classifiedAdRespository.basicSearchCountResults(parameters, date);

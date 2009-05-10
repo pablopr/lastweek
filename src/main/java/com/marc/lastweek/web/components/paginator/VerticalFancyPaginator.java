@@ -44,7 +44,7 @@ public class VerticalFancyPaginator extends Panel {
 		paginatorBox.add(firstPageLink);
 		PagingNavigationLink lastPageLink = new PagingNavigationLink("lastPageLink", pageableList, 
 				pageableList.getPageCount()-1);
-		lastPageLink.add(new Label("lastPageLabel", new Model(pageableList.getPageCount())));
+		lastPageLink.add(new Label("lastPageLabel", new Model(Integer.valueOf(pageableList.getPageCount()))));
 		paginatorBox.add(lastPageLink);
 		
 		
@@ -63,7 +63,7 @@ public class VerticalFancyPaginator extends Panel {
 			private static final long serialVersionUID = -3157979806031118522L;
 			@Override
 			protected Object load() {
-				return pageableList.getCurrentPage();
+				return Integer.valueOf(pageableList.getCurrentPage());
 			}
 		}));
 		beforeCurrenPageItem.add(beforeCurrentPageLink);
@@ -84,7 +84,7 @@ public class VerticalFancyPaginator extends Panel {
 			private static final long serialVersionUID = 393829273382282502L;
 			@Override
 			protected Object load() {
-				return pageableList.getCurrentPage()+1;
+				return Integer.valueOf( pageableList.getCurrentPage() + 1 );
 			}
 		}));
 		paginatorBox.add(currenPageItem);
@@ -106,7 +106,7 @@ public class VerticalFancyPaginator extends Panel {
 
 			@Override
 			protected Object load() {
-				return pageableList.getCurrentPage()+2;
+				return Integer.valueOf( pageableList.getCurrentPage() + 2 );
 			}
 		}));
 		afterCurrenPageItem.add(afterCurrentPageLink);
@@ -116,7 +116,9 @@ public class VerticalFancyPaginator extends Panel {
 
 		// Two After CurrentPage
 		WebMarkupContainer twoAfterCurrenPageItem = new WebMarkupContainer("twoAfterCurrentPageItem"){
-			@Override
+            private static final long serialVersionUID = 572789655450253585L;
+
+            @Override
 			public boolean isVisible() {
 				return  pageableList.getCurrentPage()<(pageableList.getPageCount()-3);
 			}
@@ -129,7 +131,7 @@ public class VerticalFancyPaginator extends Panel {
 
 			@Override
 			protected Object load() {
-				return pageableList.getCurrentPage()+3;
+				return Integer.valueOf( pageableList.getCurrentPage() + 3 );
 			}
 		}));
 		twoAfterCurrenPageItem.add(twoAfterCurrentPageLink);
