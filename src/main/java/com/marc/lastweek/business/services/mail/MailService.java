@@ -21,5 +21,5 @@ public interface MailService {
 	
 	public void sendActivationMail(ClassifiedAd classifiedAd);
 	
-	public void sendContactMail(String senderName, String senderEmail, String text, ClassifiedAd classifiedAd);
+	public void sendContactMail(String senderName, String senderEmail, String text, Long classifiedAdId);
 }

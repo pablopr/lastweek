@@ -28,6 +28,7 @@ import com.marc.lastweek.web.components.images.ImageFileListViewPanel;
 import com.marc.lastweek.web.components.jquerytexteditor.JQueryTextEditor;
 import com.marc.lastweek.web.components.upload.UploadPanel;
 import com.marc.lastweek.web.util.ResourceUtils;
+import com.marc.lastweek.web.util.validator.BadWordsValidator;
 
 public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 	
@@ -114,8 +115,11 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			this.price.setLabel(ResourceUtils.createResourceModel("descriptionpanel.form.price", NewClassifiedAdDescriptionPage.this)); 
 
 			this.title = new RequiredTextField("title", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTitle()));
+			this.title.add(new BadWordsValidator());
+			
 			this.description = new JQueryTextEditor("description", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getDescription()));
 			this.description.add(StringValidator.lengthBetween(5, 510));
+			this.description.add(new BadWordsValidator());
 			this.description.setLabel(ResourceUtils.createResourceModel("descriptionpanel.form.description", NewClassifiedAdDescriptionPage.this));
 			this.description.setRequired(true);
 			add(this.price);

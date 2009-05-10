@@ -11,9 +11,11 @@
 package com.marc.lastweek.web.components.classifiedaddetails;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -51,9 +53,10 @@ public class ClassifiedAdDetailPanel extends Panel {
 		final Integer state = classifiedAd.getState();
 		final String hashCode = classifiedAd.getHashCode();
 		final int sourceCode = classifiedAd.getSource().intValue();
+		final Calendar publicationDate = classifiedAd.getPublicationDate();
 
 		Folder imageFolder = LastweekApplication.get().getImageService()
-				.findFolderFromName(classifiedAd.getHashCode());
+				.findFolderFromName(hashCode);
 		
 		List<File> images = 
 			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder);
@@ -70,15 +73,13 @@ public class ClassifiedAdDetailPanel extends Panel {
 
 		// TODO: add image, add province and category
 		this.add(new Label("classifiedAdPublicationDate", ViewUtils
-				.labelizer(DateUtils.getDaysFromThen(classifiedAd
-						.getPublicationDate()))));
+				.labelizer(DateUtils.getDaysFromThen(publicationDate))));
 		this.add(new Label("classifiedAdTitle", ViewUtils
-//				.labelizer(classifiedAd.getTitle())));
-				.labelizer(classifiedAd.getTitle())));
+				.labelizer(title)));
 		this.add(new Label("classifiedAdDescription", ViewUtils
-				.labelizer(classifiedAd.getDescription())).setEscapeModelStrings(false));
+				.labelizer(description)).setEscapeModelStrings(false));
 		this.add(new Label("classifiedAdPrice", ViewUtils
-				.labelizer(classifiedAd.getPrice())));
+				.labelizer(price)));
 		this.add(new Label("provinceName", ViewUtils.labelizer(classifiedAd
 				.getProvince().getName())));
 		this.add(new Label("categoryName", ViewUtils.labelizer(classifiedAd
@@ -110,11 +111,18 @@ public class ClassifiedAdDetailPanel extends Panel {
 		});
 //		this.add(new Label("userDataEmail", ViewUtils.labelizer(classifiedAd
 //				.getUserData().getEmail())));
-//		this.add(new Label("userDataPhone", ViewUtils.labelizer(classifiedAd
-//				.getUserData().getPhone())));
 		this.add(new Label("userDataName", ViewUtils.labelizer(classifiedAd
 				.getUserData().getName())));
+		
+		WebMarkupContainer showPhoneDiv = new WebMarkupContainer("showPhoneDiv");
+		showPhoneDiv.setVisible(classifiedAd.getShowPhone().booleanValue());
+		
+		Label phone = new Label("userDataPhone", ViewUtils.labelizer(classifiedAd
+				.getUserData().getPhone()));
+		showPhoneDiv.add(phone);
 
+		this.add(showPhoneDiv);
+		
 		ExternalLink classifiedAdSourceLink = new ExternalLink(
 				"classifiedAdSourceLink", classifiedAd.getSourceURL()) {
 
@@ -160,7 +168,7 @@ public class ClassifiedAdDetailPanel extends Panel {
 			@Override
 			public void onClick() {
 				LastweekSession.get().addFavorite(classifiedAdId);
-				info("Anuncio aï¿½adido a favoritos");
+				info("Anuncio a–adido a favoritos");
 				this.setVisible(false);
 
 			}

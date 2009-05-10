@@ -12,12 +12,14 @@ package com.marc.lastweek.web.pages.newclassifiedadd;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.views.commons.NewClassifiedAdAndUserDataTO;
@@ -54,19 +56,21 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 		protected final RequiredTextField email;
 		protected final TextField phone;
 		protected final RequiredTextField name;
+		protected final CheckBox showPhone;
 
 
 		public UserDataForm(String id) {
 			super(id);
 			this.name = new RequiredTextField("name", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getName()));
 			this.phone = new TextField("phone", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getPhone()), String.class);
-
+			this.showPhone = new CheckBox("showPhone", new PropertyModel(NewClassifiedAdUserDataPage.this.newClassifiedAdTO, "showPhone"));
 			this.email = new RequiredTextField("email", new Model(NewClassifiedAdUserDataPage.this.newClassifiedAdTO.getEmail()));
 			this.email.add(EmailAddressValidator.getInstance());
 			this.email.setRequired(true);
 
 			add(this.name);
 			add(this.phone);
+			add(this.showPhone);
 			add(this.email);
 			add(new SubmitLink("submitUserDataLink"){
 
@@ -76,7 +80,9 @@ public class NewClassifiedAdUserDataPage extends NewClassifiedAdPage{
 				public void onSubmit() {
 					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setName(UserDataForm.this.name.getModelObjectAsString());
 					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setPhone(UserDataForm.this.phone.getModelObjectAsString());
+					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setShowPhone((Boolean)UserDataForm.this.showPhone.getModelObject());
 					NewClassifiedAdUserDataPage.this.newClassifiedAdTO.setEmail(UserDataForm.this.email.getModelObjectAsString());
+
 					this.setResponsePage(new NewClassifiedAdCheckPage(NewClassifiedAdUserDataPage.this.newClassifiedAdTO));
 
 				}
