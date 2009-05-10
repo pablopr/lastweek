@@ -48,39 +48,40 @@ public class FilterResultsPage extends BaseSearchPage {
 		final FilterParameters filterParameters = new FilterParameters();
 		int paramCounter = 0;
 		
-		if (parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM) != null ) {
 			paramCounter++;
 			filterParameters.setSearchString(StringEscapeUtils.unescapeHtml(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM)));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID) != null ) {
 			hasCategory = true;
 			paramCounter++;
 			this.categoryName = parameters.getString(PageParametersNaming.PARAM_NAME_CATEGORY_NAME);
 			filterParameters.setCategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID)));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID) != null ) {
 			hasSubcategory = true;
 			paramCounter++;
 			this.subcategoryName = parameters.getString(PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME);
 			filterParameters.setSubcategoryId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID) != null ) {
 			hasProvince = true;
 			paramCounter++;
 			this.provinceName = parameters.getString(PageParametersNaming.PARAM_NAME_PROVINCE_NAME);
 			filterParameters.setProvinceId(new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
 		}
 		
-		if (paramCounter==0) {
+		if ( paramCounter == 0 ) {
 			setResponsePage(LastweekApplication.get().getHomePage());
 		}
 		
 		
+		this.addFilterParametersToHistory(filterParameters);
 		
 		/*
 		 * The results panel
 		 */
-		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));
+		this.add(new ClassifiedAdsListPanel("classifiedAdsPanel", filterParameters));	
 		
 		/*
 		 * The filter parameters panel
@@ -240,6 +241,10 @@ public class FilterResultsPage extends BaseSearchPage {
 		this.add(subcategoriesDiv);
 	}
 	
+	
+	public final void addFilterParametersToHistory(FilterParameters filterParameters) {
+	    this.getLastweekSession().addFilterParametersToHistory(filterParameters);
+	}
 	
 	
 }

@@ -11,63 +11,32 @@ package com.marc.lastweek.web.session;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.Session;
-import org.apache.wicket.authentication.AuthenticatedWebSession;
-import org.apache.wicket.authorization.strategies.role.Roles;
+import org.apache.wicket.protocol.http.WebSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.views.aaa.AuthenticatedUserData;
-import com.marc.lastweek.commons.exceptions.IncorrectLoginException;
+import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 
 
-public class LastweekSession extends AuthenticatedWebSession {    
+public class LastweekSession extends WebSession {    
     private static final long serialVersionUID = 6817054705718877022L;
     
     @Autowired
     AaaService aaaService;
     
     private AuthenticatedUserData user = null;
-    private final Roles roles;
     private List<Long> favorites;
+    private List<FilterParameters> filterParametersHistory = null;
     
     public LastweekSession(Request request) {
-        super(request);
-        this.roles = new Roles();
+        super(request);     
         this.favorites = new ArrayList<Long>();
-    }
-
-    
-    @Override
-    public final boolean authenticate(final String username, final String password) {
-
-        this.user = null;
-        this.roles.clear();
-
-        try {
-            this.user = this.aaaService.loginUser(username, password);
-            this.roles.addAll(this.user.getRoles());
-            return true;
-        } catch (IncorrectLoginException e) {
-            return false;
-        }
-        
-    }
-
-    
-    @Override
-    public Roles getRoles() {
-        return this.roles;
-    }
-
-
-    @Override
-    public void signOut() {
-        super.signOut();
-        this.user = null;
-        this.roles.clear();
+        this.filterParametersHistory = new ArrayList<FilterParameters>();
     }
 
     
@@ -104,12 +73,21 @@ public class LastweekSession extends AuthenticatedWebSession {
 		return this.favorites.size();
 	}
 
-//	public Page getLastPage() {
-//		return this.lastPage;
-//	}
-//
-//	public void setLastPage(Page lastPage) {
-//		this.lastPage = lastPage;
-//	}
+	public void addFilterParametersToHistory(FilterParameters filterParameters) {
+	    this.filterParametersHistory.add(filterParameters);
+	}
+	
+	public FilterParameters getRamdomFilterParametersFromHistory() {
+	    FilterParameters result = null;
+	    if ( !this.filterParametersHistory.isEmpty() ) {
+	        int size = this.filterParametersHistory.size();
+	        Random rand = new Random( size );
+	        result = this.filterParametersHistory.get( rand.nextInt() % size );
+	    } else {
+	        result = new FilterParameters();
+	    }
+	    return result;
+	}
+	
 
 }

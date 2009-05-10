@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
 import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
+import com.marc.lastweek.web.session.LastweekSession;
 
 public class BasePage extends WebPage {
 
@@ -37,4 +38,9 @@ public class BasePage extends WebPage {
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
 		this.add(new FavoritesPropagandaPanel("favoritesBox"));
     }
+    
+    public final LastweekSession getLastweekSession() {
+        return (LastweekSession) getSession();
+    }
+    
 }
