@@ -54,6 +54,9 @@
         select distinct sourceURL from ClassifiedAd where sourceURL is not null
     </query>
 	
+	<query name="getExpiringClassifiedAds">
+        from ClassifiedAd where state = 0 and (day(publicationDate) + 6)) &lt; day(:now)
+    </query>
 
 </hibernate-mapping>
 

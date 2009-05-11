@@ -1,0 +1,17 @@
+<h3>Hola ${ad.userData.name}, tu anuncio en LASTWEEK ha caducado</h3>
+<h4>Aún estás a tiempo de refrescarlo. Para ello, haz click en el siguiente enlace</h4><br/>   
+<h3><a href="${baseurl}/${ad.id}/refresh/${ad.hashCode}/">Anuncio ${ad.title} en LastWeek</a></h3>
+<p> 
+   #if (! $ad.price)
+                Precio: ${ad.price} <br/>             
+   #end
+   ${ad.description}
+</p>
+<p>
+Si tu programa de email no reconoce el enlace anterior, escríbelo directamente en tu navegador.
+</p>
+<p>
+Tu anuncio estará fresco en LASTWEEK durante 7 días más.
+</p>
+
+Gracias por escogernos.

@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import loc.marc.commons.business.services.general.GeneralService;
+
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.ResourceTool;
@@ -27,6 +29,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
@@ -38,6 +41,8 @@ public class MailServiceImpl implements MailService {
 	private final static String TEMPLATE_FAVORITES = "favorites";
 	private final static String TEMPLATE_ACTIVATION = "activation";
 	private final static String TEMPLATE_CONTACT = "contact";
+	private final static String TEMPLATE_REFRESH = "refresh";
+	private final static String TEMPLATE_EXPIRED = "expired";
 	
 	private final static String FIELD_SUBJECT = ".subject";
 	
@@ -89,7 +94,26 @@ public class MailServiceImpl implements MailService {
 		this.sendMail(SPANISH_LOCALE, TEMPLATE_CONTACT, templateData, classifiedAd.getUserData().getEmail());
 	}
 	
-	@Required
+	@Transactional
+	public void sendRefreshMail(Long classifiedAdId, GeneralService generalService) {
+		Map<String,Object> templateData = new HashMap<String,Object>();
+		ClassifiedAd classifiedAd = generalService.find(ClassifiedAd.class, classifiedAdId);
+		//TODO localhost:8080? change!
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
+		templateData.put("ad", classifiedAd);
+		this.sendMail(SPANISH_LOCALE, TEMPLATE_REFRESH, templateData, classifiedAd.getUserData().getEmail());		
+	}
+	
+	@Transactional
+	public void sendExpiredMail(Long classifiedAdId, GeneralService generalService) {
+		Map<String,Object> templateData = new HashMap<String,Object>();
+		ClassifiedAd classifiedAd = generalService.find(ClassifiedAd.class, classifiedAdId);
+		//TODO localhost:8080? change!
+		templateData.put("baseurl", "http://localhost:8080/lastweek/details/clid");
+		templateData.put("ad", classifiedAd);
+		this.sendMail(SPANISH_LOCALE, TEMPLATE_EXPIRED, templateData, classifiedAd.getUserData().getEmail());		
+	}
+
 	public void setFrom(String from) {
 		this.from = from;
 	}

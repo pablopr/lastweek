@@ -19,9 +19,11 @@ public final class PageParametersNaming {
 	public static final String PARAM_NAME_PROVINCE_NAME = "province";
 
 	public static final String PARAM_NAME_CLASSIFIED_AD_ID = "clid";
-	public static final String PARAM_NAME_CLASSIFIED_AD_HASH = "code";
+	public static final String PARAM_NAME_CLASSIFIED_AD_ACTIVATE = "activate";
 
 	public static final String PARAM_NAME_SEARCH_TERM = "filter";
+	
+	public static final String PARAM_NAME_CLASSIFIED_AD_REFRESH = "refresh";
 	
 }
 

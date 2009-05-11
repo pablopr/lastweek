@@ -31,4 +31,9 @@ public interface ClassifiedAdsService {
 	
 	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
 	
+	public ClassifiedAd refreshClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
+	
+	public ClassifiedAd expireClassifiedAd(final Long classifiedAdId);
+	
+	public long getTimeToExpire(final Long classifiedAdId);
 }
