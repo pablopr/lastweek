@@ -13,10 +13,11 @@ package com.marc.lastweek.web.application;
 import loc.marc.commons.business.services.general.GeneralService;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.authentication.AuthenticatedWebSession;
-import org.apache.wicket.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.Request;
+import org.apache.wicket.Response;
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequestCycleProcessor;
 import org.apache.wicket.protocol.http.request.CryptedUrlWebRequestCodingStrategy;
 import org.apache.wicket.protocol.http.request.WebRequestCodingStrategy;
@@ -29,7 +30,6 @@ import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
 import com.marc.lastweek.business.services.images.ImageService;
 import com.marc.lastweek.business.services.mail.MailService;
-import com.marc.lastweek.web.pages.aaa.SignInPage;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
@@ -38,7 +38,7 @@ import com.marc.lastweek.web.session.LastweekSession;
 
 
 @Component
-public class LastweekApplication extends AuthenticatedWebApplication {
+public class LastweekApplication extends WebApplication {
 
 	
     @Autowired
@@ -65,17 +65,7 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         return MainPage.class;
     }
 
-   
-    @Override
-    public Class<? extends WebPage> getSignInPageClass() {
-        return SignInPage.class;
-    }
-
-   
-    @Override
-    protected Class<? extends AuthenticatedWebSession> getWebSessionClass() {
-        return LastweekSession.class;
-    }
+  
 
    
     /* (non-Javadoc)
@@ -94,15 +84,6 @@ public class LastweekApplication extends AuthenticatedWebApplication {
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
        
-       
-        /*
-         * Add the role-based authorization strategy
-         */
-        getSecuritySettings().setAuthorizationStrategy(
-                new MetaDataRoleAuthorizationStrategy(this));
-       
-        //MetaDataRoleAuthorizationStrategy.authorize(CustomerProductViewPage.class, User.ROLE_1565);
-
         /*
          * Remove wicket tags from result HTML
          */
@@ -121,16 +102,14 @@ public class LastweekApplication extends AuthenticatedWebApplication {
                 return new CryptedUrlWebRequestCodingStrategy(new WebRequestCodingStrategy());
             }
         };
-    }
-   
-    /*
-     * Sets custom error pages
-     */
-    //@Override
-    //public final RequestCycle newRequestCycle(final Request request, final Response response) {
-    //    return new CallcenterRequestCycle (this, (WebRequest)request, (WebResponse)response);
-    //}
+    }  
 
+    
+    @Override
+    public Session newSession(Request request, Response response) {
+        return new LastweekSession(request);
+    }
+    
     public static LastweekApplication get() {
         return (LastweekApplication) Application.get();
     }
@@ -154,24 +133,6 @@ public class LastweekApplication extends AuthenticatedWebApplication {
     public MailService getMailService() {
     	return this.mailService;
     }
-//    @Override
-//	public RequestCycle newRequestCycle(Request request, Response response) {
-//		return new MyWebRequestCycle(this, (WebRequest)request, response);
-//	}
-//
-//	private class MyWebRequestCycle extends WebRequestCycle {
-//
-//		public MyWebRequestCycle(WebApplication application,
-//				WebRequest request, Response response) {
-//			super(application, request, response);
-//		}
-//
-//		@Override
-//		public void detach() {
-//			SignInSession session = (SignInSession)getWebSession();
-//			session.setLastPage(getRequest().getPage());
-//			super.detach();
-//		}
-//    }
+
 }
 

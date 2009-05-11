@@ -74,14 +74,14 @@ public class FilterParametersPanel extends Panel {
 	private List<Filter> initFilters(PageParameters parameters) {
 		List<Filter> filtersList = new ArrayList<Filter>();
 		
-		if (parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_SEARCH_TERM) != null ) {
 			filtersList.add(new Filter(
 					PageParametersNaming.PARAM_NAME_SEARCH_TERM,
 					null,
 					StringEscapeUtils.unescapeHtml(parameters.getString(PageParametersNaming.PARAM_NAME_SEARCH_TERM)),
 					null));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_CATEGORY_ID) != null ) {
 			Category category = LastweekApplication.get().getGeneralService().get(Category.class, 
 					new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_CATEGORY_ID)));
 			filtersList.add(new Filter(
@@ -90,7 +90,7 @@ public class FilterParametersPanel extends Panel {
 					category.getName(),
 					PageParametersNaming.PARAM_NAME_CATEGORY_NAME));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID ) != null ) {
 			Subcategory subcategory = LastweekApplication.get().getGeneralService().get(Subcategory.class, 
 					new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_SUBCATEGORY_ID)));
 			filtersList.add(new Filter(
@@ -99,7 +99,7 @@ public class FilterParametersPanel extends Panel {
 					subcategory.getName(),
 					PageParametersNaming.PARAM_NAME_SUBCATEGORY_NAME));
 		}
-		if (parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID)!=null) {
+		if ( parameters.get(PageParametersNaming.PARAM_NAME_PROVINCE_ID) != null ) {
 			Province province = LastweekApplication.get().getGeneralService().get(Province.class, 
 					new Long(parameters.getLong(PageParametersNaming.PARAM_NAME_PROVINCE_ID)));
 			filtersList.add(new Filter(
