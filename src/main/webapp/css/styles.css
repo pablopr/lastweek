@@ -548,6 +548,16 @@ pre {
 	text-align: center;
 }
 
+#facebook {
+    display: block;
+    float: right;
+    font-size: 8px;
+    margin-right: 80px;
+    margin-top: -96px;
+    position: relative;
+    text-align: center;
+}
+
 .favorites-box a,.favorites-box a:hover,.favorites-box a:visited {
 	color: #FEFEFE;
 	text-decoration: none;
