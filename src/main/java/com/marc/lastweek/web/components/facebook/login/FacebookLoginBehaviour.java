@@ -16,12 +16,13 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.Model;
 
+import com.marc.lastweek.web.components.facebook.util.CommonFacebookHTML;
+
 public class FacebookLoginBehaviour extends AttributeModifier {
     private static final long serialVersionUID = -7311590719086044653L;
     
     private static final String EVENT_NAME = "onlogin";
     
-    private Component boundComponent = null;
     private WebMarkupContainer target;
     
     public FacebookLoginBehaviour(WebMarkupContainer target) {
@@ -33,17 +34,13 @@ public class FacebookLoginBehaviour extends AttributeModifier {
     @Override
     public void bind(Component component) {
         super.bind(component);
-        boundComponent = component;
     }
 
     
     @Override
     protected String newValue(final String currentValue, final String replacementValue) {
         return ("var user_box = document.getElementById(\""+ target.getMarkupId() +"\");" +
-        				"user_box.innerHTML = \"<span><fb:profile-pic uid=loggedinuser facebook-logo=true>" +
-        				"</fb:profile-pic> " +
-        				"Welcome, <fb:name uid=loggedinuser useyou=false></fb:name>. " +
-        				"You are signed in with your Facebook account.</span>\";" +
+        				"user_box.innerHTML = \""+CommonFacebookHTML.USER_BOX_HTML+"\";" +
         				"FB.XFBML.Host.parseDomTree();");
     }
 }
