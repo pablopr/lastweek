@@ -10,8 +10,20 @@
  */
 package com.marc.lastweek.web.pages.facebook;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.behavior.HeaderContributor;
 
-public class TestPage extends WebPage {
-    //Nothing to do here
+import com.marc.lastweek.web.components.facebook.login.FacebookConnectPanel;
+import com.marc.lastweek.web.pages.BasePage;
+
+public class TestPage extends BasePage {
+    
+    private static final String FACEBOOK_LOADER_URL = "http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"; 
+    
+    public TestPage() {
+        
+        add(HeaderContributor.forJavaScript(FACEBOOK_LOADER_URL));
+        
+        FacebookConnectPanel facebookLogin = new FacebookConnectPanel("facebookLogin");
+        this.add(facebookLogin);
+    }
 }

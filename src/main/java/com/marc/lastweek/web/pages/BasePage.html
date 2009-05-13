@@ -17,7 +17,6 @@
     </div>
     <div id="main">
         <div id="main-content">
-            <div id="facebook"><fb:login-button onlogin="update_user_box();"></fb:login-button></div>
         	<div wicket:id="favoritesBox"/>
 	       <wicket:child/>
         </div>
@@ -31,16 +30,6 @@
     &copy; MARC 2009 Todos los derechos reservados
     </div>
 
-
-<script type="text/javascript"> 
-function update_user_box() { 
-    var user_box = document.getElementById("facebook"); 
-    user_box.innerHTML = "<span>" + "<fb:profile-pic uid='loggedinuser' facebook-logo='true'></fb:profile-pic>" + "Welcome, <fb:name uid='loggedinuser' useyou='false'></fb:name>. You are signed in with your Facebook account." + "</span>"; 
-    FB.XFBML.Host.parseDomTree(); 
-} 
-</script>
-<script type="text/javascript"
-    src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
 <script type="text/javascript"> FB.init("7e86efc5bb70bfcbfb0c642b58edc710","facebookconnect"); </script>
 </body>
 </html>

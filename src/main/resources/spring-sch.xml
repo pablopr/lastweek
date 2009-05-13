@@ -41,7 +41,7 @@
 <!--	</bean>-->
 
 
-	<bean id="expiringAdsAdvisor" 
+	<!-- <bean id="expiringAdsAdvisor" 
 		class="com.marc.lastweek.business.jobs.ExpiringAdsAdvisorJob"/>
 
 	<bean id="expiringAdsAdvisorJob" class="com.marc.lastweek.business.jobs.OpenSessionInJobFactoryBean">
@@ -58,7 +58,7 @@
 
 	<bean id="expiringAdsCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
     	<property name="jobDetail" ref="expiringAdsAdvisorJob" />
-<!--	Run every morning at 01.01 AM -->
+<!-#-	Run every morning at 01.01 AM #-#->
     	<property name="cronExpression" value="0 01 0 * * ?" />
 	</bean>
 			
@@ -69,6 +69,6 @@
 	            <ref bean="expiringAdsSimpleTrigger" />
 	        </list>
 	    </property>
-	</bean>
+	</bean> -->
 </beans>
  
