@@ -1,7 +1,7 @@
 body {
 	background-color: #1E1E1E;
 	font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	margin: 0;
 }
 
@@ -32,7 +32,7 @@ pre {
 #main-content {
 	display: table;
 	margin: auto;
-	width: 950px;
+	width: 1000px;
 }
 
 #right-col {
@@ -44,13 +44,13 @@ pre {
 #left-box {
 	float: left;
 	position: relative;
-	width: 699px;
+	width: 749px;
 }
 
 #central-col {
 	float: right;
 	position: relative;
-	width: 448px;
+	width: 487px;
 }
 
 #left-col {
@@ -162,17 +162,25 @@ pre {
 }
 
 .classified-ad-summary {
-	border-top: 1px solid #EEEEEE;
 	display: table;
 	height: 75px;
 	position: relative;
+	padding: 10px 0;
+}
+
+.classified-ad-summary-alt {
+    display: table;
+    height: 75px;
+    position: relative;
+    padding: 10px 0;
+    background-color: #F9F9F9;
 }
 
 .classified-ad-body {
 	display: block;
 	float: right;
 	position: relative;
-	width: 350px;
+	width: 360px;
 }
 
 .classified-ad-image {
@@ -197,9 +205,19 @@ pre {
 }
 
 .classified-ad-title {
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
-	padding: 3px 0;
+	padding: 5px 0;
+}
+
+.classified-ad-title a, .classified-ad-title a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+.classified-ad-title a:hover {
+    text-decoration: none;
+    color: #90C630;
 }
 
 .classified-ad-date {
@@ -208,11 +226,17 @@ pre {
 }
 
 .classified-ad-price {
-	background-color: #F0F0F0;
+	background-color: #3F3F3F;
+	color: #F9F9F9;
 	font-size: 14px;
 	font-weight: bold;
 	padding: 3px;
 	text-align: center;
+}
+
+.classified-ad-desc {
+	clear: both;
+	float:left;
 }
 
 .classified-ad-details {
@@ -456,34 +480,6 @@ pre {
 	text-decoration: none;
 }
 
-.no-pagination-small {
-	border-top: 1px solid #000000;
-	width: 15px;
-}
-
-.no-pagination-big {
-	border-top: 1px solid #000000;
-	width: 100px;
-}
-
-.pagination-link {
-	border-color: #FFFFFF #000000 #000000;
-	border-style: solid;
-	border-width: 0 1px 1px;
-	padding: 5px 10px;
-}
-
-.pagination-link a,.pagination-link a:visited {
-	color: #90C630;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.pagination-link a:hover {
-	color: #000000;
-	font-weight: bold;
-	text-decoration: none;
-}
 
 .filter-item {
 	display: inline;
@@ -528,7 +524,7 @@ pre {
 
 .new-ad-main a,.new-ad-main a:hover,.new-ad-main a:visited {
 	color: #1E1E1E;
-	font-size: 2em;
+	font-size: 1.7em;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -552,6 +548,16 @@ pre {
 	text-align: center;
 }
 
+#facebook {
+    display: block;
+    float: right;
+    font-size: 8px;
+    margin-right: 80px;
+    margin-top: -96px;
+    position: relative;
+    text-align: center;
+}
+
 .favorites-box a,.favorites-box a:hover,.favorites-box a:visited {
 	color: #FEFEFE;
 	text-decoration: none;
@@ -573,6 +579,99 @@ pre {
 	height: 358px;
 	margin: 25px auto 0;
 	width: 418px;
+}
+
+div.paginator {
+	display:block;
+    margin-bottom:1.5em;
+    margin-left:-2.75em;
+    position:fixed;
+    top:195px;
+    width:2.8em;
+}
+
+div.paginator ul li {
+	background:#3A3A3A none repeat scroll 0 0;
+    border:medium none;
+    display:block;
+    float:none;
+    height:2.2em;
+    margin:0 0 0.1em;
+    overflow:hidden;
+    width:2.5em;
+}
+
+
+div.paginator ul li a {
+    color:#FFFFFF;
+    display:block;
+    padding:0.5em;
+    text-align:center;
+}
+
+div.paginator ul li span em {
+	background-color: #FFFFFF;
+    color:#000000;
+    display:block;
+    padding:0.6em;
+    text-align:center;
+}
+
+div.paginator .current{
+    background-color: #FFFFFF;
+    color:#000000;
+    display:block;
+    padding:0.5em;
+    text-align:center;
+    border-bottom: 2px solid #90C630;
+}
+
+div.paginator li.separata {
+    background:transparent none repeat scroll 0 0;
+    height:1em;
+    overflow:hidden;
+}
+
+div.paginator li.previous {
+    background:#90C630 none repeat scroll 0 0;
+    float:left;
+    height:1.1em;
+    margin:0;
+}
+
+div.paginator li.next {
+    background:#90C630 none repeat scroll 0 0;
+    float:left;
+    height:1.1em;
+    margin:0;
+}
+
+div.paginator li.next a {
+    background:#90C630 url(../images/paginator_previous.gif) no-repeat scroll center center;
+}
+
+div.paginator li.previous a {
+    background:#90C630 url(../images/paginator_next.gif) no-repeat scroll center center;
+    margin-top:0.4em;
+}
+
+.IR {
+    background-position:left top;
+    background-repeat:no-repeat;
+    display:block;
+    margin:0;
+    overflow:hidden;
+    position:relative;
+}
+
+.IR span {
+    height:0;
+    left:0;
+    overflow:hidden;
+    position:absolute;
+    top:0;
+    visibility:hidden;
+    width:0;
 }
 
 .show-button {
@@ -636,6 +735,13 @@ ul,ol {
 
 img {
 	border: 0 none;
+}
+
+a {
+    outline-color:-moz-use-text-color;
+    outline-style:none;
+    outline-width:medium;
+    text-decoration:none;
 }
 
 fieldset table th {

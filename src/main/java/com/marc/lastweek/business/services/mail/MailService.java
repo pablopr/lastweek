@@ -12,6 +12,8 @@ package com.marc.lastweek.business.services.mail;
 
 import java.util.List;
 
+import loc.marc.commons.business.services.general.GeneralService;
+
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 
 
@@ -21,5 +23,9 @@ public interface MailService {
 	
 	public void sendActivationMail(ClassifiedAd classifiedAd);
 	
-	public void sendContactMail(String senderName, String senderEmail, String text, ClassifiedAd classifiedAd);
+	public void sendContactMail(String senderName, String senderEmail, String text, Long classifiedAdId);
+	
+	public void sendRefreshMail(Long classifiedAdId, GeneralService generalService);
+	
+	public void sendExpiredMail(Long classifiedAdId, GeneralService generalService);
 }

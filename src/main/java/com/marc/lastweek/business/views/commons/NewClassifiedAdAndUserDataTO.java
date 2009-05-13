@@ -35,6 +35,7 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 	private String name = "";
 	private String email = "";
 	private String phone = "";
+	private Boolean showPhone = Boolean.TRUE;
 	private Double price = Double.valueOf("0");
 	private String title = "";
 	private String description = "";
@@ -150,5 +151,14 @@ public class NewClassifiedAdAndUserDataTO implements Serializable {
 		this.name = name;
 	}
 
+	public Boolean getShowPhone() {
+		return this.showPhone;
+	}
+
+	public void setShowPhone(Boolean showPhone) {
+		this.showPhone = showPhone;
+	}
+
+	
 		
 }

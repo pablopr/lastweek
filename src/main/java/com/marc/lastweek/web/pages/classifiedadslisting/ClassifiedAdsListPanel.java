@@ -15,10 +15,11 @@ import java.util.Iterator;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.navigation.paging.PagingNavigationIncrementLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -30,6 +31,7 @@ import org.joda.time.DateTime;
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.views.classifiedad.FilterParameters;
 import com.marc.lastweek.web.application.LastweekApplication;
+import com.marc.lastweek.web.components.paginator.VerticalFancyPaginator;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.util.ViewUtils;
@@ -50,35 +52,33 @@ public class ClassifiedAdsListPanel extends Panel {
 			protected void populateItem(Item item) {
 				ClassifiedAd classifiedAd = (ClassifiedAd)item.getModelObject();
 
+				PageParameters linkParameters = new PageParameters();
+                linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
+                		classifiedAd.getId());
+				Link classifiedAdLink = (new BookmarkablePageLink("classifiedAdLink", 
+                		ClassifiedAdDetailPage.class, linkParameters));
+				classifiedAdLink.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
+				item.add(classifiedAdLink);
+				
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
-				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
-				// TODO: get only extract from the ad (2 lines)
+				
 				Label description = new Label("classifiedAdDescription",ViewUtils.getDigest(classifiedAd.getDescription()));
 				description.setEscapeModelStrings(false);
 				item.add(description);
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
-				PageParameters linkParameters = new PageParameters();
-                linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
-                		classifiedAd.getId());
-                item.add(new BookmarkablePageLink("classifiedAdLink", 
-                		ClassifiedAdDetailPage.class, linkParameters));
+
+                
+                if (item.getIndex()%2 == 1) {
+                	item.add(new SimpleAttributeModifier("class", "classified-ad-summary-alt"));
+                }
 			}
 		};
 		classifiedListBox.add(classifiedList);
 		classifiedListBox.setOutputMarkupId(true);
 		this.add(classifiedListBox);
 		
-        WebMarkupContainer paginationLinks = new WebMarkupContainer("paginationLinks");
-        PagingNavigationIncrementLink forwardLink = new PagingNavigationIncrementLink( "onepageforward", 
-        		classifiedList, 1 );
-        paginationLinks.add(forwardLink);
-        PagingNavigationIncrementLink backwardLink = new PagingNavigationIncrementLink( "onepagebackward",
-        		classifiedList, -1 );
-        paginationLinks.add(backwardLink);
-        if (classifiedList.getPageCount()==1) {
-            paginationLinks.setVisible(false);
-        }
-        this.add(paginationLinks);
+		VerticalFancyPaginator paginationLinks = new VerticalFancyPaginator("paginationLinks", classifiedList);
+		this.add(paginationLinks);
         
      // No results
         WebMarkupContainer noResultsDiv = new WebMarkupContainer("noResults");

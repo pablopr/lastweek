@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<wicket:panel>
+    <div>
+            <h1>Anuncios recomendados </h1>
+           <ul>
+               <li wicket:id="recommendedClassifiedAdsList" class="classified-ad-summary">
+               
+                   <div class="classified-ad-image"></div>
+                   <div class="classified-ad-body">
+                       <div class="classified-ad-main">
+                           <div class="classified-ad-title">
+                                <a wicket:id="classifiedAdLink" href="#"><span wicket:id="classifiedAdTitle">[title]</span></a>
+                           </div>
+                           <div class="classified-ad-date" wicket:id="classifiedAdPublicationDate">[date]</div>
+                       </div>
+                       <div class="classified-ad-right">
+                           <div class="classified-ad-price"><span wicket:id="classifiedAdPrice">[price]</span> &euro;</div>
+                       </div>
+                       <div class="classified-ad-desc" wicket:id="classifiedAdDescription">[description]</div>
+                   </div>
+               </li>
+           </ul>
+    </div>
+</wicket:panel>
+</body>
+</html>

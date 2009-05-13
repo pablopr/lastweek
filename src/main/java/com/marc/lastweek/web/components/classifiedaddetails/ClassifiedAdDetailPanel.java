@@ -11,9 +11,11 @@
 package com.marc.lastweek.web.components.classifiedaddetails;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -33,146 +35,153 @@ import com.marc.lastweek.web.util.ViewUtils;
 
 public class ClassifiedAdDetailPanel extends Panel {
 
-	private static final long serialVersionUID = -8566673466529089435L;
+    private static final long serialVersionUID = -8566673466529089435L;
 
-	private final static String SLIDER_URL="js/slider.js";
-	
-	public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
-		super(id);
+    private final static String SLIDER_URL = "js/slider.js";
 
-		add(HeaderContributor.forJavaScript(SLIDER_URL));
-		final ClassifiedAd classifiedAd = LastweekApplication.get()
-				.getGeneralService().find(ClassifiedAd.class, classifiedAdId);
+    public ClassifiedAdDetailPanel(String id, final Long classifiedAdId) {
+        super(id);
 
-		final String title = classifiedAd.getTitle();
-		final String description = classifiedAd.getDescription();
-		final Double price = classifiedAd.getPrice();
-		final Integer flag = classifiedAd.getFlag();
-		final Integer state = classifiedAd.getState();
-		final String hashCode = classifiedAd.getHashCode();
-		final int sourceCode = classifiedAd.getSource().intValue();
+        add(HeaderContributor.forJavaScript(SLIDER_URL));
+        final ClassifiedAd classifiedAd = LastweekApplication.get()
+                .getGeneralService().find(ClassifiedAd.class, classifiedAdId);
 
-		Folder imageFolder = LastweekApplication.get().getImageService()
-				.findFolderFromName(classifiedAd.getHashCode());
-		
-		List<File> images = 
-			LastweekApplication.get().getImageService().getAllTemporalFiles(imageFolder);
-		
-		if (images.size() != 0) {
-//			final File file = images.get(0);
-//			this.add(new ClassifiedAdImagePanel("imagePanel", file));
-			this.add(new JQueryImagegallery("gallery", images));
-		}
-		else {
-//			this.add(new Label("imagePanel", new Model("No hay fotos disponibles")));
-			this.add(new Label("gallery", new Model("No hay fotos disponibles")));
-		}
+        final String title = classifiedAd.getTitle();
+        final String description = classifiedAd.getDescription();
+        final Double price = classifiedAd.getPrice();
+        final Integer flag = classifiedAd.getFlag();
+        final Integer state = classifiedAd.getState();
+        final String hashCode = classifiedAd.getHashCode();
+        final int sourceCode = classifiedAd.getSource().intValue();
+        final Calendar publicationDate = classifiedAd.getPublicationDate();
 
-		// TODO: add image, add province and category
-		this.add(new Label("classifiedAdPublicationDate", ViewUtils
-				.labelizer(DateUtils.getDaysFromThen(classifiedAd
-						.getPublicationDate()))));
-		this.add(new Label("classifiedAdTitle", ViewUtils
-//				.labelizer(classifiedAd.getTitle())));
-				.labelizer(classifiedAd.getTitle())));
-		this.add(new Label("classifiedAdDescription", ViewUtils
-				.labelizer(classifiedAd.getDescription())).setEscapeModelStrings(false));
-		this.add(new Label("classifiedAdPrice", ViewUtils
-				.labelizer(classifiedAd.getPrice())));
-		this.add(new Label("provinceName", ViewUtils.labelizer(classifiedAd
-				.getProvince().getName())));
-		this.add(new Label("categoryName", ViewUtils.labelizer(classifiedAd
-				.getCategory().getName())));
-		this.add(new Label("subcategoryName", ViewUtils.labelizer(classifiedAd
-				.getSubcategory().getName())));
-		this.add(new Link("classifiedAdDescriptionLink") {
+        Folder imageFolder = LastweekApplication.get().getImageService()
+                .findFolderFromName(hashCode);
 
-			private static final long serialVersionUID = 7411597974910148218L;
+        List<File> images = LastweekApplication.get().getImageService()
+                .getAllTemporalFiles(imageFolder);
 
-			@Override
-			public void onClick() {
-			    //TODO: add onClick
-			}
+        if (images.size() != 0) {
+            // final File file = images.get(0);
+            // this.add(new ClassifiedAdImagePanel("imagePanel", file));
+            this.add(new JQueryImagegallery("gallery", images));
+        } else {
+            // this.add(new Label("imagePanel", new
+            // Model("No hay fotos disponibles")));
+            this
+                    .add(new Label("gallery", new Model(
+                            "No hay fotos disponibles")));
+        }
 
-		});
-		final ContactPanel contactPanel = new ContactPanel("contactPanel", null, classifiedAdId);
-		this.add(contactPanel);
-		contactPanel.setOutputMarkupId(true);
-		this.add(new Link("classifiedAdContactLink") {
+        // TODO: add image, add province and category
+        this.add(new Label("classifiedAdPublicationDate", ViewUtils
+                .labelizer(DateUtils.getDaysFromThen(publicationDate))));
+        this.add(new Label("classifiedAdTitle", ViewUtils.labelizer(title)));
+        this.add(new Label("classifiedAdDescription", ViewUtils
+                .labelizer(description)).setEscapeModelStrings(false));
+        this.add(new Label("classifiedAdPrice", ViewUtils.labelizer(price)));
+        this.add(new Label("provinceName", ViewUtils.labelizer(classifiedAd
+                .getProvince().getName())));
+        this.add(new Label("categoryName", ViewUtils.labelizer(classifiedAd
+                .getCategory().getName())));
+        this.add(new Label("subcategoryName", ViewUtils.labelizer(classifiedAd
+                .getSubcategory().getName())));
+        this.add(new Link("classifiedAdDescriptionLink") {
 
-			private static final long serialVersionUID = -4262681914874430193L;
+            private static final long serialVersionUID = 7411597974910148218L;
 
-			@Override
-			public void onClick() {
-				//TODO: add onClick
-			}
+            @Override
+            public void onClick() {
+                // TODO: add onClick
+            }
 
-		});
-//		this.add(new Label("userDataEmail", ViewUtils.labelizer(classifiedAd
-//				.getUserData().getEmail())));
-//		this.add(new Label("userDataPhone", ViewUtils.labelizer(classifiedAd
-//				.getUserData().getPhone())));
-		this.add(new Label("userDataName", ViewUtils.labelizer(classifiedAd
-				.getUserData().getName())));
+        });
+        final ContactPanel contactPanel = new ContactPanel("contactPanel",
+                null, classifiedAdId);
+        this.add(contactPanel);
+        contactPanel.setOutputMarkupId(true);
+        this.add(new Link("classifiedAdContactLink") {
 
-		ExternalLink classifiedAdSourceLink = new ExternalLink(
-				"classifiedAdSourceLink", classifiedAd.getSourceURL()) {
+            private static final long serialVersionUID = -4262681914874430193L;
 
-			private static final long serialVersionUID = -5872308114085631059L;
+            @Override
+            public void onClick() {
+                // TODO: add onClick
+            }
 
-			@Override
-			public boolean isVisible() {
-				if (sourceCode == ClassifiedAd.SOURCE_OUR)
-					return false;
-				return true;
-			}
-		};
+        });
+        // this.add(new Label("userDataEmail", ViewUtils.labelizer(classifiedAd
+        // .getUserData().getEmail())));
+        this.add(new Label("userDataName", ViewUtils.labelizer(classifiedAd
+                .getUserData().getName())));
 
-		classifiedAdSourceLink.add(new Label("classifiedAdSource", ViewUtils
-				.labelizer(CommonNamingValues.getSourceName(classifiedAd
-						.getSource()))));
-		this.add(classifiedAdSourceLink);
+        WebMarkupContainer showPhoneDiv = new WebMarkupContainer("showPhoneDiv");
+        showPhoneDiv.setVisible(classifiedAd.getShowPhone().booleanValue());
 
-		// TODO: Put strings in properties files
-		final Label flagClassifiedAdLabel = new Label("flagClassifiedAdSpan",
-				"Marcar anuncio como inapropiado");
-		Link flagClassifiedAdLink = new Link("flagClassifiedAdLink") {
-			private static final long serialVersionUID = -4262681914874430193L;
+        Label phone = new Label("userDataPhone", ViewUtils
+                .labelizer(classifiedAd.getUserData().getPhone()));
+        showPhoneDiv.add(phone);
 
-			@Override
-			public void onClick() {
-				ModifiedClassifiedAdTO modifiedClassifiedAdTO = new ModifiedClassifiedAdTO(
-						classifiedAdId, title, description, price, Integer
-								.valueOf(flag.intValue() + 1), state, hashCode);
-				LastweekApplication.get().getGeneralService().modify(
-						ClassifiedAd.class, modifiedClassifiedAdTO);
-				this.setEnabled(false);
-				this.setVisible(false);
-				info("El anuncio ha sido marcado como inapropiado.");
-			}
-		};
-		flagClassifiedAdLink.add(flagClassifiedAdLabel);
-		this.add(flagClassifiedAdLink);
+        this.add(showPhoneDiv);
 
-		Link addToFavoritesLink = new Link("addToFavoritesLink") {
-			private static final long serialVersionUID = 8340452899324058655L;
+        ExternalLink classifiedAdSourceLink = new ExternalLink(
+                "classifiedAdSourceLink", classifiedAd.getSourceURL()) {
 
-			@Override
-			public void onClick() {
-				LastweekSession.get().addFavorite(classifiedAdId);
-				info("Anuncio aï¿½adido a favoritos");
-				this.setVisible(false);
+            private static final long serialVersionUID = -5872308114085631059L;
 
-			}
+            @Override
+            public boolean isVisible() {
+                if (sourceCode == ClassifiedAd.SOURCE_OUR)
+                    return false;
+                return true;
+            }
+        };
 
-			@Override
-			public boolean isVisible() {
-				if (LastweekSession.get().containsFavorite(classifiedAdId))
-					return false;
-				return true;
-			}
+        classifiedAdSourceLink.add(new Label("classifiedAdSource", ViewUtils
+                .labelizer(CommonNamingValues.getSourceName(classifiedAd
+                        .getSource()))));
+        this.add(classifiedAdSourceLink);
 
-		};
-		this.add(addToFavoritesLink);
-	}
+        // TODO: Put strings in properties files
+        final Label flagClassifiedAdLabel = new Label("flagClassifiedAdSpan",
+                "Marcar anuncio como inapropiado");
+        Link flagClassifiedAdLink = new Link("flagClassifiedAdLink") {
+            private static final long serialVersionUID = -4262681914874430193L;
+
+            @Override
+            public void onClick() {
+                ModifiedClassifiedAdTO modifiedClassifiedAdTO = new ModifiedClassifiedAdTO(
+                        classifiedAdId, title, description, price, Integer
+                                .valueOf(flag.intValue() + 1), state, hashCode);
+                LastweekApplication.get().getGeneralService().modify(
+                        ClassifiedAd.class, modifiedClassifiedAdTO);
+                this.setEnabled(false);
+                this.setVisible(false);
+                info("El anuncio ha sido marcado como inapropiado.");
+            }
+        };
+        flagClassifiedAdLink.add(flagClassifiedAdLabel);
+        this.add(flagClassifiedAdLink);
+
+        Link addToFavoritesLink = new Link("addToFavoritesLink") {
+            private static final long serialVersionUID = 8340452899324058655L;
+
+            @Override
+            public void onClick() {
+                LastweekSession.get().addFavorite(classifiedAdId);
+                info("Anuncio a–adido a favoritos");
+                this.setVisible(false);
+
+            }
+
+            @Override
+            public boolean isVisible() {
+                if (LastweekSession.get().containsFavorite(classifiedAdId))
+                    return false;
+                return true;
+            }
+
+        };
+        this.add(addToFavoritesLink);
+    }
 }

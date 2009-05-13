@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -29,7 +30,6 @@ import org.apache.wicket.validation.validator.EmailAddressValidator;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.web.application.LastweekApplication;
-import com.marc.lastweek.web.behaviours.JavaScriptAlertConfirmBehaviour;
 import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.StandardPage;
@@ -37,6 +37,7 @@ import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.session.LastweekSession;
 import com.marc.lastweek.web.util.ResourceUtils;
 import com.marc.lastweek.web.util.ViewUtils;
+import com.marc.lastweek.web.util.behaviours.JavaScriptAlertConfirmBehaviour;
 
 public class FavoriteClassifiedAdsPage extends StandardPage {
 
@@ -57,17 +58,19 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 				ClassifiedAd classifiedAd = (ClassifiedAd)item.getModelObject();
 				final Long classifiedAdId = classifiedAd.getId();
 
+				PageParameters linkParameters = new PageParameters();
+                linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
+                		classifiedAd.getId());
+				Link classifiedAdLink = (new BookmarkablePageLink("classifiedAdLink", 
+                		ClassifiedAdDetailPage.class, linkParameters));
+				classifiedAdLink.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
+				item.add(classifiedAdLink);
+				
 				item.add(new Label("classifiedAdPublicationDate",ViewUtils.labelizer(classifiedAd.getPublicationDate())));
-				item.add(new Label("classifiedAdTitle",ViewUtils.labelizer(classifiedAd.getTitle())));
 				Label description = new Label("classifiedAdDescription",ViewUtils.getDigest(classifiedAd.getDescription()));
 				description.setEscapeModelStrings(false);
 				item.add(description);
 				item.add(new Label("classifiedAdPrice",ViewUtils.labelizer(classifiedAd.getPrice())));
-
-				PageParameters linkParameters = new PageParameters();
-				linkParameters.put(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID, 
-						classifiedAd.getId());
-				item.add(new BookmarkablePageLink("classifiedAdLink", ClassifiedAdDetailPage.class, linkParameters));
 
 				Link deleteLink = new Link("deleteLink") {
 					private static final long serialVersionUID = -3978160233917347727L;
@@ -80,6 +83,10 @@ public class FavoriteClassifiedAdsPage extends StandardPage {
 				};
 				deleteLink.add(new JavaScriptAlertConfirmBehaviour("msg.delete"));
 				item.add(deleteLink);
+				
+				if (item.getIndex()%2 == 1) {
+                	item.add(new SimpleAttributeModifier("class", "classified-ad-summary-alt"));
+                }
 			}
 		};
 		this.add(this.classifiedList);

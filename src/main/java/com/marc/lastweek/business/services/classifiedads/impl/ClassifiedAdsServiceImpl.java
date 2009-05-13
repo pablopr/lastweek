@@ -45,7 +45,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	private GeneralRepository generalRepository;
 	
 	public List<ClassifiedAd> findClassifiedAdsByFilterParameters(FilterParameters parameters, int start, int count, Calendar date) {
-	    if (parameters.getSearchString()!=null) {
+	    if ( parameters.getSearchString() != null ) {
 	        return this.classifiedAdRespository.indexBasedSearch(parameters, date ,start, count);
 	    } 
 	    return this.classifiedAdRespository.basicSearch(parameters, date, start, count);
@@ -53,7 +53,7 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	}
 
 	public Integer  countClassifiedAdsByFilterParameters(FilterParameters parameters, Calendar date) {
-	    if (parameters.getSearchString()!=null) {
+	    if ( parameters.getSearchString() != null ) {
 	        return this.classifiedAdRespository.indexBasedSearchCountResults(parameters, date);
 	    }
 	    return this.classifiedAdRespository.basicSearchCountResults(parameters, date);
@@ -102,9 +102,39 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	public ClassifiedAd activateClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash){
 		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
 		if (ad.getHashCode().equals(classifiedAdIdHash)){
-			ad.setState(Integer.valueOf(UserData.STATE_ACTIVE));
+			ad.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
 		}
 		return ad;
+	}
+
+	@Transactional
+	public ClassifiedAd refreshClassifiedAd(Long classifiedAdId,
+			String classifiedAdIdHash) {
+		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
+		if (ad.getHashCode().equals(classifiedAdIdHash)){
+			Calendar now = Calendar.getInstance();
+			ad.setPublicationDate(now);
+			ad.setState(Integer.valueOf(ClassifiedAd.STATE_ACTIVE));
+		}
+		return ad;
+	}
+
+	@Transactional
+	public ClassifiedAd expireClassifiedAd(Long classifiedAdId) {
+		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
+		ad.setState(Integer.valueOf(ClassifiedAd.STATE_EXPIRED));
+		return ad;
+	}
+
+	@Transactional
+	public long getTimeToExpire(Long classifiedAdId) {
+		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
+		
+		Calendar now = Calendar.getInstance();
+		Calendar expirationDate = Calendar.getInstance();
+		expirationDate.setTimeInMillis(ad.getPublicationDate().getTimeInMillis());
+		expirationDate.add(Calendar.WEEK_OF_YEAR, 1);
+		return expirationDate.getTimeInMillis() - now.getTimeInMillis();
 	}
 
 }

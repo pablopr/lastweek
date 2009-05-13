@@ -27,13 +27,23 @@ public class ClassifiedAdDetailPage extends StandardPage {
 		final Long classifiedAdId = Long.valueOf(parameters
 			.getLong(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ID));
 		
-		final String classifiedAdIdHash = parameters
-			.getString(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_HASH);
+		final String classifiedAdActivateIdHash = parameters
+			.getString(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_ACTIVATE);
 		
-		if (classifiedAdIdHash != null){
-			LastweekApplication.get().getClassifiedAdsService().activateClassifiedAd(classifiedAdId, classifiedAdIdHash);
+		if (classifiedAdActivateIdHash != null){
+			
+			LastweekApplication.get().getClassifiedAdsService().activateClassifiedAd(classifiedAdId, classifiedAdActivateIdHash);
 			this.getSession().info(ResourceUtils.getResourceString("ad.activation.done", ClassifiedAdDetailPage.this));
 		}
+		
+		final String classifiedAdRefreshingIdHash = 
+			parameters.getString(PageParametersNaming.PARAM_NAME_CLASSIFIED_AD_REFRESH);
+		
+		if (classifiedAdRefreshingIdHash != null) {
+			LastweekApplication.get().getClassifiedAdsService().refreshClassifiedAd(classifiedAdId, classifiedAdRefreshingIdHash);
+			this.getSession().info(ResourceUtils.getResourceString("ad.refreshing.done", ClassifiedAdDetailPage.this));
+		}
+		
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
 	}
 }

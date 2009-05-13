@@ -18,6 +18,7 @@
 		<property name="sourceURL" column="SOURCE_URL" />
 		<property name="source" column="SOURCE" />
 		<property name="flag" column="FLAG" />
+		<property name="showPhone" column="SHOW_PHONE" />
 		<property name="state" column="STATE" not-null="true" />
 		<property name="hashCode" column="HASH_CODE" not-null="true"
 			unique="true" />
@@ -53,6 +54,9 @@
         select distinct sourceURL from ClassifiedAd where sourceURL is not null
     </query>
 	
+<!--	<query name="getExpiringClassifiedAds">-->
+<!--        from ClassifiedAd where state = 0 and (day(publicationDate) + 6)) &lt; day(:now)-->
+<!--    </query>-->
 
 </hibernate-mapping>
 
