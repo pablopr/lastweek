@@ -13,7 +13,7 @@ package com.marc.lastweek.web.components.facebook.util;
 public class CommonFacebookHTML {
 
 	public static final String USER_BOX_HTML = "<span>" +
-			"<fb:profile-pic uid=loggedinuser facebook-logo=true></fb:profile-pic>\n " +
-			"Welcome, <fb:name uid=loggedinuser useyou=false></fb:name>.\n " +
-			"You are signed in with your Facebook account.</span>";
+			"<fb:profile-pic uid='loggedinuser' facebook-logo='true'></fb:profile-pic>" +
+			"Welcome, <fb:name uid='loggedinuser' useyou='false'></fb:name>." +
+			"<br/>You are signed in with your Facebook account.</span>";
 }
