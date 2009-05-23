@@ -14,6 +14,7 @@ import org.apache.wicket.PageParameters;
 
 import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.classifiedaddetails.ClassifiedAdDetailPanel;
+import com.marc.lastweek.web.components.recommendedclassifiedads.RecommendedClassifiedAdsListPanel;
 import com.marc.lastweek.web.naming.PageParametersNaming;
 import com.marc.lastweek.web.pages.StandardPage;
 import com.marc.lastweek.web.util.ResourceUtils;
@@ -45,5 +46,8 @@ public class ClassifiedAdDetailPage extends StandardPage {
 		}
 		
 		this.add(new ClassifiedAdDetailPanel("classifiedAdDetailPanel", classifiedAdId));
+		
+	    this.add(new RecommendedClassifiedAdsListPanel("recommendedClassifiedAdsPanel"));
+	   
 	}
 }

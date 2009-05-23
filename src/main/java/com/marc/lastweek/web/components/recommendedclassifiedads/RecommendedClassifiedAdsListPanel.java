@@ -8,7 +8,7 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.pages.classifiedadslisting;
+package com.marc.lastweek.web.components.recommendedclassifiedads;
 
 import java.util.ArrayList;
 import java.util.Calendar;
