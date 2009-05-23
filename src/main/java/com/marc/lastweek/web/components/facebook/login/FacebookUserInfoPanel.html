@@ -5,10 +5,7 @@
 <body>
 
 <wicket:panel>
-<div class="facebook-connect-box">
-    <div wicket:id="facebookUser"/>
-    <fb:login-button wicket:id="buttonLoginFacebook"></fb:login-button>
-</div>
+     <fb:profile-pic uid='loggedinuser' facebook-logo='true'></fb:profile-pic>Welcome, <fb:name uid='loggedinuser' useyou='false'></fb:name>.<br/>You are signed in with your Facebook account.
 </wicket:panel>
 
 </body>

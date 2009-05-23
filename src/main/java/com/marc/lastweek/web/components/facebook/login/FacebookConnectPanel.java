@@ -11,7 +11,6 @@
  */
 package com.marc.lastweek.web.components.facebook.login;
 
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 public class FacebookConnectPanel extends Panel {
@@ -20,12 +19,13 @@ public class FacebookConnectPanel extends Panel {
     public FacebookConnectPanel(String id) {
         super(id);
         
-        WebMarkupContainer facebookUser = new WebMarkupContainer("facebookUser");
+        FacebookUserInfoPanel facebookUser = new FacebookUserInfoPanel("facebookUser");
+        facebookUser.setVisible(false);
         facebookUser.setOutputMarkupId(true);
+        facebookUser.setOutputMarkupPlaceholderTag(true);
         this.add(facebookUser);
         
-        FacebookLoginButton buttonLoginFacebook = new FacebookLoginButton("buttonLoginFacebook");
-        buttonLoginFacebook.add(new FacebookLoginBehaviour(facebookUser));
+        FacebookLoginButton buttonLoginFacebook = new FacebookLoginButton("buttonLoginFacebook", facebookUser);
         buttonLoginFacebook.setOutputMarkupId(true);
         this.add(buttonLoginFacebook);
     }

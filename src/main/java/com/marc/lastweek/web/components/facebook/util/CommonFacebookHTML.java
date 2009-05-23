@@ -10,10 +10,21 @@
  */
 package com.marc.lastweek.web.components.facebook.util;
 
+import org.apache.wicket.markup.html.panel.Panel;
+
 public class CommonFacebookHTML {
 
-	public static final String USER_BOX_HTML = "<span>" +
-			"<fb:profile-pic uid='loggedinuser' facebook-logo='true'></fb:profile-pic>" +
-			"Welcome, <fb:name uid='loggedinuser' useyou='false'></fb:name>." +
-			"<br/>You are signed in with your Facebook account.</span>";
+	private final static String PANEL_START = "<wicket:panel>";
+	private final static String PANEL_END = "</wicket:panel>";
+	
+	public static String getPanelMarkup(Panel panel) {
+		int startIndex;
+		int endIndex;
+		
+		String fullMarkup = panel.getAssociatedMarkupStream(false).toString();
+		startIndex = fullMarkup.indexOf(PANEL_START);
+		endIndex = fullMarkup.indexOf(PANEL_END);
+		
+		return fullMarkup.substring(startIndex+PANEL_START.length(), endIndex).trim().replace("\"", "'");
+	}
 }
