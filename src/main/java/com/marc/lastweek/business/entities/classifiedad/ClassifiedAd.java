@@ -50,6 +50,7 @@ public class ClassifiedAd {
 	public static final int STATE_EXPIRED = 1;
 	public static final int STATE_BANNED = 2;
 	public static final int STATE_INACTIVE = 3;
+	public static final int STATE_EXPIRING_TOMORROW = 4;
 
 	@DocumentId
 	private Long id;
@@ -190,5 +191,12 @@ public class ClassifiedAd {
 		this.showPhone = showPhone;
 	}
 
+	public long getTimeToExpireInMillis() {
+		Calendar now = Calendar.getInstance();
+		Calendar expirationDate = Calendar.getInstance();
+		expirationDate.setTimeInMillis(this.publicationDate.getTimeInMillis());
+		expirationDate.add(Calendar.WEEK_OF_YEAR, 1);
+		return expirationDate.getTimeInMillis() - now.getTimeInMillis();
+	}
 }
 

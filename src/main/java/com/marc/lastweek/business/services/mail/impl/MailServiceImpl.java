@@ -29,12 +29,14 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.marc.lastweek.business.entities.classifiedad.ClassifiedAd;
 import com.marc.lastweek.business.services.mail.MailService;
 import com.marc.lastweek.web.application.LastweekApplication;
+
 
 public class MailServiceImpl implements MailService {
 	
