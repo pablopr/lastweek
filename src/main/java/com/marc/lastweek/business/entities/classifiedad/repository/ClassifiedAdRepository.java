@@ -52,7 +52,7 @@ public class ClassifiedAdRepository {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ClassifiedAd> basicSearch(FilterParameters parameters, Calendar from, int start, int count) {
-		Criteria criteriaQuery = advancedSearchQueyConstructor(parameters, from);
+		Criteria criteriaQuery = advancedSearchQueryConstructor(parameters, from);
 		criteriaQuery.setFirstResult(start);
 		criteriaQuery.setFetchSize(count);
 		criteriaQuery.addOrder(Order.desc("publicationDate"));
@@ -60,12 +60,12 @@ public class ClassifiedAdRepository {
 	}
 
 	public Integer basicSearchCountResults(FilterParameters parameters, Calendar from) {
-		Criteria criteriaQuery = advancedSearchQueyConstructor(parameters, from);
+		Criteria criteriaQuery = advancedSearchQueryConstructor(parameters, from);
 
 		return new Integer(criteriaQuery.list().size());
 	}
 
-	private Criteria advancedSearchQueyConstructor(FilterParameters parameters, Calendar from) {
+	private Criteria advancedSearchQueryConstructor(FilterParameters parameters, Calendar from) {
 
 		Criteria criteriaQuery =
 			this.sessionFactory.getCurrentSession().createCriteria(ClassifiedAd.class);
@@ -164,5 +164,4 @@ public class ClassifiedAdRepository {
 
 		fullTextSession.index(classifiedAd);
 	}
-
 }

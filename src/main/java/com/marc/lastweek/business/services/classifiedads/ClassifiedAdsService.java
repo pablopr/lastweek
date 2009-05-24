@@ -33,7 +33,7 @@ public interface ClassifiedAdsService {
 	
 	public ClassifiedAd refreshClassifiedAd(final Long classifiedAdId, final String classifiedAdIdHash);
 	
-	public ClassifiedAd expireClassifiedAd(final Long classifiedAdId);
+	public ClassifiedAd markClassifiedAdAsExpiringTomorrow(final Long classifiedAdId);
 	
-	public long getTimeToExpire(final Long classifiedAdId);
+	public ClassifiedAd expireClassifiedAd(final Long classifiedAdId);
 }

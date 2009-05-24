@@ -1,5 +1,9 @@
 package com.marc.lastweek.business.jobs;
 
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import loc.marc.commons.business.services.general.GeneralService;
 
 import org.apache.log4j.Logger;
@@ -21,20 +25,28 @@ private static final long timeToAdviceBeforeExpiring = 86400000;
 	private MailService mailService;
 	
 	protected static final Logger log = Logger.getLogger(ExpiringAdsAdvisorJob.class);
+	private static final String GET_EXPIRING_TODAY_OR_TOMORROW_ADS_QUERY = "getExpiringTodayOrTomorrowAds";
+	private static final String PARAMETER_NAME_NOW = "now";
 	
 	protected void checkExpiredAds() {
 		long timeToExpire;
 
-		for (ClassifiedAd classifiedAd : this.generalService.findAll(ClassifiedAd.class)) {
+		Map<String, Object> queryParameters = new HashMap<String, Object>();
+		queryParameters.put(PARAMETER_NAME_NOW, Calendar.getInstance());
 		
-			timeToExpire = this.classifiedAdsService.getTimeToExpire(classifiedAd.getId());
-			System.out.println("Time to expire : " + timeToExpire);
-			if (timeToExpire < 0) {
+		for (ClassifiedAd classifiedAd : this.generalService.queryForList(ClassifiedAd.class, 
+				GET_EXPIRING_TODAY_OR_TOMORROW_ADS_QUERY, queryParameters)) {
+		
+			timeToExpire = classifiedAd.getTimeToExpireInMillis();
+			System.out.println();
+			System.out.println("------ Time to expire : " + timeToExpire);
+			System.out.println();
+			if (classifiedAd.getState().intValue() == ClassifiedAd.STATE_EXPIRING_TOMORROW) {
 				log.info("Sending expired for ad" + classifiedAd.getTitle() + "!!!!!");
 				this.classifiedAdsService.expireClassifiedAd(classifiedAd.getId());
 				this.mailService.sendExpiredMail(classifiedAd.getId(), this.generalService);
 			}
-			else if (timeToExpire - timeToAdviceBeforeExpiring <= 0) {
+			else {
 				log.info("Sending refresh for ad" + classifiedAd.getTitle() + "!!!!!");
 				this.mailService.sendRefreshMail(classifiedAd.getId(), this.generalService);
 			}

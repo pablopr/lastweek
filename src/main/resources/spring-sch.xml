@@ -53,7 +53,7 @@
 	<bean id="expiringAdsSimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean"> 
 	    <property name="jobDetail" ref="expiringAdsAdvisorJob" />
 	    <property name="startDelay" value="2000" />
-	    <property name="repeatInterval" value="1000000000" />
+	    <property name="repeatInterval" value="10000" />
 	</bean>
 
 	<bean id="expiringAdsCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
