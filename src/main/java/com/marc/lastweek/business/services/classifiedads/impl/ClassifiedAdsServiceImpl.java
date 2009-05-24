@@ -120,14 +120,14 @@ public class ClassifiedAdsServiceImpl implements ClassifiedAdsService {
 	}
 
 	@Transactional
-	public ClassifiedAd markClassifiedAdAsExpiringTomorrow(Long classifiedAdId) {
+	public ClassifiedAd markClassifiedAdAsExpiringTomorrow(final Long classifiedAdId) {
 		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
 		ad.setState(Integer.valueOf(ClassifiedAd.STATE_EXPIRING_TOMORROW));
 		return ad;
 	}
 
 	@Transactional
-	public ClassifiedAd expireClassifiedAd(Long classifiedAdId) {
+	public ClassifiedAd expireClassifiedAd(final Long classifiedAdId) {
 		ClassifiedAd ad = this.generalRepository.get(ClassifiedAd.class, classifiedAdId);
 		ad.setState(Integer.valueOf(ClassifiedAd.STATE_EXPIRED));
 		return ad;

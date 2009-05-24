@@ -38,7 +38,6 @@ public class LoadableSubcategoriesListModel extends LoadableDetachableModel {
 	protected Object load() {
 		Map<String,Object> parameters = new HashMap<String, Object>();
         parameters.put("categoryId", this.id);
-
 		return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);
 	}
 

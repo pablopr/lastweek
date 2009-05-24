@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns:wicket="http://wicket.apache.org/">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:fb="http://www.facebook.com/2008/fbml"
+    xmlns:wicket="http://wicket.apache.org/">
 
 <head>
 <title>Lastweek!</title>
@@ -10,14 +9,19 @@
 </head>
 
 <body>
+<wicket:extend>
     <div id="header">
         <div class="app-name">
-                <a class="logo" wicket:id="mainPageLink" href="#"></a>
+                <a class="logo" wicket:id="mainPageLink" href="#"></a>                
         </div>
+        
     </div>
     <div id="main">
         <div id="main-content">
-        	<div wicket:id="favoritesBox"/>
+            <div id="header-box">
+                <div wicket:id="facebookLogin"/>
+        	   <div wicket:id="favoritesBox"/>
+        	</div>
 	       <wicket:child/>
         </div>
     </div>
@@ -29,7 +33,8 @@
     <br/>
     &copy; MARC 2009 Todos los derechos reservados
     </div>
-</body>
 
+</wicket:extend>
+</body>
 </html>
 

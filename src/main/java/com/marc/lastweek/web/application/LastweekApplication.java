@@ -33,6 +33,8 @@ import com.marc.lastweek.business.services.mail.MailService;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
+import com.marc.lastweek.web.pages.facebook.CrossDomainReceiverPage;
+import com.marc.lastweek.web.pages.facebook.TestPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.LastweekSession;
 
@@ -83,6 +85,8 @@ public class LastweekApplication extends WebApplication {
         mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
+        mountBookmarkablePage("/facebookconnect", CrossDomainReceiverPage.class);
+        mountBookmarkablePage("/facebooktest", TestPage.class);
        
         /*
          * Remove wicket tags from result HTML

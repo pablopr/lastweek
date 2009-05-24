@@ -116,8 +116,7 @@ pre {
 }
 
 .search-input {
-	background: transparent url(../images/search_bg.png) no-repeat scroll 0
-		50%;
+	background: transparent url(../images/search_bg.png) no-repeat scroll 0 50%;
 	border: medium none;
 	color: #333333;
 	font-size: 1.1em;
@@ -538,14 +537,48 @@ pre {
 	font-weight: bold;
 }
 
-.favorites-box {
+
+/* **************** header stuff ***************** */
+#header-box {
 	display: block;
 	float: right;
-	font-size: 8px;
 	margin-right: 33px;
 	margin-top: -96px;
 	position: relative;
-	text-align: center;
+	width: 225px;
+}
+
+.facebook-connect-box {
+	float:left;
+    font-size: 12px;
+    color: #FEFEFE;
+}
+
+.facebook-connect-message {
+	float:right;
+    margin-top:-32px;
+    padding-left:10px;
+    text-align: right;
+}
+
+.facebook-connect-message small {
+	font-size: 0.8em;
+}	
+
+.facebook-connect-box a,.facebook-connect-box a:visited {
+    color:  #90C630;
+    text-decoration: none;
+}
+
+.facebook-connect-box a:hover {
+    color: #90C630;
+    text-decoration: underline;
+}
+
+.favorites-box {
+	float:right;
+    font-size: 8px;
+    text-align: center;
 }
 
 .favorites-box a,.favorites-box a:hover,.favorites-box a:visited {
@@ -566,12 +599,12 @@ pre {
 }
 
 .map {
-	background: transparent url(../images/mapa.gif) no-repeat scroll 0 0;
 	height: 358px;
 	margin: 25px auto 0;
 	width: 418px;
 }
 
+/***************** PAGINATOR *******************/
 div.paginator {
 	display:block;
     margin-bottom:1.5em;
@@ -728,7 +761,7 @@ img {
 	border: 0 none;
 }
 
-a {
+a, a:visited  {
     outline-color:-moz-use-text-color;
     outline-style:none;
     outline-width:medium;

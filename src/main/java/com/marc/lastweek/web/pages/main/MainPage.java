@@ -11,15 +11,18 @@ package com.marc.lastweek.web.pages.main;
 
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ImageMap;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
 import com.marc.lastweek.business.entities.category.Category;
 import com.marc.lastweek.business.entities.province.Province;
+import com.marc.lastweek.web.application.LastweekApplication;
 import com.marc.lastweek.web.components.selfpropaganda.CreateNewAdPropagandaPanel;
 import com.marc.lastweek.web.models.LoadableCategoriesListModel;
 import com.marc.lastweek.web.models.LoadableProvincesListModel;
@@ -81,6 +84,29 @@ public class MainPage extends BaseSearchPage {
 				listItem.add(provinceLink);
 			}
 		});
+		
+		/*
+		 * Clickable provinces map
+		 */
+
+		ImageMap mapProvinceMap = new ImageMap("mapProvinceMap");
+	
+        for(Province province:LastweekApplication.get().getGeneralService().findAll(Province.class)){ 
+            String[] stringCoords = StringUtils.split(province.getCoords(), ",");
+            int[] intCoords = new int[stringCoords.length];
+            for (int i = 0; i<stringCoords.length; i++) {
+                intCoords[i] = (new Integer(stringCoords[i].trim())).intValue();
+            }
+            PageParameters linkParameters = new PageParameters();
+            linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_ID, 
+                    province.getId());
+            linkParameters.put(PageParametersNaming.PARAM_NAME_PROVINCE_NAME, 
+                    StringEscapeUtils.escapeHtml(province.getName()));
+            mapProvinceMap.addPolygonLink(intCoords, new BookmarkablePageLink("imageMapLink"+province.getId(),
+		            FilterResultsPage.class, linkParameters));
+		}
+        this.add(mapProvinceMap);
+		
 	}
 
 }

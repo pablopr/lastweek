@@ -29,7 +29,7 @@ public class ClassifiedAdExtractorJob extends ApplicationContextAwareQuartzJobBe
 			ApplicationContext applicationContext = this.getApplicationContext(context);
 			EbayExtractorService ebayPisosExtractorService = (EbayExtractorService) applicationContext.getBean("ebayExtractorServiceImpl");
 			List<String> alreadyExtractedUrls = ebayPisosExtractorService.getExternalsAdsUrl();
-			
+			System.out.println("----------- jajaj");
 			for (String province : UrlNaming.EBAY_PROVINCE_SUFIXES) {
 			    log.info("Extracting :" + province);
 			    EbayPisosProvinceExtractor ebayPisosProvinceExtractor = new EbayPisosProvinceExtractor(province, alreadyExtractedUrls);

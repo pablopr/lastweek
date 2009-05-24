@@ -14,6 +14,7 @@
         </id>
          
         <property name="name" column="NAME" not-null="true" unique="true"/>
+        <property name="coords" column="COORDS" not-null="true"/>
         
         <set name="classifiedAds" access="field" inverse="false" order-by="PUBLICATION_DATE">
             <cache usage="nonstrict-read-write" />

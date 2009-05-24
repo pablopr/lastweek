@@ -23,6 +23,8 @@ public class Province {
     @DocumentId
 	private Long id;
 	private String name;
+	private String coords;
+    
 	
 	private Set<ClassifiedAd> classifiedAds = new LinkedHashSet<ClassifiedAd>();
 
@@ -44,6 +46,12 @@ public class Province {
 	public void setClassifiedAds(Set<ClassifiedAd> classifiedAds) {
 		this.classifiedAds = classifiedAds;
 	}
+    public String getCoords() {
+        return coords;
+    }
+    public void setCoords(String coords) {
+        this.coords = coords;
+    }
 	
 	
 }

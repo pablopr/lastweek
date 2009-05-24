@@ -12,13 +12,15 @@ package com.marc.lastweek.web.pages;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
+import com.marc.lastweek.web.components.facebook.basecomponents.FacebookLoginButton;
+import com.marc.lastweek.web.components.facebook.panels.FacebookConnectPanel;
 import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
+import com.marc.lastweek.web.pages.facebook.FacebookAwarePage;
 import com.marc.lastweek.web.session.LastweekSession;
 
-public class BasePage extends WebPage {
+public class BasePage extends FacebookAwarePage {
 
     private static final String CSS_URL = "css/styles.css";
     private static final String JQUERY_URL = "js/jquery-1.3.2.min.js";
@@ -36,11 +38,19 @@ public class BasePage extends WebPage {
         add(HeaderContributor.forJavaScript(JQUERY_URL));
 
         add(new BookmarkablePageLink("mainPageLink", getApplication().getHomePage()));
-		this.add(new FavoritesPropagandaPanel("favoritesBox"));
+
+        this.add(new FavoritesPropagandaPanel("favoritesBox"));
+        
+        FacebookConnectPanel facebookLogin = new FacebookConnectPanel("facebookLogin");
+        facebookLogin.getFacebookLoginButton().setLength(FacebookLoginButton.LENGTH_SHORT);
+        facebookLogin.getFacebookLoginButton().setSize(FacebookLoginButton.SIZE_MEDIUM);
+        this.add(facebookLogin);
     }
     
     public final LastweekSession getLastweekSession() {
         return (LastweekSession) getSession();
     }
+    
+
     
 }
