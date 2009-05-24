@@ -506,7 +506,9 @@ pre {
 	text-decoration: none;
 }
 
-.new-ad-box {
+/**************** COLOURED BOXES AND PROPAGANDA **********************/
+
+.green-box {
 	-moz-border-radius-bottomleft: 10px;
 	-moz-border-radius-bottomright: 10px;
 	-moz-border-radius-topleft: 10px;
@@ -517,22 +519,34 @@ pre {
 	padding: 10px;
 }
 
-.new-ad-main {
+.orange-box {
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    background-color: #EC5810;
+    color: #1E1E1E;
+    margin: 10px;
+    padding: 10px;
+}
+
+.propaganda-box-main {
+    color: #1E1E1E;
+    font-size: 1.7em;
+    font-weight: bold;
 	text-align: center;
 }
 
-.new-ad-main a,.new-ad-main a:hover,.new-ad-main a:visited {
-	color: #1E1E1E;
-	font-size: 1.7em;
-	font-weight: bold;
+.propaganda-box-main a,propaganda-box-main a:hover,.propaganda-box-main a:visited {
+    color: #1E1E1E;
 	text-decoration: none;
 }
 
-.new-ad-info {
+.propaganda-box-info {
 	text-align: justify;
 }
 
-.new-ad-info a,.new-ad-info a:hover,.new-ad-info a:visited {
+.propaganda-box-info a,propaganda-box-info a:hover,.propaganda-box-info a:visited {
 	color: #1E1E1E;
 	font-weight: bold;
 }
