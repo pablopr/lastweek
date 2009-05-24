@@ -31,7 +31,7 @@ public class BaseSearchPage extends BasePage {
 		/*
 		 * Search Box
 		 */
-		this.add(new SearchBox("searchBox", new PageParameters()));
+		this.add(new SearchBox("searchBox", pageParameters));
 
 		this.feedbackPanel  = new FeedbackPanel("feedbackPanel");
 		this.feedbackPanel.setOutputMarkupId(true);

@@ -8,7 +8,7 @@
  * accordance with the terms of the license agreement you entered into
  * with Monte Alto Research Center
  */
-package com.marc.lastweek.web.components.facebook.login;
+package com.marc.lastweek.web.components.facebook.panels;
 
 import org.apache.wicket.markup.html.panel.Panel;
 

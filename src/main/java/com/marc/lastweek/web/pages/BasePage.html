@@ -9,7 +9,7 @@
 </head>
 
 <body>
- 
+<wicket:extend>
     <div id="header">
         <div class="app-name">
                 <a class="logo" wicket:id="mainPageLink" href="#"></a>                
@@ -18,7 +18,10 @@
     </div>
     <div id="main">
         <div id="main-content">
-        	<div wicket:id="favoritesBox"/>
+            <div id="header-box">
+                <div wicket:id="facebookLogin"/>
+        	   <div wicket:id="favoritesBox"/>
+        	</div>
 	       <wicket:child/>
         </div>
     </div>
@@ -30,8 +33,8 @@
     <br/>
     &copy; MARC 2009 Todos los derechos reservados
     </div>
-<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
-<script type="text/javascript"> FB.init("7e86efc5bb70bfcbfb0c642b58edc710","facebookconnect"); </script>
+
+</wicket:extend>
 </body>
 </html>
 

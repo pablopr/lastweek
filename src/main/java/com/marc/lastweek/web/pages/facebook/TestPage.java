@@ -10,13 +10,22 @@
  */
 package com.marc.lastweek.web.pages.facebook;
 
-import com.marc.lastweek.web.components.facebook.login.FacebookConnectPanel;
+import com.marc.lastweek.web.components.facebook.basecomponents.FacebookLoginButton;
+import com.marc.lastweek.web.components.facebook.behaviors.FacebookLoginBehavior;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class TestPage extends BasePage {
     
     public TestPage() {
-        FacebookConnectPanel facebookLogin = new FacebookConnectPanel("facebookLogin");
-        this.add(facebookLogin);
+    	FacebookLoginButton buttonLoginFacebook = new FacebookLoginButton("buttonLoginFacebook2"){
+ 			private static final long serialVersionUID = -2199948587128000067L;
+
+ 			@Override
+         	public boolean isVisible() {
+         		return !(TestPage.this.isFacebookConnected());
+         	}
+         };
+         buttonLoginFacebook.add(new FacebookLoginBehavior());
+         this.add(buttonLoginFacebook);
     }
 }
