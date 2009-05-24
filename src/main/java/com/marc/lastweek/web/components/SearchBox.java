@@ -37,7 +37,11 @@ public class SearchBox  extends Panel {
 		public SearchForm(String id, PageParameters parameters) {
 			super(id);
 
-			this.parameters = parameters; 
+			if (parameters!=null) {
+				this.parameters = parameters;
+			} else {
+				this.parameters = new PageParameters();
+			}
 			this.searchInput = new TextField("searchInput", new Model());
 			this.add(this.searchInput);
 		}
