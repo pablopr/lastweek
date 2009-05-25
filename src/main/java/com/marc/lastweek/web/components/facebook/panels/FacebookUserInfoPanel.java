@@ -10,12 +10,18 @@
  */
 package com.marc.lastweek.web.components.facebook.panels;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
+
+import com.marc.lastweek.web.components.facebook.behaviors.FacebookLogoutBehavior;
 
 public class FacebookUserInfoPanel extends Panel {
 	private static final long serialVersionUID = -4044485161181662642L;
 
 	public FacebookUserInfoPanel(String id) {
 		super(id);
+		WebMarkupContainer facebookLogoutLink = new WebMarkupContainer("facebookLogoutLink");
+		facebookLogoutLink.add(new FacebookLogoutBehavior());
+		this.add(facebookLogoutLink);
 	}
 }

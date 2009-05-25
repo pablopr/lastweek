@@ -6,8 +6,9 @@
 
 <wicket:panel>
 <fb:profile-pic uid='loggedinuser' facebook-logo='true' size="square"></fb:profile-pic>
-<div class="facebook-connect-message">Hola <fb:name uid='loggedinuser' firstnameonly='true' useyou='false'></fb:name><br/>
-<small><a onclick="FB.Connect.logout(function() { refresh_page(); })" href="#">Salir</a> de Facebook</small>
+<div class="facebook-connect-message">
+Hola <fb:name uid='loggedinuser' firstnameonly='true' useyou='false'></fb:name><br/>
+<small><a wicket:id="facebookLogoutLink" href="#">Salir</a> de Facebook</small>
 </div> 
 </wicket:panel>
 
