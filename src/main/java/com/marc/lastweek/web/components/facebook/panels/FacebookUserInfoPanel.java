@@ -14,12 +14,20 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import com.marc.lastweek.web.components.facebook.behaviors.FacebookLogoutBehavior;
+import com.marc.lastweek.web.components.facebook.xfbml.FacebookProfilePic;
 
 public class FacebookUserInfoPanel extends Panel {
 	private static final long serialVersionUID = -4044485161181662642L;
 
 	public FacebookUserInfoPanel(String id) {
 		super(id);
+		
+		FacebookProfilePic facebookProfilePic = new FacebookProfilePic("facebookProfilePic");
+		facebookProfilePic.setFacebookLogo(true);
+		facebookProfilePic.setLinked(false);
+		facebookProfilePic.setSize(FacebookProfilePic.SIZE_SQUARE);
+		this.add(facebookProfilePic);
+		
 		WebMarkupContainer facebookLogoutLink = new WebMarkupContainer("facebookLogoutLink");
 		facebookLogoutLink.add(new FacebookLogoutBehavior());
 		this.add(facebookLogoutLink);

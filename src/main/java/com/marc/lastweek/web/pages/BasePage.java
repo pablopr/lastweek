@@ -14,8 +14,8 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
-import com.marc.lastweek.web.components.facebook.basecomponents.FacebookLoginButton;
 import com.marc.lastweek.web.components.facebook.panels.FacebookConnectPanel;
+import com.marc.lastweek.web.components.facebook.xfbml.FacebookConnectButton;
 import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
 import com.marc.lastweek.web.pages.facebook.FacebookAwarePage;
 import com.marc.lastweek.web.session.LastweekSession;
@@ -42,8 +42,8 @@ public class BasePage extends FacebookAwarePage {
         this.add(new FavoritesPropagandaPanel("favoritesBox"));
         
         FacebookConnectPanel facebookLogin = new FacebookConnectPanel("facebookLogin");
-        facebookLogin.getFacebookLoginButton().setLength(FacebookLoginButton.LENGTH_SHORT);
-        facebookLogin.getFacebookLoginButton().setSize(FacebookLoginButton.SIZE_MEDIUM);
+        facebookLogin.getFacebookLoginButton().setLength(FacebookConnectButton.LENGTH_SHORT);
+        facebookLogin.getFacebookLoginButton().setSize(FacebookConnectButton.SIZE_MEDIUM);
         this.add(facebookLogin);
     }
     

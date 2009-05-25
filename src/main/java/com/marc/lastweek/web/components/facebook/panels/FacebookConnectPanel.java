@@ -13,14 +13,14 @@ package com.marc.lastweek.web.components.facebook.panels;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
-import com.marc.lastweek.web.components.facebook.basecomponents.FacebookLoginButton;
 import com.marc.lastweek.web.components.facebook.behaviors.FacebookLoginBehavior;
+import com.marc.lastweek.web.components.facebook.xfbml.FacebookConnectButton;
 import com.marc.lastweek.web.pages.facebook.FacebookAwarePage;
 
 public class FacebookConnectPanel extends Panel {
 	private static final long serialVersionUID = -7032982481076184629L;
 
-    private FacebookLoginButton buttonLoginFacebook;
+    private FacebookConnectButton buttonLoginFacebook;
     
     public FacebookConnectPanel(String id) {
         super(id);
@@ -37,7 +37,7 @@ public class FacebookConnectPanel extends Panel {
         facebookUser.setOutputMarkupPlaceholderTag(true);
         this.add(facebookUser);
         
-        buttonLoginFacebook = new FacebookLoginButton("buttonLoginFacebook"){
+        buttonLoginFacebook = new FacebookConnectButton("buttonLoginFacebook"){
 			private static final long serialVersionUID = -2199948587128000067L;
 
 			@Override
@@ -49,7 +49,7 @@ public class FacebookConnectPanel extends Panel {
         this.add(buttonLoginFacebook);
     }
     
-    public FacebookLoginButton getFacebookLoginButton() {
+    public FacebookConnectButton getFacebookLoginButton() {
 		return this.buttonLoginFacebook;
 	}
 
