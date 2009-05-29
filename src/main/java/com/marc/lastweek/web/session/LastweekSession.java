@@ -81,9 +81,11 @@ public class LastweekSession extends WebSession {
 	    FilterParameters result = null;
 	    if ( !this.filterParametersHistory.isEmpty() ) {
 	        int size = this.filterParametersHistory.size();
-	        int upperLimitAndSeed  = ( size - 1 < 0 )  ? 0 : size -1;	        
-	        Random rand = new Random( upperLimitAndSeed );
-	        result = this.filterParametersHistory.get( rand.nextInt( upperLimitAndSeed ) );
+	        int maxIndex = size - 1;
+	        Random rand = new Random( size );
+	        result = ( maxIndex == 0 ) ?
+	                this.filterParametersHistory.get( maxIndex ) : 
+	                this.filterParametersHistory.get( rand.nextInt( maxIndex ) ) ;	       
 	    } else {
 	        result = new FilterParameters();
 	    }
