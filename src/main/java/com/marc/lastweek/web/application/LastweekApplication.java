@@ -82,7 +82,7 @@ public class LastweekApplication extends WebApplication {
         /*
          * Mount bookmarkeable pages for prettyfied URLs
          */
-        mountBookmarkablePage("/search", FilterResultsPage.class);
+        //mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
         mountBookmarkablePage("/facebookconnect", CrossDomainReceiverPage.class);

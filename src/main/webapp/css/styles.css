@@ -152,7 +152,7 @@ pre {
 }
 
 .parallel-column {
-	margin-left: 117px;
+	margin-left: 110px;
 	margin-top: -19px;
 }
 
@@ -571,7 +571,7 @@ pre {
 .facebook-connect-message {
 	float:right;
     margin-top:-32px;
-    padding-left:10px;
+    width:110px;
     text-align: right;
 }
 
@@ -587,6 +587,11 @@ pre {
 .facebook-connect-box a:hover {
     color: #90C630;
     text-decoration: underline;
+}
+
+.facebook-connect-button {
+	margin-left:48px;
+    margin-top:26px;
 }
 
 .favorites-box {

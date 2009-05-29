@@ -10,14 +10,14 @@
  */
 package com.marc.lastweek.web.pages.facebook;
 
-import com.marc.lastweek.web.components.facebook.basecomponents.FacebookLoginButton;
 import com.marc.lastweek.web.components.facebook.behaviors.FacebookLoginBehavior;
+import com.marc.lastweek.web.components.facebook.xfbml.FacebookConnectButton;
 import com.marc.lastweek.web.pages.BasePage;
 
 public class TestPage extends BasePage {
     
     public TestPage() {
-    	FacebookLoginButton buttonLoginFacebook = new FacebookLoginButton("buttonLoginFacebook2"){
+    	FacebookConnectButton buttonLoginFacebook = new FacebookConnectButton("buttonLoginFacebook2"){
  			private static final long serialVersionUID = -2199948587128000067L;
 
  			@Override
