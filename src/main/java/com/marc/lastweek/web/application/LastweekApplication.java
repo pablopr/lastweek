@@ -17,12 +17,6 @@ import org.apache.wicket.Request;
 import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.protocol.http.WebRequestCycleProcessor;
-import org.apache.wicket.protocol.http.request.CryptedUrlWebRequestCodingStrategy;
-import org.apache.wicket.protocol.http.request.WebRequestCodingStrategy;
-import org.apache.wicket.request.IRequestCodingStrategy;
-import org.apache.wicket.request.IRequestCycleProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,15 +26,14 @@ import com.marc.lastweek.business.services.images.ImageService;
 import com.marc.lastweek.business.services.mail.MailService;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
-import com.marc.lastweek.web.pages.classifiedadslisting.FilterResultsPage;
-import com.marc.lastweek.web.pages.facebook.CrossDomainReceiverPage;
+import com.marc.lastweek.web.pages.facebook.FacebookApplication;
 import com.marc.lastweek.web.pages.facebook.TestPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.LastweekSession;
 
 
 @Component
-public class LastweekApplication extends WebApplication {
+public class LastweekApplication extends FacebookApplication {
 
 	
     @Autowired
@@ -75,9 +68,12 @@ public class LastweekApplication extends WebApplication {
      */
     @Override
     protected void init() {
-       
         super.init();
         
+        /*
+         * Set facebook api key
+         */
+        this.setFacebookApiKey("7e86efc5bb70bfcbfb0c642b58edc710");
         
         /*
          * Mount bookmarkeable pages for prettyfied URLs
@@ -85,7 +81,6 @@ public class LastweekApplication extends WebApplication {
         //mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
-        mountBookmarkablePage("/facebookconnect", CrossDomainReceiverPage.class);
         mountBookmarkablePage("/facebooktest", TestPage.class);
        
         /*
@@ -93,26 +88,13 @@ public class LastweekApplication extends WebApplication {
          */
         getMarkupSettings().setStripWicketTags(true);
     }  
-   
-    /*
-     * This enables the encryption of non-prettified URLs
-     */
-    @Override
-    protected IRequestCycleProcessor newRequestCycleProcessor() {
-    	
-        return new WebRequestCycleProcessor() {
-            @Override
-            protected IRequestCodingStrategy newRequestCodingStrategy() {
-                return new CryptedUrlWebRequestCodingStrategy(new WebRequestCodingStrategy());
-            }
-        };
-    }  
 
     
     @Override
     public Session newSession(Request request, Response response) {
         return new LastweekSession(request);
     }
+    
     
     public static LastweekApplication get() {
         return (LastweekApplication) Application.get();
