@@ -55,7 +55,9 @@
     </query>
 	
 	<query name="getExpiringTodayOrTomorrowAds">
+		<![CDATA[
         from ClassifiedAd where state = 4 or (state = 0 and (timestampdiff(SQL_TSI_DAY, timestamp(PUBLICATION_DATE), timestamp(:now)) > 5))
+        ]]>
     </query>
 
 </hibernate-mapping>

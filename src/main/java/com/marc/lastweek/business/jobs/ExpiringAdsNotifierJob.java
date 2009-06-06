@@ -44,8 +44,8 @@ public class ExpiringAdsNotifierJob extends ApplicationContextAwareQuartzJobBean
 		
 			if (classifiedAd.getState().intValue() == ClassifiedAd.STATE_EXPIRING_TOMORROW) {
 				log.info("Sending expired to ad " + classifiedAd.getId() + ".");
-				classifiedAdsService.expireClassifiedAd(classifiedAd.getId());
 				mailService.sendExpiredMail(classifiedAd.getId(), generalService);
+				classifiedAdsService.expireClassifiedAd(classifiedAd.getId());
 			}
 			else {
 				log.info("Sending refresh to ad " + classifiedAd.getId() + ".");
