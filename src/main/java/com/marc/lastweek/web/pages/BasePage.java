@@ -13,11 +13,11 @@ package com.marc.lastweek.web.pages;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.wicketface.panels.FacebookConnectPanel;
+import org.wicketface.markup.xfbml.FacebookConnectButton;
+import org.wicketface.pages.FacebookAwarePage;
 
-import com.marc.lastweek.web.components.facebook.panels.FacebookConnectPanel;
-import com.marc.lastweek.web.components.facebook.xfbml.FacebookConnectButton;
 import com.marc.lastweek.web.components.selfpropaganda.FavoritesPropagandaPanel;
-import com.marc.lastweek.web.pages.facebook.FacebookAwarePage;
 import com.marc.lastweek.web.session.LastweekSession;
 
 public class BasePage extends FacebookAwarePage {

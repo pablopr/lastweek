@@ -17,8 +17,14 @@ import org.apache.wicket.Request;
 import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.http.WebRequestCycleProcessor;
+import org.apache.wicket.protocol.http.request.CryptedUrlWebRequestCodingStrategy;
+import org.apache.wicket.protocol.http.request.WebRequestCodingStrategy;
+import org.apache.wicket.request.IRequestCodingStrategy;
+import org.apache.wicket.request.IRequestCycleProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.wicketface.application.FacebookApplication;
 
 import com.marc.lastweek.business.services.aaa.AaaService;
 import com.marc.lastweek.business.services.classifiedads.ClassifiedAdsService;
@@ -26,8 +32,6 @@ import com.marc.lastweek.business.services.images.ImageService;
 import com.marc.lastweek.business.services.mail.MailService;
 import com.marc.lastweek.web.pages.classifiedad.ClassifiedAdDetailPage;
 import com.marc.lastweek.web.pages.classifiedadslisting.FavoriteClassifiedAdsPage;
-import com.marc.lastweek.web.pages.facebook.FacebookApplication;
-import com.marc.lastweek.web.pages.facebook.TestPage;
 import com.marc.lastweek.web.pages.main.MainPage;
 import com.marc.lastweek.web.session.LastweekSession;
 
@@ -71,9 +75,10 @@ public class LastweekApplication extends FacebookApplication {
         super.init();
         
         /*
-         * Set facebook api key
+         * Set facebook api key and secret
          */
         this.setFacebookApiKey("7e86efc5bb70bfcbfb0c642b58edc710");
+        this.setFacebookAppSecret("c8fc5215399fbcc2f829275738f53476");
         
         /*
          * Mount bookmarkeable pages for prettyfied URLs
@@ -81,13 +86,26 @@ public class LastweekApplication extends FacebookApplication {
         //mountBookmarkablePage("/search", FilterResultsPage.class);
         mountBookmarkablePage("/details", ClassifiedAdDetailPage.class);
         mountBookmarkablePage("/favorites", FavoriteClassifiedAdsPage.class);
-        mountBookmarkablePage("/facebooktest", TestPage.class);
        
         /*
          * Remove wicket tags from result HTML
          */
         getMarkupSettings().setStripWicketTags(true);
     }  
+    
+    /*
+	 * This enables the encryption of non-prettified URLs
+	 */
+	@Override
+	protected IRequestCycleProcessor newRequestCycleProcessor() {
+
+		return new WebRequestCycleProcessor() {
+			@Override
+			protected IRequestCodingStrategy newRequestCodingStrategy() {
+				return new CryptedUrlWebRequestCodingStrategy(new WebRequestCodingStrategy());
+			}
+		};
+	}  
 
     
     @Override

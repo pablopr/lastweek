@@ -562,35 +562,8 @@ pre {
 	width: 225px;
 }
 
-.facebook-connect-box {
-	float:left;
-    font-size: 12px;
-    color: #FEFEFE;
-}
-
-.facebook-connect-message {
-	float:right;
-    margin-top:-32px;
-    width:110px;
-    text-align: right;
-}
-
-.facebook-connect-message small {
-	font-size: 0.8em;
-}	
-
-.facebook-connect-box a,.facebook-connect-box a:visited {
-    color:  #90C630;
-    text-decoration: none;
-}
-
-.facebook-connect-box a:hover {
-    color: #90C630;
-    text-decoration: underline;
-}
-
-.facebook-connect-button {
-	margin-left:48px;
+.wicketface-connect-button {
+    margin-left:48px;
     margin-top:26px;
 }
 
