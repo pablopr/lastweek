@@ -40,12 +40,12 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 		
 		WebMarkupContainer descriptionDiv = new WebMarkupContainer("descriptionDiv");
 		
-		UploadPanel uploadPanel = new UploadPanel("uploadImageAjax"){ 
+		UploadPanel uploadPanel = new UploadPanel("uploadImageAjax"){
+		    
 			private static final long serialVersionUID = 1L;
 
 			@Override 
 			public String onFileUploaded(FileUpload upload) { 
-
 				if (upload != null){
 					LastweekApplication.get().getImageService().saveTemporalImage(upload, NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
 				}
@@ -53,27 +53,25 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			} 
 
 			@Override 
-			public void onUploadFinished(AjaxRequestTarget target, String filename, String newFileUrl) { 
-				//when upload is finished, will be called 
-				target.addComponent(NewClassifiedAdDescriptionPage.this.fileListDiv); 
-				
+			public void onUploadFinished(AjaxRequestTarget target, String filename, String newFileUrl) {			    
+				/* it will be called when the upload has finished */ 
+				target.addComponent(NewClassifiedAdDescriptionPage.this.fileListDiv); 				
 			} 
+			
 		};
 		
 		descriptionDiv.add(uploadPanel);
-		
-		
-		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());
-		
+			
+		ImageFileListViewPanel fileListViewPanel = new ImageFileListViewPanel("fileListViewPanel", NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTemporalFolder());		
 		this.fileListDiv = new FileListDiv("fileListDiv");
 		this.fileListDiv.add(fileListViewPanel);
 		descriptionDiv.add(this.fileListDiv);
 
 		DescriptionForm descriptionForm =  new DescriptionForm("descriptionForm");
 		descriptionDiv.add(descriptionForm);
-		
 
 		Link backLink = new Link("backLink") {
+		    
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -81,15 +79,16 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 				this.setResponsePage(new NewClassifiedAdCategoryPage(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO));
 
 			}
+			
 		};
-		backLink.add(new Label("backLinkLabel", "volver"));
-		descriptionDiv.add(backLink);
 		
+		backLink.add(new Label("backLinkLabel", "volver"));
+		descriptionDiv.add(backLink);		
 		this.add(descriptionDiv);
 	}
 	
-
 	private class FileListDiv extends WebMarkupContainer{
+	    
 		private static final long serialVersionUID = 7058344388159207398L;
 
 		public FileListDiv(String id) {
@@ -97,52 +96,44 @@ public class NewClassifiedAdDescriptionPage extends NewClassifiedAdPage{
 			this.setOutputMarkupId(true);
 			this.setOutputMarkupPlaceholderTag(true);
 		}
+		
 	}
-
 	
 	private class DescriptionForm extends Form {
+	    
 		private static final long serialVersionUID = 9053897905303403343L;
 		protected final TextField price;
 		protected final RequiredTextField title;
 		protected final JQueryTextEditor description;
 
-
-		public DescriptionForm(String id) {
+		public DescriptionForm(String id) {		    
 			super(id);
 			setMultiPart(true);
-
 			this.price = new TextField("price", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getPrice()), Double.class);
 			this.price.setLabel(ResourceUtils.createResourceModel("descriptionpanel.form.price", NewClassifiedAdDescriptionPage.this)); 
-
+			add(this.price);			
 			this.title = new RequiredTextField("title", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getTitle()));
 			this.title.add(new BadWordsValidator());
-			
+			add(this.title);			
 			this.description = new JQueryTextEditor("description", new Model(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.getDescription()));
 			this.description.add(StringValidator.lengthBetween(5, 510));
 			this.description.add(new BadWordsValidator());
 			this.description.setLabel(ResourceUtils.createResourceModel("descriptionpanel.form.description", NewClassifiedAdDescriptionPage.this));
 			this.description.setRequired(true);
-			add(this.price);
-			add(this.title);
-			add(this.description);
-
-			setMaxSize(Bytes.kilobytes(100));
+			add(this.description);						
+			//TODO Extract max size to a constant
+			setMaxSize(Bytes.kilobytes(100));			
 		}
 
-
 		@Override
-		protected void onSubmit() {
-			
+		protected void onSubmit() {			
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setPrice(Double.valueOf(DescriptionForm.this.price.getModelObjectAsString()));
 			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setTitle(DescriptionForm.this.title.getModelObjectAsString());
-			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());
-			
+			NewClassifiedAdDescriptionPage.this.newClassifiedAdTO.setDescription(DescriptionForm.this.description.getModelObjectAsString());			
 			this.setResponsePage(new NewClassifiedAdUserDataPage(NewClassifiedAdDescriptionPage.this.newClassifiedAdTO));
-
 			super.onSubmit();
 		}
 
 	}
-
 
 }

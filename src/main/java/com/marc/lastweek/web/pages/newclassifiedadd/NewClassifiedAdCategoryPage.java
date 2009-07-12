@@ -39,7 +39,6 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 		this.subcategoryPanel = new SubcategoryPanel("subcategoryPanel");
 		add(this.subcategoryPanel);
 	}
-
 	
 	private class CategoryPanel extends Panel {
 
@@ -50,6 +49,7 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 			this.setOutputMarkupId(true);
 			this.setOutputMarkupPlaceholderTag(true);
 			CategoryPanel.this.setVisible(true);
+			
 			this.add(new ListView("categoryListView", new LoadableCategoriesListModel()) {
 
 				private static final long serialVersionUID = 6730094093871495627L;
@@ -64,7 +64,6 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 					Link categoryLink = new AjaxFallbackLink("categoryLink") {
 
 						private static final long serialVersionUID = -1462588672710233585L;
-
 
 						@Override
 						public void onClick(AjaxRequestTarget target) {
@@ -94,13 +93,14 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 			});
 			
 			Link backLink = new Link("backLink") {
+			    
 				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void onClick() {
 					this.setResponsePage(new NewClassifiedAdProvincePage(NewClassifiedAdCategoryPage.this.newClassifiedAdTO));
-
 				}
+				
 			};
 			backLink.add(new Label("backLinkLabel", "volver"));
 			this.add(backLink);
@@ -127,10 +127,9 @@ public class NewClassifiedAdCategoryPage  extends NewClassifiedAdPage{
 				protected Object load() {
 					HashMap<String,Object> parameters = new HashMap<String, Object>();
 					parameters.put("categoryId", SubcategoryPanel.this.categoryId);
-
 					return LastweekApplication.get().getGeneralService().queryForList(Subcategory.class, "findSubcategoriesByCategoryId", parameters);
 				}
-
+				
 			}){
 
 				private static final long serialVersionUID = -5397807417164068536L;
